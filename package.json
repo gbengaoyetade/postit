@@ -1,0 +1,22 @@
+{
+  "name": "postit-gbenga",
+  "version": "1.0.0",
+  "description": "group messaging application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbengaPS/PostIT-Gbenga.git"
+  },
+  "keywords": [
+    "messaging"
+  ],
+  "author": "Gbenga Oyetade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbengaPS/PostIT-Gbenga/issues"
+  },
+  "homepage": "https://github.com/gbengaPS/PostIT-Gbenga#readme"
+}
