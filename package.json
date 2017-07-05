@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/gbengaPS/PostIT-Gbenga/issues"
   },
-  "homepage": "https://github.com/gbengaPS/PostIT-Gbenga#readme"
+  "homepage": "https://github.com/gbengaPS/PostIT-Gbenga#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  }
 }
