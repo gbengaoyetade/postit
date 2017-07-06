@@ -2,6 +2,7 @@ body{
 	padding: 0;
 	margin: 0;
 	background-color: #eee;
+	color:#fff;
 }
 .site-blue{
 	color:#045373;
@@ -14,7 +15,7 @@ body{
 	margin: 0 auto;
 }
 .mycontainer{
-	background-color:#eee; 
+	background-color:#045373; 
 	padding: 15px;
 }
 header{
@@ -25,14 +26,33 @@ footer{
    position:fixed;
    left:0px;
    bottom:0px;
-   height:30px;
+   height:50px;
    width:100%;
    padding:2px 15px ;
    border-top: 1px solid #aaa;
 }
 .profile-pic-min{
-	display: block;
-	width: 30px;
-	height: 30px;
-	float: left;
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	margin-right: 20px;
+	position: relative;
 }
+.section{
+	padding: 25px;
+	background-color:#eee ;
+}
+.curve{
+	border-radius: 5px;
+}
+.user-post{
+	padding: 5px;
+	margin:5px 0;
+}
+.user-post:hover{
+	background-color: #fff;
+}
+.hundred{
+	height: 100%;
+}
+
