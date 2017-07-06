@@ -30,6 +30,9 @@ footer{
    padding:2px 15px ;
    border-top: 1px solid #aaa;
 }
-.centralize{
-		margin:0 auto;
+.profile-pic-min{
+	display: block;
+	width: 30px;
+	height: 30px;
+	float: left;
 }
