@@ -6,19 +6,21 @@
   <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 </head>
 <body>
-  <div class="container">
-      <header>
+<header>
         <h1 class="site-blue">Post<span class="site-orange">It</span></h1>
        
         
       </header>
+    <div class="mycontainer">
+  <div class="container">
+      
       <div>
        <form class="form" method="post">
        <div class="form-group">
-        <input type="email" name="email" placeholder="Enter your email address"> 
+        <input type="email" name="email" class="form-control" placeholder="Enter your email address"> 
        </div>
         <div class="form-group">
-          <input type="password" name="password" placeholder="password">  
+          <input type="password" name="password" class="form-control" placeholder="password">  
         </div>
         <div class="form-group">
           <button class="btn btn-info">Sign Up</button>
@@ -28,9 +30,11 @@
 
        </form>
       </div>
-      <footer>
+      
+  </div>
+  </div>
+  <footer class="text-center">
         &copy; PostIt inc. All rights reserved.
       </footer>
-  </div>
 </body>
 </html>

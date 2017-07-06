@@ -6,6 +6,27 @@ body{
 .site-blue{
 	color:#045373;
 }
+
 .site-orange{
 	color: #fd8966;
+}
+.form-content{
+	margin: 0 auto;
+}
+.mycontainer{
+	background-color:#eee; 
+	padding: 15px;
+}
+header{
+		border-bottom: 1px solid #aaa;
+		padding:0 15px ;
+}
+footer{
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   height:30px;
+   width:100%;
+   padding:2px 15px ;
+   border-top: 1px solid #aaa;
 }
