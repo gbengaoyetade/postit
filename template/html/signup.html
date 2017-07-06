@@ -6,27 +6,36 @@
   <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 </head>
 <body>
+      <header>
+        <h1 class="site-blue">Post<span class="site-orange">It</span></h1>
+        
+      </header>
+  <div class="mycontainer">
   <div class="container">
-  		<header>
-  			<h1 class="site-blue">Post<span class="site-orange">It</span></h1>
-  			<div class="login-signup">
-  				<a class='btn btn-info' href='facebook.com' >Login</a>
-  				<a class='btn btn-warning' href="#">Sign Up</a>	
-  			</div>
-  			
-  		</header>
+  		
   		<div>
-  		 <form class="form-control">
-        <input type="text" name="name" placeholder="Enter your full name">
-        <input type="email" name="email" placeholder="Enter your email address">
-        <input type="password" name="password" placeholder="password">
-        <input type="submit" class='btn-info' value="Signup">
+  		 <form class="">
+       <div class="form-group">
+       <input type="text" name="name"  class="form-control" placeholder="Enter your full name">
+       </div>
+       <div class="form-group">
+       <input type="email" name="email" class="form-control" placeholder="Enter your email address">
+       </div>
+       <div class="form-group">
+       <input type="password" name="password" class="form-control" placeholder="password">
+       </div>
+       <div class="text-center">
+          <button class="btn btn-info">Sign Up</button>
+       </div>
+       
 
        </form>
   		</div>
-  		<footer>
-  			&copy; PostIt inc. All rights reserved.
-  		</footer>
+  		
   </div>
+  </div>
+      <footer class="text-center">
+        &copy; PostIt inc. All rights reserved.
+      </footer>
 </body>
 </html>

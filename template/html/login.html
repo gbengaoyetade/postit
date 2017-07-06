@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>PostIt homepage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" type="text/css" href="../css/style.css">
   <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 </head>
@@ -14,8 +15,9 @@
     <div class="mycontainer">
   <div class="container">
       
-      <div>
-       <form class="form" method="post">
+      <div class="row">
+      <div class="col-md-6 offset3" >
+      <form method="post">
        <div class="form-group">
         <input type="email" name="email" class="form-control" placeholder="Enter your email address"> 
        </div>
@@ -23,12 +25,14 @@
           <input type="password" name="password" class="form-control" placeholder="password">  
         </div>
         <div class="form-group">
-          <button class="btn btn-info">Sign Up</button>
+          <button class="btn btn-info">Login</button>
           <a href="#">Forgot password?</a>  
         </div>
         
 
        </form>
+      </div> 
+      
       </div>
       
   </div>
