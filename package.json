@@ -26,6 +26,11 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.2.1"
   },
+  "scripts": {
+  "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+  "build-css": "node-sass  template/scss/main.scss   template/css/main.css"
+
+},
   "devDependencies": {
     "chai": "^4.0.2",
     "eslint": "^3.19.0",
@@ -34,6 +39,7 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
     "mocha": "^3.4.2",
+    "node-sass": "^4.5.3",
     "supertest": "^3.0.0"
   }
 }
