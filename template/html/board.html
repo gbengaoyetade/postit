@@ -3,54 +3,81 @@
 <head>
   <title>PostIt homepage</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
   <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 </head>
 <body>
 <header>
-        <h1 class="site-blue">Post<span class="site-orange">It</span></h1>
-       
+        <div class="row">
+          <div class="col-md-3 col-xs-12">
+            <h1 class="site-blue">Post<span class="site-orange">It</span></h1>
+          </div>
+          <div class="col-md-5 col-xs-6">
+            <form>
+
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+         
+       </form>
         
+          </div>
+          <div class="col-md-3">
+            <ul class="nav nav-pills">
+            <li role="presentation" ><a href="board.html">Board</a></li>
+            <li role="presentation"><a href="post.html">Post</a></li>
+            <li role="presentation"><a href=""><span class="glyphicon glyphicon-bell"></span></a></li>
+          </ul>
+          </div>
+        </div>
+        
+       
+       
       </header>
     <div class="mycontainer">
     
       <div class="container">
         <div class="row">
-          <div class="col-md-3 board-messages curve">
-              <p class="text-center">Your Groups</p>
+          <div class="col-md-2 hidden-xs section curve">
+              <h4 class="bold text-center heading">Groups</h4>
+              <a href="#" class="block bold ">React coders</a>
+              <a href="#" class="block bold ">Bootcampers</a>
+              <a href="#" class="block bold ">UI/UX</a>
+              <a href="#" class="block bold ">Angular Titans</a>
             </div>
-          <div class="col-md-6">
+          <div class="col-md-6 col-xs-12">
               <div class="section curve">
-                <form class="form">
-                  <textarea class="form-control" cols="5">
-                    
-                  </textarea>
-                  <button class="btn btn-info">Post</button>
-                </form>
-
-                <div class="user-post curve">
-                <div>
-                  <div class="pull-left">
-                    <p><img src="../images/gbenga.jpg" class="profile-pic-min curve"></p>
-                  </div>
-                  
-                  <div class="">
-                    <span><a href="">gbenga_ps </a><span> 2:45 PM</span></span>
-                    <p class="post-text ">
-                      Wow!!! Your article just saved me from trouble. I’m at a bootcamp where testing an API with mocha and chai is a requirement. This article did the magic. Thanks for writing.
-                    </p>
-                  </div>
-                  </div>
-                  
-                  
-                </div>
+                <h4 class="bold text-center heading">Messages</h4>
+                <div class="user-post curve ">
+                <p class="heading"><a href="#" class="bold">gbenga_ps</a> wrote in <a href="#" class="bold">React coders</a> <span class="time">2:56pm</span></p>
+                <p>
+                  Open up your text editor and start writing some more styles in your main.scss file. Now check your main.css file and the terminal. You’ll see that whenever you save new styles to main.scss,
+                </p>
+              </div>
+              <div class="user-post curve">
+                <p><a href="#">gbenga_ps</a> wrote in <a href="#">React coders</a> <span class="time">2:56pm</span></p>
+                <p>
+                  Open up your text editor and start writing some more styles in your main.scss file. Now check your main.css file and the terminal. You’ll see that whenever you save new styles to main.scss,
+                </p>
               </div>
           </div>
-          <div class="col-md-3 board-messages curve">
-              <p class="text-center">Group Members</p>
-          </div>
+          
         </div>  
-      
+        <div class="col-md-3 hidden-xs section curve">
+          <h4 class="heading text-center bold">Group Members</h4>
+          <a class="block" href="#">
+            <img src="../images/temilaj.jpg" class="img-circle image-min">
+            <span class="bold text-info">Temi Olajumoke</span>
+          </a>
+
+          <a class="block" href="#">
+            <img src="../images/gbenga.jpg" class="img-circle image-min">
+            <span class="bold text-info">Gbenga Oyetade</span>
+          </a>
+        </div>
       </div> 
       
     </div>
