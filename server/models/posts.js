@@ -1,4 +1,3 @@
-'use strict';
 module.exports = function( sequelize, DataTypes ) {
   const posts = sequelize.define('posts', {
     title: DataTypes.STRING,
