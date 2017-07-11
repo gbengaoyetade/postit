@@ -9,6 +9,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/test',(req,res)=>{
   res.send({message:"Welcome to programming"});
 });
-app.use('/', router);
+app.use('/api', router);
 
 module.exports = app;

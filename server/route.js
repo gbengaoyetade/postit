@@ -2,13 +2,13 @@ const express = require('express');
 const router= express.Router();
 const userController = require('./controllers/userController');
 
-router.post('/api/user/signup', userController.signup);
+router.post('/user/signup', userController.signup);
 
-// router.post('/api/user/signin',userController.signin);
+router.post('/user/signin', userController.signin);
 
-// router.post('/api/group',groupController.create);
+// router.post('/group',groupController.create);
 
-// router.post('/api/group/:id/user',groupController.createMembers);
+// router.post('/group/:id/user',groupController.createMembers);
 
 router.post('/api/group/:id/message', (req, res) => {
   res.send(req.params);
