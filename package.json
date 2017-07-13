@@ -6,7 +6,7 @@
   "scripts": {
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "build-css": "node-sass  template/scss/main.scss   template/css/main.css",
-    "test": "mocha",
+    "test": "mocha --require babel-polyfill --compilers js:babel-register",
     "local-test": "mocha --require babel-polyfill --compilers js:babel-register",
     "babel": "babel-node server/app.js",
     "start": "node server/bin/www"
