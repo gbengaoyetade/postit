@@ -7,8 +7,9 @@
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "build-css": "node-sass  template/scss/main.scss   template/css/main.css",
     "test": "mocha",
-    "babel":"babel-node server/app.js",
-    "start": "nodemon ./node_modules/.bin/babel-node server/bin/www"
+    "local-test": "mocha --require babel-polyfill --compilers js:babel-register",
+    "babel": "babel-node server/app.js",
+    "start": "node server/bin/www"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,8 @@
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-preset-env": "^1.6.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-register": "^6.24.1",
     "chai": "^4.0.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.2",
@@ -49,5 +52,8 @@
     "mocha": "^3.4.2",
     "node-sass": "^4.5.3",
     "supertest": "^3.0.0"
+  },
+  "engines":{
+    "node": "7.10.0"
   }
 }

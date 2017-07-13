@@ -1,5 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
-  const Group = sequelize.define('groups', {
+const Group = (sequelize, DataTypes) => {
+  const Groups = sequelize.define('groups', {
     groupName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -21,11 +21,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        Group.belongsToMany(models.User);
+        Groups.belongsToMany(models.User);
       },
       hooks: {
         beforeCreate: (groups) => {
-          Group.findAll({
+          Groups.findAll({
             where: { userId: groups.userId, groupName: groups.groupName },
           })
           .then(() => {
@@ -38,5 +38,6 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   });
-  return Group;
+  return Groups;
 };
+export default Group;
