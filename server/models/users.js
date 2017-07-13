@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isEmail: { value: true, msg: 'The input value in email field is not a valid email address '},
+        isEmail: { value: true, msg: 'Invalid email address supplied'},
       },
     },
     password: {
