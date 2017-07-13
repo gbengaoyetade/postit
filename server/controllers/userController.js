@@ -54,7 +54,7 @@ module.exports = {
         
   }
     else {
-     res.send(JSON.stringify(validateInput(req.body)));
+     res.send({ paramsOk:false });
    }
 
     }, // end of signup
