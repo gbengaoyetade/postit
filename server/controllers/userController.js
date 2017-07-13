@@ -54,7 +54,7 @@ module.exports = {
         
   }
     else {
-     res.send({ paramsOk:false });
+     res.send({ parameters:'not ok' });
    }
 
     }, // end of signup

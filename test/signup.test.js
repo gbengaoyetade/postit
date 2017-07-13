@@ -18,7 +18,7 @@ describe('Signup tests', () => {
     });
   });
   it('should detect invalid email address', (done) => {
-    request(app).post('/signup').send().end((err, res) => {
+    request(app).post('/api/user/signup').send().end((err, res) => {
       asserts.equal(res.body.message, 'Invalid email address supplied');
       done();
     });
