@@ -1,5 +1,5 @@
-
 import bcrypt from 'bcrypt';
+
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define('users', {
     username: {
@@ -20,16 +20,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: { args:[6,100], msg: 'Password must be at least 6 characters' },
+        len: { args:[6, 100], msg: 'Password must be at least 6 characters' },
       },
     },
   },
-  {
-    classMethods: {
-      associate: (models) => {
-      Users.belongsToMany(models.groups);
-      },
-      
+    {
+      classMethods: {
+        associate: (models) => {
+          Users.belongsToMany(models.groups);
+        },
       },
       hooks: {
         beforeCreate: (user) => {
@@ -37,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
           const hash = bcrypt.hashSync(user.password, salt);
           user.password = hash;
         },
-    },
-  });
+      },
+    });
   return Users;
 };
