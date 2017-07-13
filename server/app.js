@@ -10,5 +10,7 @@ app.get('/test',(req,res)=>{
   res.send({message:"Welcome to programming"});
 });
 app.use('/api', router);
-
+app.all('*', (req, res) => {
+  res.status(404).json({message: 'Page not found'});
+})
 module.exports = app;

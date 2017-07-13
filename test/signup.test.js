@@ -12,8 +12,8 @@ describe('Signup tests', () => {
   });
   it('should validate input parameters are  username,email and password', (done) => {
     let data = {'username':'gbenga_ps','password':'some password','email':'ioyetade@gmail.com'};
-    request(app).post('/api/user/signup').send(data).set('Accept', /application\/json/).end((err, res) => {
-      asserts.equal(res.body.paramsOk, true);
+    request(app).post('/api/user/signup').send(data).end((err, res) => {
+      asserts.equal(res.body, true);
       done();
     });
   });

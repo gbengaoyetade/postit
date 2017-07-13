@@ -1,14 +1,42 @@
 module.exports = (sequelize, DataTypes) => {
-  const groups = sequelize.define('groups', {
-    group_name: DataTypes.STRING,
-    group_description: DataTypes.STRING,
-    user_id: DataTypes.INTEGER
+  const Group = sequelize.define('groups', {
+    groupName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: { args: true, msg: 'Group name cannot be empty' },
+      },
+    },
+    groupDescription: {
+      type: DataTypes.STRING,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        isInt: { args: true, msg: 'User Id can only be an integer' },
+
+      },
+    },
   }, {
     classMethods: {
       associate: (models) => {
-        // associations can be defined here
-      }
-    }
+        Group.belongsToMany(models.User);
+      },
+      hooks: {
+        beforeCreate: (groups) => {
+          Group.findAll({
+            where: { userId: groups.userId, groupName: groups.groupName },
+          })
+          .then(() => {
+            throw new Error('You have created this group already');
+          })
+          .catch(() => {
+
+          });
+        },
+      },
+    },
   });
-  return groups;
+  return Group;
 };

@@ -1,25 +1,25 @@
 const express = require('express');
-const router= express.Router();
 const userController = require('./controllers/userController');
+const groupController = require('./controllers/groupController');
+const authenticate = require('./middleware/authenticate');
 
-router.post('/user/signup', userController.signup);
+const router = express.Router();
 
-router.post('/user/signin', userController.signin);
+router.post('/user/signup', userController.signUp);
 
-// router.post('/group',groupController.create);
+// router.use(authenticate);
+router.post('/user/signin', userController.signIn);
 
-// router.post('/group/:id/user',groupController.createMembers);
+router.post('/group', groupController.create);
 
-router.post('/api/group/:id/message', (req, res) => {
-  res.send(req.params);
-});
+router.post('/group/:id/user', groupController.addMembers);
 
-router.get('/api/group/:id/messages', (req, res) => {
-  res.send(req.params.id);
-});
-router.post('/test', (req, res) => {
-  //let body = JSON.stringify(req.body);
-  res.send(req.body);
-  console.log(JSON.stringify(req.body));
-});
+router.post('/group/:id/message', groupController.createMessage);
+
+router.post('/user/signout',userController.signOut);
+
+router.get('/group/:groupId/messages', groupController.getMessages);
+
+
+
 module.exports = router;
