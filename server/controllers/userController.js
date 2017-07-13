@@ -1,51 +1,63 @@
-const User = require('../models').users;
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import db from '../models/index';
 
+const User = db.users;
+
+const validateInput = (input) => {
+  const Result = {};
+  if (input.username && input.email && input.password) {
+    Result.paramsOk = true;
+  }
+  else {
+    Result.paramsOk = false;
+  }
+  return Result;
+};
 
 module.exports = {
 
-signUp(req, res) {
-  if ( validateInput (req.body).paramsOk) {
-    User.create({
-      username: req.body.username,
-      password: req.body.password,
-      email: req.body.email,
-    })
-    .then(user => {
-      const data = {
-        paramsOk: true,
-        createSuccess: 'User ' + req.body.username + " was created successfully",
-    }
-      res.status(201).send(data);
-    })
-    .catch((error) => {
-      let errorMessage;
-      if (error.errors[0].message == 'username must be unique'){
-          errorMessage = 'Username not available';
+  signUp(req, res) {
+    if (validateInput (req.body).paramsOk) {
+      User.create({
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+      })
+      .then(user => {
+        const data = {
+          paramsOk: true,
+          createSuccess: 'User ' + req.body.username + " was created successfully",
+      }
+        res.status(201).send(data);
+      })
+      .catch((error) => {
+        let errorMessage;
+        if (error.errors[0].message == 'username must be unique'){
+            errorMessage = 'Username not available';
+          }
+        else if (error.errors[0].message == 'email must be unique'){
+          errorMessage = 'Email address already in use';
         }
-      else if (error.errors[0].message == 'email must be unique'){
-        errorMessage = 'Email address already in use';
-      }
-      else{
-        errorMessage = error.errors[0].message;
-      }
-      const data = {
-        paramsOk: true,
-        message: errorMessage,            
-      }
-      res.status(400).json(data);
+        else{
+          errorMessage = error.errors[0].message;
+        }
+        const data = {
+          paramsOk: true,
+          message: errorMessage,            
+        }
+        res.status(400).json(data);
 
-    });
-      
-  
-      
-}
-  else {
-   res.send(JSON.stringify(validateInput(req.body)));
- }
+      });
+        
+    
+        
+  }
+    else {
+     res.send({ paramsOk:false });
+   }
 
-  }, // end of signup
+    }, // end of signup
 
  signIn(req, res){
 
@@ -87,14 +99,4 @@ signUp(req, res) {
  signOut(req, res) {
 
  },
-};
-const validateInput = (input) => {
-  const Result = {};
-  if (input.username && input.email && input.password) {
-    Result.paramsOk = true;
-  }
-  else {
-    Result.paramsOk = false;
-  }
-  return Result;
 };
