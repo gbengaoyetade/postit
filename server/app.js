@@ -8,14 +8,16 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/test', (req, res) => {
-  res.send({ message: 'Welcome to programming' });
+app.get('/', (req, res) => {
+  res.send({ 
+    message: 'Welcome to Posit.',
+    direction: 'If a you are a new user, visit postit-main.herokuapp.com/api/user/signup to signup \n or visit postit-main.herokuapp.com/api/user/signin' });
 });
 
 app.use('/api', router);
 
 app.all('*', (req, res) => {
-  res.status(404).json({ message: 'Page not found' });
+  res.status(404).json({ message: 'Page not availabel on this server' });
 });
 module.exports = app;
 

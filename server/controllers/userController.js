@@ -6,55 +6,57 @@ const User = db.users;
 
 const validateInput = (input) => {
   const Result = {};
-  if (input.username && input.email && input.password) {
-    Result.paramsOk = true;
+  switch (input){
+    case !input.username:
+      return 'username';
+    case !input.password:
+      return 'password';
+    case !input.email:
+      return 'email';
+    default:
+      return 'ok';
   }
-  else {
-    Result.paramsOk = false;
-  }
-  return Result;
 };
 
 module.exports = {
 
   signUp(req, res) {
-    if (validateInput (req.body).paramsOk) {
+    if (validateInput(req.body) === 'ok') {
       User.create({
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
       })
-      .then(user => {
+      .then((user) => {
         const data = {
           parameters: 'ok',
-          message: 'User ' + req.body.username + " was created successfully",
-      }
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          message: 'User ' + req.body.username + ' was created successfully',
+        };
         res.status(201).send(data);
       })
       .catch((error) => {
         let errorMessage;
-        if (error.errors[0].message === 'username must be unique'){
-            errorMessage = 'Username not available';
-          }
-        else if (error.errors[0].message === 'email must be unique'){
+        if (error.errors[0].message === 'username must be unique') {
+          errorMessage = 'Username not available';
+        }
+        else if (error.errors[0].message === 'email must be unique') {
           errorMessage = 'Email address already in use';
         }
-        else{
+        else {
           errorMessage = error.errors[0].message;
         }
         const data = {
           parameters: 'ok',
           message: errorMessage,            
-        }
+        };
         res.status(400).json(data);
-
-      });
-        
-    
-        
-  }
+      });     
+    }
     else {
-     res.send({ parameters:'not ok' });
+      res.status(401).send(validateInput(req.body));
    }
 
     }, // end of signup
