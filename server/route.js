@@ -4,6 +4,7 @@ import { create, addMembers, createMessage, getMessages } from './controllers/gr
 import authenticate from './middleware/authenticate';
 
 const router = express.Router();
+
 router.post('/user/signup', signUp);
 
 
