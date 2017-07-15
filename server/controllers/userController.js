@@ -34,6 +34,7 @@ module.exports = {
           parameters: 'ok',
           user: userData,
           message: `User ${req.body.username} was created successfully`,
+
         };
         res.status(201).send(data);
       })
@@ -56,6 +57,7 @@ module.exports = {
       res.status(401).send({ error: validateInput(req.body) });
     }
   }, // end of signup
+
   signIn(req, res) {
     User.findOne({
       where: { username: req.body.username },
