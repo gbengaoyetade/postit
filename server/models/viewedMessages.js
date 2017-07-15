@@ -1,14 +1,17 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var viewed_posts = sequelize.define('viewed_posts', {
-    post_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER
+module.exports = (sequelize, DataTypes) => {
+  const viewedMessages = sequelize.define('viewedMessages', {
+    messageId: {
+      type: DataTypes.INTEGER,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+    },
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: () => {
         // associations can be defined here
-      }
-    }
+      },
+    },
   });
-  return viewed_posts;
+  return viewedMessages;
 };

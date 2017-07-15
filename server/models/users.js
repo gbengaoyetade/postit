@@ -7,21 +7,21 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        is: /^[a-zA-Z0-9_]*$/,   
+        is: /^[a-zA-Z0-9_]*$/,
       },
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isEmail: { value: true, msg: 'Invalid email address supplied'},
+        isEmail: { value: true, msg: 'Invalid email address supplied' },
       },
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: { args:[6, 100], msg: 'Password must be at least 6 characters' },
+        len: { args: [6, 100], msg: 'Password must be at least 6 characters' },
       },
     },
   },
