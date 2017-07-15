@@ -11,14 +11,14 @@ describe('Signup tests', () => {
     });
   });
   it('should validate input parameters are  username,email and password', (done) => {
-    const data = { username: 'gbenga_ps', password: 'some password', email: 'ioyetade@gmail.com'};
+    const data = { username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com' };
     request(app).post('/api/user/signup').send(data).end((err, res) => {
       asserts.equal(res.body.parameters, 'ok');
       done();
     });
   });
   it('should detect invalid email address', (done) => {
-    const data = { username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com'};
+    const data = { username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com' };
     request(app).post('/api/user/signup').send(data).end((err, res) => {
       asserts.equal(res.body.message, 'Invalid email address supplied');
       done();

@@ -54,7 +54,11 @@ module.exports = {
         res.status(400).json(data);
       });
     } else {
-      res.status(401).send({ error: validateInput(req.body) });
+      const data = {
+        parameters: 'ok',
+        error: validateInput(req.body),
+      };
+      res.status(401).send(data);
     }
   }, // end of signup
 
