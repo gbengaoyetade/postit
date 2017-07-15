@@ -53,7 +53,7 @@ module.exports = {
         res.status(400).json(data);
       });
     } else {
-      res.status(401).send(validateInput(req.body));
+      res.status(401).send({ error: validateInput(req.body) });
     }
   }, // end of signup
   signIn(req, res) {
