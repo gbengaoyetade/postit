@@ -1,9 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
   const Message = sequelize.define('messages', {
-    messageBody: DataTypes.STRING,
-    messagePriority: DataTypes.STRING,
-    groupId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
+    messageBody: {
+      type: DataTypes.STRING,
+    },
+    messagePriority: {
+      type: DataTypes.STRING,
+    },
+
+    groupId: {
+      type: DataTypes.INTEGER,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+    },
   }, {
     classMethods: {
       associate: (models) => {

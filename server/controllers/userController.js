@@ -5,17 +5,14 @@ import db from '../models/index';
 const User = db.users;
 
 const validateInput = (input) => {
-  const Result = {};
-  switch (input){
-    case !input.username:
-      return 'username';
-    case !input.password:
-      return 'password';
-    case !input.email:
-      return 'email';
-    default:
-      return 'ok';
+  if (!input.username) {
+    return 'Username not provided';
+  } else if (!input.email) {
+    return 'Email not provided';
+  } else if (!input.password) {
+    return 'Password not provided';
   }
+  return 'ok';
 };
 
 module.exports = {
@@ -28,12 +25,16 @@ module.exports = {
         email: req.body.email,
       })
       .then((user) => {
-        const data = {
-          parameters: 'ok',
+        const userData = {
           id: user.id,
           username: user.username,
           email: user.email,
-          message: 'User ' + req.body.username + ' was created successfully',
+        };
+        const data = {
+          parameters: 'ok',
+          user: userData,
+          message: `User ${req.body.username} was created successfully`,
+
         };
         res.status(201).send(data);
       })
@@ -41,39 +42,38 @@ module.exports = {
         let errorMessage;
         if (error.errors[0].message === 'username must be unique') {
           errorMessage = 'Username not available';
-        }
-        else if (error.errors[0].message === 'email must be unique') {
+        } else if (error.errors[0].message === 'email must be unique') {
           errorMessage = 'Email address already in use';
-        }
-        else {
+        } else {
           errorMessage = error.errors[0].message;
         }
         const data = {
           parameters: 'ok',
-          message: errorMessage,            
+          message: errorMessage,
         };
         res.status(400).json(data);
-      });     
+      });
+    } else {
+      const data = {
+        parameters: 'ok',
+        error: validateInput(req.body),
+      };
+      res.status(401).send(data);
     }
-    else {
-      res.status(401).send(validateInput(req.body));
-   }
-
-    }, // end of signup
+  }, // end of signup
 
   signIn(req, res) {
-
     User.findOne({
       where: { username: req.body.username },
     })
   .then((user) => {
     if (user === null) {
-      res.send('could not find user'); }
-    else {
+      res.send('could not find user');
+    } else {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (result) {
-          const userToken = jwt.sign({ name: user.username }, 
-            'andela-bootcamp', 
+          const userToken = jwt.sign({ name: user.username },
+            'andela-bootcamp',
             { expiresIn: 60 * 60 },
             );
           const data = {
@@ -81,22 +81,19 @@ module.exports = {
             message: 'Login was successful',
             token: userToken,
           };
-          res.send(data); }
-        else {
+          res.send(data);
+        } else {
           const data = {
             paramsOk: true,
             message: 'Incorrect user details',
-            };
-            res.send(data);
-          }
-        });
-      }
+          };
+          res.send(data);
+        }
+      });
+    }
   })
-  .catch((error) => {
-    res.send("Database error");
+  .catch(() => {
+    res.status(401).send('Database error');
   });
- },
- signOut(req, res) {
-
- },
+  },
 };

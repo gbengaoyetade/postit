@@ -6,19 +6,20 @@ const app = require('../server/app.js');
 describe('Signup tests', () => {
   it('signup post url should be defined', (done) => {
     request(app).post('/api/user/signup').send().end((err, res) => {
-      asserts.equal(res.statusCode, 200);
+      asserts.equal(res.statusCode, 401);
       done();
     });
   });
   it('should validate input parameters are  username,email and password', (done) => {
-    const data = { username: 'gbenga_ps', password: 'some password', email: 'ioyetade@gmail.com'};
+    const data = { username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com' };
     request(app).post('/api/user/signup').send(data).end((err, res) => {
       asserts.equal(res.body.parameters, 'ok');
       done();
     });
   });
   it('should detect invalid email address', (done) => {
-    request(app).post('/api/user/signup').send().end((err, res) => {
+    const data = { username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com' };
+    request(app).post('/api/user/signup').send(data).end((err, res) => {
       asserts.equal(res.body.message, 'Invalid email address supplied');
       done();
     });
