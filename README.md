@@ -1,8 +1,5 @@
-
 # PostIt [![Build Status](https://travis-ci.org/gbengaPS/PostIT-Gbenga.svg?branch=dev)](https://travis-ci.org/gbengaPS/PostIT-Gbenga) [![Code Climate](https://codeclimate.com/github/gbengaPS/PostIT-Gbenga/badges/gpa.svg)](https://codeclimate.com/github/gbengaPS/PostIT-Gbenga)
 PostIt is a messaging app that allows people post messages to groups
-
-
 
 ## Getting Started
 In your terminal or git bash as the case may be, run:
@@ -28,8 +25,6 @@ To run tests, type the following in your terminal:
 ```
 npm run test
 ```
-
-
 
 ## Built With
 
