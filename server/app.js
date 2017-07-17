@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  res.send({ 
+  res.send({
     message: 'Welcome to Posit.',
     direction: 'If a you are a new user, visit postit-main.herokuapp.com/api/user/signup to signup \n or visit postit-main.herokuapp.com/api/user/signin' });
 });
