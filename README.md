@@ -1,4 +1,5 @@
-# PostIt[![Build Status](https://travis-ci.org/gbengaPS/PostIT-Gbenga.svg?branch=master)](https://travis-ci.org/gbengaPS/PostIT-Gbenga)
+
+# PostIt [![Build Status](https://travis-ci.org/gbengaPS/PostIT-Gbenga.svg?branch=dev)](https://travis-ci.org/gbengaPS/PostIT-Gbenga)
 PostIt is a messaging app that allows people post messages to groups
 
 
