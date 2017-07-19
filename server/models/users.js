@@ -28,7 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     {
       classMethods: {
         associate: (models) => {
-          Users.belongsToMany(models.groups);
+          Users.belongsToMany(models.groups, {
+            through: models.groupMembers,
+            foreignKey: 'groupId',
+          });
         },
       },
       hooks: {

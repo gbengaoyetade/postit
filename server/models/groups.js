@@ -21,7 +21,9 @@ const Group = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        Groups.belongsToMany(models.User);
+        Groups.belongsToMany(models.User, {
+          through: models.groupMembers,
+        });
       },
       hooks: {
         beforeCreate: (groups) => {

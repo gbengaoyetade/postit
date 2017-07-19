@@ -12,7 +12,7 @@ module.exports = {
     })
     .then((group) => {
       const groupData = {
-        groupId: group.groupId,
+        groupId: group.id,
         groupName: group.groupName,
         groupDescription: group.groupDescription,
       };
@@ -53,8 +53,8 @@ module.exports = {
       userId: req.body.userId,
       groupId: req.body.groupId,
     })
-    .then(() => {
-      res.status(201).json({ message: 'The message was created successfully' });
+    .then((groupData) => {
+      res.status(201).json({ group: groupData });
     })
     .catch(() => {
       res.status(201).json({ message: 'The message was created successfully' });
@@ -63,7 +63,6 @@ module.exports = {
   getMessages(req, res) {
     Messages.findAll({
       where: { groupId: req.params.groupId },
-      limit: 10,
     })
     .then((messages) => {
       res.status(201).json(messages);
