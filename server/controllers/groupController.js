@@ -1,13 +1,19 @@
+import jwt from 'jsonwebtoken';
+
 const Groups = require('../models').groups;
 const Members = require('../models').groupMembers;
 const Messages = require('../models').messages;
 
+const getId = (token) => {
+  const decoded = jwt.decode(token);
+  return decoded.name;
+};
 module.exports = {
   create(req, res) {
     Groups.create({
       groupName: req.body.groupName,
       groupDescription: req.body.groupDescription,
-      userId: req.body.userId,
+      userId: getId(req.headers['x-access-token']),
 
     })
     .then((group) => {
@@ -38,10 +44,10 @@ module.exports = {
       userId: req.body.userId,
     })
     .then((members) => {
-      res.status(201).json(members);
+      res.status(201).send(members);
     })
     .catch(() => {
-      res.status(401).json({
+      res.status(401).send({
         error: 'could not add member. Check member Id and group Id, then try again',
       });
     });
@@ -50,14 +56,25 @@ module.exports = {
     Messages.create({
       messageBody: req.body.messageBody,
       messagePriority: req.body.messagePriority,
-      userId: req.body.userId,
-      groupId: req.body.groupId,
+      userId: getId(req.headers['x-access-token']),
+      groupId: req.params.groupId,
     })
-    .then((groupData) => {
-      res.status(201).json({ group: groupData });
+    .then((group) => {
+      const groupData = {
+        messageId: group.id,
+        userId: group.userId,
+        groupId: group.groupId,
+        messageBody: group.messageBody,
+        messagePriority: group.messagePriority,
+      };
+      res.status(201).send({ group: groupData });
     })
-    .catch(() => {
-      res.status(201).json({ message: 'The message was created successfully' });
+    .catch((error) => {
+      const data = {
+        error: error.errors[0].message,
+        message: 'Could not create message',
+      };
+      res.status(201).send(data);
     });
   },
   getMessages(req, res) {
@@ -65,10 +82,10 @@ module.exports = {
       where: { groupId: req.params.groupId },
     })
     .then((messages) => {
-      res.status(201).json(messages);
+      res.status(201).send(messages);
     })
     .catch((err) => {
-      res.status(401).json(err);
+      res.status(401).send(err);
     });
   },
 };

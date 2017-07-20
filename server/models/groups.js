@@ -9,19 +9,19 @@ const Group = (sequelize, DataTypes) => {
     },
     groupDescription: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         isInt: { args: true, msg: 'User Id can only be an integer' },
-
       },
     },
   }, {
     classMethods: {
       associate: (models) => {
-        Groups.belongsToMany(models.User, {
+        Groups.belongsToMany(models.users, {
           through: models.groupMembers,
         });
       },
