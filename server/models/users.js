@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        is: /^[a-zA-Z0-9_]*$/,
+        is: { args: /^[a-zA-Z0-9_]*$/, msg: 'Username cannot contain special characters aside from _' },
+        notEmpty: { value: true, msg: 'Username cannot be empty' },
       },
     },
     email: {
