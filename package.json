@@ -37,7 +37,8 @@
     "pg": "^6.4.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.2.1",
-    "validator": "^8.0.0"
+    "validator": "^8.0.0",
+    "webpack": "^3.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
