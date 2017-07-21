@@ -1,14 +1,26 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
+import db from '../models/index';
 
+const invalidToken = db.invalidToken;
 const authenticate = (req, res, next) => {
-  const token = req.body.token || req.query.token || req.headers['x-access-token'];
-  if (token) {
-    jwt.verify(token, 'andela-bootcamp', (err, decoded) => {
+  const userToken = req.body.token || req.query.token || req.headers['x-access-token'];
+  if (userToken) {
+    jwt.verify(userToken, 'andela-bootcamp', (err, decoded) => {
       if (err) {
         res.json({ message: 'Token authentication failure' });
       } else {
-        req.decoded = decoded;
-        next();
+        invalidToken.findOne({
+          where: { token: userToken } })
+        .then((token) => {
+          if (token) {
+            res.send({message: 'You are not logged in'});
+          } else {
+            next();
+          }
+        })
+        .catch((error) => {
+          res.send(error);
+        });
       }
     });
   } else {

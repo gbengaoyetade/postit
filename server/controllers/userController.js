@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import db from '../models/index';
 
 const User = db.users;
-
+const invalidToken = db.invalidToken;
 const validateInput = (input) => {
   if (!input.username) {
     return 'Username not provided';
@@ -94,5 +94,17 @@ module.exports = {
   .catch(() => {
     res.status(401).send('Database error');
   });
+  }, // end of signIn
+
+  signOut(req, res) {
+    invalidToken.create({
+      token: req.headers['x-access-token'],
+    })
+    .then(() => {
+      res.send({ message: 'You have successful logged out' });
+    })
+    .catch((error) => {
+      res.status(401).send(error);
+    });
   },
 };
