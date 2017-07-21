@@ -24,6 +24,7 @@ module.exports = {
         type: Sequelize.DATE,
       },
     }),
-  down: (queryInterface, Sequelize) => 
-    queryInterface.dropTable('viewedMessages'),
+  down: (queryInterface) => {
+    queryInterface.dropTable('viewedMessages');
+  },
 };

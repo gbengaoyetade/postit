@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        is: /^[a-zA-Z0-9_]*$/,
+        is: { args: /^[a-zA-Z0-9_]*$/, msg: 'Username cannot contain special characters aside from _' },
       },
     },
     email: {
@@ -22,13 +22,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: { args: [6, 100], msg: 'Password must be at least 6 characters' },
+        notEmpty: { value: true, msg: 'Password cannot be empty' },
       },
     },
   },
     {
       classMethods: {
         associate: (models) => {
-          Users.belongsToMany(models.groups);
+          Users.belongsToMany(models.groups, {
+            through: models.groupMembers,
+            foreignKey: 'groupId',
+          });
         },
       },
       hooks: {

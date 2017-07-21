@@ -16,7 +16,7 @@ router.post('/group', create);
 
 router.post('/group/:id/user', addMembers);
 
-router.post('/group/:id/message', createMessage);
+router.post('/group/:groupId/message', createMessage);
 
 // router.post('/user/signout', signOut);
 

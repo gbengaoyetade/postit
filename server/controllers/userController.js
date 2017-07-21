@@ -55,7 +55,7 @@ module.exports = {
       });
     } else {
       const data = {
-        parameters: 'ok',
+        parameters: 'Not ok',
         error: validateInput(req.body),
       };
       res.status(401).send(data);
@@ -72,16 +72,15 @@ module.exports = {
     } else {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (result) {
-          const userToken = jwt.sign({ name: user.username },
+          const userToken = jwt.sign({ name: user.id },
             'andela-bootcamp',
-            { expiresIn: 60 * 60 },
+            { expiresIn: 60 * 60 * 24 },
             );
           const data = {
-            paramsOk: true,
-            message: 'Login was successful',
             token: userToken,
+            message: 'Login was successful',
           };
-          res.send(data);
+          res.status(200).send(data);
         } else {
           const data = {
             paramsOk: true,
