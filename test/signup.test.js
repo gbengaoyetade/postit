@@ -27,7 +27,7 @@ describe('Signup tests', () => {
   it('should make sure password parameter is at least 6 characters', (done) => {
     const user = { username: 'gbenga_ps', password: 'pass', email: 'ioyetade@gmail.com' };
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
-      assert.equal(res.body.message, 'Password must be at least 6 characters');
+      assert.equal(res.body.error, 'Password must be at least 6 characters');
       done();
     });
   });
