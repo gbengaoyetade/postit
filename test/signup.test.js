@@ -32,9 +32,9 @@ describe('Signup tests', () => {
     });
   });
   it('should detect if username contains special characters', (done) => {
-    const user = { username: '$gbenga_ps', password: 'password', email: 'ioyetade@gmail.com' };
+    const user = { username: '$gbenga_ps', password: 'password', email: 'ioyetade2@gmail.com' };
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
-      assert.equal(res.body.message, 'Validation is on username failed');
+      assert.equal(res.body.message, 'Username cannot contain special characters aside from _');
       done();
     });
   });

@@ -1,6 +1,10 @@
 language: node_js
 node_js:
 - "stable"
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database postit;' -U postgres
 after_success:
 - npm run cover
 after_script: 
