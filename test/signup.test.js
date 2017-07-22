@@ -1,39 +1,55 @@
 // request(app).post('/signup').send().end(function(err,res){});
-const asserts = require('chai').assert;
-const request = require('supertest');
-const app = require('../server/app.js');
+import { assert } from 'chai';
+import  supertest from 'supertest';
+import app from '../server/app';
 
 const data = { username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com' };
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibnBtdGVzdCIsImlhdCI6MTUwMDcwMTAwMCwiZXhwIjoxNTMyMTUwNjAwfQ.G4fdtAVqugLLelqtBWqKI2H9px7lcML2QBmwYrp_AbE';
 describe('Signup tests', () => {
   it('signup post url should be defined', (done) => {
-    request(app).post('/api/user/signup').send().end((err, res) => {
-      asserts.equal(res.statusCode, 401);
+    supertest(app).post('/api/user/signup').send().end((err, res) => {
+      assert.equal(res.statusCode, 401);
       done();
     });
   });
   it('should validate input parameters are  username,email and password', (done) => {
-    request(app).post('/api/user/signup').send(data).end((err, res) => {
-      asserts.equal(res.body.parameters, 'ok');
+    supertest(app).post('/api/user/signup').send(data).end((err, res) => {
+      assert.equal(res.body.parameters, 'ok');
       done();
     });
   });
   it('should detect invalid email address', (done) => {
-    request(app).post('/api/user/signup').send(data).end((err, res) => {
-      asserts.equal(res.body.message, 'Invalid email address supplied');
+    supertest(app).post('/api/user/signup').send(data).end((err, res) => {
+      assert.equal(res.body.message, 'Invalid email address supplied');
       done();
     });
   });
   it('should make sure password parameter is at least 6 characters', (done) => {
     const user = { username: 'gbenga_ps', password: 'pass', email: 'ioyetade@gmail.com' };
-    request(app).post('/api/user/signup').send(user).end((err, res) => {
-      asserts.equal(res.body.message, 'Password must be at least 6 characters');
+    supertest(app).post('/api/user/signup').send(user).end((err, res) => {
+      assert.equal(res.body.message, 'Password must be at least 6 characters');
       done();
     });
   });
   it('should detect if username contains special characters', (done) => {
     const user = { username: '$gbenga_ps', password: 'password', email: 'ioyetade@gmail.com' };
-    request(app).post('/api/user/signup').send(user).end((err, res) => {
-      asserts.equal(res.body.message, 'Validation is on username failed');
+    supertest(app).post('/api/user/signup').send(user).end((err, res) => {
+      assert.equal(res.body.message, 'Validation is on username failed');
+      done();
+    });
+  });
+});
+
+describe('group test', () => {
+  it('Create group route should be defined ', (done) => {
+    supertest(app).post('/api/group').set('x-access-token', token).send().end((err, res) => {
+      assert.equal(res.statusCode, 401);
+      done();
+    });
+  });
+   it('Empty group name should flag an error', (done) => {
+    supertest(app).post('/api/group').set('x-access-token', token).send().end((err, res) => {
+      assert.equal(res.body.message, 'Could not create group');
       done();
     });
   });
