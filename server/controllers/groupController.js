@@ -22,14 +22,14 @@ module.exports = {
         message: `Group ${req.body.groupName} was created successfully`,
 
       };
-      res.status(201).json(data);
+      res.status(201).send(data);
     })
-    .catch(() => {
+    .catch((error) => {
       const data = {
-        error: 'Could not create group',
-        message: 'Parameters not accurate',
+        error: error,
+        message: 'Could not create group',
       };
-      res.status(400).json(data);
+      res.status(401).send(data);
     });
   },
   addMembers(req, res) {

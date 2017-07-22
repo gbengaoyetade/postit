@@ -74,7 +74,7 @@ module.exports = {
         if (result) {
           const userToken = jwt.sign({ name: user.username },
             'andela-bootcamp',
-            { expiresIn: 60 * 60 },
+            { expiresIn: 60 * 60 * 24 },
             );
           const data = {
             paramsOk: true,
