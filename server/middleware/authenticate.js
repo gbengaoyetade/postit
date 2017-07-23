@@ -13,7 +13,7 @@ const authenticate = (req, res, next) => {
           where: { token: userToken } })
         .then((token) => {
           if (token) {
-            res.send({message: 'You are not logged in'});
+            res.send({ message: 'You are not logged in' });
           } else {
             next();
           }
