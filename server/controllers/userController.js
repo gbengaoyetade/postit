@@ -63,6 +63,7 @@ module.exports = {
   }, // end of signup
 
   signIn(req, res) {
+    const secret = process.env.TOKEN_SECRET;
     User.findOne({
       where: { username: req.body.username },
     })
@@ -73,7 +74,7 @@ module.exports = {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (result) {
           const userToken = jwt.sign({ name: user.id },
-            'andela-bootcamp',
+            secret,
             { expiresIn: 60 * 60 * 24 },
             );
           const data = {

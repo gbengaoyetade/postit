@@ -32,7 +32,7 @@ module.exports = {
     })
     .catch((error) => {
       const data = {
-        error: error,
+        error: error.errors,
         message: 'Could not create group',
       };
       res.status(401).send(data);
