@@ -3,6 +3,8 @@ node_js:
 - "stable"
 services:
   - postgresql
+script:
+  -sequelize db:migrate
  before_script:
    - psql -c 'create database travis_ci_test;' -U postgres
 after_success:
