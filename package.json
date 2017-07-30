@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+    "watch": "./node_modules/.bin/webpack --watch",
     "build-css": "node-sass  template/scss/main.scss   template/css/main.css",
     "test": "mocha --require babel-polyfill --compilers js:babel-register",
     "local-test": "mocha --require babel-polyfill --compilers js:babel-register",
