@@ -92,8 +92,8 @@ module.exports = {
       });
     }
   })
-  .catch(() => {
-    res.status(401).send('Database error');
+  .catch((error) => {
+    res.status(401).send(error);
   });
   }, // end of signIn
 
