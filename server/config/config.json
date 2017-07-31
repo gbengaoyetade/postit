@@ -14,9 +14,8 @@
     "dialect": "postgres"
   },
   "production": {
-    "url": "postgres://onrpmjdkczxgim:1ab552739ac23e0164a011fee975627813b965d1144e8b64bd76d3ea9728334a@ec2-107-21-108-204.compute-1.amazonaws.com:5432/d9e53vnqeh3bnn",
+    "use_env_variable": "postgres://onrpmjdkczxgim:1ab552739ac23e0164a011fee975627813b965d1144e8b64bd76d3ea9728334a@ec2-107-21-108-204.compute-1.amazonaws.com:5432/d9e53vnqeh3bnn",
     "dialect": "postgres",
-    "ssl": true,
     "dialectOptions": {
       "ssl" : true
     }
