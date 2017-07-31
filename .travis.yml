@@ -3,10 +3,9 @@ node_js:
 - "stable"
 services:
   - postgresql
-script:
-  -sequelize db:migrate
  before_script:
-   - psql -c 'create database travis_ci_test;' -U postgres
+   - psql -c 'create database postit;' -U postgres
+   - sequelize db:migrate
 after_success:
 - npm run cover
 after_script: 
