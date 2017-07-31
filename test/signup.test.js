@@ -43,7 +43,7 @@ describe('Signup tests', () => {
 describe('group test', () => {
   it('Create group route should be defined ', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send().end((err, res) => {
-      assert.equal(res.body.name, 401);
+      assert.equal(res.body, 401);
       done();
     });
   });
