@@ -1,15 +1,15 @@
 language: node_js
 node_js:
-- "stable"
+  - "stable"
 install:
   - npm install
 services:
   - postgresql
- before_script:
-   - psql -c 'create database postit;' -U postgres
-   - npm install sequelize-cli -g
-   - sequelize db:migrate
+before_script:
+  - psql -c 'create database postit;' -U postgres
+  - npm install sequelize-cli -g
+  - sequelize db:migrate
 after_success:
-- npm run cover
+  - npm run cover
 after_script: 
   - nyc npm test && nyc report --reporter=text-lcov | coveralls
