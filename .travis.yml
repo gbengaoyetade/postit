@@ -4,7 +4,8 @@ node_js:
 services:
   - postgresql
  before_script:
-   - psql -c 'create database postit;' -U postgres
+   - createuser gbenga -s -U postgres
+   - createdb postit_dev --username=gbenga
    - sequelize db:migrate
 after_success:
 - npm run cover
