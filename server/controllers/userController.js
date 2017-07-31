@@ -31,7 +31,6 @@ module.exports = {
           email: user.email,
         };
         const data = {
-          parameters: 'ok',
           user: userData,
           message: `User ${req.body.username} was created successfully`,
 
@@ -39,17 +38,17 @@ module.exports = {
         res.status(201).send(data);
       })
       .catch((error) => {
-        // let errorMessage;
-        // if (error.errors[0].message === 'username must be unique') {
-        //   errorMessage = 'Username not available';
-        // } else if (error.errors[0].message === 'email must be unique') {
-        //   errorMessage = 'Email address already in use';
-        // } else {
-        //   errorMessage = error.errors[0].message;
-        // }
+        let errorMessage;
+        if (error.errors[0].message === 'username must be unique') {
+          errorMessage = 'Username not available';
+        } else if (error.errors[0].message === 'email must be unique') {
+          errorMessage = 'Email address already in use';
+        } else {
+          errorMessage = error.errors[0].message;
+        }
         const data = {
           parameters: 'ok',
-          message: error,
+          message: errorMessage,
         };
         res.status(400).json(data);
       });
