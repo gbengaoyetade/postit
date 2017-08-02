@@ -5,8 +5,6 @@ services:
   - postgresql
 before_script:
   - npm install sequelize-cli -g
-  - psql -c 'create database postit;' -U postgres
-  - sequelize db:migrate
 after_success:
 - npm run cover
 after_script: 
