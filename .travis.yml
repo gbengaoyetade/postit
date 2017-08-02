@@ -3,7 +3,7 @@ node_js:
 - "stable"
 services:
   - postgresql
- before_script:
+before_script:
   - psql -c 'create database postit;' -U postgres
   - sequelize db:migrate
 after_success:
