@@ -4,9 +4,8 @@ node_js:
 services:
   - postgresql
  before_script:
-   - createuser gbenga -s -U postgres
-   - createdb postit_dev --username=gbenga
-   - sequelize db:migrate
+  - npm install sequelize-cli -g
+  - sequelize db:migrate
 after_success:
 - npm run cover
 after_script: 
