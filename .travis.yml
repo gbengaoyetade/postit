@@ -3,9 +3,9 @@ node_js:
 - "stable"
 services:
   - postgresql
- before_script:
+before_script:
   - npm install sequelize-cli -g
-  - sequelize db:migrate
+  - export DEV_DB=postgres://lgitfcgq:1T6i6xAB6KW9fC-D4AsRgq5qlcDQA-VU@stampy.db.elephantsql.com:5432/lgitfcgq
 after_success:
 - npm run cover
 after_script: 

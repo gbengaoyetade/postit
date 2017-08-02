@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "gbenga",
-    "password": "password",
-    "database": "postit",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "use_env_variable": "DEV_DB",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl" : true
+    }
   },
   "test": {
     "username": "postgres",
@@ -14,10 +14,10 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "root",
-    "password": "password",
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl" : true
+    }
   }
 }

@@ -31,7 +31,6 @@ module.exports = {
           email: user.email,
         };
         const data = {
-          parameters: 'ok',
           user: userData,
           message: `User ${req.body.username} was created successfully`,
 
@@ -49,7 +48,7 @@ module.exports = {
         }
         const data = {
           parameters: 'ok',
-          message: errorMessage,
+          error: errorMessage,
         };
         res.status(400).json(data);
       });
@@ -75,7 +74,7 @@ module.exports = {
         if (result) {
           const userToken = jwt.sign({ name: user.id },
             secret,
-            { expiresIn: 60 * 60 * 24 },
+            { expiresIn: 60 * 60 * 24 * 365 },
             );
           const data = {
             token: userToken,
@@ -92,8 +91,8 @@ module.exports = {
       });
     }
   })
-  .catch(() => {
-    res.status(401).send('Database error');
+  .catch((error) => {
+    res.status(401).send(error);
   });
   }, // end of signIn
 
