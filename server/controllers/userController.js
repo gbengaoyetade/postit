@@ -31,7 +31,6 @@ module.exports = {
           email: user.email,
         };
         const data = {
-          parameters: 'ok',
           user: userData,
           message: `User ${req.body.username} was created successfully`,
 
@@ -92,8 +91,8 @@ module.exports = {
       });
     }
   })
-  .catch(() => {
-    res.status(401).send('Database error');
+  .catch((error) => {
+    res.status(401).send(error);
   });
   }, // end of signIn
 
