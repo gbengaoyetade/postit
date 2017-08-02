@@ -9783,7 +9783,8 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           'p',
           null,
-          ' Hello welcome to React!'
+          ' Hello welcome to React! ',
+          this.props.value
         ),
         ';'
       );
@@ -9793,15 +9794,7 @@ var App = function (_React$Component) {
   return App;
 }(_react2.default.Component);
 
-(0, _reactDom.render)(_react2.default.createElement(
-  'div',
-  null,
-  _react2.default.createElement(
-    'h1',
-    null,
-    'welcome'
-  )
-), document.getElementById('app'));
+(0, _reactDom.render)(_react2.default.createElement(App, { value: 'Gbenga' }), document.getElementById('app'));
 
 /***/ }),
 /* 82 */

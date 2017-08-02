@@ -5,9 +5,10 @@ class App extends React.Component {
   render () {
     return (
       <div>
-      <p> Hello welcome to React!</p>;
+      <p> Hello welcome to React! {this.props.value}</p>;
       </div>
       );
   }
 }
-render(<div><h1>welcome</h1></div>, document.getElementById('app'));
+
+render(<App value="Gbenga" />, document.getElementById('app'));
