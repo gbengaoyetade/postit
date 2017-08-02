@@ -4,7 +4,7 @@ node_js:
 services:
   - postgresql
  before_script:
-   - npm install sequelize-cli -g
+   - psql -c 'create database postit;' -U gbenga
    - sequelize db:migrate
 after_success:
 - npm run cover
