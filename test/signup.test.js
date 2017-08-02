@@ -4,7 +4,7 @@ import  supertest from 'supertest';
 import app from '../server/app';
 
 const data = { username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com' };
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibnBtdGVzdCIsImlhdCI6MTUwMDcwMTAwMCwiZXhwIjoxNTMyMTUwNjAwfQ.G4fdtAVqugLLelqtBWqKI2H9px7lcML2QBmwYrp_AbE';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoxLCJpYXQiOjE1MDE3MTIyMzAsImV4cCI6MTUzMzI0ODIzMH0.0vgaYNXIJD8R6r3VHMVlqzi5bfGumgYZLaquFtCJmzU';
 describe('Signup tests', () => {
   it('signup post url should be defined', (done) => {
     supertest(app).post('/api/user/signup').send().end((err, res) => {
@@ -43,7 +43,7 @@ describe('Signup tests', () => {
 describe('group test', () => {
   it('Create group route should be defined ', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send().end((err, res) => {
-      assert.equal(res.statusCode, 200);
+      assert.equal(res.statusCode, 401);
       done();
     });
   });
