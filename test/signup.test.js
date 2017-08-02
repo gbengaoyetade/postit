@@ -20,7 +20,7 @@ describe('Signup tests', () => {
   });
   it('should detect invalid email address', (done) => {
     supertest(app).post('/api/user/signup').send(data).end((err, res) => {
-      assert.equal(res.body.message, 'Invalid email address supplied');
+      assert.equal(res.body.error, 'Invalid email address supplied');
       done();
     });
   });
@@ -34,7 +34,7 @@ describe('Signup tests', () => {
   it('should detect if username contains special characters', (done) => {
     const user = { username: '$gbenga_ps', password: 'password', email: 'ioyetade2@gmail.com' };
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
-      assert.equal(res.body.message, 'Username cannot contain special characters aside from _');
+      assert.equal(res.body.error, 'Username cannot contain special characters aside from _');
       done();
     });
   });
@@ -43,12 +43,12 @@ describe('Signup tests', () => {
 describe('group test', () => {
   it('Create group route should be defined ', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send().end((err, res) => {
-      assert.equal(res.body, 401);
+      assert.equal(res.statusCode, 200);
       done();
     });
   });
    it('Empty group name should flag an error', (done) => {
-    supertest(app).post('/api/group').set('x-access-token', token).send().end((err, res) => {
+    supertest(app).post('/api/group').set('x-access-token', token).send(data).end((err, res) => {
       assert.equal(res.body.message, 'Could not create group');
       done();
     });

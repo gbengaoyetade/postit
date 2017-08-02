@@ -49,7 +49,7 @@ module.exports = {
         }
         const data = {
           parameters: 'ok',
-          message: errorMessage,
+          error: errorMessage,
         };
         res.status(400).json(data);
       });
