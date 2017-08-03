@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, './client')));
+app.use(express.static(path.join(__dirname, '../client')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../template/html', 'index.html'));
