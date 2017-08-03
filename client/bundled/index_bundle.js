@@ -22598,7 +22598,7 @@ var Signup = function (_React$Component) {
             "p",
             null,
             " ",
-            _react2.default.createElement("input", { type: "submit", value: "Submit" })
+            _react2.default.createElement("input", { type: "submit", value: "Signup" })
           )
         )
       );
