@@ -74,7 +74,7 @@ module.exports = {
         if (result) {
           const userToken = jwt.sign({ name: user.id },
             secret,
-            { expiresIn: 60 * 60 * 24 },
+            { expiresIn: 60 * 60 * 24 * 365 },
             );
           const data = {
             token: userToken,
