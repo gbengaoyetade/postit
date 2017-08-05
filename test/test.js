@@ -40,6 +40,7 @@ describe('Signup tests', () => {
   });
 });
 
+// Test for the group controller
 describe('group test', () => {
   it('Create group route should be defined ', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send().end((err, res) => {
@@ -53,4 +54,41 @@ describe('group test', () => {
       done();
     });
   });
+});
+
+// Login tests
+describe('Login', () => {
+  it('Return 401 error if user does not exist', (done) => {
+    const user = {
+      username: 'does not exist',
+      password: 'password',
+    };
+    supertest(app).post('/api/user/signin').send(user).end((err, res) => {
+      assert.equal(res.statusCode, 401);
+      done();
+    });
+  });
+  it('Return a token on successful login', (done) => {
+    const user = {
+      username: 'test',
+      password: 'password',
+    };
+    supertest(app).post('/api/user/signin').send(user).end((err, res) => {
+      assert.isOk(res.body.token);
+      done();
+    });
+  });
+});
+
+
+// General Application tests
+
+describe('General tests', () => {
+  it('Undefined urls should return 404 statusCode', (done) => {
+    supertest(app).get('/whatever').send().end((err, res) => {
+      assert.equal(res.statusCode, 404);
+      done();
+    });
+  });
+
 });

@@ -68,12 +68,15 @@ module.exports = {
     })
   .then((user) => {
     if (user === null) {
-      res.send('could not find user');
+      const error = {
+        message: 'could not find user',
+      };
+      res.status(401).send(error);
     } else {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (result) {
           const userToken = jwt.sign({ name: user.id },
-            secret,
+            'andela-bootcamp',
             { expiresIn: 60 * 60 * 24 * 365 },
             );
           const data = {

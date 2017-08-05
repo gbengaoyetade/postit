@@ -1,13 +1,20 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { BrowserRouter, HashRouter, Route } from 'react-router-dom';
+import MyRoute from './components/myroutes.jsx';
+import Dashboard from './components/dashboard.jsx';
 
 class App extends React.Component {
   render () {
     return (
       <div>
-      <p> Hello welcome to React!</p>;
+      <p> Hello welcome to React! {this.props.value}</p>
       </div>
       );
   }
 }
-render(<div><h1>welcome</h1></div>, document.getElementById('app'));
+
+render(
+  <BrowserRouter>
+    <MyRoute />
+  </BrowserRouter>, document.getElementById('app'));

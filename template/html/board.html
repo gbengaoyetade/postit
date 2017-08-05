@@ -3,42 +3,99 @@
 <head>
   <title>PostIt homepage</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <link rel="stylesheet" href="../css/material.css">
+  <script src="../css/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" type="text/css" href="../css/main.css">
   
 </head> -->
 <body>
-<header>
-        <div class="row">
-          <div class="col-md-3 col-xs-12">
-            <h1 class="site-blue">Post<span class="site-orange">It</span></h1>
-          </div>
-          <div class="col-md-5 col-xs-6">
-            <form>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header" >
+    <div class="mdl-layout-icon"></div>
+    <div class="mdl-layout__header-row">
+      <span class="mdl-layout__title">PostIt</span>
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+        <!-- start search form -->
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+      <label class="mdl-button mdl-js-button mdl-button--icon" for="search-expandable">
+        <i class="material-icons">search</i>
+      </label>
+    <div class="mdl-textfield__expandable-holder">
+      <input class="mdl-textfield__input" type="text" id="search-expandable" />
+      <label class="mdl-textfield__label" for="search-expandable">Search text</label>
+    </div>
+  </div>
+  <!-- end search form -->
+        <a class="mdl-navigation__link" href="#"><i class="material-icons">notifications</i></a>
+        <a class="mdl-navigation__link" href="#"><i class="material-icons">account_box</i></a>
+      </nav>
+     
+  
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout__title">PostIt</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="#"><i class="material-icons">dashboard</i> Dashboard</a>
+      <a class="mdl-navigation__link" href="#"><i class="material-icons">group</i> Groups</a>
+      <a class="mdl-navigation__link" href="#"><i class="material-icons">account_box</i> Profile</a>
+      <a class="mdl-navigation__link" href="#"><i class="material-icons">notifications</i>Notifications</a>
+    </nav>
+  </div>
 
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-            <div class="input-group-btn">
-                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-        </div>
-         
-       </form>
-        
-          </div>
-          <div class="col-md-3">
-            <ul class="nav nav-pills">
-            <li role="presentation" ><a href="board.html">Board</a></li>
-            <li role="presentation"><a href="post.html">Post</a></li>
-            <li role="presentation"><a href=""><span class="glyphicon glyphicon-bell"></span></a></li>
-          </ul>
-          </div>
-        </div>
-        
-       
-       
-      </header>
-    <div class="mycontainer">
+  <main class="mdl-layout__content mycontainer">
+   <div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--4-col">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+  <div class="mdl-cell mdl-cell--4-col">
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Welcome</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Mauris sagittis pellentesque lacus eleifend lacinia...
+  </div>
+  <div class="mdl-card__actions mdl-card--border">
+    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      Get Started
+    </a>
+  </div>
+  <div class="mdl-card__menu">
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+      <i class="material-icons">share</i>
+    </button>
+  </div>
+</div>
+  </div>
+  <div class="mdl-cell mdl-cell--4-col">
+    <p>HTML is related to but different from <span id="xml"><i>XML</i></span>.</p>
+<span class="mdl-tooltip" for="xml">eXtensible Markup Language</span>
+<div class="icon material-icons">account_circle</div>
+  </div>
+  
+
+  <!-- Wide card with share menu button -->
+<style>
+.demo-card-wide.mdl-card {
+ 
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background: url('../assets/demos/welcome_card.jpg') center / cover;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+</style>
+
+
+</div>
+    </main>
+    </div>
+      <!-- <div class="mycontainer">
     
       <div class="container">
         <div class="row">
@@ -88,5 +145,39 @@
   <footer class="text-center">
         &copy; PostIt inc. All rights reserved.
       </footer>
+    </div>
+  </main>
+</div> -->
+<!-- <header>
+        <div class="row">
+          <div class="col-md-3 col-xs-12">
+            <h1 class="site-blue">Post<span class="site-orange">It</span></h1>
+          </div>
+          <div class="col-md-5 col-xs-6">
+            <form>
+
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+         
+       </form>
+        
+          </div>
+          <div class="col-md-3">
+            <ul class="nav nav-pills">
+            <li role="presentation" ><a href="board.html">Board</a></li>
+            <li role="presentation"><a href="post.html">Post</a></li>
+            <li role="presentation"><a href=""><span class="glyphicon glyphicon-bell"></span></a></li>
+          </ul>
+          </div>
+        </div>
+        
+       
+       
+      </header>
+    
 </body>
 </html>
