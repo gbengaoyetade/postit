@@ -11,13 +11,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, '../client')));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../template/html', 'index.html'));
-});
 app.use('/api', router);
 
-app.all('*', (req, res) => {
-  res.status(404).json({ message: 'Page not available on this server' });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
 module.exports = app;
 
