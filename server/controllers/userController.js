@@ -1,24 +1,24 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../models/index';
-
+import validateInput from '../includes/functions';
 const User = db.users;
 const invalidToken = db.invalidToken;
-const validateInput = (input) => {
-  if (!input.username) {
-    return 'Username not provided';
-  } else if (!input.email) {
-    return 'Email not provided';
-  } else if (!input.password) {
-    return 'Password not provided';
-  }
-  return 'ok';
-};
-
+// const validateInput = (input) => {
+//   if (!input.username) {
+//     return 'Username not provided';
+//   } else if (!input.email) {
+//     return 'Email not provided';
+//   } else if (!input.password) {
+//     return 'Password not provided';
+//   }
+//   return 'ok';
+// };
 module.exports = {
 
   signUp(req, res) {
-    if (validateInput(req.body) === 'ok') {
+    const requiredFields = ['username', 'email', 'password'];
+    if (validateInput(req.body, requiredFields) === 'ok') {
       User.create({
         username: req.body.username,
         password: req.body.password,
@@ -55,14 +55,14 @@ module.exports = {
     } else {
       const data = {
         parameters: 'Not ok',
-        error: validateInput(req.body),
+        error: validateInput(req.body, requiredFields),
       };
       res.status(401).send(data);
     }
   }, // end of signup
 
   signIn(req, res) {
-    const secret = process.env.TOKEN_SECRET;
+    // const secret = process.env.TOKEN_SECRET;
     User.findOne({
       where: { username: req.body.username },
     })
@@ -77,7 +77,7 @@ module.exports = {
         if (result) {
           const userToken = jwt.sign({ name: user.id },
             'andela-bootcamp',
-            { expiresIn: 60 * 60 * 24 * 365 },
+            { expiresIn: 60 * 60 * 24 },
             );
           const data = {
             token: userToken,

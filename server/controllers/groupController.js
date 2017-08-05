@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import validateInput from '../includes/functions';
 
 const Groups = require('../models').groups;
 const Members = require('../models').groupMembers;
@@ -10,33 +11,38 @@ const getId = (token) => {
 };
 module.exports = {
   create(req, res) {
-    Groups.create({
-      groupName: req.body.groupName,
-      groupDescription: req.body.groupDescription,
-      userId: getId(req.headers['x-access-token']),
+    const requiredFields = ['groupName', 'groupDescription', 'userId'];
+    if (validateInput(req.body, requiredFields) === 'ok') {
+      Groups.create({
+        groupName: req.body.groupName,
+        groupDescription: req.body.groupDescription,
+        userId: getId(req.headers['x-access-token']),
 
-    })
-    .then((group) => {
-      const groupData = {
-        groupId: group.id,
-        groupName: group.groupName,
-        groupDescription: group.groupDescription,
-      };
-      const data = {
-        group: groupData,
-        parameter: 'Parameters well structured',
-        message: `Group ${req.body.groupName} was created successfully`,
+      })
+      .then((group) => {
+        const groupData = {
+          groupId: group.id,
+          groupName: group.groupName,
+          groupDescription: group.groupDescription,
+        };
+        const data = {
+          group: groupData,
+          parameter: 'Parameters well structured',
+          message: `Group ${req.body.groupName} was created successfully`,
 
-      };
-      res.status(201).send(data);
-    })
-    .catch((error) => {
-      const data = {
-        error: error.errors,
-        message: 'Could not create group',
-      };
-      res.status(401).send(data);
-    });
+        };
+        res.status(201).send(data);
+      })
+      .catch((error) => {
+        const data = {
+          error: error.errors,
+          message: 'Could not create group',
+        };
+        res.status(401).send(data);
+      });
+    } else {
+      res.send({ message: validateInput(req.body, requiredFields) });
+    }
   },
   addMembers(req, res) {
     Members.create({
