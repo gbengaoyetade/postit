@@ -10,3 +10,5 @@ after_success:
 - npm run cover
 after_script: 
   - nyc npm test && nyc report --reporter=text-lcov | coveralls
+env:
+  -TOKEN_SECRET =travis-secret
