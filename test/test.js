@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import  supertest from 'supertest';
+import supertest from 'supertest';
 import app from '../server/app';
 
 const data = { username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com' };
