@@ -50,14 +50,14 @@ module.exports = {
           parameters: 'ok',
           error: errorMessage,
         };
-        res.status(400).json(data);
+        res.status(200).json(data);
       });
     } else {
       const data = {
         parameters: 'Not ok',
         error: validateInput(req.body),
       };
-      res.status(401).send(data);
+      res.status(200).send(data);
     }
   }, // end of signup
 
@@ -92,7 +92,7 @@ module.exports = {
     }
   })
   .catch((error) => {
-    res.status(401).send(error);
+    res.status(200).send(error);
   });
   }, // end of signIn
 
@@ -104,7 +104,7 @@ module.exports = {
       res.send({ message: 'You have successful logged out' });
     })
     .catch((error) => {
-      res.status(401).send(error);
+      res.status(200).send(error);
     });
   },
 };

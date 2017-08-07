@@ -26614,27 +26614,34 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Signup = function (_React$Component) {
   _inherits(Signup, _React$Component);
 
-  function Signup() {
+  function Signup(props) {
     _classCallCheck(this, Signup);
 
-    return _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
+
+    _this.state = { error: '' };
+    _this.shout = _this.shout.bind(_this);
+    return _this;
   }
 
   _createClass(Signup, [{
+    key: 'changeState',
+    value: function changeState(e) {
+      e.preventDefault();
+      this.setState({ error: 'this is the error' });
+    }
+  }, {
     key: 'shout',
     value: function shout(e) {
+      var _this2 = this;
+
       e.preventDefault();
-      var config = {
-        headers: {
-          'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoxLCJpYXQiOjE1MDE5ODgyNTMsImV4cCI6MTUzMzUyNDI1M30.8sCRkYlHtUrQ-Q9vPsenOk6b0TRVUdDez3yoXLRD7uU',
-          'Access-Control-Allow-Headers': '*'
-        }
-      };
-      _axios2.default.post('/api/group/1/user', {
+      _axios2.default.post('/api/user/signup', {
         username: 'gbenga',
-        email: 'what@gmail.com'
-      }, config).then(function (response) {
-        console.log(response.data);
+        email: 'what@gmail.com',
+        password: 'password'
+      }).then(function (response) {
+        _this2.setState({ error: response.data.error });
       }).catch(function (error) {
         console.log(error);
       });
@@ -26652,7 +26659,12 @@ var Signup = function (_React$Component) {
             'p',
             null,
             ' ',
-            _react2.default.createElement('input', { type: 'text', placeholder: 'Username' })
+            _react2.default.createElement('input', { type: 'text', placeholder: 'Username' }),
+            _react2.default.createElement(
+              'span',
+              null,
+              this.state.error
+            )
           ),
           _react2.default.createElement(
             'p',

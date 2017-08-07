@@ -35,7 +35,7 @@ module.exports = {
         error: error.errors,
         message: 'Could not create group',
       };
-      res.status(401).send(data);
+      res.status(200).send(data);
     });
   },
   addMembers(req, res) {
@@ -44,10 +44,10 @@ module.exports = {
       userId: req.body.userId,
     })
     .then((members) => {
-      res.status(201).send(members);
+      res.status(200).send(members);
     })
     .catch(() => {
-      res.status(401).send({
+      res.status(200).send({
         error: 'could not add member. Check member Id and group Id, then try again',
       });
     });
