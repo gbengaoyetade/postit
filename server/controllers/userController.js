@@ -50,14 +50,14 @@ module.exports = {
           parameters: 'ok',
           error: errorMessage,
         };
-        res.status(200).json(data);
+        res.status(400).json(data);
       });
     } else {
       const data = {
         parameters: 'Not ok',
         error: validateInput(req.body),
       };
-      res.status(200).send(data);
+      res.status(400).send(data);
     }
   }, // end of signup
 
