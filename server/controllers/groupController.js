@@ -50,9 +50,13 @@ const checkExist = (value) => {
   Groups.findOne({
     where: { id: value },
   })
-  .then((returnedValue) =>{ return returnedValue; })
+  .then((returnedValue) => {
+    console.log('group exist'); 
+    return returnedValue; 
+  })
   .catch((error) => {
-    return error;
+    console.log('there was an error');
+    return '';
   });
 };
 module.exports = {
@@ -91,32 +95,31 @@ module.exports = {
     }
   },
   addMembers(req, res) {
-    let thisData= 'Epl';
-    const requiredFields = ['userId'];
-    if(validateInput(req.body, requiredFields) === 'ok'){
-      Groups.findOne({
-        where: { id: req.params.id },
-      })
-      .then((group) => {
-        if(group){
-          thisData = 'I am a data';
-          Users.findOne({
-            where: { id: req.body.userId },
-          })
-          .then((user) => {
-            if (user) {
-              res.send(user);
-            } else {
-              res.send({ error: 'user not found' });
-            }
-          });
-        }
-      })
-      .catch((error) => {
-        res.send(error);
-      });
-      res.send(thisData);
-    }
+    res.send(checkExist(req.params.id));
+    // const requiredFields = ['userId'];
+    // if(validateInput(req.body, requiredFields) === 'ok'){
+    //   Groups.findOne({
+    //     where: { id: req.params.id },
+    //   })
+    //   .then((group) => {
+    //     if(group){
+    //       thisData = 'I am a data';
+    //       User.findOne({
+    //         where: { id: req.body.userId },
+    //       })
+    //       .then((user) => {
+    //         if (user) {
+    //           res.send('user exists')
+    //         } else {
+    //           res.send('user does not exist');
+    //         }
+    //       });
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    //}
   },
   createMessage(req, res) {
     Messages.create({
