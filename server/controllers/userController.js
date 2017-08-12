@@ -80,6 +80,7 @@ module.exports = {
             { expiresIn: 60 * 60 * 24 },
             );
           const data = {
+            id: user.id,
             token: userToken,
             message: 'Login was successful',
           };

@@ -4,14 +4,60 @@ import validateInput from '../includes/functions';
 const Groups = require('../models').groups;
 const Members = require('../models').groupMembers;
 const Messages = require('../models').messages;
+const User = require('../models').users;
 
 const getId = (token) => {
   const decoded = jwt.decode(token);
   return decoded.name;
 };
+const beforeAddMember = (req) => {
+  User.findOne({
+    where: { id: req.body.userId },
+  })
+  .then((user) => {
+    if (user) {
+      Groups.findOne({
+        where: { id: req.params.id },
+      })
+      .then((group) => {
+        if (group) {
+          Members.findOne({
+            where: { userId: req.body.userId, groupId: req.params.id },
+          })
+          .then((member) => {
+            if (member !== null) {
+              return 1; // user does not belong to group
+            } else {
+              return 2; // user already a member of the group
+            }
+          })
+          .catch(() => {
+            return 3; // connection error
+          });
+        } else {
+          return 4; // Group does not exist
+        }
+      })
+    } else {
+      return 5; // user does not exist
+    }
+  })
+  .catch((error) => {
+    return error;
+  });
+};
+const checkExist = (value) => {
+  Groups.findOne({
+    where: { id: value },
+  })
+  .then((returnedValue) =>{ return returnedValue; })
+  .catch((error) => {
+    return error;
+  });
+};
 module.exports = {
   create(req, res) {
-    const requiredFields = ['groupName', 'groupDescription', 'userId'];
+    const requiredFields = ['groupName', 'groupDescription'];
     if (validateInput(req.body, requiredFields) === 'ok') {
       Groups.create({
         groupName: req.body.groupName,
@@ -45,18 +91,32 @@ module.exports = {
     }
   },
   addMembers(req, res) {
-    Members.create({
-      groupId: req.body.groupId,
-      userId: req.body.userId,
-    })
-    .then((members) => {
-      res.status(201).send(members);
-    })
-    .catch(() => {
-      res.status(401).send({
-        error: 'could not add member. Check member Id and group Id, then try again',
+    let thisData= 'Epl';
+    const requiredFields = ['userId'];
+    if(validateInput(req.body, requiredFields) === 'ok'){
+      Groups.findOne({
+        where: { id: req.params.id },
+      })
+      .then((group) => {
+        if(group){
+          thisData = 'I am a data';
+          Users.findOne({
+            where: { id: req.body.userId },
+          })
+          .then((user) => {
+            if (user) {
+              res.send(user);
+            } else {
+              res.send({ error: 'user not found' });
+            }
+          });
+        }
+      })
+      .catch((error) => {
+        res.send(error);
       });
-    });
+      res.send(thisData);
+    }
   },
   createMessage(req, res) {
     Messages.create({

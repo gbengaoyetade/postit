@@ -1,3 +1,5 @@
+import Users from './users';
+
 const GroupMembers = (sequelize, DataTypes) => {
   const groupMembers = sequelize.define('groupMembers', {
     userId: {
