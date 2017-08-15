@@ -1,8 +1,5 @@
-import { createStore } from 'redux';
-import createAccount from './reducers/createAccount.js';
-
-const defaultState = {
-  user: '',
-};
-const store = createStore(createAccount, defaultState);
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
+const store = createStore(rootReducer, {}, applyMiddleware(thunk));
 export default store;
