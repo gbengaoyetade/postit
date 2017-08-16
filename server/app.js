@@ -16,5 +16,8 @@ app.use('/api', router);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
+app.post('*', (req, res) => {
+  res.json({ message: 'URL does not exist on this server' });
+});
 module.exports = app;
 

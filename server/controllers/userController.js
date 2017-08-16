@@ -1,24 +1,25 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../models/index';
-
+import validateInput from '../includes/functions';
 const User = db.users;
 const invalidToken = db.invalidToken;
-const validateInput = (input) => {
-  if (!input.username) {
-    return 'Username not provided';
-  } else if (!input.email) {
-    return 'Email not provided';
-  } else if (!input.password) {
-    return 'Password not provided';
-  }
-  return 'ok';
-};
-
+// const validateInput = (input) => {
+//   if (!input.username) {
+//     return 'Username not provided';
+//   } else if (!input.email) {
+//     return 'Email not provided';
+//   } else if (!input.password) {
+//     return 'Password not provided';
+//   }
+//   return 'ok';
+// };
 module.exports = {
 
   signUp(req, res) {
-    if (validateInput(req.body) === 'ok') {
+    const requiredFields = ['username', 'email', 'password'];
+    const validateInputResponse = validateInput(req.body, requiredFields);
+    if (validateInputResponse === 'ok') {
       User.create({
         username: req.body.username,
         password: req.body.password,
@@ -55,45 +56,54 @@ module.exports = {
     } else {
       const data = {
         parameters: 'Not ok',
-        error: validateInput(req.body),
+        error: validateInput(req.body, requiredFields),
       };
       res.status(400).send(data);
     }
   }, // end of signup
 
   signIn(req, res) {
-    const secret = process.env.TOKEN_SECRET;
-    User.findOne({
-      where: { username: req.body.username },
+    // const secret = process.env.TOKEN_SECRET;
+    const requiredFields = ['username', 'password'];
+    const validateInputResponse = validateInput(req.body, requiredFields);
+    if (validateInputResponse === 'ok') {
+      User.findOne({
+        where: { username: req.body.username },
+      })
+    .then((user) => {
+      if (user === null) {
+        const error = {
+          message: 'could not find user',
+        };
+        res.status(401).send(error);
+      } else {
+        bcrypt.compare(req.body.password, user.password, (err, result) => {
+          if (result) {
+            const userToken = jwt.sign({ name: user.id },
+              'andela-bootcamp',
+              { expiresIn: 60 * 60 * 24 },
+              );
+            const data = {
+              token: userToken,
+              message: 'Login was successful',
+            };
+            res.status(200).send(data);
+          } else {
+            const data = {
+              paramsOk: true,
+              message: 'Incorrect user details',
+            };
+            res.send(data);
+          }
+        });
+      }
     })
-  .then((user) => {
-    if (user === null) {
-      res.send('could not find user');
+    .catch((error) => {
+      res.status(200).send(error);
+    });
     } else {
-      bcrypt.compare(req.body.password, user.password, (err, result) => {
-        if (result) {
-          const userToken = jwt.sign({ name: user.id },
-            secret,
-            { expiresIn: 60 * 60 * 24 * 365 },
-            );
-          const data = {
-            token: userToken,
-            message: 'Login was successful',
-          };
-          res.status(200).send(data);
-        } else {
-          const data = {
-            paramsOk: true,
-            message: 'Incorrect user details',
-          };
-          res.send(data);
-        }
-      });
-    }
-  })
-  .catch((error) => {
-    res.status(200).send(error);
-  });
+      res.json({ message: validateInputResponse });
+  } 
   }, // end of signIn
 
   signOut(req, res) {

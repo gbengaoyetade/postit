@@ -1,9 +1,9 @@
 import { assert } from 'chai';
-import  supertest from 'supertest';
+import supertest from 'supertest';
 import app from '../server/app';
 
 const data = { username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com' };
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoxLCJpYXQiOjE1MDE5ODgyNTMsImV4cCI6MTUzMzUyNDI1M30.8sCRkYlHtUrQ-Q9vPsenOk6b0TRVUdDez3yoXLRD7uU';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoxLCJpYXQiOjE1MDIxMjU5NzEsImV4cCI6MTUzMzY2MTk3MX0.jOSzQjOPXsUjacqwT6HQ5lC-eys_gSgqj-gOC75-eXs';
 describe('Signup tests', () => {
   it('signup post url should be defined', (done) => {
     supertest(app).post('/api/user/signup').send().end((err, res) => {
@@ -116,7 +116,7 @@ describe('Authenticate', () => {
     });
   });
   it('should detect if user is logged out', (done) => {
-    const token2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoyLCJpYXQiOjE1MDE5NDk1ODQsImV4cCI6MTUwMjAzNTk4NH0.Uuzpu3SY1Lu9LbSquxTZmicZ5UtZDTPrcNDpI7TeaAM';
+    const token2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjo0LCJpYXQiOjE1MDIxMjYwNjcsImV4cCI6MTUzMzY2MjA2N30.UUxPoocmCvNtCGUl1OIbZ_-FbdO77ankB6VfqT-V-b0';
     supertest(app).get('/api/group').set('x-access-token', token2).send().end((err, res) => {
       assert.equal(res.body.message, 'You are not logged in');
       done();
