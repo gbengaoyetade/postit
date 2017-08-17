@@ -1,17 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Home from './home';
+import VisitorNav from './visitornav';
 
 const Login = (props) => {
   return (
     <div>
-      <form method="POST" onSubmit={props.handleSubmit.bind(this)}>
-        <p> <input type="text" name="username" placeholder="Username" onChange={props.handleChange.bind(this)}/></p>
-        <p> <input type="password" name="password" placeholder="password" onChange={props.handleChange.bind(this)}/></p>
-        <p> <input type="submit" value="Login" className="btn" /> Don't have an account?  
-          <Link to="/signup" >Signup </Link>
+      <VisitorNav />
+      <Home>
+      <form method="POST" onSubmit={props.handleSubmit.bind(this)} >
+        <div className="input-field">
+          <input type="text" name="username" id="username" onChange={props.handleChange.bind(this)}/>
+          <label htmlFor="username">Username</label>
+        </div> 
+        <div className="input-field">
+          <input type="password" name="password" id="password" onChange={props.handleChange.bind(this)}/>
+          <label htmlFor="password">Password</label>
+        </div>
+        <p> <input type="submit" value="Login" className="btn blue" /> Don't have an account?  
+          <Link to="/signup" > Signup </Link>
         </p>
       </form>
-      <p>  </p>
+      </Home>
     </div>
   );
 }

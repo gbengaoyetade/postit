@@ -28751,11 +28751,20 @@ var _axios = __webpack_require__(112);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _login = __webpack_require__(295);
+
+var _login2 = _interopRequireDefault(_login);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var sendUserData = function sendUserData(user) {
   return function (dispatch) {
+    var myUser = user;
     _axios2.default.post('/api/user/signup', user).then(function (response) {
+      if (response.status === 201) {
+        console.log(response);
+        console.log(myUser);
+      }
       console.log(response);
     }).catch(function (error) {
       console.log(error.response);
@@ -29647,61 +29656,61 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _home = __webpack_require__(319);
+
+var _home2 = _interopRequireDefault(_home);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var SignupForm = function SignupForm(props) {
   return _react2.default.createElement(
-    "div",
-    { className: "col s8 m6 l6" },
+    'div',
+    null,
     _react2.default.createElement(
-      "form",
-      { method: "POST", action: "#", onSubmit: props.handleSubmit.bind(undefined) },
+      _home2.default,
+      null,
       _react2.default.createElement(
-        "p",
-        null,
-        " this ",
-        props.shout
-      ),
-      _react2.default.createElement(
-        "p",
-        null,
-        " ",
-        _react2.default.createElement("input", { type: "text", name: "username", placeholder: "Username", onChange: props.handleChange.bind(undefined) }),
-        _react2.default.createElement("span", null)
-      ),
-      _react2.default.createElement(
-        "p",
-        null,
-        " ",
-        _react2.default.createElement("input", { type: "email", name: "email", placeholder: "Email", onChange: props.handleChange.bind(undefined) })
-      ),
-      _react2.default.createElement(
-        "p",
-        null,
-        " ",
-        _react2.default.createElement("input", { type: "password", name: "password", placeholder: "password", onChange: props.handleChange.bind(undefined) }),
-        _react2.default.createElement("br", null),
-        " ",
-        _react2.default.createElement("span", null)
-      ),
-      _react2.default.createElement(
-        "p",
-        null,
-        " ",
-        _react2.default.createElement("input", { type: "text", name: "phoneNumber", placeholder: "Phone number", onChange: props.handleChange.bind(undefined) })
-      ),
-      _react2.default.createElement(
-        "p",
-        null,
-        " ",
-        _react2.default.createElement("input", { type: "submit", value: "Signup", className: "btn btn-primary" })
+        'div',
+        { className: 'col s8 m6 l6' },
+        _react2.default.createElement(
+          'form',
+          { method: 'POST', action: '#', onSubmit: props.handleSubmit.bind(undefined) },
+          _react2.default.createElement(
+            'p',
+            null,
+            ' ',
+            _react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'Username', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement('span', null)
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            ' ',
+            _react2.default.createElement('input', { type: 'email', name: 'email', placeholder: 'Email', onChange: props.handleChange.bind(undefined) })
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            ' ',
+            _react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'password', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement('br', null),
+            ' ',
+            _react2.default.createElement('span', null)
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            ' ',
+            _react2.default.createElement('input', { type: 'text', name: 'phoneNumber', placeholder: 'Phone number', onChange: props.handleChange.bind(undefined) })
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            ' ',
+            _react2.default.createElement('input', { type: 'submit', value: 'Signup', className: 'btn btn-primary' })
+          )
+        )
       )
-    ),
-    _react2.default.createElement("hr", null),
-    _react2.default.createElement(
-      "button",
-      { className: "btn btn-primary", onClick: props.validate },
-      "click me"
     )
   );
 };
@@ -29811,44 +29820,60 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(39);
 
+var _home = __webpack_require__(319);
+
+var _home2 = _interopRequireDefault(_home);
+
+var _visitornav = __webpack_require__(320);
+
+var _visitornav2 = _interopRequireDefault(_visitornav);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Login = function Login(props) {
   return _react2.default.createElement(
     'div',
     null,
+    _react2.default.createElement(_visitornav2.default, null),
     _react2.default.createElement(
-      'form',
-      { method: 'POST', onSubmit: props.handleSubmit.bind(undefined) },
+      _home2.default,
+      null,
       _react2.default.createElement(
-        'p',
-        null,
-        ' ',
-        _react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'Username', onChange: props.handleChange.bind(undefined) })
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        ' ',
-        _react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'password', onChange: props.handleChange.bind(undefined) })
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        ' ',
-        _react2.default.createElement('input', { type: 'submit', value: 'Login', className: 'btn' }),
-        ' Don\'t have an account?',
+        'form',
+        { method: 'POST', onSubmit: props.handleSubmit.bind(undefined) },
         _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/signup' },
-          'Signup '
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { type: 'text', name: 'username', id: 'username', onChange: props.handleChange.bind(undefined) }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'username' },
+            'Username'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { type: 'password', name: 'password', id: 'password', onChange: props.handleChange.bind(undefined) }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'password' },
+            'Password'
+          )
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          ' ',
+          _react2.default.createElement('input', { type: 'submit', value: 'Login', className: 'btn blue' }),
+          ' Don\'t have an account?',
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/signup' },
+            ' Signup '
+          )
         )
       )
-    ),
-    _react2.default.createElement(
-      'p',
-      null,
-      '  '
     )
   );
 };
@@ -31258,7 +31283,7 @@ var Dashboard = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       if (!window.sessionStorage.postitToken) {
-        this.props.history.push('/login');
+        // this.props.history.push('/login');
       }
     }
   }, {
@@ -31312,51 +31337,35 @@ var UserNav = function UserNav(props) {
       null,
       _react2.default.createElement(
         "div",
-        { className: "nav-wrapper blue " },
+        { className: "nav-wrapper  light-blue darken-4 " },
         _react2.default.createElement(
           "a",
-          { href: "#!", className: "brand-logo" },
+          { href: "#!", className: "left brand-logo" },
           "Postit"
         ),
         _react2.default.createElement(
           "ul",
           { className: "right hide-on-med-and-down" },
           _react2.default.createElement(
-            "li",
+            "form",
             null,
             _react2.default.createElement(
-              "a",
-              { href: "sass.html" },
+              "div",
+              { className: "input-field" },
+              _react2.default.createElement("input", { type: "search", id: "search", required: true }),
+              _react2.default.createElement(
+                "label",
+                { htmlFor: "search", className: "label-icon" },
+                _react2.default.createElement(
+                  "i",
+                  { className: "material-icons" },
+                  "search"
+                )
+              ),
               _react2.default.createElement(
                 "i",
                 { className: "material-icons" },
-                "search"
-              )
-            )
-          ),
-          _react2.default.createElement(
-            "li",
-            null,
-            _react2.default.createElement(
-              "a",
-              { href: "badges.html" },
-              _react2.default.createElement(
-                "i",
-                { className: "material-icons" },
-                "bell"
-              )
-            )
-          ),
-          _react2.default.createElement(
-            "li",
-            null,
-            _react2.default.createElement(
-              "a",
-              { href: "collapsible.html" },
-              _react2.default.createElement(
-                "i",
-                { className: "material-icons" },
-                "user"
+                "close"
               )
             )
           )
@@ -31397,6 +31406,70 @@ var Home = function Home(props) {
   );
 };
 exports.default = Home;
+
+/***/ }),
+/* 320 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(39);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var VisitorNav = function VisitorNav(props) {
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'nav',
+      null,
+      _react2.default.createElement(
+        'div',
+        { className: 'nav-wrapper blue ' },
+        _react2.default.createElement(
+          'a',
+          { href: '#!', className: 'left brand-logo' },
+          'Postit'
+        ),
+        _react2.default.createElement(
+          'ul',
+          { className: 'right hide-on-med-and-down' },
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { className: 'btn red', to: '/login' },
+              ' Login '
+            ),
+            ' '
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { className: 'btn blue', to: '/signup' },
+              ' Signup '
+            ),
+            ' '
+          )
+        )
+      )
+    )
+  );
+};
+exports.default = VisitorNav;
 
 /***/ })
 /******/ ]);

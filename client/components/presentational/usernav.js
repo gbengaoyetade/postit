@@ -2,15 +2,20 @@ import React from 'react';
 
 const UserNav = (props) => {
   return (
-
     <div>
       <nav>
-        <div className="nav-wrapper blue ">
-          <a href="#!" className="brand-logo">Postit</a>
+        <div className="nav-wrapper  light-blue darken-4 ">
+          <a href="#!" className="left brand-logo">Postit</a>
           <ul className="right hide-on-med-and-down">
-            <li><a href="sass.html"><i className="material-icons">search</i></a></li>
-            <li><a href="badges.html"><i className="material-icons">bell</i></a></li>
-            <li><a href="collapsible.html"><i className="material-icons">user</i></a></li>
+            <form>
+              <div className="input-field">
+                <input type="search" id="search" required/>
+                <label htmlFor="search" className="label-icon">
+                  <i className="material-icons">search</i>
+                </label>
+                <i className="material-icons">close</i>
+              </div>
+            </form>
           </ul>
         </div>
       </nav>
