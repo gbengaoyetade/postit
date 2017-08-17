@@ -4,16 +4,6 @@ import db from '../models/index';
 import validateInput from '../includes/functions';
 const User = db.users;
 const invalidToken = db.invalidToken;
-// const validateInput = (input) => {
-//   if (!input.username) {
-//     return 'Username not provided';
-//   } else if (!input.email) {
-//     return 'Email not provided';
-//   } else if (!input.password) {
-//     return 'Password not provided';
-//   }
-//   return 'ok';
-// };
 module.exports = {
 
   signUp(req, res) {
@@ -25,10 +15,15 @@ module.exports = {
         email: req.body.email,
       })
       .then((user) => {
+        const userToken = jwt.sign({ name: user.id },
+            'andela-bootcamp',
+            { expiresIn: 60 * 60 * 24 },
+            );
         const userData = {
           id: user.id,
           username: user.username,
           email: user.email,
+          token: userToken,
         };
         const data = {
           user: userData,
