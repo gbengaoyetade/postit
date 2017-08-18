@@ -2,17 +2,20 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../models/index';
 import validateInput from '../includes/functions';
+
 const User = db.users;
 const invalidToken = db.invalidToken;
 module.exports = {
 
   signUp(req, res) {
-    const requiredFields = ['username', 'email', 'password'];
+    const requiredFields = ['username', 'email', 'password', 'fullName', 'phoneNumber'];
     if (validateInput(req.body, requiredFields) === 'ok') {
       User.create({
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
+        fullName: req.body.fullName,
+        phoneNumber: req.body.phoneNumber,
       })
       .then((user) => {
         const userToken = jwt.sign({ name: user.id },
@@ -74,9 +77,12 @@ module.exports = {
             'andela-bootcamp',
             { expiresIn: 60 * 60 * 24 },
             );
-          const data = {
+          const userData = {
             id: user.id,
             token: userToken,
+          };
+          const data = {
+            user: userData,
             message: 'Login was successful',
           };
           res.status(200).send(data);

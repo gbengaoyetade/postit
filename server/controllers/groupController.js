@@ -10,55 +10,7 @@ const getId = (token) => {
   const decoded = jwt.decode(token);
   return decoded.name;
 };
-const beforeAddMember = (req) => {
-  User.findOne({
-    where: { id: req.body.userId },
-  })
-  .then((user) => {
-    if (user) {
-      Groups.findOne({
-        where: { id: req.params.id },
-      })
-      .then((group) => {
-        if (group) {
-          Members.findOne({
-            where: { userId: req.body.userId, groupId: req.params.id },
-          })
-          .then((member) => {
-            if (member !== null) {
-              return 1; // user does not belong to group
-            } else {
-              return 2; // user already a member of the group
-            }
-          })
-          .catch(() => {
-            return 3; // connection error
-          });
-        } else {
-          return 4; // Group does not exist
-        }
-      })
-    } else {
-      return 5; // user does not exist
-    }
-  })
-  .catch((error) => {
-    return error;
-  });
-};
-const checkExist = (value) => {
-  Groups.findOne({
-    where: { id: value },
-  })
-  .then((returnedValue) => {
-    console.log('group exist'); 
-    return returnedValue; 
-  })
-  .catch((error) => {
-    console.log('there was an error');
-    return '';
-  });
-};
+
 module.exports = {
   create(req, res) {
     const requiredFields = ['groupName', 'groupDescription'];
@@ -77,7 +29,6 @@ module.exports = {
         };
         const data = {
           group: groupData,
-          parameter: 'Parameters well structured',
           message: `Group ${req.body.groupName} was created successfully`,
 
         };
@@ -95,31 +46,35 @@ module.exports = {
     }
   },
   addMembers(req, res) {
-    res.send(checkExist(req.params.id));
-    // const requiredFields = ['userId'];
-    // if(validateInput(req.body, requiredFields) === 'ok'){
-    //   Groups.findOne({
-    //     where: { id: req.params.id },
-    //   })
-    //   .then((group) => {
-    //     if(group){
-    //       thisData = 'I am a data';
-    //       User.findOne({
-    //         where: { id: req.body.userId },
-    //       })
-    //       .then((user) => {
-    //         if (user) {
-    //           res.send('user exists')
-    //         } else {
-    //           res.send('user does not exist');
-    //         }
-    //       });
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    //}
+    const requiredFields = ['userId'];
+    const inputValidation = validateInput(req.body, requiredFields);
+    if ( inputValidation === 'ok') {
+      Members.findOne({
+        where: { userId: req.params.userId, groupId: req.params.groupId },
+      })
+      .then((member) => {
+        if (member) {
+          res.json({ error: 'User already a member of this group' });
+        } else {
+          Members.create({
+            groupId: req.params.groupId,
+            userId: req.params.userId,
+            addedBy: getId(req.headers['x-access-token']),
+          })
+          .then(() => {
+            res.json({ message: 'User successfully added to group' });
+          })
+          .catch((error) => {
+            res.json({ error: error.message });
+          });
+        }
+      })
+      .catch((error) => {
+        res.json({ error: error.message });
+      });
+    } else {
+      res.json({ error: inputValidation });
+    }
   },
   createMessage(req, res) {
     Messages.create({

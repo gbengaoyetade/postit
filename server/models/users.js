@@ -24,9 +24,9 @@ module.exports = (sequelize, DataTypes) => {
     phoneNumber: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isMobilePhone: { value: true, msg: 'Invalid phone number supplied' },
-      },
+      // validate: {
+      //   isMobilePhone: { value: true, msg: 'Invalid phone number supplied' },
+      // },
     },
     password: {
       type: DataTypes.STRING,

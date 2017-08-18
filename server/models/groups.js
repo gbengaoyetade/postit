@@ -1,3 +1,5 @@
+import groupMembers from './groupMembers';
+
 const Group = (sequelize, DataTypes) => {
   const Groups = sequelize.define('groups', {
     groupName: {
@@ -25,20 +27,23 @@ const Group = (sequelize, DataTypes) => {
           through: models.groupMembers,
         });
       },
+    }, // end fo classMethods
       hooks: {
-        beforeCreate: (groups) => {
-          Groups.findAll({
-            where: { userId: groups.userId, groupName: groups.groupName },
-          })
-          .then(() => {
-            throw new Error('You have created this group already');
-          })
-          .catch(() => {
-
-          });
-        },
-      },
-    },
+        afterCreate: (group) => {
+          // groupMembers.create({
+          //   groupId: group.id,
+          //   userId: group.userId,
+          //   addedBy: group.userId, 
+          // })
+          // .then((groupMember) => {
+          //   console.log(groupMember);
+          // })
+          // .catch((error) =>{
+          //   console.log(error);
+          // });
+          console.log('I got here');
+        }, // end of afterCreate
+      }, // end of hooks
   });
   return Groups;
 };
