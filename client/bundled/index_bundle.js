@@ -30891,50 +30891,66 @@ var SignupForm = function SignupForm(props) {
       null,
       _react2.default.createElement(
         'div',
-        { className: 'col s8 m6 l6' },
+        { className: 'col s8 m6 l6 offset-3' },
         _react2.default.createElement(
           'form',
           { method: 'POST', action: '#', onSubmit: props.handleSubmit.bind(undefined) },
           _react2.default.createElement(
-            'p',
-            null,
-            ' ',
-            _react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'Username', onChange: props.handleChange.bind(undefined) }),
-            _react2.default.createElement('span', null)
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { type: 'text', name: 'fullName', id: 'fullName', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'fullName' },
+              ' Full Name '
+            )
           ),
           _react2.default.createElement(
-            'p',
-            null,
-            ' ',
-            _react2.default.createElement('input', { type: 'email', name: 'email', placeholder: 'Email', onChange: props.handleChange.bind(undefined) })
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { type: 'text', name: 'username', id: 'username', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'username' },
+              ' Username '
+            )
           ),
           _react2.default.createElement(
-            'p',
-            null,
-            ' ',
-            _react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'password', onChange: props.handleChange.bind(undefined) }),
-            _react2.default.createElement('br', null),
-            ' ',
-            _react2.default.createElement('span', null)
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { type: 'email', name: 'email', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'email' },
+              ' Email '
+            )
           ),
           _react2.default.createElement(
-            'p',
-            null,
-            ' ',
-            _react2.default.createElement('input', { type: 'text', name: 'phoneNumber', placeholder: 'Phone number', onChange: props.handleChange.bind(undefined) })
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { type: 'text', name: 'phoneNumber', id: 'phoneNumber', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'phoneNumber' },
+              ' Phone Number'
+            )
           ),
           _react2.default.createElement(
-            'p',
-            null,
-            ' ',
-            _react2.default.createElement('input', { type: 'submit', value: 'Signup', className: 'btn btn-primary' })
-          )
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { type: 'password', name: 'password', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'password' },
+              ' Password '
+            )
+          ),
+          _react2.default.createElement('input', { type: 'submit', value: 'Signup', className: 'btn align-center blue' })
         )
       )
     )
   );
 };
-
 exports.default = SignupForm;
 
 /***/ }),

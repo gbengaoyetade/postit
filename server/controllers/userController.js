@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../models/index';
-import validateInput from '../includes/functions';
+import { validateInput } from '../includes/functions';
 
 const User = db.users;
 const groupMembers = db.groupMembers;
