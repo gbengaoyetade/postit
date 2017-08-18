@@ -25,7 +25,7 @@ const groupAndUserExist = (req, res, next) => {
         res.json({ error, message: 'user error' });
       });
     } else {
-      console.log(req);
+      console.log(req.params);
       res.json({ error: 'Group does not exist' });
     }
   })

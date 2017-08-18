@@ -4,8 +4,9 @@ import db from '../models/index';
 require('dotenv').config();
 
 const invalidToken = db.invalidToken;
-const secret = process.env.TOKEN_SECRET;
+// const secret = process.env.TOKEN_SECRET;
 const authenticate = (req, res, next) => {
+  console.log(req.params);
   const userToken = req.headers['x-access-token'];
   if (userToken) {
     jwt.verify(userToken, 'andela-bootcamp', (err) => {

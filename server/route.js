@@ -4,7 +4,7 @@ import { create, addMembers, createMessage, getMessages } from './controllers/gr
 import authenticate from './middleware/authenticate';
 import groupAndUserExist from './middleware/exist';
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.post('/user/signup', signUp);
 
@@ -16,12 +16,10 @@ router.post('/user/signout', signOut);
 
 router.post('/group', create);
 
-router.use(groupAndUserExist);
+router.post('/group/:groupId/user', groupAndUserExist, addMembers);
 
-router.post('/group/:groupId/user', addMembers);
+router.post('/group/:groupId/message', groupAndUserExist, createMessage);
 
-router.post('/group/:groupId/message', createMessage);
-
-router.get('/group/:groupId/messages', getMessages);
+router.get('/group/:groupId/messages', groupAndUserExist, getMessages);
 
 module.exports = router;

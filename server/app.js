@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 
 app.use('/api', router);
 
-app.post('/verifytoken', verifyToken);
+app.get('/verifytoken', verifyToken);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));
@@ -22,5 +22,5 @@ app.get('*', (req, res) => {
 app.post('*', (req, res) => {
   res.json({ message: 'URL does not exist on this server' });
 });
-module.exports = app;
+export default app;
 
