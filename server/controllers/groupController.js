@@ -48,7 +48,7 @@ module.exports = {
   addMembers(req, res) {
     const requiredFields = ['userId'];
     const inputValidation = validateInput(req.body, requiredFields);
-    if ( inputValidation === 'ok') {
+    if (inputValidation === 'ok') {
       Members.findOne({
         where: { userId: req.params.userId, groupId: req.params.groupId },
       })
@@ -58,19 +58,19 @@ module.exports = {
         } else {
           Members.create({
             groupId: req.params.groupId,
-            userId: req.params.userId,
+            userId: req.body.userId,
             addedBy: getId(req.headers['x-access-token']),
           })
           .then(() => {
             res.json({ message: 'User successfully added to group' });
           })
           .catch((error) => {
-            res.json({ error: error.message });
+            res.json({ error: error.message, message: 'Could not add user to group' });
           });
         }
       })
       .catch((error) => {
-        res.json({ error: error.message });
+        res.json({ error: error.message, message: 'Could not find user' });
       });
     } else {
       res.json({ error: inputValidation });

@@ -22,9 +22,10 @@ const groupAndUserExist = (req, res, next) => {
         }
       })
       .catch((error) => {
-        res.json({ error: error.message });
+        res.json({ error, message: 'user error' });
       });
     } else {
+      console.log(req);
       res.json({ error: 'Group does not exist' });
     }
   })
