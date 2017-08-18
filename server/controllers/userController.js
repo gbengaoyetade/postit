@@ -4,6 +4,7 @@ import db from '../models/index';
 import validateInput from '../includes/functions';
 
 const User = db.users;
+const groupMembers = db.groupMembers;
 const invalidToken = db.invalidToken;
 module.exports = {
 
@@ -18,22 +19,31 @@ module.exports = {
         phoneNumber: req.body.phoneNumber,
       })
       .then((user) => {
-        const userToken = jwt.sign({ name: user.id },
+        groupMembers.create({
+          userId: user.id,
+          groupId: 1,
+          addedBy: 1,
+        })
+        .then(() => {
+          const userToken = jwt.sign({ name: user.id },
             'andela-bootcamp',
             { expiresIn: 60 * 60 * 24 },
             );
-        const userData = {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          token: userToken,
-        };
-        const data = {
-          user: userData,
-          message: `User ${req.body.username} was created successfully`,
-
-        };
-        res.status(201).send(data);
+          const userData = {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            token: userToken,
+          };
+          const data = {
+            user: userData,
+            message: `User ${req.body.username} was created successfully`,
+          };
+          res.status(201).send(data);
+        })
+        .catch((error) => {
+          res.json({ error: error.message });
+        });
       })
       .catch((error) => {
         let errorMessage;
