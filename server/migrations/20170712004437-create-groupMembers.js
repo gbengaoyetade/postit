@@ -11,6 +11,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
+      addedBy: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
       groupId: {
         allowNull: false,
         type: Sequelize.INTEGER,

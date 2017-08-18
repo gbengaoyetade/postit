@@ -9,9 +9,10 @@ const getId = (token) => {
   const decoded = jwt.decode(token);
   return decoded.name;
 };
+
 module.exports = {
   create(req, res) {
-    const requiredFields = ['groupName', 'groupDescription', 'userId'];
+    const requiredFields = ['groupName', 'groupDescription'];
     if (validateInput(req.body, requiredFields) === 'ok') {
       Groups.create({
         groupName: req.body.groupName,
@@ -27,7 +28,6 @@ module.exports = {
         };
         const data = {
           group: groupData,
-          parameter: 'Parameters well structured',
           message: `Group ${req.body.groupName} was created successfully`,
         };
         res.status(201).send(data);
@@ -44,18 +44,35 @@ module.exports = {
     }
   },
   addMembers(req, res) {
-    Members.create({
-      groupId: req.body.groupId,
-      userId: req.body.userId,
-    })
-    .then((members) => {
-      res.status(200).send(members);
-    })
-    .catch(() => {
-      res.status(200).send({
-        error: 'could not add member. Check member Id and group Id, then try again',
+    const requiredFields = ['userId'];
+    const inputValidation = validateInput(req.body, requiredFields);
+    if (inputValidation === 'ok') {
+      Members.findOne({
+        where: { userId: req.params.userId, groupId: req.params.groupId },
+      })
+      .then((member) => {
+        if (member) {
+          res.json({ error: 'User already a member of this group' });
+        } else {
+          Members.create({
+            groupId: req.params.groupId,
+            userId: req.body.userId,
+            addedBy: getId(req.headers['x-access-token']),
+          })
+          .then(() => {
+            res.json({ message: 'User successfully added to group' });
+          })
+          .catch((error) => {
+            res.json({ error: error.message, message: 'Could not add user to group' });
+          });
+        }
+      })
+      .catch((error) => {
+        res.json({ error: error.message, message: 'Could not find user' });
       });
-    });
+    } else {
+      res.json({ error: inputValidation });
+    }
   },
   createMessage(req, res) {
     Messages.create({

@@ -10,12 +10,23 @@ module.exports = (sequelize, DataTypes) => {
         is: { args: /^[a-zA-Z0-9_]*$/, msg: 'Username cannot contain special characters aside from _' },
       },
     },
+    fullName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         isEmail: { value: true, msg: 'Invalid email address supplied' },
       },
+    },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      // validate: {
+      //   isMobilePhone: { value: true, msg: 'Invalid phone number supplied' },
+      // },
     },
     password: {
       type: DataTypes.STRING,

@@ -2,41 +2,48 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../models/index';
 import validateInput from '../includes/functions';
+
 const User = db.users;
+const groupMembers = db.groupMembers;
 const invalidToken = db.invalidToken;
-// const validateInput = (input) => {
-//   if (!input.username) {
-//     return 'Username not provided';
-//   } else if (!input.email) {
-//     return 'Email not provided';
-//   } else if (!input.password) {
-//     return 'Password not provided';
-//   }
-//   return 'ok';
-// };
 module.exports = {
 
   signUp(req, res) {
-    const requiredFields = ['username', 'email', 'password'];
-    const validateInputResponse = validateInput(req.body, requiredFields);
-    if (validateInputResponse === 'ok') {
+    const requiredFields = ['username', 'email', 'password', 'fullName', 'phoneNumber'];
+    if (validateInput(req.body, requiredFields) === 'ok') {
       User.create({
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
+        fullName: req.body.fullName,
+        phoneNumber: req.body.phoneNumber,
       })
       .then((user) => {
-        const userData = {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-        };
-        const data = {
-          user: userData,
-          message: `User ${req.body.username} was created successfully`,
-
-        };
-        res.status(201).send(data);
+        groupMembers.create({
+          userId: user.id,
+          groupId: 1,
+          addedBy: 1,
+        })
+        .then(() => {
+          const userToken = jwt.sign({ name: user.id },
+            'andela-bootcamp',
+            { expiresIn: 60 * 60 * 24 },
+            );
+          const userData = {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            token: userToken,
+          };
+          const data = {
+            user: userData,
+            message: `User ${req.body.username} was created successfully`,
+          };
+          res.status(201).send(data);
+        })
+        .catch((error) => {
+          res.json({ error: error.message });
+        });
       })
       .catch((error) => {
         let errorMessage;
@@ -103,7 +110,7 @@ module.exports = {
     });
     } else {
       res.json({ message: validateInputResponse });
-  } 
+    } 
   }, // end of signIn
 
   signOut(req, res) {
