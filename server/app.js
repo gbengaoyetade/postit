@@ -14,10 +14,10 @@ app.use(express.static(path.join(__dirname, '../client')));
 
 app.use('/api', router);
 
-app.post('/verifytoken', verifyToken);
+app.get('/verifytoken', verifyToken);
 
 app.get('*', (req, res) => {
   res.status(404).sendFile(path.join(__dirname, '../client', 'index.html'));
 });
-module.exports = app;
+export default app;
 
