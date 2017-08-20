@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import LoginForm from '../presentational/loginForm.jsx';
-import { loginUser, itemLoading } from '../../actions/login';
+import { loginUser, loginLoading } from '../../actions/auth';
 
 class Login extends React.Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class Login extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.loginLogout,
-    isLoading: state.itemLoading,
+    isLoading: state.loginLoading,
     loginError: state.loginError,
   };
 };
@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(loginUser(user));
     },
     setLoading: (payload) => {
-      dispatch(itemLoading(payload));
+      dispatch(loginLoading(payload));
     },
   };
 };

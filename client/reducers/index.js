@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import createAccount from './createAccount';
 import loginLogout from './loginLogout';
-import itemLoading from './itemLoading';
-import loginError from './error';
- 
+import { signupLoading, loginLoading } from './itemLoading';
+import { loginError, signupError } from './authError';
+
 export default combineReducers({
   createAccount,
   loginLogout,
-  itemLoading,
+  signupLoading,
+  loginLoading,
+  signupError,
   loginError,
 });

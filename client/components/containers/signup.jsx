@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import createUser from '../../actions/createUser';
 import sendUserData from '../../actions/sendUserData';
+import { signupLoading } from '../../actions/auth';
 import SignupForm from '../presentational/signupForm.jsx';
 
 class Signup extends React.Component {
@@ -30,17 +31,26 @@ class Signup extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
+    this.props.setLoading(true);
     this.props.signupUser(this.props.user);
   }
   render() {
     return (
-        <SignupForm validate={this.validateInput.bind(this)} handleSubmit={this.handleSubmit.bind(this)} handleChange={this.handleChange.bind(this)} shouts="Gbenga" />
+        <SignupForm 
+          loading={this.props.isLoading} 
+          error={this.props.error} 
+          validate={this.validateInput.bind(this)} 
+          handleSubmit={this.handleSubmit.bind(this)} 
+          handleChange={this.handleChange.bind(this)} 
+        />
       );
   }
 }
 const mapStateToProps = (state) => {
   return {
     user: state.createAccount,
+    error: state.signupError,
+    isLoading: state.signupLoading,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -50,6 +60,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     signupUser: (user) => {
       dispatch(sendUserData(user));
+    },
+    setLoading: (bool) => {
+      dispatch(signupLoading(bool));
     },
   };
 };

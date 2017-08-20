@@ -29878,6 +29878,8 @@ var _sendUserData = __webpack_require__(283);
 
 var _sendUserData2 = _interopRequireDefault(_sendUserData);
 
+var _auth = __webpack_require__(316);
+
 var _signupForm = __webpack_require__(302);
 
 var _signupForm2 = _interopRequireDefault(_signupForm);
@@ -29928,12 +29930,19 @@ var Signup = function (_React$Component) {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
       e.preventDefault();
+      this.props.setLoading(true);
       this.props.signupUser(this.props.user);
     }
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(_signupForm2.default, { validate: this.validateInput.bind(this), handleSubmit: this.handleSubmit.bind(this), handleChange: this.handleChange.bind(this), shouts: 'Gbenga' });
+      return _react2.default.createElement(_signupForm2.default, {
+        loading: this.props.isLoading,
+        error: this.props.error,
+        validate: this.validateInput.bind(this),
+        handleSubmit: this.handleSubmit.bind(this),
+        handleChange: this.handleChange.bind(this)
+      });
     }
   }]);
 
@@ -29942,7 +29951,9 @@ var Signup = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    user: state.createAccount
+    user: state.createAccount,
+    error: state.signupError,
+    isLoading: state.signupLoading
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -29952,6 +29963,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     signupUser: function signupUser(user) {
       dispatch((0, _sendUserData2.default)(user));
+    },
+    setLoading: function setLoading(bool) {
+      dispatch((0, _auth.signupLoading)(bool));
     }
   };
 };
@@ -29991,6 +30005,8 @@ var _axios = __webpack_require__(119);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _auth = __webpack_require__(316);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var sendUserData = function sendUserData(user) {
@@ -30003,6 +30019,8 @@ var sendUserData = function sendUserData(user) {
       }
       console.log(response);
     }).catch(function (error) {
+      dispatch((0, _auth.signupError)(error.response.data.error || null));
+      dispatch((0, _auth.signupLoading)(false));
       console.log(error.response);
     });
   };
@@ -30892,6 +30910,8 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(26);
+
 var _home = __webpack_require__(70);
 
 var _home2 = _interopRequireDefault(_home);
@@ -30903,6 +30923,12 @@ var _visitornav2 = _interopRequireDefault(_visitornav);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var SignupForm = function SignupForm(props) {
+  var signupValue = '';
+  if (props.loading) {
+    signupValue = 'Signing up...';
+  } else {
+    signupValue = 'Signup';
+  }
   return _react2.default.createElement(
     'div',
     null,
@@ -30912,7 +30938,13 @@ var SignupForm = function SignupForm(props) {
       null,
       _react2.default.createElement(
         'div',
-        { className: 'col s8 m6 l6 offset-3' },
+        { className: 'col s6 offset-s3' },
+        _react2.default.createElement(
+          'p',
+          { className: 'red-text' },
+          '\xA0 ',
+          props.error
+        ),
         _react2.default.createElement(
           'form',
           { method: 'POST', action: '#', onSubmit: props.handleSubmit.bind(undefined) },
@@ -30966,7 +30998,18 @@ var SignupForm = function SignupForm(props) {
               ' Password '
             )
           ),
-          _react2.default.createElement('input', { type: 'submit', value: 'Signup', className: 'btn align-center blue' })
+          _react2.default.createElement('input', { type: 'submit', value: signupValue, className: 'btn align-center blue' }),
+          _react2.default.createElement(
+            'span',
+            null,
+            ' Already have and acount? ',
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: 'login' },
+              ' Login '
+            ),
+            ' '
+          )
         )
       )
     )
@@ -30997,7 +31040,7 @@ var _loginForm = __webpack_require__(304);
 
 var _loginForm2 = _interopRequireDefault(_loginForm);
 
-var _login = __webpack_require__(305);
+var _auth = __webpack_require__(316);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31054,17 +31097,17 @@ var Login = function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     user: state.loginLogout,
-    isLoading: state.itemLoading,
+    isLoading: state.loginLoading,
     loginError: state.loginError
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     loginUser: function loginUser(user) {
-      dispatch((0, _login.loginUser)(user));
+      dispatch((0, _auth.loginUser)(user));
     },
     setLoading: function setLoading(payload) {
-      dispatch((0, _login.itemLoading)(payload));
+      dispatch((0, _auth.loginLoading)(payload));
     }
   };
 };
@@ -31112,45 +31155,53 @@ var Login = function Login(props) {
       _home2.default,
       null,
       _react2.default.createElement(
-        'p',
-        { className: 'red-text' },
-        ' ',
-        props.error,
-        ' '
-      ),
-      _react2.default.createElement(
-        'form',
-        { method: 'POST', onSubmit: props.handleSubmit.bind(undefined) },
-        _react2.default.createElement(
-          'div',
-          { className: 'input-field' },
-          _react2.default.createElement('input', { type: 'text', name: 'username', id: 'username', onChange: props.handleChange.bind(undefined) }),
-          _react2.default.createElement(
-            'label',
-            { htmlFor: 'username' },
-            'Username'
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'input-field' },
-          _react2.default.createElement('input', { type: 'password', name: 'password', id: 'password', onChange: props.handleChange.bind(undefined) }),
-          _react2.default.createElement(
-            'label',
-            { htmlFor: 'password' },
-            'Password'
-          )
-        ),
+        'div',
+        { className: 'col s10 offset-s1 l6 offset-l3' },
         _react2.default.createElement(
           'p',
-          null,
+          { className: 'red-text' },
           ' ',
-          _react2.default.createElement('input', { type: 'submit', value: loginValue, className: 'btn blue' }),
-          ' Don\'t have an account?',
+          props.error,
+          ' '
+        ),
+        _react2.default.createElement(
+          'form',
+          { method: 'POST', onSubmit: props.handleSubmit.bind(undefined) },
           _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/signup', className: 'waves-effect' },
-            ' Signup '
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { type: 'text', name: 'username', id: 'username', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'username' },
+              'Username'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { type: 'password', name: 'password', id: 'password', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'password' },
+              'Password'
+            )
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            ' ',
+            _react2.default.createElement('input', { type: 'submit', value: loginValue, className: 'btn blue' }),
+            _react2.default.createElement(
+              'span',
+              null,
+              ' Don\'t have an account?  '
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/signup', className: 'waves-effect' },
+              ' Signup '
+            )
           )
         )
       )
@@ -31160,66 +31211,7 @@ var Login = function Login(props) {
 exports.default = Login;
 
 /***/ }),
-/* 305 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.loginUser = exports.loginError = exports.itemHasErrored = exports.itemLoading = undefined;
-
-var _axios = __webpack_require__(119);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _store = __webpack_require__(126);
-
-var _store2 = _interopRequireDefault(_store);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var itemLoading = exports.itemLoading = function itemLoading(isLoading) {
-  return {
-    type: 'ITEM_LOADING',
-    isLoading: isLoading
-  };
-};
-
-var itemHasErrored = exports.itemHasErrored = function itemHasErrored(payload) {
-  return {
-    type: 'ITEM_ERROR',
-    payload: payload
-  };
-};
-
-var loginError = exports.loginError = function loginError(error) {
-  return {
-    type: 'LOGIN_ERROR',
-    error: error
-  };
-};
-
-var loginUser = exports.loginUser = function loginUser(user) {
-  return function (dispatch) {
-    _axios2.default.post('/api/user/signin', user).then(function (response) {
-      if (response.status === 200) {
-        window.sessionStorage.postitToken = response.data.token;
-        window.location.replace('/dashboard');
-      }
-    }).catch(function (error) {
-      dispatch(itemLoading(false));
-      if (error.response.data.message) {
-        dispatch(loginError(error.response.data.message));
-      }
-      console.log(error.response);
-    });
-  };
-};
-
-/***/ }),
+/* 305 */,
 /* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31271,19 +31263,17 @@ var _loginLogout2 = _interopRequireDefault(_loginLogout);
 
 var _itemLoading = __webpack_require__(310);
 
-var _itemLoading2 = _interopRequireDefault(_itemLoading);
-
-var _error = __webpack_require__(311);
-
-var _error2 = _interopRequireDefault(_error);
+var _authError = __webpack_require__(317);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
   createAccount: _createAccount2.default,
   loginLogout: _loginLogout2.default,
-  itemLoading: _itemLoading2.default,
-  loginError: _error2.default
+  signupLoading: _itemLoading.signupLoading,
+  loginLoading: _itemLoading.loginLoading,
+  signupError: _authError.signupError,
+  loginError: _authError.loginError
 });
 
 /***/ }),
@@ -31346,45 +31336,32 @@ exports.default = loginLogout;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var itemLoading = function itemLoading() {
+var loginLoading = exports.loginLoading = function loginLoading() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
   var action = arguments[1];
 
   switch (action.type) {
-    case 'ITEM_LOADING':
+    case 'LOGIN_LOADING':
       return action.isLoading;
-    case 'ITEM_ERROR':
-      return action.payload;
     default:
       return state;
   }
 };
-exports.default = itemLoading;
 
-/***/ }),
-/* 311 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var loginError = function loginError() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+var signupLoading = exports.signupLoading = function signupLoading() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
   var action = arguments[1];
 
   switch (action.type) {
-    case 'LOGIN_ERROR':
-      return action.error;
+    case 'SIGNUP_LOADING':
+      return action.isLoading;
     default:
       return state;
   }
 };
-exports.default = loginError;
 
 /***/ }),
+/* 311 */,
 /* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31613,6 +31590,117 @@ var Group = function Group(props) {
   );
 };
 exports.default = Group;
+
+/***/ }),
+/* 316 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loginUser = exports.signupError = exports.loginError = exports.signupHasErrored = exports.loginHasErrored = exports.signupLoading = exports.loginLoading = undefined;
+
+var _axios = __webpack_require__(119);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var loginLoading = exports.loginLoading = function loginLoading(isLoading) {
+  return {
+    type: 'LOGIN_LOADING',
+    isLoading: isLoading
+  };
+};
+
+var signupLoading = exports.signupLoading = function signupLoading(isLoading) {
+  return {
+    type: 'SIGNUP_LOADING',
+    isLoading: isLoading
+  };
+};
+
+var loginHasErrored = exports.loginHasErrored = function loginHasErrored(payload) {
+  return {
+    type: 'LOGIN_ERROR',
+    payload: payload
+  };
+};
+
+var signupHasErrored = exports.signupHasErrored = function signupHasErrored(payload) {
+  return {
+    type: 'SIGNUP_ERROR',
+    payload: payload
+  };
+};
+
+var loginError = exports.loginError = function loginError(error) {
+  return {
+    type: 'LOGIN_ERROR',
+    error: error
+  };
+};
+
+var signupError = exports.signupError = function signupError(error) {
+  return {
+    type: 'SIGNUP_ERROR',
+    error: error
+  };
+};
+
+var loginUser = exports.loginUser = function loginUser(user) {
+  return function (dispatch) {
+    _axios2.default.post('/api/user/signin', user).then(function (response) {
+      if (response.status === 200) {
+        window.sessionStorage.postitToken = response.data.token;
+        window.location.replace('/dashboard');
+      }
+    }).catch(function (error) {
+      dispatch(loginLoading(false));
+      if (error.response.data.message) {
+        dispatch(loginError(error.response.data.message));
+      }
+      console.log(error.response);
+    });
+  };
+};
+
+/***/ }),
+/* 317 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var signupError = exports.signupError = function signupError() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'SIGNUP_ERROR':
+      return action.error;
+    default:
+      return state;
+  }
+};
+
+var loginError = exports.loginError = function loginError() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'LOGIN_ERROR':
+      return action.error;
+    default:
+      return state;
+  }
+};
 
 /***/ })
 /******/ ]);

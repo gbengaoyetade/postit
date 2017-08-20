@@ -1,16 +1,29 @@
 import axios from 'axios';
-import store from '../store';
 
-export const itemLoading = (isLoading) => {
+export const loginLoading = (isLoading) => {
   return {
-    type: 'ITEM_LOADING',
+    type: 'LOGIN_LOADING',
     isLoading,
   };
 };
 
-export const itemHasErrored = (payload) => {
+export const signupLoading = (isLoading) => {
   return {
-    type: 'ITEM_ERROR',
+    type: 'SIGNUP_LOADING',
+    isLoading,
+  };
+};
+
+export const loginHasErrored = (payload) => {
+  return {
+    type: 'LOGIN_ERROR',
+    payload,
+  };
+};
+
+export const signupHasErrored = (payload) => {
+  return {
+    type: 'SIGNUP_ERROR',
     payload,
   };
 };
@@ -18,6 +31,13 @@ export const itemHasErrored = (payload) => {
 export const loginError = (error) => {
   return {
     type: 'LOGIN_ERROR',
+    error,
+  };
+};
+
+export const signupError = (error) => {
+  return {
+    type: 'SIGNUP_ERROR',
     error,
   };
 };
@@ -33,7 +53,7 @@ export const loginUser = (user) => {
       }
     })
     .catch((error) => {
-      dispatch(itemLoading(false));
+      dispatch(loginLoading(false));
       if (error.response.data.message) {
         dispatch(loginError(error.response.data.message));
       }

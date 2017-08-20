@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { signupError, signupLoading } from './auth';
 
 const sendUserData = (user) => {
   return (dispatch) => {
@@ -13,6 +14,8 @@ const sendUserData = (user) => {
       console.log(response);
     })
     .catch((error) => {
+      dispatch(signupError(error.response.data.error || null));
+      dispatch(signupLoading(false));
       console.log(error.response);
     });
   };

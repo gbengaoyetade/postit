@@ -1,12 +1,18 @@
-const itemLoading = (state = false, action) => {
+export const loginLoading = (state = false, action) => {
   switch (action.type) {
-    case 'ITEM_LOADING':
+    case 'LOGIN_LOADING':
       return action.isLoading;
-    case 'ITEM_ERROR':
-      return action.payload;
     default:
       return state;
   }
 };
-export default itemLoading;
+
+export const signupLoading = (state = false, action) => {
+  switch (action.type) {
+    case 'SIGNUP_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+};
 
