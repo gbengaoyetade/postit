@@ -6,7 +6,7 @@ import Home from '../presentational/home';
 class Dashboard extends React.Component {
   componentWillMount () {
     if(!window.sessionStorage.postitToken){
-       this.props.history.push('/login');
+       //this.props.history.push('/login');
     }
   }
   render() {

@@ -79,10 +79,7 @@ module.exports = {
       })
     .then((user) => {
       if (user === null) {
-        const error = {
-          message: 'could not find user',
-        };
-        res.status(401).send(error);
+        res.status(401).send({ message: 'could not find user' });
       } else {
         bcrypt.compare(req.body.password, user.password, (err, result) => {
           if (result) {
@@ -94,22 +91,18 @@ module.exports = {
               token: userToken,
               message: 'Login was successful',
             };
-            res.status(200).send(data);
+            res.status(200).json(data);
           } else {
-            const data = {
-              paramsOk: true,
-              message: 'Incorrect user details',
-            };
-            res.send(data);
+            res.status(401).json({ message: 'Username and or password incorect ' });
           }
         });
       }
     })
     .catch((error) => {
-      res.status(200).send(error);
+      res.status(401).send(error);
     });
     } else {
-      res.json({ message: validateInputResponse });
+      res.status(401).json({ message: validateInputResponse });
     } 
   }, // end of signIn
 

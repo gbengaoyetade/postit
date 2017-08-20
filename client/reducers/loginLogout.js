@@ -1,7 +1,7 @@
-const loginLogout = (state = { email: '', password: '' }, action) => {
-  switch(action.type) {
+const loginLogout = (state = {}, action) => {
+  switch (action.type) {
     case 'LOGIN_USER':
-      const newState = Object.assign({}, state);
+      let newState = Object.assign({}, state);
       newState.user = action.user;
       return newState;
     default:

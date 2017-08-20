@@ -1,15 +1,14 @@
 import axios from 'axios';
-import loginUser from './login';
 
 const sendUserData = (user) => {
   return (dispatch) => {
-    const myUser = user;
     axios.post(
     '/api/user/signup', user)
     .then((response) => {
       if (response.status === 201) {
+        window.sessionStorage.postitToken = response.data.user.token;
+        window.location.replace('/dashboard');
         console.log(response);
-        console.log(myUser);
       }
       console.log(response);
     })

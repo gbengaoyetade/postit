@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import LoginForm from '../presentational/loginForm.jsx';
-import loginUser from '../../actions/login';
+import { loginUser, itemLoading } from '../../actions/login';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
+  }
+  componentDidMount(){
+    console.log(this.props);
   }
   handleChange(event){
     const name = event.target.name;
@@ -15,14 +18,16 @@ class Login extends React.Component {
   }
   handleSubmit(e){
     e.preventDefault();
+    this.props.setLoading(true);
     this.props.loginUser(this.props.user);
-    console.log(this.props);
   }
   render() {
     return (
       <LoginForm 
       handleSubmit={this.handleSubmit.bind(this)} 
       handleChange={this.handleChange.bind(this)}
+      loading = {this.props.isLoading}
+      error = {this.props.loginError}
       />
     ); 
   }
@@ -30,12 +35,17 @@ class Login extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.loginLogout,
+    isLoading: state.itemLoading,
+    loginError: state.loginError,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     loginUser: (user) => {
       dispatch(loginUser(user));
+    },
+    setLoading: (payload) => {
+      dispatch(itemLoading(payload));
     },
   };
 };
