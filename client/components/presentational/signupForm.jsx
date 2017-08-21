@@ -14,7 +14,7 @@ const SignupForm = (props) => {
     <div>
       <VisitorNav />
       <Home> 
-        <div className="col s6 offset-s3">
+        <div className="col s10 m6 offset-s1 offset-m3">
           <p className="red-text">&nbsp; {props.error}</p>
           <form method="POST" action="#" onSubmit={props.handleSubmit.bind(this)}>
 
