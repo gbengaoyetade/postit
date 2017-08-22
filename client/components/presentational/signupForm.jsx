@@ -43,8 +43,10 @@ const SignupForm = (props) => {
               <label htmlFor="password"> Password </label>
             </div>
 
-            <input type="submit" value={signupValue} className="btn align-center blue" />
-            <span> Already have and acount? <Link to="login"> Login </Link> </span>
+            <p className="row">
+              <input type="submit" value={signupValue} className="btn align-center blue col s8 offset-s2" />
+            </p>
+            <p> Already have and acount? <Link to="login"> Login </Link> </p>
           </form>
         </div>
       </Home>

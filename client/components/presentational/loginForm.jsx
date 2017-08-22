@@ -25,7 +25,9 @@ const Login = (props) => {
           <input type="password" name="password" id="password" onChange={props.handleChange.bind(this)}/>
           <label htmlFor="password">Password</label>
         </div>
-        <p> <input type="submit" value={loginValue} className="btn blue" />
+        <p className="row"> <input type="submit" value={loginValue} className="btn blue col s8 offset-s2" />
+        </p>
+        <p>
           <span> Don't have an account?  </span> 
           <Link to="/signup" className="waves-effect"> Signup </Link>
         </p>

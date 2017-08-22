@@ -31049,9 +31049,13 @@ var SignupForm = function SignupForm(props) {
               ' Password '
             )
           ),
-          _react2.default.createElement('input', { type: 'submit', value: signupValue, className: 'btn align-center blue' }),
           _react2.default.createElement(
-            'span',
+            'p',
+            { className: 'row' },
+            _react2.default.createElement('input', { type: 'submit', value: signupValue, className: 'btn align-center blue col s8 offset-s2' })
+          ),
+          _react2.default.createElement(
+            'p',
             null,
             ' Already have and acount? ',
             _react2.default.createElement(
@@ -31240,9 +31244,13 @@ var Login = function Login(props) {
           ),
           _react2.default.createElement(
             'p',
-            null,
+            { className: 'row' },
             ' ',
-            _react2.default.createElement('input', { type: 'submit', value: loginValue, className: 'btn blue' }),
+            _react2.default.createElement('input', { type: 'submit', value: loginValue, className: 'btn blue col s8 offset-s2' })
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
             _react2.default.createElement(
               'span',
               null,
