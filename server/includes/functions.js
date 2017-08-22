@@ -23,3 +23,8 @@ export const verifyToken = (req, res) => {
     res.status(400).json({ error: 'Token error', message: 'No token provided' });
   }
 };
+
+export const getId = (token) => {
+  const decoded = jwt.decode(token);
+  return decoded.name;
+};

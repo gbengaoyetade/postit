@@ -1,4 +1,4 @@
-import groupMembers from './groupMembers';
+import Users from './users';
 
 const Group = (sequelize, DataTypes) => {
   const Groups = sequelize.define('groups', {
@@ -25,25 +25,13 @@ const Group = (sequelize, DataTypes) => {
       associate: (models) => {
         Groups.belongsToMany(models.users, {
           through: models.groupMembers,
+          foreignKey: 'userId',
         });
       },
     }, // end fo classMethods
-      hooks: {
-        afterCreate: (group) => {
-          // groupMembers.create({
-          //   groupId: group.id,
-          //   userId: group.userId,
-          //   addedBy: group.userId, 
-          // })
-          // .then((groupMember) => {
-          //   console.log(groupMember);
-          // })
-          // .catch((error) =>{
-          //   console.log(error);
-          // });
-          console.log('I got here');
-        }, // end of afterCreate
-      }, // end of hooks
+    hooks: {
+
+    }, // end of hooks
   });
   return Groups;
 };

@@ -1,6 +1,7 @@
 import express from 'express';
 import { signUp, signIn, signOut } from './controllers/userController';
-import { create, addMembers, createMessage, getMessages } from './controllers/groupController';
+import { create, addMembers, getGroups } from './controllers/groupController';
+import { createMessage, getMessages } from './controllers/messageController';
 import authenticate from './middleware/authenticate';
 import groupAndUserExist from './middleware/exist';
 
@@ -21,5 +22,7 @@ router.post('/group/:groupId/user', groupAndUserExist, addMembers);
 router.post('/group/:groupId/message', groupAndUserExist, createMessage);
 
 router.get('/group/:groupId/messages', groupAndUserExist, getMessages);
+
+router.get('/group', getGroups);
 
 module.exports = router;
