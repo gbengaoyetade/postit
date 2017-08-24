@@ -26,7 +26,7 @@ const GroupMembers = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: () => {
-        // associations can be defined here
+
       },
     },
   });

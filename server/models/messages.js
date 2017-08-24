@@ -34,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        Message.belongsTo(models.users);
+        Message.belongsTo(models.Users);
+        console.log(models);
         Message.belongsTo(models.groups);
       },
     },

@@ -1,6 +1,6 @@
-import groupMembers from './groupMembers';
+import Users from './users';
 
-const Group = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Groups = sequelize.define('groups', {
     groupName: {
       type: DataTypes.STRING,
@@ -20,31 +20,13 @@ const Group = (sequelize, DataTypes) => {
         isInt: { args: true, msg: 'User Id can only be an integer' },
       },
     },
-  }, {
-    classMethods: {
-      associate: (models) => {
-        Groups.belongsToMany(models.users, {
-          through: models.groupMembers,
-        });
-      },
-    }, // end fo classMethods
-      hooks: {
-        afterCreate: (group) => {
-          // groupMembers.create({
-          //   groupId: group.id,
-          //   userId: group.userId,
-          //   addedBy: group.userId, 
-          // })
-          // .then((groupMember) => {
-          //   console.log(groupMember);
-          // })
-          // .catch((error) =>{
-          //   console.log(error);
-          // });
-          console.log('I got here');
-        }, // end of afterCreate
-      }, // end of hooks
   });
+  Groups.associate = (models) => {
+    Groups.belongsToMany(models.users, {
+      through: models.groupMembers,
+      foreignKey: 'userId',
+    });
+  };
   return Groups;
 };
-export default Group;
+
