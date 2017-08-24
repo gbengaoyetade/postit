@@ -10,9 +10,12 @@ class Signup extends React.Component {
     super(props);
   }
   componentWillMount() {
-    
+     if(window.sessionStorage.postitToken){
+       this.props.history.push('/dashboard');
+    }
   }
   componentDidMount() {
+   
     console.log(this.props);
   }
   handleChange(e) {

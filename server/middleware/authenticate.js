@@ -11,7 +11,7 @@ const authenticate = (req, res, next) => {
   if (userToken) {
     jwt.verify(userToken, 'andela-bootcamp', (err) => {
       if (err) {
-        res.json({ message: 'Token authentication failure' });
+        res.status(401).json({ message: 'Token authentication failure' });
       } else {
         invalidToken.findOne({
           where: { token: userToken } })
@@ -28,7 +28,7 @@ const authenticate = (req, res, next) => {
       }
     });
   } else {
-    res.json({ message: 'No token provided' });
+    res.status(401).json({ message: 'No token provided' });
   }
 };
 

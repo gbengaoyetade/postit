@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Home = (props) => {
+const Container = (props) => {
   return (
     <div className="container" >
       <div className="row" > 
@@ -9,4 +9,4 @@ const Home = (props) => {
     </div>
     );
 };
-export default Home;
+export default Container;

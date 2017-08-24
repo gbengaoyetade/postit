@@ -1,6 +1,6 @@
-const loginLogout = (state = {}, action) => {
+const createGroupReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'LOGIN_USER':
+    case 'CREATE_GROUP':
       const newState = Object.assign({}, state);
       newState.user = action.user;
       return newState;
@@ -8,4 +8,4 @@ const loginLogout = (state = {}, action) => {
       return state;
   }
 };
-export default loginLogout;
+export default createGroupReducer;

@@ -1,12 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import UserNav from '../presentational/usernav';
-import Home from '../presentational/home';
+import Home from '../presentational/container';
 
 class Dashboard extends React.Component {
   componentWillMount () {
     if(!window.sessionStorage.postitToken){
-       //this.props.history.push('/login');
+       this.props.history.push('/login');
     }
   }
   render() {

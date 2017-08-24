@@ -3,6 +3,7 @@ import createAccount from './createAccount';
 import loginLogout from './loginLogout';
 import { signupLoading, loginLoading } from './itemLoading';
 import { loginError, signupError } from './authError';
+import createGroupReducer from './groupReducer';
 
 export default combineReducers({
   createAccount,
@@ -10,5 +11,7 @@ export default combineReducers({
   signupLoading,
   loginLoading,
   signupError,
+  createGroupReducer,
   loginError,
+
 });

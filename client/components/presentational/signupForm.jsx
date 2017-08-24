@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Home from './home';
+import Container from './container';
 import VisitorNav from './visitornav';
 
 const SignupForm = (props) => {
@@ -13,7 +13,7 @@ const SignupForm = (props) => {
   return (
     <div>
       <VisitorNav />
-      <Home> 
+      <Container> 
         <div className="col s10 m6 offset-s1 offset-m3">
           <p className="red-text">&nbsp; {props.error}</p>
           <form method="POST" action="#" onSubmit={props.handleSubmit.bind(this)}>
@@ -49,7 +49,7 @@ const SignupForm = (props) => {
             <p> Already have and acount? <Link to="login"> Login </Link> </p>
           </form>
         </div>
-      </Home>
+      </Container>
     </div>
   );
 };

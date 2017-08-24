@@ -40,7 +40,7 @@ export const create = (req, res) => {
       res.status(401).send(data);
     });
   } else {
-    res.send({ message: validateInput(req.body, requiredFields) });
+    res.status(400).json({ message: validateInput(req.body, requiredFields) });
   }
 }; // end of Create
 

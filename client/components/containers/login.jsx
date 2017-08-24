@@ -7,7 +7,12 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount(){
+  componentWillMount() {
+     if(window.sessionStorage.postitToken){
+       this.props.history.push('/dashboard');
+    }
+  }
+  componentDidMount() {
     console.log(this.props);
   }
   handleChange(event){

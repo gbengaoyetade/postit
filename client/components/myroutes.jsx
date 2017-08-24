@@ -5,10 +5,11 @@ import Login from './containers/login.jsx';
 import Dashboard from './containers/dashboard';
 import NotFound from './notfound.jsx';
 import Group from './group.jsx';
+import Welcome from './presentational/welcome';
 
 const MyRoutes = () => (
   <Switch>
-    
+    <Route exact path="/" component={Welcome} />
     <Route path="/signup" component={Signup} />
     <Route path="/login" component={Login} />
     <Route path="/dashboard" component={Dashboard} />
