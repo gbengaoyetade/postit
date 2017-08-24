@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+// checks to see if requests contains required fields as defined by the end point 
 export const validateInput = (request, requiredFields) => {
   for (let counter = 0; counter < requiredFields.length; counter += 1) {
     if (!request.hasOwnProperty(requiredFields[counter])) {
@@ -9,6 +10,10 @@ export const validateInput = (request, requiredFields) => {
   return 'ok';
 };
 
+/*
+* There is an authentication middleware that handles verification of token
+* This function serves to verify token supplied from undefined routes i.e frontend token
+*/
 export const verifyToken = (req, res) => {
   const token = req.headers['x-access-token'];
   if (token) {
@@ -24,6 +29,7 @@ export const verifyToken = (req, res) => {
   }
 };
 
+// decodes user id from token
 export const getId = (token) => {
   const decoded = jwt.decode(token);
   return decoded.name;

@@ -5,7 +5,7 @@ import { createMessage, getMessages } from './controllers/messageController';
 import authenticate from './middleware/authenticate';
 import groupAndUserExist from './middleware/exist';
 
-const router = express.Router({ mergeParams: true });
+const router = express.Router();
 
 router.post('/user/signup', signUp);
 

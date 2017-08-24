@@ -15,16 +15,22 @@ export const create = (req, res) => {
 
     })
     .then((group) => {
-      const groupData = {
+      Members.create({
         groupId: group.id,
-        groupName: group.groupName,
-        groupDescription: group.groupDescription,
-      };
-      const data = {
-        group: groupData,
-        message: `Group ${req.body.groupName} was created successfully`,
-      };
-      res.status(201).send(data);
+        userId: getId(req.headers['x-access-token']),
+        addedBy: getId(req.headers['x-access-token']),
+      })
+      .then(() => {
+        const groupData = {
+          groupId: group.id,
+          groupName: group.groupName,
+          groupDescription: group.groupDescription,
+        };
+        res.status(201).send({ group: groupData });
+      })
+      .catch((error) => {
+        res.status(400).json(error);
+      });
     })
     .catch((error) => {
       const data = {
@@ -43,7 +49,7 @@ export const addMembers = (req, res) => {
   const inputValidation = validateInput(req.body, requiredFields);
   if (inputValidation === 'ok') {
     Members.findOne({
-      where: { userId: req.params.userId, groupId: req.params.groupId },
+      where: { userId: req.body.userId, groupId: req.params.groupId },
     })
     .then((member) => {
       if (member) {
@@ -54,8 +60,8 @@ export const addMembers = (req, res) => {
           userId: req.body.userId,
           addedBy: getId(req.headers['x-access-token']),
         })
-        .then(() => {
-          res.json({ message: 'User successfully added to group' });
+        .then((groupMember) => {
+          res.json({ member: groupMember, message: 'User successfully added to group' });
         })
         .catch((error) => {
           res.json({ error: error.message, message: 'Could not add user to group' });
@@ -71,11 +77,19 @@ export const addMembers = (req, res) => {
 }; // end of addMembers
 
 export const getGroups = (req, res) => {
-  // const userId = getId(req.headers['x-access-token']);
+  const userId = getId(req.headers['x-access-token']);
   Users.findAll({
+    where: { id: userId },
+    attributes: {
+      exclude: ['password', 'createdAt', 'updatedAt'],
+    },
     include: [
       {
-        model: Messages,
+        model: Groups,
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
+        through: { attributes: [] },
       },
     ],
   })
@@ -83,6 +97,7 @@ export const getGroups = (req, res) => {
     res.json(groups);
   })
   .catch((error) => {
+    console.log(error);
     res.json(error);
   });
 };

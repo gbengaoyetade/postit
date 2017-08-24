@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Users = sequelize.define('users', {
     username: {
       type: DataTypes.STRING,
@@ -36,26 +36,19 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { value: true, msg: 'Password cannot be empty' },
       },
     },
-  },
-    {
-      classMethods: {
-        associate: (models) => {
-          // Users.belongsToMany(models.groups, {
-          //   through: models.groupMembers,
-          //   foreignKey: 'groupId',
-          // });
-          Users.hasMany(models.Messages, {
-            foreignKey: 'userId',
-          });
-        },
-      },
-      hooks: {
-        beforeCreate: (user) => {
-          const salt = bcrypt.genSaltSync(5);
-          const hash = bcrypt.hashSync(user.password, salt);
-          user.password = hash;
-        },
-      },
+  });
+
+  Users.beforeCreate((user) => {
+    const salt = bcrypt.genSaltSync(5);
+    const hash = bcrypt.hashSync(user.password, salt);
+    user.password = hash;
+  });
+  
+  Users.associate = (models) => {
+    Users.belongsToMany(models.groups, {
+      through: models.groupMembers,
+      foreignKey: 'groupId',
     });
+  };
   return Users;
 };
