@@ -13,7 +13,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    userId: {
+    createdBy: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -24,7 +24,7 @@ export default (sequelize, DataTypes) => {
   Groups.associate = (models) => {
     Groups.belongsToMany(models.users, {
       through: models.groupMembers,
-      foreignKey: 'userId',
+      foreignKey: 'groupId',
     });
   };
   return Groups;

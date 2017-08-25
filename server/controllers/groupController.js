@@ -11,7 +11,7 @@ export const create = (req, res) => {
     Groups.create({
       groupName: req.body.groupName,
       groupDescription: req.body.groupDescription,
-      userId: getId(req.headers['x-access-token']),
+      createdBy: getId(req.headers['x-access-token']),
 
     })
     .then((group) => {
@@ -53,7 +53,7 @@ export const addMembers = (req, res) => {
     })
     .then((member) => {
       if (member) {
-        res.json({ error: 'User already a member of this group' });
+        res.json({ error: 'User already a member of this group', member });
       } else {
         Members.create({
           groupId: req.params.groupId,
@@ -77,17 +77,17 @@ export const addMembers = (req, res) => {
 }; // end of addMembers
 
 export const getGroups = (req, res) => {
-  const userId = getId(req.headers['x-access-token']);
-  Users.findAll({
-    where: { id: userId },
+  // const userId = getId(req.headers['x-access-token']);
+  Groups.findAll({
+    where: { id: req.params.groupId },
     attributes: {
-      exclude: ['password', 'createdAt', 'updatedAt'],
+      exclude: ['createdAt', 'updatedAt'],
     },
     include: [
       {
-        model: Groups,
+        model: Users,
         attributes: {
-          exclude: ['createdAt', 'updatedAt'],
+          exclude: ['password', 'createdAt', 'updatedAt'],
         },
         through: { attributes: [] },
       },

@@ -18,19 +18,19 @@ const groupAndUserExist = (req, res, next) => {
         if (groups) {
           next();
         } else {
-          res.json({ error: 'User does not exist' });
+          res.status(400).json({ error: 'User does not exist' });
         }
       })
       .catch((error) => {
-        res.json({ error, message: 'user error' });
+        res.status(400).json({ error, message: 'user error' });
       });
     } else {
       console.log(req.params);
-      res.json({ error: 'Group does not exist' });
+      res.status(400).json({ error: 'Group does not exist' });
     }
   })
   .catch((error) => {
-    res.json({ error: error.message });
+    res.status(400).json({ error: error.message });
   });
 };
 export default groupAndUserExist;

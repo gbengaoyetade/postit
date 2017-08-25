@@ -23,6 +23,6 @@ router.post('/group/:groupId/message', groupAndUserExist, createMessage);
 
 router.get('/group/:groupId/messages', groupAndUserExist, getMessages);
 
-router.get('/group', getGroups);
+router.get('/group/:groupId', getGroups);
 
 module.exports = router;
