@@ -102,3 +102,28 @@ export const getGroups = (req, res) => {
   });
 };
 
+export const leaveGroup = (req, res) => {
+  const userId = getId(req.headers['x-access-token']);
+  const groupId = req.params.groupId;
+  Members.findOne({
+    where: { userId, groupId },
+  })
+  .then((member) => {
+    if(member){
+      Members.destroy({
+        where: { userId, groupId },
+      })
+      .then((member) => {
+        res.json('User left group');
+      })
+      .catch((error) => {
+        res.status(400).json(error);
+      });
+    } else{
+      res.status(400).json({error: 'User not a member of the group'});
+    } 
+  })
+  .catch((error) => {
+    res.status(400).json(error);
+  });
+};
