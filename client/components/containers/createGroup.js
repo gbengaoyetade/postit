@@ -4,9 +4,6 @@ import CreateGroupForm from '../presentational/createGroupForm';
 import { sendGroupDetails } from '../../actions/createGroupAction';
 
 class CreateGroup extends React.Component {
-  componentDidMount() {
-    console.log(window.sessionStorage);
-  }
   handleChange(e){
     const name = e.target.name;
     const value = e.target.value;

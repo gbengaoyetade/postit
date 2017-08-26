@@ -6,7 +6,7 @@ import VisitorNav from './visitornav';
 const Login = (props) => {
   let loginValue = '';
   if (props.loading) {
-    loginValue = 'Login in...';
+    loginValue = 'Loging in...';
   } else {
     loginValue = 'Login';
   } 
@@ -27,7 +27,7 @@ const Login = (props) => {
         </div>
         <p className="row"> <input type="submit" value={loginValue} className="btn blue col s8 offset-s2" />
         </p>
-        <p>
+        <p className="center">
           <span> Don't have an account?  </span> 
           <Link to="/signup" className="waves-effect"> Signup </Link>
         </p>

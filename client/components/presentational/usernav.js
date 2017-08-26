@@ -8,22 +8,23 @@ const UserNav = (props) => {
       <nav>
         <div className="nav-wrapper  light-blue darken-4 ">
           <a href="#!" className="left brand-logo hide-on-med-and-down">Postit</a>
-          <a href="#" className="center brand-logo hide-on-med-and-up">Postit</a>
-          <div className="hide-on-med-and-up left" >
+          <a href="#" className="brand-logo hide-on-med-and-up">Postit</a>
+          <div className="hide-on-med-and-up left white-text " >
             <ul id="slide-out" className="side-nav">
-              <li><div className="user-view">
-                <div className="background">
-                  <img src="images/office.jpg" />
-                </div>
-                <a href="#!user"><img className="circle" src="images/yuna.jpg" /></a>
-                <a href="#!name"><span className="white-text name">John Doe</span></a>
-                <a href="#!email"><span className="white-text email">jdandturk@gmail.com</span></a>
-              </div></li>
               <li>
-              <a href="#createGroupModal" className="hide-on-med-and-up modal-trigger">Create Group</a></li>
+              <a href="#createGroupModal" className="hide-on-med-and-up modal-trigger">
+                <i className="material-icons">group_add</i> New Group
+              </a>
+              </li>
+              <li>
+              <Link to="group">
+                <i className="material-icons">group</i> My Groups
+              </Link>
+              </li>
               <li><div className="divider"></div></li>
-              <li><a className="subheader">Subheader</a></li>
-              <li><a className="waves-effect" href="#!">Third Link With Waves</a></li>
+              <li><a className="waves-effect" href="#!">
+                <i className="material-icons">account_circle</i> Profile
+              </a></li>
             </ul>
             <a href="#" data-activates="slide-out" className="button-collapse left">
               <i className="material-icons">menu</i>
@@ -34,7 +35,7 @@ const UserNav = (props) => {
             <li><Link to="#" ><i className="material-icons">notifications</i></Link></li>
             <li><Link to="/user" ><i className="material-icons">account_circle</i></Link></li>
           </ul>
-          <form className="right">
+          <form className="right hide-on-med-and-down">
           <div className="input-field">
             <input id="search" type="search" required />
             <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>

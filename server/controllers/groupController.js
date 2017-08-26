@@ -77,17 +77,17 @@ export const addMembers = (req, res) => {
 }; // end of addMembers
 
 export const getGroups = (req, res) => {
-  // const userId = getId(req.headers['x-access-token']);
-  Groups.findAll({
-    where: { id: req.params.groupId },
+  const userId = getId(req.headers['x-access-token']);
+  Users.findAll({
+    where: { id: userId },
     attributes: {
-      exclude: ['createdAt', 'updatedAt'],
+      exclude: ['password', 'createdAt', 'updatedAt'],
     },
     include: [
       {
-        model: Users,
+        model: Groups,
         attributes: {
-          exclude: ['password', 'createdAt', 'updatedAt'],
+          exclude: ['createdAt', 'updatedAt'],
         },
         through: { attributes: [] },
       },
@@ -97,7 +97,6 @@ export const getGroups = (req, res) => {
     res.json(groups);
   })
   .catch((error) => {
-    console.log(error);
     res.json(error);
   });
 };
@@ -109,7 +108,7 @@ export const leaveGroup = (req, res) => {
     where: { userId, groupId },
   })
   .then((member) => {
-    if(member){
+    if (member) {
       Members.destroy({
         where: { userId, groupId },
       })
@@ -119,7 +118,7 @@ export const leaveGroup = (req, res) => {
       .catch((error) => {
         res.status(400).json(error);
       });
-    } else{
+    } else {
       res.status(400).json({error: 'User not a member of the group'});
     } 
   })

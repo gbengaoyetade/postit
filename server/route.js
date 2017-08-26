@@ -23,7 +23,7 @@ router.post('/group/:groupId/message', groupAndUserExist, createMessage);
 
 router.get('/group/:groupId/messages', groupAndUserExist, getMessages);
 
-router.get('/group/:groupId', groupExist, getGroups);
+router.get('/group', getGroups);
 
 router.delete('/group/:groupId/user', groupExist, leaveGroup);
 

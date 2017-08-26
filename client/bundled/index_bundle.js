@@ -31033,7 +31033,7 @@ var SignupForm = function SignupForm(props) {
           _react2.default.createElement(
             'div',
             { className: 'input-field' },
-            _react2.default.createElement('input', { type: 'text', name: 'fullName', id: 'fullName', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement('input', { type: 'text', name: 'fullName', id: 'fullName', onChange: props.handleChange.bind(undefined), required: true }),
             _react2.default.createElement(
               'label',
               { htmlFor: 'fullName' },
@@ -31043,7 +31043,7 @@ var SignupForm = function SignupForm(props) {
           _react2.default.createElement(
             'div',
             { className: 'input-field' },
-            _react2.default.createElement('input', { type: 'text', name: 'username', id: 'username', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement('input', { type: 'text', name: 'username', id: 'username', onChange: props.handleChange.bind(undefined), required: true }),
             _react2.default.createElement(
               'label',
               { htmlFor: 'username' },
@@ -31053,7 +31053,7 @@ var SignupForm = function SignupForm(props) {
           _react2.default.createElement(
             'div',
             { className: 'input-field' },
-            _react2.default.createElement('input', { type: 'email', name: 'email', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement('input', { type: 'email', name: 'email', onChange: props.handleChange.bind(undefined), required: true }),
             _react2.default.createElement(
               'label',
               { htmlFor: 'email' },
@@ -31063,7 +31063,7 @@ var SignupForm = function SignupForm(props) {
           _react2.default.createElement(
             'div',
             { className: 'input-field' },
-            _react2.default.createElement('input', { type: 'text', name: 'phoneNumber', id: 'phoneNumber', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement('input', { type: 'text', name: 'phoneNumber', id: 'phoneNumber', onChange: props.handleChange.bind(undefined), required: true }),
             _react2.default.createElement(
               'label',
               { htmlFor: 'phoneNumber' },
@@ -31073,7 +31073,7 @@ var SignupForm = function SignupForm(props) {
           _react2.default.createElement(
             'div',
             { className: 'input-field' },
-            _react2.default.createElement('input', { type: 'password', name: 'password', onChange: props.handleChange.bind(undefined) }),
+            _react2.default.createElement('input', { type: 'password', name: 'password', onChange: props.handleChange.bind(undefined), required: true }),
             _react2.default.createElement(
               'label',
               { htmlFor: 'password' },
@@ -31087,7 +31087,7 @@ var SignupForm = function SignupForm(props) {
           ),
           _react2.default.createElement(
             'p',
-            null,
+            { className: 'center' },
             ' Already have and acount? ',
             _react2.default.createElement(
               _reactRouterDom.Link,
@@ -31236,7 +31236,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Login = function Login(props) {
   var loginValue = '';
   if (props.loading) {
-    loginValue = 'Login in...';
+    loginValue = 'Loging in...';
   } else {
     loginValue = 'Login';
   }
@@ -31288,7 +31288,7 @@ var Login = function Login(props) {
           ),
           _react2.default.createElement(
             'p',
-            null,
+            { className: 'center' },
             _react2.default.createElement(
               'span',
               null,
@@ -31324,6 +31324,8 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = __webpack_require__(42);
+
 var _reactRouterDom = __webpack_require__(19);
 
 var _usernav = __webpack_require__(306);
@@ -31333,6 +31335,8 @@ var _usernav2 = _interopRequireDefault(_usernav);
 var _container = __webpack_require__(43);
 
 var _container2 = _interopRequireDefault(_container);
+
+var _createGroupAction = __webpack_require__(309);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31357,10 +31361,36 @@ var Dashboard = function (_React$Component) {
       if (!window.sessionStorage.postitToken) {
         this.props.history.push('/login');
       }
+      console.log(this.props);
+      this.props.getGroups();
     }
   }, {
     key: 'render',
     value: function render() {
+      var groups = void 0;
+      var userGroups = void 0;
+      if (this.props.userGroupSuccess) {
+        groups = this.props.groups.groups;
+        console.log(this.props.groups.groups);
+        userGroups = _react2.default.createElement(
+          'ul',
+          null,
+          groups.map(function (group) {
+            return _react2.default.createElement(
+              'li',
+              { key: group.id },
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/group/' + group.id },
+                '  ',
+                group.groupName,
+                ' '
+              ),
+              ' '
+            );
+          })
+        );
+      }
       return _react2.default.createElement(
         'div',
         null,
@@ -31372,7 +31402,8 @@ var Dashboard = function (_React$Component) {
             'p',
             null,
             'Welcome to the dashboard'
-          )
+          ),
+          userGroups
         )
       );
     }
@@ -31381,7 +31412,20 @@ var Dashboard = function (_React$Component) {
   return Dashboard;
 }(_react2.default.Component);
 
-exports.default = (0, _reactRouterDom.withRouter)(Dashboard);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    groups: state.userGroupReducer,
+    userGroupSuccess: state.getUserGroupSuccess
+  };
+};
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    getGroups: function getGroups() {
+      dispatch((0, _createGroupAction.getGroups)());
+    }
+  };
+};
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Dashboard));
 
 /***/ }),
 /* 306 */
@@ -31423,12 +31467,12 @@ var UserNav = function UserNav(props) {
         ),
         _react2.default.createElement(
           'a',
-          { href: '#', className: 'center brand-logo hide-on-med-and-up' },
+          { href: '#', className: 'brand-logo hide-on-med-and-up' },
           'Postit'
         ),
         _react2.default.createElement(
           'div',
-          { className: 'hide-on-med-and-up left' },
+          { className: 'hide-on-med-and-up left white-text ' },
           _react2.default.createElement(
             'ul',
             { id: 'slide-out', className: 'side-nav' },
@@ -31436,45 +31480,28 @@ var UserNav = function UserNav(props) {
               'li',
               null,
               _react2.default.createElement(
-                'div',
-                { className: 'user-view' },
+                'a',
+                { href: '#createGroupModal', className: 'hide-on-med-and-up modal-trigger' },
                 _react2.default.createElement(
-                  'div',
-                  { className: 'background' },
-                  _react2.default.createElement('img', { src: 'images/office.jpg' })
+                  'i',
+                  { className: 'material-icons' },
+                  'group_add'
                 ),
-                _react2.default.createElement(
-                  'a',
-                  { href: '#!user' },
-                  _react2.default.createElement('img', { className: 'circle', src: 'images/yuna.jpg' })
-                ),
-                _react2.default.createElement(
-                  'a',
-                  { href: '#!name' },
-                  _react2.default.createElement(
-                    'span',
-                    { className: 'white-text name' },
-                    'John Doe'
-                  )
-                ),
-                _react2.default.createElement(
-                  'a',
-                  { href: '#!email' },
-                  _react2.default.createElement(
-                    'span',
-                    { className: 'white-text email' },
-                    'jdandturk@gmail.com'
-                  )
-                )
+                ' New Group'
               )
             ),
             _react2.default.createElement(
               'li',
               null,
               _react2.default.createElement(
-                'a',
-                { href: '#createGroupModal', className: 'hide-on-med-and-up modal-trigger' },
-                'Create Group'
+                _reactRouterDom.Link,
+                { to: 'group' },
+                _react2.default.createElement(
+                  'i',
+                  { className: 'material-icons' },
+                  'group'
+                ),
+                ' My Groups'
               )
             ),
             _react2.default.createElement(
@@ -31487,17 +31514,13 @@ var UserNav = function UserNav(props) {
               null,
               _react2.default.createElement(
                 'a',
-                { className: 'subheader' },
-                'Subheader'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                'a',
                 { className: 'waves-effect', href: '#!' },
-                'Third Link With Waves'
+                _react2.default.createElement(
+                  'i',
+                  { className: 'material-icons' },
+                  'account_circle'
+                ),
+                ' Profile'
               )
             )
           ),
@@ -31543,7 +31566,7 @@ var UserNav = function UserNav(props) {
         ),
         _react2.default.createElement(
           'form',
-          { className: 'right' },
+          { className: 'right hide-on-med-and-down' },
           _react2.default.createElement(
             'div',
             { className: 'input-field' },
@@ -31614,11 +31637,6 @@ var CreateGroup = function (_React$Component) {
   }
 
   _createClass(CreateGroup, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      console.log(window.sessionStorage);
-    }
-  }, {
     key: 'handleChange',
     value: function handleChange(e) {
       var name = e.target.name;
@@ -31734,11 +31752,15 @@ exports.default = groupModal;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.sendGroupDetails = exports.createGroup = undefined;
+exports.getGroups = exports.sendGroupDetails = exports.getUserGroupsSuccess = exports.getUserGroups = exports.createGroup = undefined;
 
 var _axios = __webpack_require__(70);
 
 var _axios2 = _interopRequireDefault(_axios);
+
+var _userGroupsReducer = __webpack_require__(321);
+
+var _userGroupsReducer2 = _interopRequireDefault(_userGroupsReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31746,6 +31768,20 @@ var createGroup = exports.createGroup = function createGroup(group) {
   return {
     type: 'CREATE_GROUP',
     group: group
+  };
+};
+
+var getUserGroups = exports.getUserGroups = function getUserGroups(groups) {
+  return {
+    type: 'GET_USER_GROUPS',
+    groups: groups
+  };
+};
+
+var getUserGroupsSuccess = exports.getUserGroupsSuccess = function getUserGroupsSuccess(payload) {
+  return {
+    type: 'GET_USER_GROUPS_SUCCESS',
+    payload: payload
   };
 };
 
@@ -31758,6 +31794,22 @@ var sendGroupDetails = exports.sendGroupDetails = function sendGroupDetails(grou
       console.log(group);
     }).catch(function (error) {
       console.log(error.response);
+    });
+  };
+};
+
+var getGroups = exports.getGroups = function getGroups() {
+  var headers = {
+    'x-access-token': window.sessionStorage.postitToken
+  };
+  return function (dispatch) {
+    _axios2.default.get('/api/group', { headers: headers }).then(function (groups) {
+      console.log(groups.data[0]);
+      console.log(groups);
+      dispatch(getUserGroups(groups.data[0].groups));
+      dispatch(getUserGroupsSuccess(true));
+    }).catch(function (error) {
+      console.log(error);
     });
   };
 };
@@ -31964,7 +32016,9 @@ var _authError = __webpack_require__(319);
 
 var _groupReducer = __webpack_require__(320);
 
-var _groupReducer2 = _interopRequireDefault(_groupReducer);
+var _userGroupsReducer = __webpack_require__(321);
+
+var _userGroupsReducer2 = _interopRequireDefault(_userGroupsReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31974,9 +32028,10 @@ exports.default = (0, _redux.combineReducers)({
   signupLoading: _itemLoading.signupLoading,
   loginLoading: _itemLoading.loginLoading,
   signupError: _authError.signupError,
-  createGroupReducer: _groupReducer2.default,
+  createGroupReducer: _groupReducer.createGroupReducer,
+  getUserGroupSuccess: _groupReducer.getUserGroupSuccess,
+  userGroupReducer: _userGroupsReducer2.default,
   loginError: _authError.loginError
-
 });
 
 /***/ }),
@@ -32107,7 +32162,7 @@ var loginError = exports.loginError = function loginError() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var createGroupReducer = function createGroupReducer() {
+var createGroupReducer = exports.createGroupReducer = function createGroupReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
@@ -32120,7 +32175,42 @@ var createGroupReducer = function createGroupReducer() {
       return state;
   }
 };
-exports.default = createGroupReducer;
+var getUserGroupSuccess = exports.getUserGroupSuccess = function getUserGroupSuccess() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'GET_USER_GROUPS_SUCCESS':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+/* 321 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var userGroupReducer = function userGroupReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'GET_USER_GROUPS':
+      var newState = Object.assign({}, state);
+      newState.groups = action.groups;
+      return newState;
+    default:
+      return state;
+  }
+};
+exports.default = userGroupReducer;
 
 /***/ })
 /******/ ]);
