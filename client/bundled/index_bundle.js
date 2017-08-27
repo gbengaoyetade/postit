@@ -29899,11 +29899,11 @@ var _dashboard = __webpack_require__(305);
 
 var _dashboard2 = _interopRequireDefault(_dashboard);
 
-var _notfound = __webpack_require__(310);
+var _notfound = __webpack_require__(322);
 
 var _notfound2 = _interopRequireDefault(_notfound);
 
-var _group = __webpack_require__(311);
+var _group = __webpack_require__(323);
 
 var _group2 = _interopRequireDefault(_group);
 
@@ -29921,7 +29921,7 @@ var MyRoutes = function MyRoutes() {
     _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _signup2.default }),
     _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _login2.default }),
     _react2.default.createElement(_reactRouterDom.Route, { path: '/dashboard', component: _dashboard2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/group', component: _group2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/group/:groupId', component: _group2.default }),
     _react2.default.createElement(_reactRouterDom.Route, { path: '*', component: _notfound2.default })
   );
 };
@@ -31752,7 +31752,7 @@ exports.default = groupModal;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getGroups = exports.sendGroupDetails = exports.getUserGroupsSuccess = exports.getUserGroups = exports.createGroup = undefined;
+exports.getGroupMessages = exports.getGroups = exports.sendGroupDetails = exports.getUserGroupsSuccess = exports.getUserGroupMessages = exports.getUserGroups = exports.createGroup = undefined;
 
 var _axios = __webpack_require__(70);
 
@@ -31775,6 +31775,13 @@ var getUserGroups = exports.getUserGroups = function getUserGroups(groups) {
   return {
     type: 'GET_USER_GROUPS',
     groups: groups
+  };
+};
+
+var getUserGroupMessages = exports.getUserGroupMessages = function getUserGroupMessages(messages) {
+  return {
+    type: 'GET_USER_GROUP_MESSAGES',
+    messages: messages
   };
 };
 
@@ -31813,69 +31820,25 @@ var getGroups = exports.getGroups = function getGroups() {
     });
   };
 };
-
-/***/ }),
-/* 310 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var NotFound = function NotFound() {
-  return _react2.default.createElement(
-    'h1',
-    null,
-    ' Page not found on this server '
-  );
+var getGroupMessages = exports.getGroupMessages = function getGroupMessages() {
+  var headers = {
+    'x-access-token': window.sessionStorage.postitToken
+  };
+  return function (dispatch) {
+    _axios2.default.get('/api/group', { headers: headers }).then(function (groups) {
+      console.log(groups.data[0]);
+      console.log(groups);
+      dispatch(getUserGroups(groups.data[0].groups));
+      dispatch(getUserGroupsSuccess(true));
+    }).catch(function (error) {
+      console.log(error);
+    });
+  };
 };
-exports.default = NotFound;
 
 /***/ }),
-/* 311 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// import axios from 'axios';
-
-// class Group extends React.Component{
-//   componentDidMount(){
-//     axios.get('/api/group');
-//   }
-
-// }
-var Group = function Group(props) {
-  console.log(window.sessionStorage.postitToken);
-  return _react2.default.createElement(
-    'h1',
-    null,
-    ' This is the group component '
-  );
-};
-exports.default = Group;
-
-/***/ }),
+/* 310 */,
+/* 311 */,
 /* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32211,6 +32174,149 @@ var userGroupReducer = function userGroupReducer() {
   }
 };
 exports.default = userGroupReducer;
+
+/***/ }),
+/* 322 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NotFound = function NotFound() {
+  return _react2.default.createElement(
+    'h1',
+    null,
+    ' Page not found on this server '
+  );
+};
+exports.default = NotFound;
+
+/***/ }),
+/* 323 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(42);
+
+var _group = __webpack_require__(324);
+
+var _group2 = _interopRequireDefault(_group);
+
+var _usernav = __webpack_require__(306);
+
+var _usernav2 = _interopRequireDefault(_usernav);
+
+var _container = __webpack_require__(43);
+
+var _container2 = _interopRequireDefault(_container);
+
+var _createGroupAction = __webpack_require__(309);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Group = function (_React$Component) {
+  _inherits(Group, _React$Component);
+
+  function Group() {
+    _classCallCheck(this, Group);
+
+    return _possibleConstructorReturn(this, (Group.__proto__ || Object.getPrototypeOf(Group)).apply(this, arguments));
+  }
+
+  _createClass(Group, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.getMessages(this.props.match.params.groupId);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_usernav2.default, null),
+        _react2.default.createElement(
+          _container2.default,
+          null,
+          _react2.default.createElement(_group2.default, { groupId: this.props.match.params.groupId })
+        )
+      );
+    }
+  }]);
+
+  return Group;
+}(_react2.default.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    group: state.groupReducer
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    getMessages: function getMessages(groupId) {
+      dispatch((0, _createGroupAction.getGroupMessages)(groupId));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Group);
+
+/***/ }),
+/* 324 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Group = function Group(props) {
+  console.log(props);
+  return _react2.default.createElement(
+    'h1',
+    null,
+    ' This is the group component'
+  );
+};
+exports.default = Group;
 
 /***/ })
 /******/ ]);

@@ -39,13 +39,13 @@ class Signup extends React.Component {
   }
   render() {
     return (
-        <SignupForm 
-          loading={this.props.isLoading} 
-          error={this.props.error} 
-          validate={this.validateInput.bind(this)} 
-          handleSubmit={this.handleSubmit.bind(this)} 
-          handleChange={this.handleChange.bind(this)} 
-        />
+      <SignupForm 
+        loading={this.props.isLoading} 
+        error={this.props.error} 
+        validate={this.validateInput.bind(this)} 
+        handleSubmit={this.handleSubmit.bind(this)} 
+        handleChange={this.handleChange.bind(this)} 
+      />
       );
   }
 }
