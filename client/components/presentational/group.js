@@ -1,9 +1,11 @@
  import React from 'react';
 
-const Group = (props) => {
-  console.log(props)
+const Group = () => {
   return (
-    <h1> This is the group component</h1>
+    <div>
+      <h1> This is the group component</h1>
+      <a className="btn blue modal-trigger" href="#createMessageModal"> click </a>
+    </div>
     );
 }
 export default Group;

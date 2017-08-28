@@ -5,6 +5,7 @@ import { signupLoading, loginLoading } from './itemLoading';
 import { loginError, signupError } from './authError';
 import { createGroupReducer, getUserGroupSuccess } from './groupReducer';
 import userGroupReducer from './userGroupsReducer';
+import { postMessageReducer, messageSendingReducer } from './messageReducer';
 
 export default combineReducers({
   createAccount,
@@ -14,6 +15,8 @@ export default combineReducers({
   signupError,
   createGroupReducer,
   getUserGroupSuccess,
+  postMessageReducer,
+  messageSendingReducer,
   userGroupReducer,
   loginError,
 });

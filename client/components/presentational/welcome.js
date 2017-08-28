@@ -4,12 +4,15 @@ import Nav from './visitornav';
 import Container from './container';
 
 const Welcome = (props) => {
+  if (window.sessionStorage.postitToken) {
+    this.props.history.push('/dashboard');
+    }
   return (
     <div>
       <Nav />
       <Container>
         <div >
-          <p>It's always better together</p>
+          <p>Messaging is always better when done together.</p>
           <p>Message in groups </p>
           <Link to="signup" className="right btn light-blue darken-4"> Get Started </Link>
         </div>

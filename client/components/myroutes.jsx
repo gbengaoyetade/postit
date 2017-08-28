@@ -13,7 +13,7 @@ const MyRoutes = () => (
     <Route path="/signup" component={Signup} />
     <Route path="/login" component={Login} />
     <Route path="/dashboard" component={Dashboard} />
-    <Route path="/group/:groupId" component={Group} />
+    <Route exact path="/group" component={Group} />
     <Route path="*" component={NotFound} />
   </Switch>
 );
