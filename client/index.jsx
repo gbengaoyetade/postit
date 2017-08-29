@@ -5,21 +5,12 @@ import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import MyRoute from './components/myroutes.jsx';
 import store from './store';
-// import Dashboard from './components/dashboard';
+// import './scss/postit.scss';
 
-class App extends React.Component {
-  render () {
-    return (
-      <div>
-      <p> Hello welcome to React! {this.props.value}</p>
-      </div>
-      );
-  }
-}
 
 render(
   <Provider store={store}>
-  <BrowserRouter >
+    <BrowserRouter >
       <MyRoute history={createBrowserHistory}/>
-  </BrowserRouter>
+    </BrowserRouter>
   </Provider>, document.getElementById('app'));
