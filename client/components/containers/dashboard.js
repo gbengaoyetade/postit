@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
       <div>
       <UserNav />
       <Home>
-        <p>Welcome to the dashboard</p>
+        <p className='align-center'>Your groups</p>
         {userGroups}
       </Home>
       </div>

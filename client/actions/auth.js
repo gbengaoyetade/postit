@@ -54,8 +54,14 @@ export const loginUser = (user) => {
     })
     .catch((error) => {
       dispatch(loginLoading(false));
-      if (error.response.data.message) {
-        dispatch(loginError(error.response.data.message));
+      let errorMessage;
+      if (error.response.data.message || error.response.data.name) {
+        if (error.response.data.name === 'SequelizeHostNotFoundError') {
+          errorMessage = 'Internet connection error';
+        } else if (error.response.data.name === 'TimeoutError') {
+          errorMessage = 'Request timed out';
+        } 
+        dispatch(loginError(error.response.data.message || errorMessage || error.response.data.name));
       }
       console.log(error.response);
     });

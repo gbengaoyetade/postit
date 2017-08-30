@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import GroupForm from '../containers/createGroup';
 
 const UserNav = (props) => {
+    const logout =  () => {
+    window.sessionStorage.postitToken = '';
+    window.location.refresh();
+    // props.history.push('/login');
+  };
   return (
     <div>
       <nav>
@@ -21,10 +26,14 @@ const UserNav = (props) => {
                 <i className="material-icons">group</i> My Groups
               </Link>
               </li>
+
               <li><div className="divider"></div></li>
               <li><a className="waves-effect" href="#!">
                 <i className="material-icons">account_circle</i> Profile
               </a></li>
+              <li>
+                <i className="material-icons"></i><Link to="#" onClick={logout}>Logout</Link>
+              </li>
             </ul>
             <a href="#" data-activates="slide-out" className="button-collapse left">
               <i className="material-icons">menu</i>
@@ -34,6 +43,7 @@ const UserNav = (props) => {
           <ul className="right hide-on-med-and-down">
             <li><Link to="#" ><i className="material-icons">notifications</i></Link></li>
             <li><Link to="/user" ><i className="material-icons">account_circle</i></Link></li>
+            <li><Link to="#" onClick={logout}>Logout</Link></li>
           </ul>
           <form className="right hide-on-med-and-down">
           <div className="input-field">

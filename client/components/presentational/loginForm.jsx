@@ -27,9 +27,13 @@ const Login = (props) => {
         </div>
         <p className="row"> <input type="submit" value={loginValue} className="btn blue col s8 offset-s2" />
         </p>
+        
         <p className="center">
           <span> Don't have an account?  </span> 
           <Link to="/signup" className="waves-effect"> Signup </Link>
+        </p>
+        <p className="center">
+          <Link to="/login/recover" className="waves-effect">Forgot password</Link>
         </p>
       </form>
       </div>

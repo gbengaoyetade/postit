@@ -13,7 +13,7 @@ module.exports = {
       {
         test: /\.jsx?/,
         include: /client/,
-        loader: 'babel-loader',
+        loaders: ['react-hot-loader', 'babel-loader'],
       },
       {
         test: /\.scss$/,
@@ -28,3 +28,4 @@ module.exports = {
     }),
   ],
 };
+  
