@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import GroupForm from '../containers/createGroup';
 
 const UserNav = (props) => {
-    const logout =  () => {
+  const logout = () => {
     window.sessionStorage.postitToken = '';
-    window.location.refresh();
-    // props.history.push('/login');
+    props.history.push('/login');
+  // props.history.push('/login');
   };
   return (
     <div>
@@ -32,7 +32,7 @@ const UserNav = (props) => {
                 <i className="material-icons">account_circle</i> Profile
               </a></li>
               <li>
-                <i className="material-icons"></i><Link to="#" onClick={logout}>Logout</Link>
+                <Link to="#" onClick={logout}><i className="material-icons"></i>Logout</Link>
               </li>
             </ul>
             <a href="#" data-activates="slide-out" className="button-collapse left">
@@ -58,4 +58,4 @@ const UserNav = (props) => {
     </div>
     );
 }
-export default UserNav;
+export default withRouter(UserNav);

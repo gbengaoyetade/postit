@@ -13706,7 +13706,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var UserNav = function UserNav(props) {
   var logout = function logout() {
     window.sessionStorage.postitToken = '';
-    window.location.refresh();
+    props.history.push('/login');
     // props.history.push('/login');
   };
   return _react2.default.createElement(
@@ -13784,10 +13784,10 @@ var UserNav = function UserNav(props) {
             _react2.default.createElement(
               'li',
               null,
-              _react2.default.createElement('i', { className: 'material-icons' }),
               _react2.default.createElement(
                 _reactRouterDom.Link,
                 { to: '#', onClick: logout },
+                _react2.default.createElement('i', { className: 'material-icons' }),
                 'Logout'
               )
             )
@@ -13869,7 +13869,7 @@ var UserNav = function UserNav(props) {
     )
   );
 };
-exports.default = UserNav;
+exports.default = (0, _reactRouterDom.withRouter)(UserNav);
 
 /* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/gbenga/Desktop/PostIt-Gbenga/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "usernav.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 

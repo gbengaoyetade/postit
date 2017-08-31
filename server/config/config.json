@@ -1,10 +1,10 @@
 {
   "development": {
-    "use_env_variable": "DEV_DB",
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl" : true
-    }
+    "username": "gbenga",
+    "password": "password",
+    "database": "postit",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
