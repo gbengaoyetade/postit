@@ -6,7 +6,6 @@ const UserNav = (props) => {
   const logout = () => {
     window.sessionStorage.postitToken = '';
     props.history.push('/login');
-  // props.history.push('/login');
   };
   return (
     <div>

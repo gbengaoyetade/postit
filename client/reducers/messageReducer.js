@@ -1,5 +1,5 @@
-export const postMessageReducer = (state = {}, action) => {
-  switch(action.type){
+export const postMessageReducer = (state = {messageBody: '', messagePriority: 'Normal'}, action) => {
+  switch (action.type) {
     case 'POST_MESSAGE':
       const newState = Object.assign({}, state);
       newState.message = action.message;
@@ -9,7 +9,7 @@ export const postMessageReducer = (state = {}, action) => {
   }
 };
 export const messageSendingReducer = (state = false, action) => {
-  switch(action.type){
+  switch (action.type) {
     case 'MESSAGE_SENDING':
       return action.type;
     default:

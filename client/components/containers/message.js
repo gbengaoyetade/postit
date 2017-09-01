@@ -14,7 +14,7 @@ class Message extends React.Component {
     console.log(this.props);
   }
   handleSubmit(event){
-    event.preventDefault;
+    event.preventDefault();
     this.props.postMessage(this.props.message, 1);
   }
   render() {
@@ -23,6 +23,7 @@ class Message extends React.Component {
         <MessageForm 
           handleSubmit={this.handleSubmit.bind(this)}
           handleChange={this.handleChange.bind(this)}
+          priority={this.props.message.priority}
         />
       </div>
     );

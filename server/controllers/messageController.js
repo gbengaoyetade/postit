@@ -27,7 +27,7 @@ export const createMessage = (req, res) => {
         error: error.errors[0].message,
         message: 'Could not create message',
       };
-      res.status(201).json(data);
+      res.status(400).json(data);
     });
   } else {
     res.status(400).json({ error: validateReturn });

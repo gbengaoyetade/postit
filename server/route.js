@@ -19,7 +19,7 @@ router.post('/group', create);
 
 router.post('/group/:groupId/user', groupAndUserExist, addMembers);
 
-router.post('/group/:groupId/message', groupAndUserExist, createMessage);
+router.post('/group/:groupId/message', createMessage);
 
 router.get('/group/:groupId/messages', groupAndUserExist, getMessages);
 

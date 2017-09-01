@@ -5,7 +5,7 @@ import Container from './container';
 
 const Welcome = (props) => {
   if (window.sessionStorage.postitToken) {
-    this.props.history.push('/dashboard');
+    props.history.push('/dashboard');
     }
   return (
     <div>
