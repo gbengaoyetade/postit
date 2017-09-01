@@ -43,21 +43,46 @@ describe('Signup tests', () => {
 // Test for the group controller
 describe('group test', () => {
   it('Create group route should be defined ', (done) => {
-    supertest(app).post('/api/group').set('x-access-token', token).send().end((err, res) => {
+    supertest(app).post('/api/group').set('x-access-token', token).send()
+    .end((err, res) => {
       assert.equal(res.body.message, 'groupName field not provided');
       done();
     });
   });
-   it('Empty group name should flag an error', (done) => {
-    supertest(app).post('/api/group').set('x-access-token', token).send(data).end((err, res) => {
+  it('Should detect if gourpName field is not provided', (done) => {
+    supertest(app).post('/api/group').set('x-access-token', token).send(data)
+    .end((err, res) => {
       assert.equal(res.body.message, 'groupName field not provided');
+      done();
+    });
+  });
+  it('Should detect empty groupName', (done) => {
+    const groupData = { groupName: '  ', groupDescription: '' };
+    supertest(app).post('/api/group').set('x-access-token', token).send(groupData)
+    .end((err, res) => {
+      assert.equal(res.body.error[0].message, 'Group name cannot be empty');
       done();
     });
   });
   it('Should detect if group description field is not provided', (done) => {
     const groupData = { groupName: 'react leaders' };
-    supertest(app).post('/api/group').set('x-access-token', token).send(groupData).end((err, res) => {
+    supertest(app).post('/api/group').set('x-access-token', token).send(groupData)
+    .end((err, res) => {
       assert.equal(res.body.message, 'groupDescription field not provided');
+      done();
+    });
+  });
+  it('Add member function should be defined', (done) => {
+    const groupData = { userId: 1 };
+    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData).end((err, res) => {
+      assert.equal(res.statusCode, 200);
+      done();
+    });
+  });
+  it('Add member should detect if user is already a member of the group', (done) => {
+    const groupData = { userId: 1 };
+    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData).end((err, res) => {
+      assert.isOk(res.body.member);
       done();
     });
   });

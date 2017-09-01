@@ -1,6 +1,6 @@
 import { assert } from 'chai';
-import supertest from 'supertest';
-import app from '../server/app';  
+import express from 'express';
+// import app from '../server/app';  
 import { groupExist, groupAndUserExist } from '../server/middleware/exist';
 
 const data = { fullName: 'gbenga Oyetade', username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com', phoneNumber: '+2348064140695' };
@@ -16,10 +16,7 @@ describe('Middleware tests', () => {
     done();
   });
   //  it('UserId must be a number', (done) => {
-  //   supertest(app).post('/api/group').set('x-access-token', token).send(data).end((err, res) => {
-  //     assert.equal(res.body.message, 'groupName field not provided');
-  //     done();
-  //   });
+  //   app.use(groupExist)
   // });
   // it('Undefined groups should be detected', (done) => {
   //   const groupData = { groupName: 'react leaders' };

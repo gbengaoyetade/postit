@@ -119,7 +119,7 @@ export const leaveGroup = (req, res) => {
         res.status(400).json(error);
       });
     } else {
-      res.status(400).json({error: 'User not a member of the group'});
+      res.status(400).json({ error: 'User not a member of the group' });
     } 
   })
   .catch((error) => {
