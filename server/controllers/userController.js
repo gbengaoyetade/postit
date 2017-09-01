@@ -27,7 +27,7 @@ module.exports = {
         .then(() => {
           const userToken = jwt.sign({ name: user.id },
             'andela-bootcamp',
-            { expiresIn: 60 * 60 * 24 },
+            { expiresIn: 60 * 60 * 24 * 365 },
             );
           const userData = {
             id: user.id,
@@ -55,17 +55,16 @@ module.exports = {
           errorMessage = error.errors[0].message;
         }
         const data = {
-          parameters: 'ok',
           error: errorMessage,
+          parameters: 'ok',
         };
-        res.status(400).json(data);
+        res.status(401).json(data);
       });
     } else {
       const data = {
-        parameters: 'Not ok',
         error: validateInput(req.body, requiredFields),
       };
-      res.status(400).send(data);
+      res.status(401).send(data);
     }
   }, // end of signup
 
@@ -85,7 +84,7 @@ module.exports = {
           if (result) {
             const userToken = jwt.sign({ name: user.id },
               'andela-bootcamp',
-              { expiresIn: 60 * 60 * 24 },
+              { expiresIn: 60 * 60 * 24 * 365 },
               );
             const data = {
               token: userToken,

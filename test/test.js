@@ -1,9 +1,10 @@
 import { assert } from 'chai';
 import supertest from 'supertest';
 import app from '../server/app';
+import exist from '../server/middleware/exist';
 
-const data = { username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com' };
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoxLCJpYXQiOjE1MDIxMjU5NzEsImV4cCI6MTUzMzY2MTk3MX0.jOSzQjOPXsUjacqwT6HQ5lC-eys_gSgqj-gOC75-eXs';
+const data = { fullName: 'gbenga Oyetade', username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com', phoneNumber: '+2348064140695' };
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoyLCJpYXQiOjE1MDQyODk2NzYsImV4cCI6MTUzNTgyNTY3Nn0.x3Kd6Iyc-8-RU8y5Z_-80kcXPF8IlteXqhVANJW6BQM';
 describe('Signup tests', () => {
   it('signup post url should be defined', (done) => {
     supertest(app).post('/api/user/signup').send().end((err, res) => {
@@ -24,14 +25,14 @@ describe('Signup tests', () => {
     });
   });
   it('should make sure password parameter is at least 6 characters', (done) => {
-    const user = { username: 'gbenga_ps', password: 'pass', email: 'ioyetade@gmail.com' };
+    const user = { fullName: 'gbenga Oyetade', username: 'gbenga_ps', password: 'pass', email: 'ioyetade@gmail.com', phoneNumber: '+2348064140695' };
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
       assert.equal(res.body.error, 'Password must be at least 6 characters');
       done();
     });
   });
   it('should detect if username contains special characters', (done) => {
-    const user = { username: '$gbenga_ps', password: 'password', email: 'ioyetade2@gmail.com' };
+    const user = { fullName: 'gbenga Oyetade', username: '$gbenga_ps', password: 'password', email: 'ioyetade2@gmail.com', phoneNumber: '+2348064140695' };
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
       assert.equal(res.body.error, 'Username cannot contain special characters aside from _');
       done();
@@ -43,7 +44,7 @@ describe('Signup tests', () => {
 describe('group test', () => {
   it('Create group route should be defined ', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send().end((err, res) => {
-      assert.equal(res.statusCode, 200);
+      assert.equal(res.body.message, 'groupName field not provided');
       done();
     });
   });
@@ -90,9 +91,21 @@ describe('Login', () => {
 // General Application tests
 
 describe('General tests', () => {
-  it('Undefined urls should return 404 statusCode', (done) => {
+  it('Undefined GET urls should return 404 statusCode', (done) => {
     supertest(app).get('/whatever').send().end((err, res) => {
       assert.equal(res.statusCode, 404);
+      done();
+    });
+  });
+  it('Undefined POST urls should return 404 statusCode', (done) => {
+    supertest(app).post('/whatever').send().end((err, res) => {
+      assert.equal(res.statusCode, 404);
+      done();
+    });
+  });
+  it('Undefined POST urls should return a message', (done) => {
+    supertest(app).post('/whatever').send().end((err, res) => {
+      assert.isOk(res.body.message);
       done();
     });
   });
@@ -112,13 +125,6 @@ describe('Authenticate', () => {
   it('should detect if token is invalid', (done) => {
     supertest(app).get('/api/group').set('x-access-token', 'invalid token').send().end((err, res) => {
       assert.equal(res.body.message, 'Token authentication failure');
-      done();
-    });
-  });
-  it('should detect if user is logged out', (done) => {
-    const token2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjo0LCJpYXQiOjE1MDIxMjYwNjcsImV4cCI6MTUzMzY2MjA2N30.UUxPoocmCvNtCGUl1OIbZ_-FbdO77ankB6VfqT-V-b0';
-    supertest(app).get('/api/group').set('x-access-token', token2).send().end((err, res) => {
-      assert.equal(res.body.message, 'You are not logged in');
       done();
     });
   });
