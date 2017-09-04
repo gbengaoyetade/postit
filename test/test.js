@@ -1,11 +1,42 @@
 import { assert } from 'chai';
 import supertest from 'supertest';
 import app from '../server/app';
-import exist from '../server/middleware/exist';
+import db from '../server/models/';
+// import exist from '../middleware/exist';
 
-const data = { fullName: 'gbenga Oyetade', username: 'gbenga_ps', password: 'some password', email: 'ioyetadegmail.com', phoneNumber: '+2348064140695' };
+process.env.NODE_ENV = 'test';
+
+const data = { fullName: 'gbenga Oyetade', username: 'apptest', password: 'some password', email: 'apptest@gmail.com', phoneNumber: '+2348064140695' };
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoyLCJpYXQiOjE1MDQyODk2NzYsImV4cCI6MTUzNTgyNTY3Nn0.x3Kd6Iyc-8-RU8y5Z_-80kcXPF8IlteXqhVANJW6BQM';
+describe('before running test', () => {
+  before((done) => {
+    db.sequelize.sync()
+    .then((value) => {
+      db.users.destroy({ truncate: true });
+      console.log(value);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    done();
+  });
+
+});
 describe('Signup tests', () => {
+
+  beforeEach(() => {
+    db.users.destroy({ truncate: true })
+    .then(() => {
+      db.users.create(data)
+    .then((user) => {
+      console.log(user);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  
+    })
+      });
   it('signup post url should be defined', (done) => {
     supertest(app).post('/api/user/signup').send().end((err, res) => {
       assert.equal(res.statusCode, 401);
@@ -49,6 +80,20 @@ describe('group test', () => {
       done();
     });
   });
+  it('Leave group should detect if group exist', (done) => {
+    supertest(app).delete('/api/group/10000000/user').set('x-access-token', token).send()
+    .end((err, res) => {
+      assert.equal(res.body.error, 'Group does not exist');
+      done();
+    });
+  });
+  it('Leave group should detect if user belongs to group', (done) => {
+    supertest(app).delete('/api/group/1/user').set('x-access-token', token).send()
+    .end((err, res) => {
+      assert.equal(res.body.error.message, 'User not a member of the group');
+      done();
+    });
+  });
   it('Should detect if gourpName field is not provided', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send(data)
     .end((err, res) => {
@@ -82,7 +127,7 @@ describe('group test', () => {
   it('Add member should detect if user is already a member of the group', (done) => {
     const groupData = { userId: 1 };
     supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData).end((err, res) => {
-      assert.isOk(res.body.member);
+      assert.equal(res.body, 'message');
       done();
     });
   });
