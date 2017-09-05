@@ -47,7 +47,7 @@ module.exports = {
       })
       .catch((error) => {
         let errorMessage;
-        if (error.errors[0].message === 'username must be unique') {
+        if (error.errors.message === 'username must be unique') {
           errorMessage = 'Username not available';
         } else if (error.errors[0].message === 'email must be unique') {
           errorMessage = 'Email address already in use';

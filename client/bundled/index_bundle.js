@@ -13286,6 +13286,7 @@ var UserNav = function UserNav(props) {
     window.sessionStorage.postitToken = '';
     props.history.push('/login');
   };
+  console.log('UserNav');
   return _react2.default.createElement(
     'div',
     null,
@@ -13296,8 +13297,8 @@ var UserNav = function UserNav(props) {
         'div',
         { className: 'nav-wrapper  light-blue darken-4 ' },
         _react2.default.createElement(
-          'a',
-          { href: '#!', className: 'left brand-logo hide-on-med-and-down' },
+          _reactRouterDom.Link,
+          { to: '#', className: 'left brand-logo hide-on-med-and-down' },
           'Postit'
         ),
         _react2.default.createElement(
@@ -13315,8 +13316,8 @@ var UserNav = function UserNav(props) {
               'li',
               null,
               _react2.default.createElement(
-                'a',
-                { href: '#createGroupModal', className: 'hide-on-med-and-up modal-trigger' },
+                _reactRouterDom.Link,
+                { to: '#', className: 'hide-on-med-and-up modal-trigger' },
                 _react2.default.createElement(
                   'i',
                   { className: 'material-icons' },
@@ -13348,8 +13349,8 @@ var UserNav = function UserNav(props) {
               'li',
               null,
               _react2.default.createElement(
-                'a',
-                { className: 'waves-effect', href: '#!' },
+                _reactRouterDom.Link,
+                { className: 'waves-effect', to: '#' },
                 _react2.default.createElement(
                   'i',
                   { className: 'material-icons' },
@@ -13370,8 +13371,8 @@ var UserNav = function UserNav(props) {
             )
           ),
           _react2.default.createElement(
-            'a',
-            { href: '#', 'data-activates': 'slide-out', className: 'button-collapse left' },
+            _reactRouterDom.Link,
+            { to: '#', 'data-activates': 'slide-out', className: 'button-collapse left' },
             _react2.default.createElement(
               'i',
               { className: 'material-icons' },
@@ -29098,7 +29099,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var MyRoutes = function MyRoutes() {
   return _react2.default.createElement(
-    _reactRouterDom.BrowserRouter,
+    _reactRouterDom.HashRouter,
     null,
     _react2.default.createElement(
       _reactRouterDom.Switch,
@@ -30579,7 +30580,10 @@ var Dashboard = function (_React$Component) {
 
   _createClass(Dashboard, [{
     key: 'componentWillMount',
-    value: function componentWillMount() {
+    value: function componentWillMount() {}
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       if (!window.sessionStorage.postitToken) {
         this.props.history.push('/login');
       }
@@ -30900,7 +30904,6 @@ var Group = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_usernav2.default, null),
         _react2.default.createElement(
           _container2.default,
           null,

@@ -7,18 +7,19 @@ const UserNav = (props) => {
     window.sessionStorage.postitToken = '';
     props.history.push('/login');
   };
+  console.log('UserNav');
   return (
     <div>
       <nav>
         <div className="nav-wrapper  light-blue darken-4 ">
-          <a href="#!" className="left brand-logo hide-on-med-and-down">Postit</a>
+          <Link to="#" className="left brand-logo hide-on-med-and-down">Postit</Link>
           <a href="#" className="brand-logo hide-on-med-and-up">Postit</a>
           <div className="hide-on-med-and-up left white-text " >
             <ul id="slide-out" className="side-nav">
               <li>
-              <a href="#createGroupModal" className="hide-on-med-and-up modal-trigger">
+              <Link to="#" className="hide-on-med-and-up modal-trigger">
                 <i className="material-icons">group_add</i> New Group
-              </a>
+              </Link>
               </li>
               <li>
               <Link to="group">
@@ -27,16 +28,16 @@ const UserNav = (props) => {
               </li>
 
               <li><div className="divider"></div></li>
-              <li><a className="waves-effect" href="#!">
+              <li><Link className="waves-effect" to="#">
                 <i className="material-icons">account_circle</i> Profile
-              </a></li>
+              </Link></li>
               <li>
                 <Link to="#" onClick={logout}><i className="material-icons"></i>Logout</Link>
               </li>
             </ul>
-            <a href="#" data-activates="slide-out" className="button-collapse left">
+            <Link to="#" data-activates="slide-out" className="button-collapse left">
               <i className="material-icons">menu</i>
-            </a>
+            </Link>
           </div>
           
           <ul className="right hide-on-med-and-down">

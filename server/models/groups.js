@@ -25,6 +25,7 @@ export default (sequelize, DataTypes) => {
     Groups.belongsToMany(models.users, {
       through: models.groupMembers,
       foreignKey: 'groupId',
+      onDelete: 'cascade',
     });
   };
   return Groups;

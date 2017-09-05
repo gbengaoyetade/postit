@@ -7,12 +7,15 @@ import { getGroups } from '../../actions/createGroupAction';
 
 class Dashboard extends React.Component {
   componentWillMount () {
+
+  }
+  componentDidMount () {
     if (!window.sessionStorage.postitToken) {
        this.props.history.push('/login');
     }
     console.log(this.props);
     this.props.getGroups();
-  }
+  }  
   render() {
     let groups;
     let userGroups;

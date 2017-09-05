@@ -13,7 +13,6 @@ class Group extends React.Component{
   render(){
     return (
       <div>
-        <UserNav />
         <Container>
         <GroupPage />
         <Message/>

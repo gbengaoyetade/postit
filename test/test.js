@@ -8,24 +8,21 @@ process.env.NODE_ENV = 'test';
 
 const data = { fullName: 'gbenga Oyetade', username: 'apptest', password: 'some password', email: 'apptest@gmail.com', phoneNumber: '+2348064140695' };
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoyLCJpYXQiOjE1MDQyODk2NzYsImV4cCI6MTUzNTgyNTY3Nn0.x3Kd6Iyc-8-RU8y5Z_-80kcXPF8IlteXqhVANJW6BQM';
-describe('before running test', () => {
-  before((done) => {
-    db.sequelize.sync()
+db.sequelize.sync( { force: true })
     .then((value) => {
-      db.users.destroy({ truncate: true });
+      db.users.destroy();
       console.log(value);
     })
     .catch((error) => {
       console.log(error);
-    });
-    done();
-  });
-
-});
+    }); 
 describe('Signup tests', () => {
-
   beforeEach(() => {
-    db.users.destroy({ truncate: true })
+    db.users.destroy({
+    cascade: true,
+    truncate: true,
+    restartIdentity: true
+    })
     .then(() => {
       db.users.create(data)
     .then((user) => {
@@ -34,9 +31,8 @@ describe('Signup tests', () => {
     .catch((error) => {
       console.log(error);
     })
-  
     })
-      });
+    });
   it('signup post url should be defined', (done) => {
     supertest(app).post('/api/user/signup').send().end((err, res) => {
       assert.equal(res.statusCode, 401);
@@ -50,7 +46,8 @@ describe('Signup tests', () => {
     });
   });
   it('should detect invalid email address', (done) => {
-    supertest(app).post('/api/user/signup').send(data).end((err, res) => {
+    const wrongEmail = { fullName: 'gbenga Oyetade', username: 'apptest', password: 'some password', email: 'apptestgmail.com', phoneNumber: '+2348064140695' };
+    supertest(app).post('/api/user/signup').send(wrongEmail).end((err, res) => {
       assert.equal(res.body.error, 'Invalid email address supplied');
       done();
     });
@@ -73,6 +70,18 @@ describe('Signup tests', () => {
 
 // Test for the group controller
 describe('group test', () => {
+  beforeEach(() => {
+    db.users.destroy({ truncate: true })
+    .then(() => {
+      db.users.create(data)
+    .then((user) => {
+      console.log(user);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    })
+    });
   it('Create group route should be defined ', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send()
     .end((err, res) => {
@@ -127,7 +136,7 @@ describe('group test', () => {
   it('Add member should detect if user is already a member of the group', (done) => {
     const groupData = { userId: 1 };
     supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData).end((err, res) => {
-      assert.equal(res.body, 'message');
+      assert.equal(res.body.error, 'User already a member of this group');
       done();
     });
   });
@@ -135,6 +144,18 @@ describe('group test', () => {
 
 // Login tests
 describe('Login', () => {
+   beforeEach(() => {
+    db.users.destroy({ truncate: true })
+    .then(() => {
+      db.users.create(data)
+    .then((user) => {
+      console.log(user);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    })
+      });
   it('Return 401 error if user does not exist', (done) => {
     const user = {
       username: 'does not exist',
@@ -146,11 +167,8 @@ describe('Login', () => {
     });
   });
   it('Return a token on successful login', (done) => {
-    const user = {
-      username: 'test',
-      password: 'password',
-    };
-    supertest(app).post('/api/user/signin').send(user).end((err, res) => {
+  
+    supertest(app).post('/api/user/signin').send(data).end((err, res) => {
       assert.isOk(res.body.token);
       done();
     });
@@ -199,3 +217,5 @@ describe('Authenticate', () => {
     });
   });
 });
+
+// require('dotenv').config();
