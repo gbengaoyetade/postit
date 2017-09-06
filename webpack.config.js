@@ -1,19 +1,23 @@
-const webpack = require('webpack');
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+import webpack from 'webpack';
+import path from 'path';
 
-module.exports = {
-  entry: './client/index.jsx',
+export default{
+  devtool: 'eval-source-map',
+  entry: [
+    'webpack-hot-middleware/client',
+    './client/index.jsx',
+  ],
   output: {
     path: path.resolve('./client/bundled'),
     filename: 'index_bundle.js',
+    publicPath: path.resolve('./client/bundled'),
   },
   module: {
     loaders: [
       {
         test: /\.jsx?/,
         include: /client/,
-        loaders: ['babel-loader'],
+        loaders: ['react-hot-loader', 'babel-loader'],
       },
       {
         test: /\.scss$/,
@@ -22,14 +26,13 @@ module.exports = {
       },
     ],
   },
-  devServer: {
-    port: 3000,
-    historyApiFallback: true,
-  },
   plugins: [
-    new ExtractTextPlugin('./client/scss/posit.scss', {
-      allChunks: true,
+    new webpack.LoaderOptionsPlugin({
+      debug: true,
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+
   ],
 };
-  

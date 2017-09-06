@@ -19,7 +19,7 @@ const Login = (props) => {
       <form method="POST" onSubmit={props.handleSubmit.bind(this)} >
         <div className="input-field">
           <input type="text" name="username" id="username" onChange={props.handleChange.bind(this)}/>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username"><i className="material-icons">account_circle</i> Username</label>
         </div> 
         <div className="input-field">
           <input type="password" name="password" id="password" onChange={props.handleChange.bind(this)}/>
@@ -29,7 +29,7 @@ const Login = (props) => {
         </p>
         
         <p className="center">
-          <span> Don't have an account?  </span> 
+          <span> Don't have an account?  arefwdfdfesdfafadfad</span> 
           <Link to="/signup" className="waves-effect"> Signup </Link>
         </p>
         <p className="center">

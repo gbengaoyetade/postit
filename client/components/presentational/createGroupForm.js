@@ -8,7 +8,7 @@ const groupModal = (props) => {
           <form method="POST"  className="white-text" onSubmit={props.handleSubmit}>
           <div className="input-field">
             <input type="text" name="groupName" id="groupName" onChange={props.handleChange} required/>
-            <label htmlFor="groupName"  >Group Name</label>
+            <label htmlFor="groupName" >Group Name</label>
           </div> 
           <div className="input-field">
             <input type="text" name="groupDescription" id="groupDescription" onChange={props.handleChange} required/>

@@ -6,20 +6,20 @@ import Home from '../presentational/container';
 import { getGroups } from '../../actions/createGroupAction';
 
 class Dashboard extends React.Component {
-  componentWillMount () {
+  componentWillMount() {
 
   }
-  componentDidMount () {
+  componentDidMount() {
     // if (!window.sessionStorage.postitToken) {
     //    this.props.history.push('/login');
     // }
     console.log(this.props);
     this.props.getGroups();
-  }  
+  }
   render() {
     let groups;
     let userGroups;
-    if(this.props.userGroupSuccess){
+    if (this.props.userGroupSuccess){
       groups = this.props.groups.groups;
       console.log(this.props.groups.groups);
       userGroups = <ul>

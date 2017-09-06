@@ -3,18 +3,24 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config';
 import router from './route';
 import { verifyToken } from './includes/functions';
 
 const app = express();
-
+const compiler = webpack(webpackConfig);
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(webpackMiddleware(webpack(webpackConfig)));
+app.use(webpackMiddleware(compiler));
 
+app.use(webpackHotMiddleware(compiler, {
+  hot: true,
+  noInfo: true,
+  publicPath: webpackConfig.output.publicPath,
+}));
 app.use(express.static(path.join(__dirname, '../client')));
 
 app.use('/api', router);
