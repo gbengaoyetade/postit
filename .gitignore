@@ -1,6 +1,5 @@
 package-lock.json
 node_modules/
 coverage/lcov-report/
-.env
 .nyc_output/
 coverage/
