@@ -1,6 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackConfig from '../webpack.config';
 import router from './route';
 import { verifyToken } from './includes/functions';
 
@@ -9,6 +12,8 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(webpackMiddleware(webpack(webpackConfig)));
 
 app.use(express.static(path.join(__dirname, '../client')));
 

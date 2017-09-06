@@ -4,8 +4,6 @@ import app from '../server/app';
 import db from '../server/models/';
 // import exist from '../middleware/exist';
 
-process.env.NODE_ENV = 'test';
-
 const data = { fullName: 'gbenga Oyetade', username: 'apptest', password: 'some password', email: 'apptest@gmail.com', phoneNumber: '+2348064140695' };
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoyLCJpYXQiOjE1MDQyODk2NzYsImV4cCI6MTUzNTgyNTY3Nn0.x3Kd6Iyc-8-RU8y5Z_-80kcXPF8IlteXqhVANJW6BQM';
 db.sequelize.sync( { force: true })
