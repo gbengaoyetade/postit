@@ -10,9 +10,9 @@ class Dashboard extends React.Component {
 
   }
   componentDidMount () {
-    if (!window.sessionStorage.postitToken) {
-       this.props.history.push('/login');
-    }
+    // if (!window.sessionStorage.postitToken) {
+    //    this.props.history.push('/login');
+    // }
     console.log(this.props);
     this.props.getGroups();
   }  

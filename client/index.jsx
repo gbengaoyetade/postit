@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import MyRoute from './components/myroutes.jsx';
 import store from './store';
-// import './postit.scss';
+import './scss/postit.scss';
 
 
 render(

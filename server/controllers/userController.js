@@ -46,16 +46,16 @@ module.exports = {
         });
       })
       .catch((error) => {
-        let errorMessage;
-        if (error.errors.message === 'username must be unique') {
-          errorMessage = 'Username not available';
-        } else if (error.errors[0].message === 'email must be unique') {
-          errorMessage = 'Email address already in use';
-        } else {
-          errorMessage = error.errors[0].message;
-        }
+        // let errorMessage;
+        // if (error.errors.message === 'username must be unique') {
+        //   errorMessage = 'Username not available';
+        // } else if (error.errors[0].message === 'email must be unique') {
+        //   errorMessage = 'Email address already in use';
+        // } else {
+        //   errorMessage = error.errors[0].message;
+        // }
         const data = {
-          error: errorMessage,
+          error,
           parameters: 'ok',
         };
         res.status(401).json(data);

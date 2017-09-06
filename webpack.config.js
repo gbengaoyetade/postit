@@ -13,14 +13,18 @@ module.exports = {
       {
         test: /\.jsx?/,
         include: /client/,
-        loaders: ['react-hot-loader', 'babel-loader'],
+        loaders: ['babel-loader'],
       },
       {
         test: /\.scss$/,
         include: /client/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader'],
+        loaders: 'style-loader!css-loader!sass-loader',
       },
     ],
+  },
+  devServer: {
+    port: 3000,
+    historyApiFallback: true,
   },
   plugins: [
     new ExtractTextPlugin('./client/scss/posit.scss', {
