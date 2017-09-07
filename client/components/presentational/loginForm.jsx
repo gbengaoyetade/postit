@@ -14,7 +14,7 @@ const Login = (props) => {
     <div>
       <VisitorNav />
       <Container>
-      <div className="col s10 offset-s1 l6 offset-l3" >
+      <div className="col s10 offset-s1 l6 offset-l3 component-container" >
       <p className="red-text"> {props.error} </p>
       <form method="POST" onSubmit={props.handleSubmit.bind(this)} >
         <div className="input-field">
@@ -29,7 +29,7 @@ const Login = (props) => {
         </p>
         
         <p className="center">
-          <span> Don't have an account?  arefwdfdfesdfafadfad</span> 
+          <span> Don't have an account?daffad</span> 
           <Link to="/signup" className="waves-effect"> Signup </Link>
         </p>
         <p className="center">
