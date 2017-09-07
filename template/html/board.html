@@ -43,24 +43,39 @@
           
           <ul class="right hide-on-med-and-down">
             <li><a to="#" ><i class="material-icons">notifications</i></a></li>
-            <li><a to="/user" ><i class="material-icons">account_circle</i></a></li>
-            <li><a to="#" onClick={logout}>Logout</a></li>
+            <li><a class='dropdown-button' href='#' data-activates='dropdown1'>
+              <i class="material-icons right">arrow_drop_down</i>
+              <i class="material-icons right">account_circle</i>
+            </a></li>
           </ul>
-          <form class="right hide-on-med-and-down">
+          
+            <!-- Dropdown Structure -->
+            <ul id='dropdown1' class='dropdown-content'>
+              <li><a href="#!">one</a></li>
+              <li><a href="#!">two</a></li>
+              <li class="divider"></li>
+              <li><a href="#!">logout</a></li>
+            </ul>
+          <!-- <form class="right hide-on-med-and-down">
           <div class="input-field">
             <input id="search" type="search" required />
             <label class="label-icon" htmlFor="search"><i class="material-icons">search</i></label>
             <i class="material-icons">close</i>
           </div>
-        </form>
+        </form> -->
         </div>
         <GroupForm handleSubmit={props.handleSubmit} />
       </nav>
-	<div class="container" >
     <div class="row" > 
-        
+        <div class="col m3 red">
+          fadfa
+        </div>
+        <div class="col m6 red">
+          </div>
+          <div class="col m3 red">
+            </div>
     </div>
-  </div>
+
 
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
