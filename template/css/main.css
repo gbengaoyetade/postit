@@ -12,6 +12,16 @@ header {
   border-bottom: 1px solid #eee;
   padding: 0 15px; }
 
+.component-container {
+  border-radius: 5px;
+  background-color: #fff;
+  width: 100%;
+  color: #111;
+  padding: 15px; }
+
+nav {
+  margin-bottom: 20px; }
+
 footer {
   position: fixed;
   left: 0px;
