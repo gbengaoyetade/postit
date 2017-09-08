@@ -9,7 +9,7 @@
     "build-css": "node-sass  template/scss/main.scss   template/css/main.css",
     "test": "NODE_ENV=test mocha --timeout 15000 --require babel-polyfill --compilers js:babel-register",
     "local-test": "mocha --require babel-polyfill --compilers js:babel-register",
-    "heroku-postbuild": "cross-env NODE_ENV=production webpack --config ./webpack.config.js --progress --colors",
+    "heroku-postbuild": "./node_modules/.bin/babel-node ./node_modules/.bin/webpack --progress --colors",
     "babel": "babel-node server/app.js",
     "cover": "nyc npm run test",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
