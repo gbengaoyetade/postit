@@ -3,7 +3,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
-export default{
+module.exports{
   devtool: 'eval-source-map',
   entry: './client/index.jsx',
   output: {
