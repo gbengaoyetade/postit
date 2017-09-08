@@ -3,14 +3,11 @@ import path from 'path';
 
 export default{
   devtool: 'eval-source-map',
-  entry: [
-    'webpack-hot-middleware/client',
-    './client/index.jsx',
-  ],
+  entry: './client/index.jsx',
   output: {
     path: path.resolve('./client/bundled'),
     filename: 'index_bundle.js',
-    publicPath: path.resolve('./client/bundled'),
+    publicPath: '/',
   },
   module: {
     loaders: [

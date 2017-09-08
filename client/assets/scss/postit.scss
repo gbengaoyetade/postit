@@ -1,11 +1,54 @@
-$my_blue : #5284b9;
+$navy-blue:#045373;
+$orange:#fd8966;
+$grey:#eee;
 
 body{
-	background: #eee;
+	padding: 0;
+	margin: 0;
+	background-color: #eee;
+	display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+	color:#fff;
 }
-.components-containers {
-	width: 100%;
-	background-color: #fff;
-	padding: 5px;
+// materialize css footer fix
+  main {
+    flex: 1 0 auto;
+  }
+// materialize css footer fix 
+.mycontainer{
+	background-color:$navy-blue; 
+	padding: 0.5%;
+}
+.component-container{
 	border-radius: 5px;
+	background-color: #fff;
+	width: 100%;
+	color: #999;
+	padding: 25px;
 }
+nav{
+	margin-bottom: 20px;
+}
+footer{
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   height:5%;
+   width:100%;
+   padding:2px 15px ;
+   border-top: 1px solid $grey;
+}
+
+// .block{
+// 	@extend .curve;
+// 	display: block;
+// 	margin-bottom: 2%;
+// 	padding: 6px;
+// 	&:hover{
+// 		text-decoration:none;
+// 		background-color: #fff;
+// 	}
+// }
+
+

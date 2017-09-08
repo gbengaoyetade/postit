@@ -14,7 +14,7 @@ const MyRoutes = () => (
       <Route exact path="/" component={Welcome} />
       <Route path="/signup" component={Signup} />
       <Route exact path="/login" component={Login} />
-      <Route exact path="/login/recover" component={Recover} />
+      <Route exact path="/password_reset" component={Recover} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/group/:groupId" component={Group} />
       <Route path="*" component={NotFound} />

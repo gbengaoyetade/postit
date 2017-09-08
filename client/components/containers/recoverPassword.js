@@ -1,18 +1,44 @@
 import React from 'react';
-import Container from '../presentational/container';
+import { connect } from 'react-redux';
+import { recoverPassword } from '../../actions/passwordAction';
+import ResetPasswordPage from '../presentational/recoverPasswordPage';
 
-class RecoverPassword extends React.Component{
-  render(){
-   return (
-    <div>
-    <Container>
-      <p className="center"> 
-        Enter email address to recover password
-      </p>
-      <input type="text" name="email" />
-    </Container>
-    </div>
+class RecoverPassword extends React.Component {
+  constructor() {
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  componentDidMount() {
+    console.log(this.props);
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.sendEmail(this.props.email);
+  }
+  handleChange(event) {
+    const value = event.target.value;
+    const name = event.target.name;
+    this.props.email[name] = value;
+    console.log(this.props.email);
+  }
+  render() {
+    return (
+      <ResetPasswordPage handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
     );
   }
 }
-export default RecoverPassword;
+const mapStateToProps = state => (
+  {
+    email: state.recoverPassword,
+  }
+);
+const mapDispatchToProps = dispatch => (
+  {
+    sendEmail: (email) => {
+      dispatch(recoverPassword(email));
+    },
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecoverPassword);

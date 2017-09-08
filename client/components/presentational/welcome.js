@@ -11,10 +11,12 @@ const Welcome = (props) => {
     <div>
       <Nav />
       <Container>
-        <div >
-          <p>Messaging is always better when done together.</p>
-          <p>Message in groups </p>
-          <Link to="signup" className="right btn light-blue darken-4"> Get Started </Link>
+        <div className="component-container s8 offset-s1 m6 z-depth-2">
+          <h1 className="center grey-text"> Messaging...</h1>
+          <p className="center grey-text">always better when done groups.</p>
+          <Link to="signup" className="center btn light-blue darken-4 col s8 offset-s2 m4 offset-m4"> 
+          Get Started </Link>
+          <p className="clearfix"> </p>
         </div>
       </Container>
     </div>

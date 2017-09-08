@@ -4,7 +4,7 @@ import CreateGroupForm from '../presentational/createGroupForm';
 import { sendGroupDetails } from '../../actions/createGroupAction';
 
 class CreateGroup extends React.Component {
-  handleChange(e){
+  handleChange(e) {
     const name = e.target.name;
     const value = e.target.value;
     this.props.group[name] = value;

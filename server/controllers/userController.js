@@ -1,11 +1,27 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
 import db from '../models/index';
 import { validateInput } from '../includes/functions';
 
+dotenv.load();
 const User = db.users;
 const groupMembers = db.groupMembers;
-const invalidToken = db.invalidToken;
+
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
+const mailOptions = {
+  from: 'ioyetade@gmail.com', // sender address
+  to: 'gbenga.oyetade@andela.com', // list of receivers
+  subject: 'Email Example', // Subject line
+  text: 'Welcome to node mailer',
+};
 module.exports = {
 
   signUp(req, res) {
@@ -104,16 +120,26 @@ module.exports = {
       res.status(401).json({ message: validateInputResponse });
     } 
   }, // end of signIn
+  resetPassword(req, res) {
+    User.findOne({
+      where: { email: req.body.email },
+    })
+    .then((user) => {
+      if (user) {
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+           console.log(process.env);
+          } else {
+            console.log(info);
+            res.send({success: 'Yay!! success.'});
+          }
+        });
+      } else {
+        res.json({ user: 'user not found' });
+      }
+    })
+    .catch(() => {
 
-  signOut(req, res) {
-    invalidToken.create({
-      token: req.headers['x-access-token'],
-    })
-    .then(() => {
-      res.send({ message: 'You have successful logged out' });
-    })
-    .catch((error) => {
-      res.status(200).send(error);
     });
-  },
+  }
 };
