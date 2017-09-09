@@ -6,7 +6,6 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config';
 import router from './route';
-import { verifyToken } from './includes/functions';
 
 const app = express();
 const compiler = webpack(webpackConfig);
@@ -24,8 +23,6 @@ app.use(webpackHotMiddleware(compiler, {
 app.use(express.static(path.join(__dirname, '../client')));
 
 app.use('/api', router);
-
-app.get('/verifytoken', verifyToken);
 
 app.get('*', (req, res) => {
   res.status(404).sendFile(path.join(__dirname, '../client', 'index.html'));
