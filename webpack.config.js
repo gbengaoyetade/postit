@@ -1,8 +1,8 @@
-import webpack from 'webpack';
-import path from 'path';
+// import webpack from 'webpack';
+// import path from 'path';
 
-// const webpack = require('webpack');
-// const path = require('path');
+const webpack = require('webpack');
+const path = require('path');
 module.exports = {
   devtool: 'eval-source-map',
   entry: './client/index.jsx',
