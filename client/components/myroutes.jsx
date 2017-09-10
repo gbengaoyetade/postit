@@ -7,6 +7,8 @@ import NotFound from './presentational/notfound.jsx';
 import Group from './containers/group';
 import Welcome from './presentational/welcome';
 import Recover from './containers/recoverPassword';
+import ChangePassword from './containers/changePassword';
+
 
 const MyRoutes = () => (
   <BrowserRouter>
@@ -15,6 +17,7 @@ const MyRoutes = () => (
       <Route path="/signup" component={Signup} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/password_reset" component={Recover} />
+      <Route exact path="/change_password" component={ChangePassword} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/group/:groupId" component={Group} />
       <Route path="*" component={NotFound} />

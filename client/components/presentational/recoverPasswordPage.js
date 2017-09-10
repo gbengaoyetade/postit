@@ -1,21 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Container from './container';
+import PassworNav from './passwordNav';
 
 const ResetPasswordPage = props => (
-    <div>
-    <nav>
-        <div className="nav-wrapper light-blue darken-4">
-        <div className="row">
-          <div className="col s2 offset-s1 hide-on-med-and-down">
-          <h5 className="center brand-logo"> <span > Password Reset </span></h5>
-          </div>
-          <div className="col s2 offset-s2 hide-on-med-and-up">
-            <a href="#!" className="center brand-logo">Postit</a>
-          </div>
-        </div>
-        </div>
-      </nav>
+  <div>
+    <PassworNav />
     <Container>
       <div className="component-container">
         <p>Enter your email address and we would send you a link to reset your password</p>
@@ -29,6 +19,6 @@ const ResetPasswordPage = props => (
         </form>
       </div>
     </Container>
-    </div>
+  </div>
 );
 export default ResetPasswordPage;

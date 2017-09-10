@@ -34,3 +34,20 @@ export const recoverPassword = email => (
     });
   }
 );
+
+export const updatePassword = password => (
+  (dispatch) => {
+    const headers = {
+      'x-access-token': window.sessionStorage.postitToken,
+    };
+    axios.post('api/user/password_update',
+    password, { headers })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      dispatch(passwordResetError(error.response.data.error));
+      console.log(error.response);
+    });
+  }
+);

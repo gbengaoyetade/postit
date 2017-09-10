@@ -24,7 +24,7 @@ class RecoverPassword extends React.Component {
   }
   render() {
     return (
-      <ResetPasswordPage handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
+     <ResetPasswordPage />
     );
   }
 }

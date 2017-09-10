@@ -121,25 +121,39 @@ module.exports = {
     } 
   }, // end of signIn
   resetPassword(req, res) {
-    User.findOne({
-      where: { email: req.body.email },
-    })
-    .then((user) => {
-      if (user) {
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-           console.log(process.env);
-          } else {
-            console.log(info);
-            res.send({success: 'Yay!! success.'});
-          }
-        });
-      } else {
-        res.json({ user: 'user not found' });
-      }
-    })
-    .catch(() => {
-
-    });
+    const requiredFields = ['email'];
+    const validateInputResponse = validateInput(req.body, requiredFields);
+    if (validateInputResponse === 'ok') {
+      User.findOne({
+        where: { email: req.body.email },
+      })
+      .then((user) => {
+        if (user) {
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+             console.log(process.env);
+            } else {
+              console.log(info);
+              res.send({ success: 'Yay!! success.' });
+            }
+          });
+        } else {
+          res.json({ user: 'user not found' });
+        }
+      })
+      .catch(() => {
+      });
+    } else {
+      res.status(400).json({ error: validateInputResponse });
+    }
+  },
+  updatePassword(req, res) {
+    const requiredFields = ['password'];
+    const validateInputResponse = validateInput(req.body, requiredFields);
+    if (validateInputResponse === 'ok') {
+      res.json(req.body.password);
+    } else{
+      res.status(400).json({ error: validateInputResponse });
+    }
   }
 };

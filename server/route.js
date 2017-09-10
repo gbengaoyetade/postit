@@ -1,5 +1,5 @@
 import express from 'express';
-import { signUp, signIn, resetPassword } from './controllers/userController';
+import { signUp, signIn, resetPassword, updatePassword } from './controllers/userController';
 import { create, addMembers, getGroups, leaveGroup } from './controllers/groupController';
 import { createMessage, getMessages } from './controllers/messageController';
 import authenticate from './middleware/authenticate';
@@ -20,6 +20,8 @@ router.post('/group/:groupId/user', groupAndUserExist, addMembers);
 router.post('/group/:groupId/message', createMessage);
 
 router.post('/user/password_reset', resetPassword);
+
+router.post('/user/password_update', updatePassword);
 
 router.get('/group/:groupId/messages', groupAndUserExist, getMessages);
 

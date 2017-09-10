@@ -3,6 +3,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
+
 module.exports = {
   devtool: 'eval-source-map',
   entry: './client/index.jsx',
@@ -16,7 +17,7 @@ module.exports = {
       {
         test: /\.jsx?/,
         include: /client/,
-        loaders: ['babel-loader'],
+        loaders: ['react-hot-loader', 'babel-loader'],
       },
       {
         test: /\.scss$/,
