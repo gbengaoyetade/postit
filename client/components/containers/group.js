@@ -7,20 +7,19 @@ import { getGroupMessages } from '../../actions/createGroupAction';
 import Message from './message';
 
 class Group extends React.Component{
-  componentDidMount(){
+  componentDidMount() {
     // this.props.getMessages(this.props.match.params.groupId);
   }
-  render(){
+  render() {
     return (
       <div>
-        <Container>
+        <UserNav />
         <GroupPage />
-        <Message/>
-        </Container>
+        <Message />
       </div>
-      );
+    );
   }
-} 
+}
 const mapStateToProps = (state) => {
   return {
     group: state.groupReducer,

@@ -16,12 +16,7 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASSWORD,
   },
 });
-const mailOptions = {
-  from: 'ioyetade@gmail.com', // sender address
-  to: 'gbenga.oyetade@andela.com', // list of receivers
-  subject: 'Email Example', // Subject line
-  text: 'Welcome to node mailer',
-};
+
 module.exports = {
 
   signUp(req, res) {
@@ -42,7 +37,7 @@ module.exports = {
         })
         .then(() => {
           const userToken = jwt.sign({ name: user.id },
-            'andela-bootcamp',
+            process.env.TOKEN_SECRET,
             { expiresIn: 60 * 60 * 24 * 365 },
             );
           const userData = {
@@ -54,6 +49,7 @@ module.exports = {
           const data = {
             user: userData,
             message: `User ${req.body.username} was created successfully`,
+            parameters: 'ok',
           };
           res.status(201).send(data);
         })
@@ -62,16 +58,16 @@ module.exports = {
         });
       })
       .catch((error) => {
-        // let errorMessage;
-        // if (error.errors.message === 'username must be unique') {
-        //   errorMessage = 'Username not available';
-        // } else if (error.errors[0].message === 'email must be unique') {
-        //   errorMessage = 'Email address already in use';
-        // } else {
-        //   errorMessage = error.errors[0].message;
-        // }
+        let errorMessage;
+        if (error.errors.message === 'username must be unique') {
+          errorMessage = 'Username not available';
+        } else if (error.errors[0].message === 'email must be unique') {
+          errorMessage = 'Email address already in use';
+        } else {
+          errorMessage = error.errors[0].message;
+        }
         const data = {
-          error,
+          error: errorMessage,
           parameters: 'ok',
         };
         res.status(401).json(data);
@@ -85,7 +81,7 @@ module.exports = {
   }, // end of signup
 
   signIn(req, res) {
-    // const secret = process.env.TOKEN_SECRET;
+    const secret = process.env.TOKEN_SECRET;
     const requiredFields = ['username', 'password'];
     const validateInputResponse = validateInput(req.body, requiredFields);
     if (validateInputResponse === 'ok') {
@@ -99,7 +95,7 @@ module.exports = {
         bcrypt.compare(req.body.password, user.password, (err, result) => {
           if (result) {
             const userToken = jwt.sign({ name: user.id },
-              'andela-bootcamp',
+              secret,
               { expiresIn: 60 * 60 * 24 * 365 },
               );
             const data = {
@@ -118,23 +114,34 @@ module.exports = {
     });
     } else {
       res.status(401).json({ message: validateInputResponse });
-    } 
+    }
   }, // end of signIn
   resetPassword(req, res) {
     const requiredFields = ['email'];
     const validateInputResponse = validateInput(req.body, requiredFields);
+    const email = req.body.email;
     if (validateInputResponse === 'ok') {
       User.findOne({
-        where: { email: req.body.email },
+        where: { email },
       })
       .then((user) => {
         if (user) {
+          // structure email
+          const token = jwt.sign({ name: user.id },
+            process.env.TOKEN_SECRET,
+            { expiresIn: 60 * 30 },
+            );
+          const mailOptions = {
+            from: 'ioyetade@gmail.com',
+            to: email,
+            subject: 'Reset Password',
+            text: 'Welcome to node mailer',
+          };
           transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-             console.log(process.env);
+              res.status(400).json({ error });
             } else {
-              console.log(info);
-              res.send({ success: 'Yay!! success.' });
+              res.json({ message: 'Mail sent successfully' });
             }
           });
         } else {
@@ -152,8 +159,8 @@ module.exports = {
     const validateInputResponse = validateInput(req.body, requiredFields);
     if (validateInputResponse === 'ok') {
       res.json(req.body.password);
-    } else{
+    } else {
       res.status(400).json({ error: validateInputResponse });
     }
-  }
+  },
 };

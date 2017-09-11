@@ -10,7 +10,7 @@ import Recover from './containers/recoverPassword';
 import ChangePassword from './containers/changePassword';
 
 
-const MyRoutes = () => (
+const Routes = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Welcome} />
@@ -25,4 +25,4 @@ const MyRoutes = () => (
   </BrowserRouter>
 );
 
-export default MyRoutes;
+export default Routes;

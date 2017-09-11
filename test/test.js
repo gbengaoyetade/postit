@@ -5,21 +5,21 @@ import db from '../server/models/';
 // import exist from '../middleware/exist';
 
 const data = { fullName: 'gbenga Oyetade', username: 'apptest', password: 'some password', email: 'apptest@gmail.com', phoneNumber: '+2348064140695' };
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoyLCJpYXQiOjE1MDQyODk2NzYsImV4cCI6MTUzNTgyNTY3Nn0.x3Kd6Iyc-8-RU8y5Z_-80kcXPF8IlteXqhVANJW6BQM';
-db.sequelize.sync( { force: true })
-    .then((value) => {
-      db.users.destroy();
-      console.log(value);
-    })
-    .catch((error) => {
-      console.log(error);
-    }); 
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjozLCJpYXQiOjE1MDUwNzY0NjEsImV4cCI6MTUzNjYxMjQ2MX0.omL5OG_IPewasCg0GweT5Xg3WbpL7f4FrWu2d6qYstM';
+// db.sequelize.sync( { force: true })
+//     .then((value) => {
+//       db.users.destroy();
+//       console.log(value);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     }); 
 describe('Signup tests', () => {
   beforeEach(() => {
     db.users.destroy({
-    cascade: true,
-    truncate: true,
-    restartIdentity: true
+      cascade: true,
+      truncate: true,
+      restartIdentity: true,
     })
     .then(() => {
       db.users.create(data)
@@ -68,8 +68,30 @@ describe('Signup tests', () => {
 
 // Test for the group controller
 describe('group test', () => {
+  const group = {
+    groupName: 'Test group',
+    groupDescription: 'Test group description',
+    createdBy: 1,
+  };
+  const groupMember = {
+    groupId: 1,
+    userId: 1,
+    addedBy: 1,
+  }
   beforeEach(() => {
-    db.users.destroy({ truncate: true })
+    
+    db.groups.create(group)
+    .then((value) => {
+      console.log(value);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    db.users.destroy({
+      cascade: true,
+      truncate: true,
+      restartIdentity: true,
+    })
     .then(() => {
       db.users.create(data)
     .then((user) => {
@@ -77,9 +99,9 @@ describe('group test', () => {
     })
     .catch((error) => {
       console.log(error);
-    })
-    })
     });
+    });
+  });
   it('Create group route should be defined ', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send()
     .end((err, res) => {
@@ -88,7 +110,7 @@ describe('group test', () => {
     });
   });
   it('Leave group should detect if group exist', (done) => {
-    supertest(app).delete('/api/group/10000000/user').set('x-access-token', token).send()
+    supertest(app).delete('/api/group/10789/user').set('x-access-token', token).send()
     .end((err, res) => {
       assert.equal(res.body.error, 'Group does not exist');
       done();
@@ -134,7 +156,14 @@ describe('group test', () => {
   it('Add member should detect if user is already a member of the group', (done) => {
     const groupData = { userId: 1 };
     supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData).end((err, res) => {
-      assert.equal(res.body.error, 'User already a member of this group');
+      assert.equal(res.body.message, 'User already a member of this group');
+      done();
+    });
+  });
+  it('should detect if groupId is not a number', (done) => {
+    const groupData = { userId: 1 };
+    supertest(app).post('/api/group/3r/user').set('x-access-token', token).send(groupData).end((err, res) => {
+      assert.equal(res.body.error, 'groupId or userId not a number');
       done();
     });
   });
@@ -215,5 +244,3 @@ describe('Authenticate', () => {
     });
   });
 });
-
-// require('dotenv').config();

@@ -3,7 +3,7 @@ import React from 'react';
 const groupModal = (props) => {
   return (
     <div>
-      <div id="createGroupModal" className="modal col s10 light-blue darken-4">
+      <div id="createGroupModal" className="modal col s5">
         <div className="modal-content">
           <form method="POST"  className="white-text" onSubmit={props.handleSubmit}>
           <div className="input-field">
