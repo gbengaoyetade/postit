@@ -1,13 +1,14 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import Signup from './containers/signup.jsx';
-import Login from './containers/login.jsx';
+import Signup from './containers/signup';
+import Login from './containers/login';
 import Dashboard from './containers/dashboard';
-import NotFound from './presentational/notfound.jsx';
+import NotFound from './presentational/notfound';
 import Group from './containers/group';
 import Welcome from './presentational/welcome';
 import Recover from './containers/recoverPassword';
 import ChangePassword from './containers/changePassword';
+import MailSent from './presentational/mailSent';
 import AuthHoc from './containers/authHoc';
 
 
@@ -18,7 +19,8 @@ const Routes = () => (
       <Route path="/signup" component={Signup} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/password_reset" component={Recover} />
-      <Route exact path="/change_password" component={ChangePassword} />
+      <Route exact path="/password_change" component={ChangePassword} />
+      <Route exact path="/email_sent" component={MailSent} />
       <Route path="/dashboard" component={AuthHoc(Dashboard)} />
       <Route path="/group/:groupId" component={AuthHoc(Group)} />
       <Route path="*" component={NotFound} />

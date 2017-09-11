@@ -32,12 +32,12 @@ class Login extends React.Component {
   render() {
     return (
       <LoginForm 
-      handleSubmit={this.handleSubmit}
-      handleChange={this.handleChange}
-      loading = {this.props.isLoading}
-      error = {this.props.loginError}
+        handleSubmit={this.handleSubmit}
+        handleChange={this.handleChange}
+        loading={this.props.isLoading}
+        error={this.props.loginError}
       />
-    ); 
+    );
   }
 }
 const mapStateToProps = (state) => {

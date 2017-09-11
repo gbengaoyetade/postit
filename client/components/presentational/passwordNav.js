@@ -8,7 +8,7 @@ const PasswordNav = props => (
       <h5 className="center brand-logo"> <span > Password Reset </span></h5>
       </div>
       <div className="col s2 offset-s2 hide-on-med-and-up">
-        <a href="#!" className="center brand-logo">Postit</a>
+        <a href="#!" className="center brand-logo">Postit Reset</a>
       </div>
     </div>
     </div>

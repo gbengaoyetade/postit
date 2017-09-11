@@ -43,7 +43,6 @@ export default (sequelize, DataTypes) => {
     const hash = bcrypt.hashSync(user.password, salt);
     user.password = hash;
   });
-  
   Users.associate = (models) => {
     Users.belongsToMany(models.groups, {
       through: models.groupMembers,

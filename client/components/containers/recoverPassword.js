@@ -24,13 +24,20 @@ class RecoverPassword extends React.Component {
   }
   render() {
     return (
-     <ResetPasswordPage />
+      <ResetPasswordPage
+        handleSubmit={this.handleSubmit}
+        handleChange={this.handleChange}
+        error={this.props.error}
+        sending={this.props.sending}
+      />
     );
   }
 }
 const mapStateToProps = state => (
   {
     email: state.recoverPassword,
+    error: state.passwordError,
+    sending: state.itemLoading,
   }
 );
 const mapDispatchToProps = dispatch => (

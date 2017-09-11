@@ -11,6 +11,10 @@ router.post('/user/signup', signUp);
 
 router.post('/user/signin', signIn);
 
+router.post('/user/password_reset', resetPassword);
+
+router.post('/user/password_update', updatePassword);
+
 router.use(authenticate);
 
 router.post('/group', create);
@@ -18,10 +22,6 @@ router.post('/group', create);
 router.post('/group/:groupId/user', groupAndUserExist, addMembers);
 
 router.post('/group/:groupId/message', createMessage);
-
-router.post('/user/password_reset', resetPassword);
-
-router.post('/user/password_update', updatePassword);
 
 router.get('/group/:groupId/messages', groupAndUserExist, getMessages);
 

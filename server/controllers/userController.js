@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import db from '../models/index';
-import { validateInput } from '../includes/functions';
+import { validateInput, getId, generateToken } from '../includes/functions';
 
 dotenv.load();
 const User = db.users;
@@ -16,9 +16,9 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASSWORD,
   },
 });
+const secret = process.env.TOKEN_SECRET;
 
 module.exports = {
-
   signUp(req, res) {
     const requiredFields = ['username', 'email', 'password', 'fullName', 'phoneNumber'];
     if (validateInput(req.body, requiredFields) === 'ok') {
@@ -36,10 +36,7 @@ module.exports = {
           addedBy: 1,
         })
         .then(() => {
-          const userToken = jwt.sign({ name: user.id },
-            process.env.TOKEN_SECRET,
-            { expiresIn: 60 * 60 * 24 * 365 },
-            );
+          const userToken = generateToken(user.id);
           const userData = {
             id: user.id,
             username: user.username,
@@ -81,7 +78,6 @@ module.exports = {
   }, // end of signup
 
   signIn(req, res) {
-    const secret = process.env.TOKEN_SECRET;
     const requiredFields = ['username', 'password'];
     const validateInputResponse = validateInput(req.body, requiredFields);
     if (validateInputResponse === 'ok') {
@@ -94,17 +90,14 @@ module.exports = {
       } else {
         bcrypt.compare(req.body.password, user.password, (err, result) => {
           if (result) {
-            const userToken = jwt.sign({ name: user.id },
-              secret,
-              { expiresIn: 60 * 60 * 24 * 365 },
-              );
+            const userToken = generateToken(user.id);
             const data = {
               token: userToken,
               message: 'Login was successful',
             };
             res.status(200).json(data);
           } else {
-            res.status(401).json({ message: 'Username and or password incorect ' });
+            res.status(401).json({ message: 'Username or password incorect ' });
           }
         });
       }
@@ -128,14 +121,16 @@ module.exports = {
         if (user) {
           // structure email
           const token = jwt.sign({ name: user.id },
-            process.env.TOKEN_SECRET,
+            secret,
             { expiresIn: 60 * 30 },
             );
+          const resetPasswordMail = `<p> Click the link to change your password.</p>
+          <a href='http://localhost:3000/password_change?token=${token}'>Change password</a> `;
           const mailOptions = {
             from: 'ioyetade@gmail.com',
             to: email,
             subject: 'Reset Password',
-            text: 'Welcome to node mailer',
+            html: resetPasswordMail,
           };
           transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
@@ -145,7 +140,7 @@ module.exports = {
             }
           });
         } else {
-          res.json({ user: 'user not found' });
+          res.status(400).json({ error: 'Email address does not exist on Postit' });
         }
       })
       .catch(() => {
@@ -155,11 +150,44 @@ module.exports = {
     }
   },
   updatePassword(req, res) {
+    // Check if password field was provided
     const requiredFields = ['password'];
     const validateInputResponse = validateInput(req.body, requiredFields);
     if (validateInputResponse === 'ok') {
-      res.json(req.body.password);
-    } else {
+      // Check if URL contians parameter token
+      const userToken = req.query.token;
+      if (userToken) {
+        let userId;
+        // Verify user token
+        jwt.verify(userToken, secret, (error) => {
+          if (error) {
+            res.status(401).json({ error: 'Token authentication failure' });
+          } else {
+            // Update user password if token was verified successfully
+            const salt = bcrypt.genSaltSync(5);
+            const hash = bcrypt.hashSync(req.body.password, salt);
+            userId = getId(userToken);
+            User.update(
+              { password: hash },
+              { where: { id: userId } },
+            )
+            .then((updateValue) => {
+              if (updateValue[0] === 1) {
+                const authToken = generateToken(userId);
+                res.json({ token: authToken });
+              } else {
+                res.status(400).json({ error: 'Password not updated. Try again' });
+              }
+            })
+            .catch((updateError) => {
+              res.status(400).json(updateError);
+            });
+          }
+        });
+      } else { // Token not provided response
+        res.status(401).json({ error: 'No token provided' });
+      }
+    } else { // Password field not provided response
       res.status(400).json({ error: validateInputResponse });
     }
   },

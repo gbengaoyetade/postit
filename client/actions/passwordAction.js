@@ -20,33 +20,37 @@ export const passwordResetError = error => (
 );
 export const recoverPassword = email => (
   (dispatch) => {
-    const headers = {
-      'x-access-token': window.sessionStorage.postitToken,
-    };
+    dispatch(passwordResetError(''));
+    dispatch(emailSending(true));
     axios.post('api/user/password_reset',
-    email, { headers })
+    email)
     .then((response) => {
+      window.location.replace('/email_sent');
       console.log(response);
     })
     .catch((error) => {
+      dispatch(emailSending(false));
       dispatch(passwordResetError(error.response.data.error));
       console.log(error.response);
     });
   }
 );
 
-export const updatePassword = password => (
+export const updatePassword = (password, token) => (
   (dispatch) => {
     const headers = {
       'x-access-token': window.sessionStorage.postitToken,
     };
-    axios.post('api/user/password_update',
+    console.log(token);
+    axios.post(`api/user/password_update?token=${token}`,
     password, { headers })
     .then((response) => {
-      console.log(response);
+      console.log(response.data.token);
+      window.sessionStorage.postitToken = response.data.token;
+      window.location.replace('/dashboard');
     })
     .catch((error) => {
-      dispatch(passwordResetError(error.response.data.error));
+      dispatch(passwordResetError(error.response.data.error || ''));
       console.log(error.response);
     });
   }
