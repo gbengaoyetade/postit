@@ -16,10 +16,10 @@ class CreateGroup extends React.Component {
   }
   render() {
     return (
-     <CreateGroupForm 
-     handleSubmit={this.handleSubmit.bind(this)} 
-     handleChange={this.handleChange.bind(this)} 
-     />
+      <CreateGroupForm 
+        handleSubmit={this.handleSubmit.bind(this)}
+        handleChange={this.handleChange.bind(this)}
+      />
     );
   }
 }

@@ -8,6 +8,7 @@ import Group from './containers/group';
 import Welcome from './presentational/welcome';
 import Recover from './containers/recoverPassword';
 import ChangePassword from './containers/changePassword';
+import AuthHoc from './containers/authHoc';
 
 
 const Routes = () => (
@@ -18,8 +19,8 @@ const Routes = () => (
       <Route exact path="/login" component={Login} />
       <Route exact path="/password_reset" component={Recover} />
       <Route exact path="/change_password" component={ChangePassword} />
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/group/:groupId" component={Group} />
+      <Route path="/dashboard" component={AuthHoc(Dashboard)} />
+      <Route path="/group/:groupId" component={AuthHoc(Group)} />
       <Route path="*" component={NotFound} />
     </Switch>
   </BrowserRouter>

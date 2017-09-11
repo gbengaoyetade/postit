@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import UserNav from '../presentational/usernav';
-import Home from '../presentational/container';
 import CreateGroup from './createGroup';
 import { getGroups } from '../../actions/createGroupAction';
 
@@ -11,16 +9,13 @@ class Dashboard extends React.Component {
 
   }
   componentDidMount() {
-    // if (!window.sessionStorage.postitToken) {
-    //    this.props.history.push('/login');
-    // }
     console.log(this.props);
     this.props.getGroups();
   }
   render() {
     let groups;
     let userGroups;
-    if (this.props.userGroupSuccess){
+    if (this.props.userGroupSuccess) {
       groups = this.props.groups.groups;
       console.log(this.props.groups.groups);
       userGroups = <ul>
@@ -31,7 +26,6 @@ class Dashboard extends React.Component {
     }
     return (
       <div>
-      <UserNav />
         <CreateGroup />
         <div className="row">
           <div className="col m2 component-container hide-on-med-and-down">
