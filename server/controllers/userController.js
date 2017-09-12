@@ -125,7 +125,7 @@ module.exports = {
             { expiresIn: 60 * 30 },
             );
           const resetPasswordMail = `<p> Click the link to change your password.</p>
-          <a href='http://localhost:3000/password_change?token=${token}'>Change password</a> `;
+          <a href='http://postit-gbenga.herokuapp.com//password_change?token=${token}'>Change password</a> `;
           const mailOptions = {
             from: 'ioyetade@gmail.com',
             to: email,
