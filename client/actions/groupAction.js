@@ -51,13 +51,13 @@ export const getGroups = () => {
       'x-access-token': window.sessionStorage.postitToken,
     };
   return (dispatch) => {
-    axios.get('/api/group', 
+    axios.get('/api/group',
       { headers })
     .then((groups) => {
       console.log(groups.data[0]);
       console.log(groups);
       dispatch(getUserGroups(groups.data[0].groups));
-      dispatch(getUserGroupsSuccess(true)); 
+      dispatch(getUserGroupsSuccess(true));
     })
     .catch((error) => {
       console.log(error);
@@ -66,16 +66,16 @@ export const getGroups = () => {
 };
 export const getGroupMessages = () => {
   const headers = {
-      'x-access-token': window.sessionStorage.postitToken,
-    };
+    'x-access-token': window.sessionStorage.postitToken,
+  };
   return (dispatch) => {
-    axios.get('/api/group', 
+    axios.get('/api/group',
       { headers })
     .then((groups) => {
       console.log(groups.data[0]);
       console.log(groups);
       dispatch(getUserGroups(groups.data[0].groups));
-      dispatch(getUserGroupsSuccess(true)); 
+      dispatch(getUserGroupsSuccess(true));
     })
     .catch((error) => {
       console.log(error);
