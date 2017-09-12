@@ -4,10 +4,10 @@ import { sendUserMessage } from '../../actions/messageAction';
 import MessageForm from '../presentational/messageForm';
 
 class Message extends React.Component {
-  componentDidMount(){
+  componentDidMount() {
     console.log(this.props);
   }
-  handleChange(event){
+  handleChange(event) {
     const value = event.target.value;
     const name = event.target.name;
     this.props.message[name] = value;
@@ -30,18 +30,18 @@ class Message extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = state => (
+  {
     message: state.postMessageReducer,
-  };
-};
+  }
+);
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = dispatch => (
+  {
     postMessage: (message, groupId) => {
       dispatch(sendUserMessage(message, groupId));
     },
-  };
-};
+  }
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Message);

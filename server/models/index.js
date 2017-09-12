@@ -1,12 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
-import configs from '../config/config.json';
+import dotenv from 'dotenv';
+import configs from '../config/config';
 
-require('dotenv').config();
+dotenv.load();
 
 const basename = path.basename(module.filename);
-const env = process.env.NODE_ENV || 'test';
+const env = process.env.NODE_ENV || 'development';
 const config = configs[env];
 const db = {};
 
@@ -45,3 +46,4 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;
+

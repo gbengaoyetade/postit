@@ -89,6 +89,14 @@ export const getGroups = (req, res) => {
         attributes: {
           exclude: ['createdAt', 'updatedAt'],
         },
+        include: [
+          {
+            model: Messages,
+            attributes: {
+              exclude: ['createdAt', 'updatedAt'],
+            },
+          },
+        ], // end of Group include
         through: { attributes: [] },
       },
     ],
@@ -112,7 +120,7 @@ export const leaveGroup = (req, res) => {
       Members.destroy({
         where: { userId, groupId },
       })
-      .then((member) => {
+      .then(() => {
         res.json('User left group');
       })
       .catch((error) => {
@@ -120,9 +128,36 @@ export const leaveGroup = (req, res) => {
       });
     } else {
       res.status(400).json({ error: { message: 'User not a member of the group' } });
-    } 
+    }
   })
   .catch((error) => {
     res.status(400).json(error);
   });
+};
+export const getGroupMembers = (req, res) => {
+  const requiredFields = ['groupId'];
+  const inputValidationResponse = validateInput(req.params, requiredFields);
+  if (inputValidationResponse === 'ok') {
+    Groups.find({
+      where: { id: req.params.groupId },
+    })
+    .then((foundGroup) => {
+      foundGroup.getUsers({ attributes: {
+        exclude: ['password', 'createdAt', 'updatedAt'],
+      },
+      })
+      .then((users) => {
+        console.log(users);
+        res.json(users);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
+  } else {
+    res.status(400).json({ error: inputValidationResponse });
+  }
 };

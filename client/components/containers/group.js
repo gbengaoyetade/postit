@@ -2,25 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import GroupPage from '../presentational/group';
 import UserNav from '../presentational/usernav';
-import Container from '../presentational/container';
-import { getGroupMessages } from '../../actions/createGroupAction';
+import { getGroupMessages } from '../../actions/groupAction';
 import Message from './message';
 
-class Group extends React.Component{
-  componentDidMount(){
-    // this.props.getMessages(this.props.match.params.groupId);
+class Group extends React.Component {
+  componentDidMount() {
+    this.props.getMessages(this.props.match.params.groupId);
   }
-  render(){
+  render() {
     return (
       <div>
-        <Container>
+        <UserNav />
         <GroupPage />
-        <Message/>
-        </Container>
+        <Message />
       </div>
-      );
+    );
   }
-} 
+}
 const mapStateToProps = (state) => {
   return {
     group: state.groupReducer,

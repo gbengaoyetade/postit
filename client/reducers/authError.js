@@ -15,4 +15,12 @@ export const loginError = (state = [], action) => {
       return state;
   }
 };
+export const passwordError = (state = [], action) => {
+  switch (action.type) {
+    case 'PASSWORD_ERROR':
+      return action.error;
+    default:
+      return state;
+  }
+};
 

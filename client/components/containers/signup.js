@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import createUser from '../../actions/createUser';
 import sendUserData from '../../actions/sendUserData';
 import { signupLoading } from '../../actions/auth';
-import SignupForm from '../presentational/signupForm.jsx';
+import SignupForm from '../presentational/signupForm';
 
 class Signup extends React.Component {
   constructor(props) {
     super(props);
   }
   componentWillMount() {
-     if(window.sessionStorage.postitToken){
+     if (window.sessionStorage.postitToken) {
        this.props.history.push('/dashboard');
     }
   }
@@ -53,7 +53,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.createAccount,
     error: state.signupError,
-    isLoading: state.signupLoading,
+    isLoading: state.itemLoading,
   };
 };
 const mapDispatchToProps = (dispatch) => {

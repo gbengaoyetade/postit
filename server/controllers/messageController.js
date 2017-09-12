@@ -37,6 +37,9 @@ export const createMessage = (req, res) => {
 export const getMessages = (req, res) => {
   Messages.findAll({
     where: { groupId: req.params.groupId },
+    attributes: {
+      exclude: ['createdAt', 'updatedAt'],
+    },
   })
   .then((messages) => {
     res.status(201).send(messages);

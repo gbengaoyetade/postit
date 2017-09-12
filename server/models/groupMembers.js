@@ -1,6 +1,5 @@
-import Users from './users';
 
-const GroupMembers = (sequelize, DataTypes) => {
+export default(sequelize, DataTypes) => {
   const groupMembers = sequelize.define('groupMembers', {
     userId: {
       type: DataTypes.INTEGER,
@@ -25,11 +24,9 @@ const GroupMembers = (sequelize, DataTypes) => {
     },
   }, {
     classMethods: {
-      associate: () => {
-
+      associate: (models) => {
       },
     },
   });
   return groupMembers;
 };
-export default GroupMembers;

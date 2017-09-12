@@ -1,81 +1,67 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PostIt homepage</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="../css/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PostIt-Gbenga</title>
+  <link rel="shortcut icon" href="../images/andela.png" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+<link rel="stylesheet" href="../css/main.css" />
   
+          
 </head>
 <body>
-    <header>
+    <nav>
+        <div class="nav-wrapper light-blue darken-4">
         <div class="row">
-          <div class="col-md-3 col-xs-12">
-            <h1 class="site-blue">Post<span class="site-orange">It</span></h1>
+          <div class="col s2 offset-s1 hide-on-med-and-down">
+          <a href="#!" ="left brand-logo">Postit</a>
           </div>
-          <div class="col-md-5 col-xs-6">
-            <form>
-
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-            <div class="input-group-btn">
-                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-        </div>
-         
-       </form>
-        
+          <div class="col s2 offset-s2 hide-on-med-and-up">
+            <a href="#!" class="center brand-logo">Postit</a>
           </div>
-          <div class="col-md-3">
-            <ul class="nav nav-pills">
-            <li role="presentation" ><a href="board.html">Board</a></li>
-            <li role="presentation"><a href="post.html">Post</a></li>
-            <li role="presentation"><a href=""><span class="glyphicon glyphicon-bell"></span></a></li>
+          <div class="col s2 push-s7" >
+          <ul class="hide-on-med-and-down">
+            <li><a href="login.html" > Login </a> </li>
+            <li><a href="signup.html" > Signup </a> </li>
           </ul>
           </div>
         </div>
-        
-       
-       
-      </header>
-    <div class="mycontainer">
-  <div class="container">
-      
-      <div class="row">
-      <div class="col-md-4">
-        
-      </div>
-      <div class="col-md-4 section curve" >
-      <fieldset>
-        <legend class="text-center">Login</legend>
-         <form method="post">
-       <div class="form-group">
-        <input type="email" name="email" class="form-control" placeholder="Enter your email address"> 
-       </div>
-        <div class="form-group">
-          <input type="password" name="password" class="form-control" placeholder="password">  
         </div>
-        <div class="form-group">
-          <button class="btn btn-info">Login</button>
-          <a href="#" class="bold">Forgot password?</a>  
-          <p>Not yet a user? <a href="signup.html">Sign up</a></p>
-        </div>
-        
-
-       </form>
-      </fieldset>
-     
-      </div> 
-      <div class="col-md-4">
-        
-      </div>
-
-      </div>
-      
+      </nav>
+	<div class="container" >
+    <div class="row" > 
+        <<div class="col s10 offset-s1 l6 offset-l3 component-container" >
+            <h3 class="header center grey-text" >Login</h3>
+            <form method="POST" onSubmit={props.handleSubmit.bind(this)} >
+              <div class="input-field">
+                <input type="text" name="username" id="username" onChange={props.handleChange.bind(this)}/>
+                <label htmlFor="username"> Username</label>
+              </div> 
+              <div class="input-field">
+                <input type="password" name="password" id="password" onChange={props.handleChange.bind(this)}/>
+                <label htmlFor="password">Password</label>
+              </div>
+              <p class="row"> <input type="submit" value="Login" class="btn blue col s8 offset-s2" />
+              </p>
+              
+              <p class="center">
+                <span> Don't have an account?</span> 
+                <a href="signup.html" class="waves-effect"> Signup </a>
+              </p>
+              <p class="center">
+                <a href="recover.html" class="waves-effect">Forgot password</a>
+              </p>
+            </form>
+            </div>
+    </div>
   </div>
-  </div>
-  <footer class="text-center">
-        &copy; PostIt inc. All rights reserved.
-      </footer>
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 </body>
 </html>

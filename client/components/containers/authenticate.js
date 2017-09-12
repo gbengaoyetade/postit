@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {withRouter} from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
 class Authenticate extends React.Component {
   componentDidMount(){
@@ -8,8 +8,6 @@ class Authenticate extends React.Component {
       this.props.history.push('/login');
       console.log(this.props);
     }
-
-      
   }
   render() {
     return(
@@ -22,4 +20,7 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.auth,
   }
 }
+Authenticate.propTypes = {
+  children: ''
+};
 export default connect(mapStateToProps)(withRouter(Authenticate));
