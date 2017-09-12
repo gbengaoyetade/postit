@@ -1,97 +1,128 @@
-import jwt from 'jsonwebtoken';
-import validateInput from '../includes/functions';
+import { validateInput, getId } from '../includes/functions';
 
 const Groups = require('../models').groups;
-const Members = require('../models').groupMembers;
+const Users = require('../models').users;
 const Messages = require('../models').messages;
+const Members = require('../models').groupMembers;
 
-const getId = (token) => {
-  const decoded = jwt.decode(token);
-  return decoded.name;
-};
-module.exports = {
-  create(req, res) {
-    const requiredFields = ['groupName', 'groupDescription', 'userId'];
-    if (validateInput(req.body, requiredFields) === 'ok') {
-      Groups.create({
-        groupName: req.body.groupName,
-        groupDescription: req.body.groupDescription,
+export const create = (req, res) => {
+  const requiredFields = ['groupName', 'groupDescription'];
+  if (validateInput(req.body, requiredFields) === 'ok') {
+    Groups.create({
+      groupName: req.body.groupName,
+      groupDescription: req.body.groupDescription,
+      createdBy: getId(req.headers['x-access-token']),
+
+    })
+    .then((group) => {
+      Members.create({
+        groupId: group.id,
         userId: getId(req.headers['x-access-token']),
-
+        addedBy: getId(req.headers['x-access-token']),
       })
-      .then((group) => {
+      .then(() => {
         const groupData = {
           groupId: group.id,
           groupName: group.groupName,
           groupDescription: group.groupDescription,
         };
-        const data = {
-          group: groupData,
-          parameter: 'Parameters well structured',
-          message: `Group ${req.body.groupName} was created successfully`,
-
-        };
-        res.status(201).send(data);
+        res.status(201).send({ group: groupData });
       })
       .catch((error) => {
-        const data = {
-          error: error.errors,
-          message: 'Could not create group',
-        };
-        res.status(401).send(data);
+        res.status(400).json(error);
       });
-    } else {
-      res.send({ message: validateInput(req.body, requiredFields) });
-    }
-  },
-  addMembers(req, res) {
-    Members.create({
-      groupId: req.body.groupId,
-      userId: req.body.userId,
-    })
-    .then((members) => {
-      res.status(201).send(members);
-    })
-    .catch(() => {
-      res.status(401).send({
-        error: 'could not add member. Check member Id and group Id, then try again',
-      });
-    });
-  },
-  createMessage(req, res) {
-    Messages.create({
-      messageBody: req.body.messageBody,
-      messagePriority: req.body.messagePriority,
-      userId: getId(req.headers['x-access-token']),
-      groupId: req.params.groupId,
-    })
-    .then((group) => {
-      const groupData = {
-        messageId: group.id,
-        userId: group.userId,
-        groupId: group.groupId,
-        messageBody: group.messageBody,
-        messagePriority: group.messagePriority,
-      };
-      res.status(201).send({ group: groupData });
     })
     .catch((error) => {
       const data = {
-        error: error.errors[0].message,
-        message: 'Could not create message',
+        error: error.errors,
+        message: 'Could not create group',
       };
-      res.status(201).send(data);
+      res.status(401).send(data);
     });
-  },
-  getMessages(req, res) {
-    Messages.findAll({
-      where: { groupId: req.params.groupId },
+  } else {
+    res.status(400).json({ message: validateInput(req.body, requiredFields) });
+  }
+}; // end of Create
+
+export const addMembers = (req, res) => {
+  const requiredFields = ['userId'];
+  const inputValidation = validateInput(req.body, requiredFields);
+  if (inputValidation === 'ok') {
+    Members.findOne({
+      where: { userId: req.body.userId, groupId: req.params.groupId },
     })
-    .then((messages) => {
-      res.status(201).send(messages);
+    .then((member) => {
+      if (member) {
+        res.json({ error: 'User already a member of this group', member });
+      } else {
+        Members.create({
+          groupId: req.params.groupId,
+          userId: req.body.userId,
+          addedBy: getId(req.headers['x-access-token']),
+        })
+        .then((groupMember) => {
+          res.json({ member: groupMember, message: 'User successfully added to group' });
+        })
+        .catch((error) => {
+          res.json({ error: error.message, message: 'Could not add user to group' });
+        });
+      }
     })
-    .catch((err) => {
-      res.status(401).send(err.message);
+    .catch((error) => {
+      res.json({ error: error.message, message: 'Could not find user' });
     });
-  },
+  } else {
+    res.json({ error: inputValidation });
+  }
+}; // end of addMembers
+
+export const getGroups = (req, res) => {
+  const userId = getId(req.headers['x-access-token']);
+  Users.findAll({
+    where: { id: userId },
+    attributes: {
+      exclude: ['password', 'createdAt', 'updatedAt'],
+    },
+    include: [
+      {
+        model: Groups,
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
+        through: { attributes: [] },
+      },
+    ],
+  })
+  .then((groups) => {
+    res.json(groups);
+  })
+  .catch((error) => {
+    res.json(error);
+  });
+};
+
+export const leaveGroup = (req, res) => {
+  const userId = getId(req.headers['x-access-token']);
+  const groupId = req.params.groupId;
+  Members.findOne({
+    where: { userId, groupId },
+  })
+  .then((member) => {
+    if (member) {
+      Members.destroy({
+        where: { userId, groupId },
+      })
+      .then((member) => {
+        res.json('User left group');
+      })
+      .catch((error) => {
+        res.status(400).json(error);
+      });
+    } else {
+      res.status(400).json({ error: { message: 'User not a member of the group' } });
+    } 
+  })
+  .catch((error) => {
+    res.status(400).json(error);
+  });
 };

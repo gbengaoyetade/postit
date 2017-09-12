@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: './client/index.jsx',
@@ -12,8 +13,19 @@ module.exports = {
       {
         test: /\.jsx?/,
         include: /client/,
-        loader: 'babel-loader',
+        loaders: ['react-hot-loader', 'babel-loader'],
+      },
+      {
+        test: /\.scss$/,
+        include: /client/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
+  plugins: [
+    new ExtractTextPlugin('./client/scss/posit.scss', {
+      allChunks: true,
+    }),
+  ],
 };
+  

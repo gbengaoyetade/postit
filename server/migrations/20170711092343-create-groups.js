@@ -14,7 +14,7 @@ module.exports = {
       groupDescription: {
         type: Sequelize.STRING,
       },
-      userId: {
+      createdBy: {
         type: Sequelize.INTEGER,
       },
       createdAt: {

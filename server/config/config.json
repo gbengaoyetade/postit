@@ -1,17 +1,14 @@
 {
   "development": {
-    "use_env_variable": "DEV_DB",
+    "username": "gbenga",
+    "password": "password",
+    "database": "postit",
+    "host": "127.0.0.1",
     "dialect": "postgres",
-    "dialectOptions": {
-      "ssl" : true
-    }
+    "logging": false
   },
   "test": {
-    "username": "postgres",
-    "password": "",
-    "database": "travis_ci_test",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+   "use_env_variable": "TEST_DB"
   },
   "production": {
     "use_env_variable": "DATABASE_URL",

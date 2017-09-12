@@ -1,4 +1,6 @@
-const Group = (sequelize, DataTypes) => {
+import Users from './users';
+
+export default (sequelize, DataTypes) => {
   const Groups = sequelize.define('groups', {
     groupName: {
       type: DataTypes.STRING,
@@ -11,35 +13,21 @@ const Group = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    userId: {
+    createdBy: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         isInt: { args: true, msg: 'User Id can only be an integer' },
       },
     },
-  }, {
-    classMethods: {
-      associate: (models) => {
-        Groups.belongsToMany(models.users, {
-          through: models.groupMembers,
-        });
-      },
-      hooks: {
-        beforeCreate: (groups) => {
-          Groups.findAll({
-            where: { userId: groups.userId, groupName: groups.groupName },
-          })
-          .then(() => {
-            throw new Error('You have created this group already');
-          })
-          .catch(() => {
-
-          });
-        },
-      },
-    },
   });
+  Groups.associate = (models) => {
+    Groups.belongsToMany(models.users, {
+      through: models.groupMembers,
+      foreignKey: 'groupId',
+      onDelete: 'cascade',
+    });
+  };
   return Groups;
 };
-export default Group;
+
