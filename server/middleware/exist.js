@@ -39,22 +39,21 @@ export const groupAndUserExist = (req, res, next) => {
 
 export const groupExist = (req, res, next) => {
   const groupId = req.params.groupId;
-  if(!isNaN(groupId)) {
+  if (!isNaN(groupId)) {
     Groups.findOne({
-    where: { id: groupId },
-  })
-  .then((group) => {
-    if (group) {
-      next();
-    } else {
-      res.status(400).json({ error: 'Group does not exist' });
-    }
-  })
-  .catch((error) => {
-    res.status(400).json({ error });
-  });
-} else {
-  res.json({ error: 'groupId is not a number' });
-}
-  
+      where: { id: groupId },
+    })
+    .then((group) => {
+      if (group) {
+        next();
+      } else {
+        res.status(400).json({ error: 'Group does not exist' });
+      }
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
+  } else {
+    res.json({ error: 'groupId is not a number' });
+  }
 };

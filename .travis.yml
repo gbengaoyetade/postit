@@ -5,6 +5,7 @@ services:
   - postgresql
 before_script:
   - npm install sequelize-cli -g
+  - postgres=# createdb postit_test
 after_success:
 - npm run cover
 after_script: 

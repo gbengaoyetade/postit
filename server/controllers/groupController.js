@@ -112,15 +112,15 @@ export const leaveGroup = (req, res) => {
       Members.destroy({
         where: { userId, groupId },
       })
-      .then((member) => {
+      .then(() => {
         res.json('User left group');
       })
       .catch((error) => {
         res.status(400).json(error);
       });
     } else {
-      res.status(400).json({ error: { message: 'User not a member of the group' } });
-    } 
+      res.status(400).json({ error: 'User not a member of the group' });
+    }
   })
   .catch((error) => {
     res.status(400).json(error);
