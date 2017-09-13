@@ -5,7 +5,7 @@ services:
   - postgresql
 before_script:
   - npm install sequelize-cli -g
-  - postgres=# createdb postit_test
+  - psql -c "CREATE DATABASE testing_db;" -U postgres
 after_success:
 - npm run cover
 after_script: 
