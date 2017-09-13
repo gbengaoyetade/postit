@@ -6,7 +6,7 @@ services:
 before_script:
   - npm install sequelize-cli -g
   - psql -c "CREATE DATABASE postit_test;" -U postgres
-  - sequelize db:migrate
+  - sequelize db:migrate --env test
 after_success:
 - npm run cover
 after_script: 
