@@ -6,14 +6,6 @@ import db from '../server/models/';
 
 const data = { fullName: 'gbenga Oyetade', username: 'apptest', password: 'some password', email: 'apptest@gmail.com', phoneNumber: '+2348064140695' };
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjozLCJpYXQiOjE1MDUwNzY0NjEsImV4cCI6MTUzNjYxMjQ2MX0.omL5OG_IPewasCg0GweT5Xg3WbpL7f4FrWu2d6qYstM';
-// db.sequelize.sync( { force: true })
-//     .then((value) => {
-//       db.users.destroy();
-//       console.log(value);
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     }); 
 describe('Signup tests', () => {
   beforeEach(() => {
     db.users.destroy({

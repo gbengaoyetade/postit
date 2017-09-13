@@ -1,5 +1,4 @@
 import axios from 'axios';
-import userGroupsReducer from '../reducers/userGroupsReducer';
 
 export const createGroup = (group) => {
   return {
@@ -28,6 +27,24 @@ export const getUserGroupsSuccess = (payload) => {
     payload,
   };
 };
+export const getGroupMembersSuccess = (payload) => {
+  return {
+    type: 'GET_GROUP_MEMBERS_SUCCESS',
+    payload,
+  };
+};
+export const getGroupMembersAction = (members) => {
+  return {
+    type: 'GET_GROUP_MEMBERS',
+    members,
+  };
+};
+export const getUserGroupsError = (payload) => {
+  return {
+    type: 'GET_USER_GROUPS_ERROR',
+    payload,
+  };
+};
 
 export const sendGroupDetails = (groupDetails) => {
   return () => {
@@ -48,15 +65,34 @@ export const sendGroupDetails = (groupDetails) => {
 
 export const getGroups = () => {
   const headers = {
-      'x-access-token': window.sessionStorage.postitToken,
-    };
+    'x-access-token': window.sessionStorage.postitToken,
+  };
   return (dispatch) => {
-    axios.get('/api/group',
+    axios.get('/api/group/user',
       { headers })
     .then((groups) => {
       console.log(groups.data[0]);
       console.log(groups);
       dispatch(getUserGroups(groups.data[0].groups));
+      dispatch(getUserGroupsSuccess(true));
+      dispatch(getUserGroupMessages(groups.data));
+    })
+    .catch((error) => {
+      console.log(error);
+      dispatch(getUserGroupsError(true));
+    });
+  };
+};
+export const getGroupMessages = (groupId) => {
+  const headers = {
+    'x-access-token': window.sessionStorage.postitToken,
+  };
+  return (dispatch) => {
+    axios.get(`/api/group/${groupId}/messages`,
+      { headers })
+    .then((groups) => {
+      console.log(groups.data);
+      dispatch(getUserGroupMessages(groups.data));
       dispatch(getUserGroupsSuccess(true));
     })
     .catch((error) => {
@@ -64,18 +100,17 @@ export const getGroups = () => {
     });
   };
 };
-export const getGroupMessages = () => {
+export const getGroupMembers = (groupId) => {
   const headers = {
     'x-access-token': window.sessionStorage.postitToken,
   };
   return (dispatch) => {
-    axios.get('/api/group',
+    axios.get(`/api/group/${groupId}/users`,
       { headers })
-    .then((groups) => {
-      console.log(groups.data[0]);
-      console.log(groups);
-      dispatch(getUserGroups(groups.data[0].groups));
-      dispatch(getUserGroupsSuccess(true));
+    .then((members) => {
+      console.log(members.data);
+      dispatch(getGroupMembersAction(members.data));
+      dispatch(getGroupMembersSuccess(true));
     })
     .catch((error) => {
       console.log(error);

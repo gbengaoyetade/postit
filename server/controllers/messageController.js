@@ -42,10 +42,10 @@ export const getMessages = (req, res) => {
     },
   })
   .then((messages) => {
-    res.status(201).send(messages);
+    res.status(200).json(messages);
   })
   .catch((err) => {
-    res.status(401).send(err.message);
+    res.status(401).json(err.message);
   });
 };
 
