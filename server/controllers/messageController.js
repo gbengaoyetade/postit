@@ -37,12 +37,15 @@ export const createMessage = (req, res) => {
 export const getMessages = (req, res) => {
   Messages.findAll({
     where: { groupId: req.params.groupId },
+    attributes: {
+      exclude: ['createdAt', 'updatedAt'],
+    },
   })
   .then((messages) => {
-    res.status(201).send(messages);
+    res.status(200).json(messages);
   })
   .catch((err) => {
-    res.status(401).send(err.message);
+    res.status(401).json(err.message);
   });
 };
 

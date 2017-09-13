@@ -8,7 +8,6 @@ const data2 = { fullName: 'gbenga Oyetade', username: 'apptest2', password: 'som
 const group = { groupName: 'test', groupDescription: 'test', createdBy: 1 };
 const group2 = { groupName: 'test2', groupDescription: 'test2', createdBy: 1 };
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjozLCJpYXQiOjE1MDUwNzY0NjEsImV4cCI6MTUzNjYxMjQ2MX0.omL5OG_IPewasCg0GweT5Xg3WbpL7f4FrWu2d6qYstM';
-
 db.groups.destroy({
   cascade: true,
   truncate: true,
@@ -37,7 +36,7 @@ describe('Signup tests', () => {
       truncate: true,
       restartIdentity: true,
     })
-    .then((suc) => {
+    .then(() => {
       db.users.create(data);
       db.groups.create(group);
       db.groups.create(group2);
