@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import createAccount from './createAccount';
+import userAuth from './userAuth';
 import loginLogout from './loginLogout';
 import { itemLoading, loginLoading } from './itemLoading';
 import { loginError, signupError, passwordError } from './authError';
@@ -9,7 +9,7 @@ import { postMessageReducer, messageSendingReducer } from './messageReducer';
 import recoverPassword from './passwordReducer';
 
 export default combineReducers({
-  createAccount,
+  userAuth,
   loginLogout,
   itemLoading,
   loginLoading,

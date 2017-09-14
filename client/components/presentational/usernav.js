@@ -43,8 +43,8 @@ const UserNav = (props) => {
           </div>
           
           <ul className="right hide-on-med-and-down">
-            <li><Link to="#" ><i className="material-icons">notifications</i></Link></li>
-            <li><Link to="/user" ><i className="material-icons">account_circle</i></Link></li>
+            {/* <li><Link to="#" ><i className="material-icons">notifications</i></Link></li> */}
+            <li><Link to="/user" >{props.username}</Link></li>
             <li><Link to="#" onClick={logout}>Logout</Link></li>
           </ul>
           <form className="right hide-on-med-and-down">

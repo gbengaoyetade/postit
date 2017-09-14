@@ -1,10 +1,11 @@
-const createAccount = (state = {}, action) => {
+const userAuth = (state = {}, action) => {
+  let newState;
   switch (action.type) {
     case 'CREATE_USER':
-      let newState = Object.assign({}, state);
+      newState = Object.assign({}, state);
       newState.user = action.user;
       return newState;
-    case 'LOGIN_USER':
+    case 'USER_LOGIN_SUCCESS':
       newState = Object.assign({}, state);
       newState.user = action.user;
       return newState;
@@ -12,4 +13,4 @@ const createAccount = (state = {}, action) => {
       return state;
   }
 };
-export default createAccount;
+export default userAuth;

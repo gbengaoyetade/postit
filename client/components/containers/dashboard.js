@@ -11,7 +11,7 @@ class Dashboard extends React.Component {
   }
   componentDidMount() {
     this.props.getGroups();
-    console.log(this.props.history);
+    console.log(this.props);
   }
   render() {
     let groups;
@@ -40,13 +40,14 @@ Dashboard.propTypes = {
   // groups: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = state => (
+  {
     groups: state.userGroupReducer,
     userGroupSuccess: state.getUserGroupSuccess,
-    user: state.createAccount,
-  };
-};
+    user: state.userAuth,
+    error: state.loginError,
+  }
+);
 const mapDispatchToProps = (dispatch) => {
   return {
     getGroups: () => {

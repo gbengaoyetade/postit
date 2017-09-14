@@ -9,11 +9,6 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  componentWillMount() {
-     if(window.sessionStorage.postitToken) {
-       this.props.history.push('/dashboard');
-    }
-  }
   componentDidMount() {
     console.log(this.props);
   }
@@ -27,7 +22,7 @@ class Login extends React.Component {
     e.preventDefault();
     this.props.setLoginError('');
     this.props.setLoading(true);
-    this.props.loginUser(this.props.user);
+    this.props.loginUser(this.props.user, this.props.history);
   }
   render() {
     return (
@@ -42,15 +37,15 @@ class Login extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.loginLogout,
+    user: state.userAuth,
     isLoading: state.loginLoading,
     loginError: state.loginError,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    loginUser: (user) => {
-      dispatch(loginUser(user));
+    loginUser: (user, history) => {
+      dispatch(loginUser(user, history));
     },
     setLoading: (payload) => {
       dispatch(loginLoading(payload));
