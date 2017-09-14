@@ -1,21 +1,15 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import db from '../models/index';
+import transporter from '../config/mail.config';
 import { validateInput, getId, generateToken } from '../includes/functions';
 
 dotenv.load();
 const User = db.users;
 const groupMembers = db.groupMembers;
 
-const transporter = nodemailer.createTransport({
-  service: 'Gmail',
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-});
+
 const secret = process.env.TOKEN_SECRET;
 
 module.exports = {
@@ -132,7 +126,7 @@ module.exports = {
             subject: 'Reset Password',
             html: resetPasswordMail,
           };
-          transporter.sendMail(mailOptions, (error, info) => {
+          transporter.sendMail(mailOptions, (error) => {
             if (error) {
               res.status(400).json({ error });
             } else {
@@ -197,9 +191,7 @@ module.exports = {
     db.groups.find({
       where: {
         id: { not: groupId },
-        
       },
-      
     })
     .then((groups) => {
       groups.getUsers({
