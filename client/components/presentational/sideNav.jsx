@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default props => (
-  <div className="col m3 component-container hide-on-med-and-down">
+  <div className="col m2 component-container hide-on-med-and-down">
     <ul className="">
       <li>
         <Link to="/group/create" className="hide-on-med-and-up">

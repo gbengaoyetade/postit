@@ -45,6 +45,12 @@ export const getUserGroupsError = (payload) => {
     payload,
   };
 };
+export const addMemberSuccess = bool => (
+  {
+    type: 'ADD_MEMBER_SUCCESS',
+    bool,
+  }
+);
 
 export const sendGroupDetails = (groupDetails, history) => {
   return () => {
@@ -98,6 +104,7 @@ export const getGroupMessages = (groupId) => {
     });
   };
 };
+
 export const getGroupMembers = (groupId) => {
   const headers = {
     'x-access-token': window.sessionStorage.postitToken,
@@ -115,6 +122,22 @@ export const getGroupMembers = (groupId) => {
     });
   };
 };
+export const addMember = (userId, groupId) => {
+  const headers = {
+    'x-access-token': window.sessionStorage.postitToken,
+  };
+  return (dispatch) => {
+    axios.post(`/api/group/${groupId}/user`, { userId }, { headers })
+    .then((response) => {
+      dispatch(addMemberSuccess(true));
+      console.log(response);
+    })
+    .catch((error) => {
+      dispatch(addMemberSuccess(false));
+      console.log(error.response);
+    });
+  };
+};
 export const leaveGroup = (groupId) => {
   const headers = {
     'x-access-token': window.sessionStorage.postitToken,
@@ -127,5 +150,6 @@ export const leaveGroup = (groupId) => {
     .catch((error) => {
       console.log(error.response);
     });
-  }
-}
+  };
+};
+

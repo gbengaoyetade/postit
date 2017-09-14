@@ -7,9 +7,11 @@ import { createGroupReducer, getUserGroupSuccess, getUserGroupMessages, getGroup
 import userGroupReducer from './userGroupsReducer';
 import { postMessageReducer, messageSendingReducer } from './messageReducer';
 import recoverPassword from './passwordReducer';
+import searchReducer from './searchReducer';
 
 export default combineReducers({
   userAuth,
+  searchReducer,
   loginLogout,
   itemLoading,
   loginLoading,

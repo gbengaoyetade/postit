@@ -68,6 +68,7 @@ class Group extends React.Component {
           leaveGroup={this.leaveGroup}
           postMessage={this.postMessage}
           handleMessageChange={this.handleMessageChange}
+          groupId={this.props.match.params.groupId}
         />
         <Message />
       </div>

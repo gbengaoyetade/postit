@@ -1,5 +1,5 @@
 import express from 'express';
-import { signUp, signIn, resetPassword, updatePassword } from './controllers/userController';
+import { signUp, signIn, resetPassword, updatePassword, userSearch } from './controllers/userController';
 import { create, addMembers, getGroups, leaveGroup, getGroupMembers } from './controllers/groupController';
 import { createMessage, getMessages } from './controllers/messageController';
 import authenticate from './middleware/authenticate';
@@ -28,6 +28,8 @@ router.get('/group/:groupId/messages', groupExist, getMessages);
 router.get('/group/user', getGroups);
 
 router.get('/group/:groupId/users', groupExist, getGroupMembers);
+
+router.get('/user/:groupId/search', userSearch);
 
 router.delete('/group/:groupId/user', groupExist, leaveGroup);
 

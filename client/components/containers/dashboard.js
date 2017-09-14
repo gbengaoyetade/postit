@@ -36,8 +36,9 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  userGroupSuccess: PropTypes.bool.isRequired,
-  // groups: PropTypes.object.isRequired,
+  getGroups: PropTypes.func.isRequired,
+  // user: PropTypes.shape().isRequired,
+  // groups: PropTypes.shape().isRequired,
 };
 
 const mapStateToProps = state => (
@@ -48,11 +49,11 @@ const mapStateToProps = state => (
     error: state.loginError,
   }
 );
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = dispatch => (
+  {
     getGroups: () => {
       dispatch(getGroups());
     },
-  };
-};
+  }
+);
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));

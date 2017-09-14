@@ -53,7 +53,7 @@ export const addMembers = (req, res) => {
     })
     .then((member) => {
       if (member) {
-        res.json({ error: 'User already a member of this group', member });
+        res.status(400).json({ error: 'User already a member of this group', member });
       } else {
         Members.create({
           groupId: req.params.groupId,
@@ -150,11 +150,9 @@ export const getGroupMembers = (req, res) => {
       },
       })
       .then((users) => {
-        console.log(users);
         res.json(users);
       })
       .catch((error) => {
-        console.log(error);
       });
     })
     .catch((error) => {

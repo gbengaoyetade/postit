@@ -191,4 +191,37 @@ module.exports = {
       res.status(400).json({ error: validateInputResponse });
     }
   },
+  userSearch(req, res) {
+    const groupId = req.params.groupId;
+    const query = req.query.query;
+    db.groups.find({
+      where: {
+        id: { not: groupId },
+        
+      },
+      
+    })
+    .then((groups) => {
+      groups.getUsers({
+        where: { username: {
+          $like: `%${query}%`,
+        },
+        },
+        attributes: {
+          exclude: ['createdAt', 'updatedAt', 'password', 'email'],
+        },
+      })
+      .then((users) => {
+        res.json({ users });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json({ error });
+    });
+  },
 };
+

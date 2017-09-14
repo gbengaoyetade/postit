@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import UserNav from '../presentational/usernav';
 
@@ -20,9 +19,9 @@ export default (Component) => {
       );
     }
   }
-  // AuthHoc.proptypes = {
-  //   props: PropTypes.node.isRequired,
-  // };
+  AuthHoc.proptypes = {
+    history: React.PropTypes.object.isRequired,
+  };
   const mapStateToProps = state => (
     {
       user: state.userAuth,
