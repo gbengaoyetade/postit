@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import GroupForm from '../containers/createGroup';
+// import GroupForm from '../containers/createGroup';
+import SideNav from './sidenav.jsx';
 
 const UserNav = (props) => {
   const logout = () => {
@@ -12,25 +13,25 @@ const UserNav = (props) => {
     <div>
       { /* Side nav */ }
       <ul id="slide-out" className="side-nav">
-              <li>
-              <Link to="#" className="hide-on-med-and-up modal-trigger">
-                <i className="material-icons">group_add</i> New Group
-              </Link>
-              </li>
-              <li>
-              <Link to="group">
-                <i className="material-icons">group</i> My Groups
-              </Link>
-              </li>
-              <li><div className="divider"></div></li>
-              <li><Link className="waves-effect" to="#">
-                <i className="material-icons">account_circle</i> Profile
-              </Link></li>
-              <li>
-                <Link to="#" onClick={logout}><i className="material-icons"></i>Logout</Link>
-              </li>
-            </ul>
-            { /* end of sidenav  */ }
+        <li>
+        <Link to="#" className="hide-on-med-and-up modal-trigger">
+          <i className="material-icons">group_add</i> New Group
+        </Link>
+        </li>
+        <li>
+        <Link to="group">
+          <i className="material-icons">group</i> My Groups
+        </Link>
+        </li>
+        <li><div className="divider"></div></li>
+        <li><Link className="waves-effect" to="#">
+          <i className="material-icons">account_circle</i> Profile
+        </Link></li>
+        <li>
+          <Link to="#" onClick={logout}><i className="material-icons"></i>Logout</Link>
+        </li>
+      </ul>
+      { /* end of sidenav  */ }
       <nav>
         <div className="nav-wrapper  light-blue darken-4 ">
           <Link to="#" className="left brand-logo hide-on-med-and-down">Postit</Link>
@@ -54,7 +55,6 @@ const UserNav = (props) => {
           </div>
         </form>
         </div>
-        <GroupForm handleSubmit={props.handleSubmit} />
       </nav>
     </div>
     );

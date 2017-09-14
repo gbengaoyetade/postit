@@ -1,5 +1,5 @@
 import db from '../models/index';
-import { validateInput } from '../includes/functions';
+import { validateInput, getId } from '../includes/functions';
 
 const Users = db.users;
 const Groups = db.groups;
@@ -52,7 +52,21 @@ export const groupExist = (req, res, next) => {
 
   .then((group) => {
     if (group) {
-      next();
+      const userId = getId(req.headers['x-access-token']);
+      console.log(db.groupMembers);
+      db.groupMembers.findOne({
+        where: { userId, groupId },
+      })
+      .then((member) => {
+        if (member) {
+          next();
+        } else {
+          res.status(400).json({ error: 'user not a member of this group' });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     } else {
       res.status(400).json({ error: 'Group does not exist' });
     }

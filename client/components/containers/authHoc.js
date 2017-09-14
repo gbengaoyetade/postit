@@ -6,20 +6,20 @@ export default (Component) => {
   class AuthHoc extends React.Component {
     componentWillMount() {
       if (!window.sessionStorage.postitToken) {
-        props.history.push('/login');
+        this.props.history.push('/login');
       }
     }
     render() {
       return (
         <div>
-          <UserNav />
+          <UserNav username={this.props.username} />
           <Component {...this.props} />
         </div>
       );
     }
   }
-  // AuthHoc.proptypes = {
-  //   props: PropTypes.node.isRequired,
-  // };
+  AuthHoc.proptypes = {
+    props: PropTypes.node.isRequired,
+  };
   return AuthHoc;
 };

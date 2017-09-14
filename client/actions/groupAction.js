@@ -46,7 +46,7 @@ export const getUserGroupsError = (payload) => {
   };
 };
 
-export const sendGroupDetails = (groupDetails) => {
+export const sendGroupDetails = (groupDetails, history) => {
   return () => {
     const headers = {
       'x-access-token': window.sessionStorage.postitToken,
@@ -54,8 +54,8 @@ export const sendGroupDetails = (groupDetails) => {
     axios.post('/api/group',
     groupDetails,
     { headers })
-    .then((group) => {
-      console.log(group);
+    .then(() => {
+      history.push('/dashboard');
     })
     .catch((error) => {
       console.log(error.response);
@@ -73,9 +73,7 @@ export const getGroups = () => {
     .then((groups) => {
       console.log(groups.data[0]);
       console.log(groups);
-      dispatch(getUserGroups(groups.data[0].groups));
-      dispatch(getUserGroupsSuccess(true));
-      dispatch(getUserGroupMessages(groups.data));
+      dispatch(getUserGroups(groups.data.groups));
     })
     .catch((error) => {
       console.log(error);
@@ -117,3 +115,17 @@ export const getGroupMembers = (groupId) => {
     });
   };
 };
+export const leaveGroup = (groupId) => {
+  const headers = {
+    'x-access-token': window.sessionStorage.postitToken,
+  };
+  return () => {
+    axios.delete(`/api/group/${groupId}/user`, { headers })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+  }
+}

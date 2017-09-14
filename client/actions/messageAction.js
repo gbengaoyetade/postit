@@ -14,12 +14,14 @@ export const messageSending = (bool) => {
   };
 };
 
-export const sendUserMessage = (message, groupId) => {
-  return (dispatch) =>{
+export const sendUserMessage = (groupId, message) => {
+  return (dispatch) => {
+
     const headers = {
       'x-access-token': window.sessionStorage.postitToken,
     };
-    const URL = `api/group/${groupId}/message`;
+    console.log(message);
+    const URL = `/api/group/${groupId}/message`;
     axios.post(URL, message, { headers })
     .then((response) => {
       console.log(response);

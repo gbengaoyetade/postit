@@ -10,6 +10,7 @@ import Recover from './containers/recoverPassword';
 import ChangePassword from './containers/changePassword';
 import MailSent from './presentational/mailSent';
 import AuthHoc from './containers/authHoc';
+import NewGroup from './containers/createGroup';
 
 
 const Routes = () => (
@@ -22,7 +23,9 @@ const Routes = () => (
       <Route exact path="/password_change" component={ChangePassword} />
       <Route exact path="/email_sent" component={MailSent} />
       <Route path="/dashboard" component={AuthHoc(Dashboard)} />
-      <Route path="/group/:groupId" component={AuthHoc(Group)} />
+      <Route exact path="/group/create" component={AuthHoc(NewGroup)} />
+      <Route exact path="/group/:groupId" component={AuthHoc(Group)} />
+      
       <Route path="*" component={NotFound} />
     </Switch>
   </BrowserRouter>

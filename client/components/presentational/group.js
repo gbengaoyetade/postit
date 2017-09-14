@@ -1,16 +1,36 @@
 import React from 'react';
+import SideNav from './sideNav.jsx';
 
 const Group = props => (
   <div className="row">
-    <div className="col m2 component-container hide-on-med-and-down" >
-      <h5 className="center"> Navigations </h5>
-    </div>
-    <div className="col m5 offset-m1 s10 component-container">
+    <SideNav />
+    <div className="col m6 s10 component-container">
       <h5 className="center"> Messages </h5>
+      <form method="Post" className="form-field" onSubmit={props.postMessage.bind(this)}>
+        <textarea name="messageBody" onChange={props.handleMessageChange.bind(this)}></textarea>
+        <div className="input-field">
+          <p>Choose message priority </p>
+        </div>
+        <input type="radio" id="normal" name="messagePriority" value="Normal" checked onChange={props.handleMessageChange.bind(this)} />
+        <label htmlFor="normal"> Normal </label>
+        <input type="radio" id="urgent" name="messagePriority" value="Urgent" onChange={props.handleMessageChange.bind(this)} />
+        <label htmlFor="urgent"> Urgent </label>
+        <input type="radio" id="critical" name="messagePriority" value="Critical" onChange={props.handleMessageChange.bind(this)} />
+        <label htmlFor="critical"> Critical</label>
+        <div className="input-field">
+          <input type="submit" className="btn light-blue"value="Post" />
+        </div>
+      </form>
       {props.groupMessages}
     </div>
-    <div className="col m3 offset-m1 component-container hide-on-med-and-down">
-      <h5 className="center"> Group Members </h5>
+    <div className="col m3 component-container hide-on-med-and-down">
+      <p> &nbsp; </p>
+      <div className="row">
+        <a className="btn blue" href="#" onClick={props.addMembers}> Add Members </a>
+        <a className="btn red" href="" onClick={props.leaveGroup}> Leave Group </a>
+      </div>
+      
+      <p className="center"> Group Members </p>
       {props.groupMembers}
     </div>
   </div>

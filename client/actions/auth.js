@@ -27,7 +27,6 @@ export const signupHasErrored = payload => (
     payload,
   }
 );
-
 export const loginError = error => (
   {
     type: 'LOGIN_ERROR',

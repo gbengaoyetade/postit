@@ -1,9 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CreateGroupForm from '../presentational/createGroupForm';
+import CreateGroupForm from '../presentational/createGroupForm.jsx';
 import { sendGroupDetails } from '../../actions/groupAction';
 
 class CreateGroup extends React.Component {
+  constructor() {
+    super();
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
   handleChange(e) {
     const name = e.target.name;
     const value = e.target.value;
@@ -12,13 +17,13 @@ class CreateGroup extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createGroup(this.props.group);
+    this.props.createGroup(this.props.group, this.props.history);
   }
   render() {
     return (
-      <CreateGroupForm 
-        handleSubmit={this.handleSubmit.bind(this)}
-        handleChange={this.handleChange.bind(this)}
+      <CreateGroupForm
+        handleSubmit={this.handleSubmit}
+        handleChange={this.handleChange}
       />
     );
   }
@@ -32,8 +37,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createGroup: (group) => {
-      dispatch(sendGroupDetails(group));
+    createGroup: (group, history) => {
+      dispatch(sendGroupDetails(group, history));
     },
   };
 };

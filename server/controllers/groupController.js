@@ -78,7 +78,7 @@ export const addMembers = (req, res) => {
 
 export const getGroups = (req, res) => {
   const userId = getId(req.headers['x-access-token']);
-  Users.findAll({
+  Users.find({
     where: { id: userId },
     attributes: {
       exclude: ['password', 'createdAt', 'updatedAt'],
@@ -99,6 +99,9 @@ export const getGroups = (req, res) => {
         ], // end of Group include
         through: { attributes: [] },
       },
+    ],
+    order: [
+      [Groups, 'id', 'ASC'],
     ],
   })
   .then((groups) => {
