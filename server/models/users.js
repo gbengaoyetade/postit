@@ -49,6 +49,9 @@ export default (sequelize, DataTypes) => {
       foreingKey: 'userId',
       onDelete: 'cascade',
     });
+    Users.hasMany(models.messages, {
+      foreingKey: 'userId',
+    });
   };
   return Users;
 };

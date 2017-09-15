@@ -1,58 +1,22 @@
 import { assert } from 'chai';
 import supertest from 'supertest';
 import app from '../server/app';
-import db from '../server/models/';
+import testInclude from './tests.includes';
 
-const data = { fullName: 'gbenga Oyetade', username: 'apptest', password: 'some password', email: 'apptest@gmail.com', phoneNumber: '+2348064140695' };
 const data2 = { fullName: 'gbenga Oyetade', username: 'apptest2', password: 'some password', email: 'apptest2@gmail.com', phoneNumber: '+22348064140695' };
-const group = { groupName: 'test', groupDescription: 'test', createdBy: 1 };
-const group2 = { groupName: 'test2', groupDescription: 'test2', createdBy: 1 };
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjozLCJpYXQiOjE1MDUwNzY0NjEsImV4cCI6MTUzNjYxMjQ2MX0.omL5OG_IPewasCg0GweT5Xg3WbpL7f4FrWu2d6qYstM';
 
-db.groups.destroy({
-  cascade: true,
-  truncate: true,
-  restartIdentity: true,
-})
-.then((value) => {
-  console.log(value);
-})
-.catch((error) => {
-  console.log(error);
-});
-db.groups.destroy({
-  cascade: true,
-  truncate: true,
-  restartIdentity: true,
-});
-db.groupMembers.destroy({
-  cascade: true,
-  truncate: true,
-  restartIdentity: true,
-});
 describe('Signup tests', () => {
   before(() => {
-    db.users.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true,
-    })
-    .then((suc) => {
-      db.users.create(data);
-      db.groups.create(group);
-      db.groups.create(group2);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-  })
+    testInclude();
+  });
   it('signup post url should be defined', (done) => {
     supertest(app).post('/api/user/signup').send().end((err, res) => {
       assert.equal(res.statusCode, 401);
       done();
     });
   });
-  it('should validate input parameters are  username,email and password', (done) => {
+  it('should validate input parameters are well structred', (done) => {
     supertest(app).post('/api/user/signup').send(data2).end((err, res) => {
       assert.equal(res.body.parameters, 'ok');
       done();
@@ -79,25 +43,17 @@ describe('Signup tests', () => {
       done();
     });
   });
+  it('should sign user up if parameters are well structured', (done) => {
+    const user = { fullName: 'gbenga Oyetade', username: 'test_signup', password: 'password', email: 'test_signup@gmail.com', phoneNumber: '+234806414069533' };
+    supertest(app).post('/api/user/signup').send(user).end((err, res) => {
+      assert.isOk(res.body.user.token);
+      done();
+    });
+  });
 });
 
 // Test for the group controller
 describe('group test', () => {
-  // const group = {
-  //   groupName: 'test',
-  //   groupDescription: 'test description',
-  //   createdBy: 1,
-  // };
-  // let userId;
-  // let groupId;
-  // db.users.findOne()
-  // .then((user) => {
-  //   userId = user.id;
-  // });
-  // db.groups.findOne()
-  // .then((theGroup) => {
-  //   groupId = theGroup.id;
-  // })
   it('Create group route should be defined ', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send()
     .end((err, res) => {
@@ -119,8 +75,8 @@ describe('group test', () => {
       done();
     });
   });
-  it('Should detect if gourpName field is not provided', (done) => {
-    supertest(app).post('/api/group').set('x-access-token', token).send(data)
+  it('Should detect if groupName field is not provided', (done) => {
+    supertest(app).post('/api/group').set('x-access-token', token).send()
     .end((err, res) => {
       assert.equal(res.body.message, 'groupName field not provided');
       done();
@@ -143,9 +99,18 @@ describe('group test', () => {
     });
   });
   it('Add member function should be defined', (done) => {
+    const groupData = {};
+    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData).end((err, res) => {
+      assert.equal(res.statusCode, 400);
+      assert.isOk(res.body.error);
+      done();
+    });
+  });
+  it('Add member should add member to a group if conditions are satisfactory', (done) => {
     const groupData = { userId: 1 };
     supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData).end((err, res) => {
-      assert.equal(res.statusCode, 200);
+      assert.equal(res.body.message, 'User successfully added to group');
+      assert.isOk(res.body.member);
       done();
     });
   });
@@ -167,6 +132,13 @@ describe('group test', () => {
 
 // Login tests
 describe('Login', () => {
+  it('should detect if parameters are correct', (done) => {
+    supertest(app).post('/api/user/signin').send().end((err, res) => {
+      assert.isOk(res.body.error);
+      assert.equal(res.statusCode, 400);
+      done();
+    });
+  });
   it('Return 401 error if user does not exist', (done) => {
     const user = {
       username: 'does not exist',
@@ -178,6 +150,9 @@ describe('Login', () => {
     });
   });
   it('Return a token on successful login', (done) => {
+    const data = {
+      username: 'apptest', password: 'some password',
+    };
     supertest(app).post('/api/user/signin').send(data).end((err, res) => {
       assert.isOk(res.body.token);
       done();
@@ -185,6 +160,54 @@ describe('Login', () => {
   });
 });
 
+// reset password tests
+
+describe('Reset password', () => {
+  it('Should detect if email was provided', (done) => {
+    supertest(app).post('/api/user/password_reset').send().end((err, res) => {
+      assert.equal(res.body.message, 'Parameter not well structured');
+      assert.isOk(res.body.error);
+      assert.equal(res.statusCode, 400);
+      done();
+    });
+  });
+  it('Should detect if provided email exists', (done) => {
+    const email = { email: 'something@gmail.com' };
+    supertest(app).post('/api/user/password_reset').send(email).end((err, res) => {
+      assert.equal(res.body.error, 'Email address does not exist on Postit');
+      assert.equal(res.statusCode, 401);
+      done();
+    });
+  });
+});
+
+// update password tests
+describe('Update password', () => {
+  it('should detect if the password field was provided', (done) => {
+    supertest(app).post('/api/user/password_update').send().end((err, res) => {
+      assert.isOk(res.body.error);
+      assert.equal(res.statusCode, 400);
+    });
+    done();
+  });
+  it('should detect if url contains token', (done) => {
+    const password = { password: 'password' };
+    supertest(app).post('/api/user/password_update').send(password).end((err, res) => {
+      assert.equal(res.body.error, 'No token provided');
+      assert.equal(res.statusCode, 401);
+    });
+    done();
+  });
+  it('should verify token if provided', (done) => {
+    const password = { password: 'password' };
+    supertest(app).post('/api/user/password_update?token=whatever').send(password).end((err, res) => {
+      assert.equal(res.body.error, 'Token authentication failure');
+      assert.equal(res.statusCode, 401);
+    });
+    done();
+  });
+});
+// Message test
 
 // General Application tests
 describe('General tests', () => {

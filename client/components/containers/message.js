@@ -13,7 +13,7 @@ class Message extends React.Component {
     this.props.message[name] = value;
     console.log(this.props);
   }
-  handleSubmit(event){
+  handleSubmit(event) {
     event.preventDefault();
     this.props.postMessage(this.props.message, 1);
   }

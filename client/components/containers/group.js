@@ -1,35 +1,107 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import GroupPage from '../presentational/group';
-import UserNav from '../presentational/usernav';
-import Container from '../presentational/container';
-import { getGroupMessages } from '../../actions/createGroupAction';
+import { getGroupMessages, getGroupMembers, leaveGroup } from '../../actions/groupAction';
+import { sendUserMessage } from '../../actions/messageAction';
 import Message from './message';
 
-class Group extends React.Component{
+class Group extends React.Component {
+  constructor() {
+    super();
+    this.leaveGroup = this.leaveGroup.bind(this);
+    this.postMessage = this.postMessage.bind(this);
+    this.handleMessageChange = this.handleMessageChange.bind(this);
+  }
   componentDidMount() {
-    // this.props.getMessages(this.props.match.params.groupId);
+    const groupId = this.props.match.params.groupId;
+    this.props.getMessages(groupId);
+    this.props.getGroupMembers(groupId);
+  }
+  leaveGroup() {
+    const groupId = this.props.match.params.groupId;
+    this.props.leaveGroup(groupId);
+  }
+  handleMessageChange(event) {
+    const value = event.target.value;
+    const name = event.target.name;
+    this.props.message[name] = value;
+    console.log(this.props.message);
+  }
+  postMessage(event) {
+    event.preventDefault();
+    console.log('postMessage', this.props.message);
+    const groupId = this.props.match.params.groupId;
+    console.log(groupId);
+    this.props.sendUserMessage(groupId, this.props.message);
   }
   render() {
+    let groupMessages;
+    let groupMembers;
+    if (this.props.groupMembers.members) {
+      console.log(this.props.groupMembers.members);
+      const members = this.props.groupMembers.members;
+      groupMembers = (
+      <ul>
+        {members.map(member => (
+          <li key={member.id}>{member.username}</li>
+        ))}
+      </ul>
+      );
+    }
+    if (this.props.messages.messages) {
+      console.log('in messages', this.props.messages.messages);
+      const messages = this.props.messages.messages;
+      groupMessages = (
+        <ul>
+          {messages.map(message => (
+            <li key={message.id}>{message.messageBody}</li>
+          ))}
+        </ul>
+      );
+    }
     return (
       <div>
-        <UserNav />
-        <GroupPage />
+        <GroupPage
+          groupMessages={groupMessages}
+          groupMembers={groupMembers}
+          leaveGroup={this.leaveGroup}
+          postMessage={this.postMessage}
+          handleMessageChange={this.handleMessageChange}
+          groupId={this.props.match.params.groupId}
+        />
         <Message />
       </div>
     );
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    group: state.groupReducer,
-  };
+Group.propTypes = {
+  getGroupMembers: PropTypes.func.isRequired,
+  getMessages: PropTypes.func.isRequired,
 };
+const mapStateToProps = state => (
+  {
+    group: state.groupReducer,
+    messages: state.getUserGroupMessages,
+    messageSuccess: state.getUserGroupSuccess,
+    groupMembers: state.getGroupMembers,
+    message: state.postMessageReducer,
+  }
+);
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getMessages: (groupId) => {
       dispatch(getGroupMessages(groupId));
+    },
+    getGroupMembers: (groupId) => {
+      dispatch(getGroupMembers(groupId));
+    },
+    leaveGroup: (groupId) => {
+      dispatch(leaveGroup(groupId));
+    },
+    sendUserMessage: (groupId, message) => {
+      dispatch(sendUserMessage(groupId, message));
     },
   };
 };

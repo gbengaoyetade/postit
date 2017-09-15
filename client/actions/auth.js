@@ -6,6 +6,12 @@ export const loginLoading = isLoading => (
     isLoading,
   }
 );
+export const userLoginSuccess = user => (
+  {
+    type: 'USER_LOGIN_SUCCESS',
+    user,
+  }
+);
 
 export const signupLoading = isLoading => (
   {
@@ -13,21 +19,12 @@ export const signupLoading = isLoading => (
     isLoading,
   }
 );
-
-export const loginHasErrored = payload => (
-  {
-    type: 'LOGIN_ERROR',
-    payload,
-  }
-);
-
 export const signupHasErrored = payload => (
   {
     type: 'SIGNUP_ERROR',
     payload,
   }
 );
-
 export const loginError = error => (
   {
     type: 'LOGIN_ERROR',
@@ -41,14 +38,15 @@ export const signupError = error => (
     error,
   }
 );
-export const loginUser = user => (
+export const loginUser = (user, history) => (
   (dispatch) => {
     axios.post('/api/user/signin',
      user)
     .then((response) => {
       if (response.status === 200) {
+        dispatch(userLoginSuccess(response.data));
         window.sessionStorage.postitToken = response.data.token;
-        window.location.replace('/dashboard');
+        history.push('/dashboard');
       }
     })
     .catch((error) => {
@@ -67,3 +65,23 @@ export const loginUser = user => (
     });
   }
 );
+export const signupUser = (user, history) => {
+  return (dispatch) => {
+    axios.post(
+    '/api/user/signup', user)
+    .then((response) => {
+      if (response.status === 201) {
+        dispatch(userLoginSuccess(user));
+        window.sessionStorage.postitToken = response.data.user.token;
+        history.push('/dashboard');
+        console.log(response);
+      }
+      console.log(response);
+    })
+    .catch((error) => {
+      dispatch(signupError(error.response.data.error || null));
+      dispatch(signupLoading(false));
+      console.log(error.response);
+    });
+  };
+};
