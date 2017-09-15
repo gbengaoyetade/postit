@@ -60,7 +60,6 @@ export const createMessage = (req, res) => {
         messageBody: message.messageBody,
         messagePriority: message.messagePriority,
       };
-      // res.status(201).json({ group: messageData });
     })
     .catch((error) => {
       // const data = {

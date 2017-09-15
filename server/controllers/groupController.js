@@ -69,11 +69,12 @@ export const addMembers = (req, res) => {
       }
     })
     .catch((error) => {
-      res.json({ error: error.message, message: 'Could not find user' });
+      res.status(401).json({ error: error.message, message: 'Could not find user' });
     });
-  } else {
-    res.json({ error: inputValidation });
   }
+  // } else {
+  //   res.status(400).json({ error: inputValidation, message: 'Parameter not well sturcutred' });
+  // }
 }; // end of addMembers
 
 export const getGroups = (req, res) => {
