@@ -102,7 +102,7 @@ export const getGroups = (req, res) => {
       },
     ],
     order: [
-      [Groups, 'id', 'ASC'],
+      [Groups, 'id', 'DESC'],
     ],
   })
   .then((groups) => {

@@ -15,7 +15,8 @@ class GroupMembers extends React.Component {
       const members = this.props.groupMembers.members;
       groupMembersList = (<ul className="collection">
         {members.map(member => (
-          <li className="collection-item center">{member.fullName}</li>
+          <li className="collection-item center">
+            <a> {member.fullName} </a></li>
       ))
       }
       </ul>);
