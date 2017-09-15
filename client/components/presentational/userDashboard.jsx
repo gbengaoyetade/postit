@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SideNav from './sideNav.jsx';
+import SideNav from './userSideNav.jsx';
 
 export default props => (
   <div className="row">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SideNav from '../presentational/sideNav.jsx';
+import SideNav from '../presentational/userSideNav.jsx';
 import { searchUser } from '../../actions/search';
 import { addMember } from '../../actions/groupAction';
 

@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-// import GroupForm from '../containers/createGroup';
-import SideNav from './sidenav.jsx';
 
 const UserNav = (props) => {
   const logout = () => {
