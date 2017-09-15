@@ -6,7 +6,6 @@ const UserNav = (props) => {
     window.sessionStorage.postitToken = '';
     props.history.push('/login');
   };
-  console.log('UserNav');
   return (
     <div>
       { /* Side nav */ }
@@ -21,7 +20,7 @@ const UserNav = (props) => {
           <i className="material-icons">group</i> My Groups
         </Link>
         </li>
-        <li><div className="divider"></div></li>
+        <li><div className="divider" /></li>
         <li><Link className="waves-effect" to="#">
           <i className="material-icons">account_circle</i> Profile
         </Link></li>

@@ -5,6 +5,7 @@ import GroupPage from '../presentational/group';
 import { getGroupMessages, getGroupMembers, leaveGroup } from '../../actions/groupAction';
 import { sendUserMessage } from '../../actions/messageAction';
 import Message from './message';
+import GroupMembers from './groupMembers.jsx';
 
 class Group extends React.Component {
   constructor() {
@@ -61,7 +62,7 @@ class Group extends React.Component {
       );
     }
     return (
-      <div>
+      <div className="row">
         <GroupPage
           groupMessages={groupMessages}
           groupMembers={groupMembers}
@@ -71,6 +72,7 @@ class Group extends React.Component {
           groupId={this.props.match.params.groupId}
         />
         <Message />
+        <GroupMembers groupId={this.props.match.params.groupId} />
       </div>
     );
   }

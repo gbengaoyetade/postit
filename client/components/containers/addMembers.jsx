@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import SideNav from '../presentational/userSideNav.jsx';
 import { searchUser } from '../../actions/search';
 import { addMember } from '../../actions/groupAction';
+import GroupMembers from './groupMembers.jsx';
 
 class AddMembers extends React.Component {
   constructor() {
@@ -60,9 +61,9 @@ class AddMembers extends React.Component {
           </form>
           {searchResult}
         </div>
-        {/* <div className="col m3 hide-on-med-and-down">
-        </div> */}
+        <GroupMembers groupId={this.props.match.params.groupId} />
       </div>
+     
     );
   }
 }

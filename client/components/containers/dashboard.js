@@ -6,9 +6,6 @@ import { getGroups } from '../../actions/groupAction';
 import UserDashboard from '../presentational/userDashboard.jsx';
 
 class Dashboard extends React.Component {
-  componentWillMount() {
-
-  }
   componentDidMount() {
     this.props.getGroups();
     console.log(this.props);
@@ -17,13 +14,11 @@ class Dashboard extends React.Component {
     let groups;
     let userGroups;
     if (this.props.groups.groups) {
-      console.log(this.props.user);
       groups = this.props.groups.groups;
-      console.log('groups', this.props.groups.groups);
       userGroups = (
-        <ul>
+        <ul className="collection">
           {groups.map(group => (
-            <li key={group.id}><Link to={`/group/${group.id}`}> {group.groupName} </Link> </li>
+            <li key={group.id} className="collection-item"><Link to={`/group/${group.id}`}> {group.groupName} </Link> </li>
             ))}
         </ul>);
     }
