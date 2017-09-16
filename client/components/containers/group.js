@@ -10,7 +10,6 @@ import GroupMembers from './groupMembers.jsx';
 class Group extends React.Component {
   constructor() {
     super();
-    this.leaveGroup = this.leaveGroup.bind(this);
     this.postMessage = this.postMessage.bind(this);
     this.handleMessageChange = this.handleMessageChange.bind(this);
   }
@@ -18,10 +17,6 @@ class Group extends React.Component {
     const groupId = this.props.match.params.groupId;
     this.props.getMessages(groupId);
     this.props.getGroupMembers(groupId);
-  }
-  leaveGroup() {
-    const groupId = this.props.match.params.groupId;
-    this.props.leaveGroup(groupId);
   }
   handleMessageChange(event) {
     const value = event.target.value;
@@ -66,13 +61,12 @@ class Group extends React.Component {
         <GroupPage
           groupMessages={groupMessages}
           groupMembers={groupMembers}
-          leaveGroup={this.leaveGroup}
           postMessage={this.postMessage}
           handleMessageChange={this.handleMessageChange}
           groupId={this.props.match.params.groupId}
         />
         <Message />
-        <GroupMembers groupId={this.props.match.params.groupId} />
+        <GroupMembers groupId={this.props.match.params.groupId} history={this.props.history} />
       </div>
     );
   }

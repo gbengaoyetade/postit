@@ -1,16 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getGroupMembers } from '../../actions/groupAction';
+import { getGroupMembers, leaveGroup } from '../../actions/groupAction';
 
 class GroupMembers extends React.Component {
+  constructor() {
+    super();
+    this.leaveGroup = this.leaveGroup.bind(this);
+  }
   componentDidMount() {
     const groupId = this.props.groupId;
+    console.log(this.props);
     console.log(groupId);
     this.props.getGroupMembers(groupId);
   }
+  leaveGroup() {
+    const groupId = this.props.groupId;
+    console.log(this.props.history);
+    this.props.leaveGroup(groupId, this.props.history);
+  }
+  testClick() {
+    alert('working');
+  }
   render() {
     let groupMembersList;
+    const toatContent = `Do want to leave group? <a href="#" class="btn-flat toast-action" onclick=> Yes </a>`;
     if (this.props.groupMembers.members) {
       const members = this.props.groupMembers.members;
       groupMembersList = (<ul className="collection">
@@ -26,17 +40,33 @@ class GroupMembers extends React.Component {
         <p> &nbsp; </p>
         <div className="row">
           <Link className="btn blue col m6" to={`/group/${this.props.groupId}/addmembers`}> Add Members </Link>
-          <a className="btn red col m6 flow-text" onClick={this.props.leaveGroup}> Leave Group </a>
+          <a href=""className="btn red modal-trigger" data-target="modal1" >leaveGroup</a>
         </div>
         <p className="center"> Group Members </p>
         {groupMembersList}
+        <div id="modal1" className="modal">
+          <div className="modal-content">
+            <p>Are you sure you want to leave Group?</p>
+          </div>
+          <div className="modal-footer">
+            <a
+              href="#"
+              className="modal-action modal-close waves-effect waves-green btn"
+              onClick={this.leaveGroup}
+            >Yes</a>
+            <a href="#" className="modal-action modal-close waves-effect waves-green btn red">No</a>
+          </div>
+        </div>
       </div>
     );
   }
 }
-{/* GroupMembers.propTypes = {
-  members: React.PropTypes.arrayOf(React.PropTypes.obj),
-}; */}
+GroupMembers.propTypes = {
+  // members: React.PropTypes.arrayOf(React.PropTypes.obj),
+  leaveGroup: React.PropTypes.func.isRequired,
+  getGroupMembers: React.PropTypes.func.isRequired,
+  //groupId: React.PropTypes.int.isRequired,
+};
 const mapStateToProps = state => (
   {
     groupMembers: state.getGroupMembers,
@@ -48,8 +78,8 @@ const mapDispatchToProps = dispatch => (
     getGroupMembers: (groupId) => {
       dispatch(getGroupMembers(groupId));
     },
-    leaveGroup: (groupId) => {
-      dispatch(leaveGroup(groupId));
+    leaveGroup: (groupId, history) => {
+      dispatch(leaveGroup(groupId, history));
     },
   }
 );

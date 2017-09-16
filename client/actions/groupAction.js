@@ -122,22 +122,23 @@ export const addMember = (userId, groupId) => {
   return (dispatch) => {
     axios.post(`/api/group/${groupId}/user`, { userId }, { headers })
     .then((response) => {
-      getGroupMembers(groupId);
-      console.log(response);
+      // this is used to control automatic member appearance on the groupMembers section of the page
+      dispatch(addMemberSuccess(true));
+      console.log(response.data);
     })
     .catch((error) => {
       console.log(error.response);
     });
   };
 };
-export const leaveGroup = (groupId) => {
+export const leaveGroup = (groupId, history) => {
   const headers = {
     'x-access-token': window.sessionStorage.postitToken,
   };
   return () => {
     axios.delete(`/api/group/${groupId}/user`, { headers })
     .then((response) => {
-      console.log(response);
+      history.push('/dashboard');
     })
     .catch((error) => {
       console.log(error.response);

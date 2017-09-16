@@ -28,3 +28,11 @@ export const getGroupMembers = (state = {}, action) => {
       return state;
   }
 };
+export const addMemberSuccess = (state = false, action) => {
+  switch (action.type) {
+    case 'ADD_MEMBER_SUCCESS':
+      return action.bool;
+    default:
+      return state;
+  }
+};
