@@ -16,7 +16,7 @@ export const searchUser = (userInput, groupId) => (
     { headers })
     .then((response) => {
       console.log(response.data);
-      dispatch(searchResultSuccess(response.data));
+      dispatch(searchResultSuccess({ users: response.data }));
     })
     .catch((error) => {
       console.log(userInput, groupId, error.response);

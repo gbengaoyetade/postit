@@ -85,7 +85,6 @@ const mapStateToProps = state => (
   {
     group: state.groupReducer,
     messages: state.getUserGroupMessages,
-    messageSuccess: state.getUserGroupSuccess,
     groupMembers: state.getGroupMembers,
     message: state.postMessageReducer,
   }

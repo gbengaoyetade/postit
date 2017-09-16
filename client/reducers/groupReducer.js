@@ -28,19 +28,3 @@ export const getGroupMembers = (state = {}, action) => {
       return state;
   }
 };
-export const getUserGroupSuccess = (state = false, action) => {
-  switch (action.type) {
-    case 'GET_USER_GROUPS_SUCCESS':
-      return action.payload;
-    default:
-      return state;
-  }
-};
-export const getGroupMembersSuccess = (state = false, action) => {
-  switch (action.type) {
-    case 'GET_GROUP_MEMBERS_SUCCESS':
-      return action.payload;
-    default:
-      return state;
-  }
-};

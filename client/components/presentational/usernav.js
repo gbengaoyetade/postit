@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loginLoading } from '../../actions/auth';
 
 const UserNav = (props) => {
   const logout = () => {
     window.sessionStorage.postitToken = '';
     props.history.push('/login');
+    props.loginLoading(false);
   };
   return (
     <div>
@@ -55,5 +58,15 @@ const UserNav = (props) => {
       </nav>
     </div>
     );
-}
-export default withRouter(UserNav);
+};
+UserNav.propTypes = {
+  loginLoading: React.PropTypes.func.isRequired,
+};
+const mapDispatchToProps = dispatch => (
+  {
+    loginLoading: (bool) => {
+      dispatch(loginLoading(bool));
+    },
+  }
+);
+export default connect(null, mapDispatchToProps)(withRouter(UserNav));

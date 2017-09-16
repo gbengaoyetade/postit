@@ -188,24 +188,44 @@ export const userSearch = (req, res) => {
   const query = req.query.query;
   db.groups.find({
     where: {
-      id: { not: groupId },
+      id: groupId,
     },
   })
   .then((groups) => {
+    // Get the ids of users that belong to the current group
     groups.getUsers({
-      where: { username: {
-        $like: `%${query}%`,
-      },
-      },
-      attributes: {
-        exclude: ['createdAt', 'updatedAt', 'password', 'email'],
-      },
+      attributes: ['id'],
     })
     .then((users) => {
-      res.json({ users });
-    })
-    .catch((error) => {
-      console.log(error);
+      // filter the arrays of id only from it because it returns groupmembers with it
+      const usersId = users.map(user => (
+        user.id
+      ));
+      db.users.findAll({
+        // Take the usersIds gotten above to search the users table
+        // The query below finds users that are not in the arrays of usersId and whose ...
+        // ...usernames are like the value in the search query
+        where: { id: { not: usersId },
+          username: { $like: `%${query}%` } },
+      })
+      .then((otherUsers) => {
+        res.json(otherUsers);
+      });
+    // groups.getUsers({
+    //   where: { username: {
+    //     $like: `%${query}%`,
+    //   },
+    //   },
+    //   attributes: {
+    //     exclude: ['createdAt', 'updatedAt', 'password', 'email'],
+    //   },
+    // })
+    // .then((users) => {
+    //   res.json({ users });
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
     });
   })
   .catch((error) => {

@@ -153,7 +153,7 @@ export const getGroupMembers = (req, res) => {
       .then((users) => {
         res.json(users);
       })
-      .catch((error) => {
+      .catch(() => {
       });
     })
     .catch((error) => {

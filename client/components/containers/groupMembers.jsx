@@ -15,7 +15,7 @@ class GroupMembers extends React.Component {
       const members = this.props.groupMembers.members;
       groupMembersList = (<ul className="collection">
         {members.map(member => (
-          <li className="collection-item center">
+          <li key={member.id} className="collection-item center">
             <a> {member.fullName} </a></li>
       ))
       }
@@ -25,8 +25,8 @@ class GroupMembers extends React.Component {
       <div className="col m3 component-container hide-on-med-and-down">
         <p> &nbsp; </p>
         <div className="row">
-          <Link className="btn blue" to={`/group/${this.props.groupId}/addmembers`}> Add Members </Link>
-          <a className="btn red" onClick={this.props.leaveGroup}> Leave Group </a>
+          <Link className="btn blue col m6" to={`/group/${this.props.groupId}/addmembers`}> Add Members </Link>
+          <a className="btn red col m6 flow-text" onClick={this.props.leaveGroup}> Leave Group </a>
         </div>
         <p className="center"> Group Members </p>
         {groupMembersList}

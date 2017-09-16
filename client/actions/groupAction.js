@@ -27,12 +27,6 @@ export const getUserGroupsSuccess = (payload) => {
     payload,
   };
 };
-export const getGroupMembersSuccess = (payload) => {
-  return {
-    type: 'GET_GROUP_MEMBERS_SUCCESS',
-    payload,
-  };
-};
 export const getGroupMembersAction = (members) => {
   return {
     type: 'GET_GROUP_MEMBERS',
@@ -115,7 +109,6 @@ export const getGroupMembers = (groupId) => {
     .then((members) => {
       console.log(members.data);
       dispatch(getGroupMembersAction(members.data));
-      dispatch(getGroupMembersSuccess(true));
     })
     .catch((error) => {
       console.log(error);
@@ -129,11 +122,10 @@ export const addMember = (userId, groupId) => {
   return (dispatch) => {
     axios.post(`/api/group/${groupId}/user`, { userId }, { headers })
     .then((response) => {
-      dispatch(addMemberSuccess(true));
+      getGroupMembers(groupId);
       console.log(response);
     })
     .catch((error) => {
-      dispatch(addMemberSuccess(false));
       console.log(error.response);
     });
   };
