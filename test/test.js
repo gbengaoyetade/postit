@@ -1,46 +1,23 @@
 import { assert } from 'chai';
 import supertest from 'supertest';
 import app from '../server/app';
-import db from '../server/models/';
-// import exist from '../middleware/exist';
+import testInclude from './tests.includes';
 
-process.env.NODE_ENV = 'test';
+const data2 = { fullName: 'gbenga Oyetade', username: 'apptest2', password: 'some password', email: 'apptest2@gmail.com', phoneNumber: '+22348064140695' };
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjozLCJpYXQiOjE1MDUwNzY0NjEsImV4cCI6MTUzNjYxMjQ2MX0.omL5OG_IPewasCg0GweT5Xg3WbpL7f4FrWu2d6qYstM';
 
-const data = { fullName: 'gbenga Oyetade', username: 'apptest', password: 'some password', email: 'apptest@gmail.com', phoneNumber: '+2348064140695' };
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoyLCJpYXQiOjE1MDQyODk2NzYsImV4cCI6MTUzNTgyNTY3Nn0.x3Kd6Iyc-8-RU8y5Z_-80kcXPF8IlteXqhVANJW6BQM';
-db.sequelize.sync( { force: true })
-    .then((value) => {
-      db.users.destroy();
-      console.log(value);
-    })
-    .catch((error) => {
-      console.log(error);
-    }); 
 describe('Signup tests', () => {
-  beforeEach(() => {
-    db.users.destroy({
-    cascade: true,
-    truncate: true,
-    restartIdentity: true
-    })
-    .then(() => {
-      db.users.create(data)
-    .then((user) => {
-      console.log(user);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    })
-    });
+  before(() => {
+    testInclude();
+  });
   it('signup post url should be defined', (done) => {
     supertest(app).post('/api/user/signup').send().end((err, res) => {
       assert.equal(res.statusCode, 401);
       done();
     });
   });
-  it('should validate input parameters are  username,email and password', (done) => {
-    supertest(app).post('/api/user/signup').send(data).end((err, res) => {
+  it('should validate input parameters are well structred', (done) => {
+    supertest(app).post('/api/user/signup').send(data2).end((err, res) => {
       assert.equal(res.body.parameters, 'ok');
       done();
     });
@@ -66,22 +43,17 @@ describe('Signup tests', () => {
       done();
     });
   });
+  it('should sign user up if parameters are well structured', (done) => {
+    const user = { fullName: 'gbenga Oyetade', username: 'test_signup', password: 'password', email: 'test_signup@gmail.com', phoneNumber: '+234806414069533' };
+    supertest(app).post('/api/user/signup').send(user).end((err, res) => {
+      assert.isOk(res.body.user.token);
+      done();
+    });
+  });
 });
 
 // Test for the group controller
 describe('group test', () => {
-  beforeEach(() => {
-    db.users.destroy({ truncate: true })
-    .then(() => {
-      db.users.create(data)
-    .then((user) => {
-      console.log(user);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    })
-    });
   it('Create group route should be defined ', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send()
     .end((err, res) => {
@@ -90,21 +62,21 @@ describe('group test', () => {
     });
   });
   it('Leave group should detect if group exist', (done) => {
-    supertest(app).delete('/api/group/10000000/user').set('x-access-token', token).send()
+    supertest(app).delete('/api/group/10789/user').set('x-access-token', token).send()
     .end((err, res) => {
       assert.equal(res.body.error, 'Group does not exist');
       done();
     });
   });
   it('Leave group should detect if user belongs to group', (done) => {
-    supertest(app).delete('/api/group/1/user').set('x-access-token', token).send()
+    supertest(app).delete('/api/group/2/user').set('x-access-token', token).send()
     .end((err, res) => {
-      assert.equal(res.body.error.message, 'User not a member of the group');
+      assert.equal(res.body.error, 'User not a member of the group');
       done();
     });
   });
-  it('Should detect if gourpName field is not provided', (done) => {
-    supertest(app).post('/api/group').set('x-access-token', token).send(data)
+  it('Should detect if groupName field is not provided', (done) => {
+    supertest(app).post('/api/group').set('x-access-token', token).send()
     .end((err, res) => {
       assert.equal(res.body.message, 'groupName field not provided');
       done();
@@ -127,35 +99,72 @@ describe('group test', () => {
     });
   });
   it('Add member function should be defined', (done) => {
-    const groupData = { userId: 1 };
+    const groupData = {};
     supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData).end((err, res) => {
-      assert.equal(res.statusCode, 200);
+      assert.equal(res.statusCode, 400);
+      assert.isOk(res.body.error);
+      done();
+    });
+  });
+  it('Add member should add member to a group if conditions are satisfactory', (done) => {
+    const groupData = { userId: 1 };
+    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData)
+    .end((err, res) => {
+      assert.equal(res.body.message, 'User successfully added to group');
+      assert.isOk(res.body.member);
       done();
     });
   });
   it('Add member should detect if user is already a member of the group', (done) => {
     const groupData = { userId: 1 };
-    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData).end((err, res) => {
+    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData)
+    .end((err, res) => {
       assert.equal(res.body.error, 'User already a member of this group');
       done();
     });
   });
+  it('getGroupMembers should return group members', (done) => {
+    supertest(app).get('/api/group/1/users').set('x-access-token', token).send()
+    .end((err, res) => {
+      assert.isOk(res.body.users);
+      assert.equal(res.statusCode, 200);
+      done();
+    });
+  });
+  it('leave group should remove user from group if he belongs to the group', (done) => {
+    supertest(app).delete('/api/group/1/user').set('x-access-token', token).send()
+    .end((err, res) => {
+      assert.isOk(res.body.message);
+      assert.equal(res.statusCode, 200);
+      done();
+    });
+  });
+  it('leave group should detect if user is a member of the group', (done) => {
+    supertest(app).delete('/api/group/2/user').set('x-access-token', token).send()
+    .end((err, res) => {
+      assert.isOk(res.body.error);
+      assert.equal(res.statusCode, 400);
+      done();
+    });
+  });
+  // it('should detect if groupId is not a number', (done) => {
+  //   const groupData = { userId: 1 };
+  //   supertest(app).post('/api/group/r/user').set('x-access-token', token).send(groupData).end((err, res) => {
+  //     assert.equal(res.body.error, 'groupId or userId not a number');
+  //     done();
+  //   });
+  // });
 });
 
 // Login tests
 describe('Login', () => {
-   beforeEach(() => {
-    db.users.destroy({ truncate: true })
-    .then(() => {
-      db.users.create(data)
-    .then((user) => {
-      console.log(user);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    })
-      });
+  it('should detect if parameters are correct', (done) => {
+    supertest(app).post('/api/user/signin').send().end((err, res) => {
+      assert.isOk(res.body.error);
+      assert.equal(res.statusCode, 400);
+      done();
+    });
+  });
   it('Return 401 error if user does not exist', (done) => {
     const user = {
       username: 'does not exist',
@@ -167,7 +176,9 @@ describe('Login', () => {
     });
   });
   it('Return a token on successful login', (done) => {
-  
+    const data = {
+      username: 'apptest', password: 'some password',
+    };
     supertest(app).post('/api/user/signin').send(data).end((err, res) => {
       assert.isOk(res.body.token);
       done();
@@ -175,9 +186,56 @@ describe('Login', () => {
   });
 });
 
+// reset password tests
+
+describe('Reset password', () => {
+  it('Should detect if email was provided', (done) => {
+    supertest(app).post('/api/user/password_reset').send().end((err, res) => {
+      assert.equal(res.body.message, 'Parameter not well structured');
+      assert.isOk(res.body.error);
+      assert.equal(res.statusCode, 400);
+      done();
+    });
+  });
+  it('Should detect if provided email exists', (done) => {
+    const email = { email: 'something@gmail.com' };
+    supertest(app).post('/api/user/password_reset').send(email).end((err, res) => {
+      assert.equal(res.body.error, 'Email address does not exist on Postit');
+      assert.equal(res.statusCode, 401);
+      done();
+    });
+  });
+});
+
+// update password tests
+describe('Update password', () => {
+  it('should detect if the password field was provided', (done) => {
+    supertest(app).post('/api/user/password_update').send().end((err, res) => {
+      assert.isOk(res.body.error);
+      assert.equal(res.statusCode, 400);
+    });
+    done();
+  });
+  it('should detect if url contains token', (done) => {
+    const password = { password: 'password' };
+    supertest(app).post('/api/user/password_update').send(password).end((err, res) => {
+      assert.equal(res.body.error, 'No token provided');
+      assert.equal(res.statusCode, 401);
+    });
+    done();
+  });
+  it('should verify token if provided', (done) => {
+    const password = { password: 'password' };
+    supertest(app).post('/api/user/password_update?token=whatever').send(password).end((err, res) => {
+      assert.equal(res.body.error, 'Token authentication failure');
+      assert.equal(res.statusCode, 401);
+    });
+    done();
+  });
+});
+// Message test
 
 // General Application tests
-
 describe('General tests', () => {
   it('Undefined GET urls should return 404 statusCode', (done) => {
     supertest(app).get('/whatever').send().end((err, res) => {
@@ -197,11 +255,6 @@ describe('General tests', () => {
       done();
     });
   });
-  // it('Undefined routes should return HTML', (done) => {
-  //   supertest(app).get('/undefined_route').send().end((err, res) => {
-  //     assert.equal(res.header('content-type'), 'HTML');
-  //   });
-  // });
 });
 describe('Authenticate', () => {
   it('should detect if token is not provided', (done) => {
@@ -217,5 +270,3 @@ describe('Authenticate', () => {
     });
   });
 });
-
-// require('dotenv').config();

@@ -6,9 +6,19 @@ body{
 	padding: 0;
 	margin: 0;
 	background-color: #eee;
+	display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 	color:#fff;
 }
-
+// materialize css footer fix
+  main {
+    flex: 1 0 auto;
+  }
+// materialize css footer fix 
+.height{
+	height: 500px;
+}
 .mycontainer{
 	background-color:$navy-blue; 
 	padding: 0.5%;
@@ -17,7 +27,16 @@ header{
 		border-bottom: 1px solid $grey;
 		padding:0 15px ;
 }
-
+.component-container{
+	border-radius: 5px;
+	background-color: #fff;
+	width: 100%;
+	color: #999;
+	padding: 25px;
+}
+nav{
+	margin-bottom: 20px;
+}
 footer{
    position:fixed;
    left:0px;

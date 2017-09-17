@@ -1,47 +1,46 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { sendUserMessage } from '../../actions/messageAction';
-import MessageForm from '../presentational/messageForm';
 
 class Message extends React.Component {
-  componentDidMount(){
+  constructor() {
+    super();
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentDidMount() {
     console.log(this.props);
   }
-  handleChange(event){
+  handleChange(event) {
     const value = event.target.value;
     const name = event.target.name;
     this.props.message[name] = value;
     console.log(this.props);
   }
-  handleSubmit(event){
+  handleSubmit(event) {
     event.preventDefault();
     this.props.postMessage(this.props.message, 1);
   }
   render() {
     return (
-      <div>
-        <MessageForm 
-          handleSubmit={this.handleSubmit.bind(this)}
-          handleChange={this.handleChange.bind(this)}
-          priority={this.props.message.priority}
-        />
-      </div>
+      <div />
+
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = state => (
+  {
     message: state.postMessageReducer,
-  };
-};
+  }
+);
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = dispatch => (
+  {
     postMessage: (message, groupId) => {
       dispatch(sendUserMessage(message, groupId));
     },
-  };
-};
+  }
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Message);

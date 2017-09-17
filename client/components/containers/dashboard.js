@@ -1,57 +1,54 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import UserNav from '../presentational/usernav';
-import Home from '../presentational/container';
-import { getGroups } from '../../actions/createGroupAction';
+import { getGroups } from '../../actions/groupAction';
+import UserDashboard from '../presentational/userDashboard.jsx';
 
 class Dashboard extends React.Component {
-  componentWillMount () {
-
-  }
-  componentDidMount () {
-    if (!window.sessionStorage.postitToken) {
-       this.props.history.push('/login');
-    }
-    console.log(this.props);
+  componentDidMount() {
     this.props.getGroups();
-  }  
+    console.log(this.props);
+  }
   render() {
     let groups;
     let userGroups;
-    if(this.props.userGroupSuccess){
+    if (this.props.groups.groups) {
       groups = this.props.groups.groups;
-      console.log(this.props.groups.groups);
-      userGroups = <ul>
-        {groups.map((group) =>(
-          <li key={group.id}><Link to={'/group/' + group.id}>  { group.groupName } </Link> </li>
-          ))}
-        </ul>
+      userGroups = (
+        <ul className="collection">
+          {groups.map(group => (
+            <li key={group.id} className="collection-item"><Link to={`/group/${group.id}`}> {group.groupName} </Link> </li>
+            ))}
+        </ul>);
     }
     return (
       <div>
-      <UserNav />
-      <Home>
-        <p className='align-center'>Your groups</p>
-        {userGroups}
-      </Home>
+        <UserDashboard userGroups={userGroups} />
       </div>
-      );
+    );
   }
 }
 
+Dashboard.propTypes = {
+  getGroups: PropTypes.func.isRequired,
+  // user: PropTypes.shape().isRequired,
+  // groups: PropTypes.shape().isRequired,
+};
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = state => (
+  {
     groups: state.userGroupReducer,
     userGroupSuccess: state.getUserGroupSuccess,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
+    user: state.userAuth,
+    error: state.loginError,
+  }
+);
+const mapDispatchToProps = dispatch => (
+  {
     getGroups: () => {
       dispatch(getGroups());
     },
-  };
-};
+  }
+);
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));

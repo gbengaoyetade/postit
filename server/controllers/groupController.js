@@ -53,7 +53,7 @@ export const addMembers = (req, res) => {
     })
     .then((member) => {
       if (member) {
-        res.json({ error: 'User already a member of this group', member });
+        res.status(400).json({ error: 'User already a member of this group', member });
       } else {
         Members.create({
           groupId: req.params.groupId,
@@ -69,16 +69,17 @@ export const addMembers = (req, res) => {
       }
     })
     .catch((error) => {
-      res.json({ error: error.message, message: 'Could not find user' });
+      res.status(401).json({ error: error.message, message: 'Could not find user' });
     });
-  } else {
-    res.json({ error: inputValidation });
   }
+  // } else {
+  //   res.status(400).json({ error: inputValidation, message: 'Parameter not well sturcutred' });
+  // }
 }; // end of addMembers
 
 export const getGroups = (req, res) => {
   const userId = getId(req.headers['x-access-token']);
-  Users.findAll({
+  Users.find({
     where: { id: userId },
     attributes: {
       exclude: ['password', 'createdAt', 'updatedAt'],
@@ -89,8 +90,19 @@ export const getGroups = (req, res) => {
         attributes: {
           exclude: ['createdAt', 'updatedAt'],
         },
+        include: [
+          {
+            model: Messages,
+            attributes: {
+              exclude: ['createdAt', 'updatedAt'],
+            },
+          },
+        ], // end of Group include
         through: { attributes: [] },
       },
+    ],
+    order: [
+      [Groups, 'id', 'DESC'],
     ],
   })
   .then((groups) => {
@@ -112,17 +124,42 @@ export const leaveGroup = (req, res) => {
       Members.destroy({
         where: { userId, groupId },
       })
-      .then((member) => {
-        res.json('User left group');
+      .then(() => {
+        res.json({ message: 'User left group' });
       })
       .catch((error) => {
         res.status(400).json(error);
       });
     } else {
-      res.status(400).json({ error: { message: 'User not a member of the group' } });
-    } 
+      res.status(400).json({ error: 'User not a member of the group' });
+    }
   })
   .catch((error) => {
     res.status(400).json(error);
   });
+};
+export const getGroupMembers = (req, res) => {
+  const requiredFields = ['groupId'];
+  const inputValidationResponse = validateInput(req.params, requiredFields);
+  if (inputValidationResponse === 'ok' && !isNaN(req.params.groupId)) {
+    Groups.find({
+      where: { id: req.params.groupId },
+    })
+    .then((foundGroup) => {
+      foundGroup.getUsers({ attributes: {
+        exclude: ['password', 'createdAt', 'updatedAt'],
+      },
+      })
+      .then((users) => {
+        res.json({ users });
+      })
+      .catch(() => {
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
+  } else {
+    res.status(400).json({ error: inputValidationResponse });
+  }
 };

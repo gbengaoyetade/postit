@@ -1,22 +1,29 @@
 import { combineReducers } from 'redux';
-import createAccount from './createAccount';
+import userAuth from './userAuth';
 import loginLogout from './loginLogout';
-import { signupLoading, loginLoading } from './itemLoading';
-import { loginError, signupError } from './authError';
-import { createGroupReducer, getUserGroupSuccess } from './groupReducer';
+import { itemLoading, loginLoading } from './itemLoading';
+import { loginError, signupError, passwordError } from './authError';
+import { createGroupReducer, getUserGroupMessages, getGroupMembers, addMemberSuccess } from './groupReducer';
 import userGroupReducer from './userGroupsReducer';
 import { postMessageReducer, messageSendingReducer } from './messageReducer';
+import recoverPassword from './passwordReducer';
+import searchReducer from './searchReducer';
 
 export default combineReducers({
-  createAccount,
+  userAuth,
+  searchReducer,
   loginLogout,
-  signupLoading,
+  itemLoading,
   loginLoading,
   signupError,
+  passwordError,
   createGroupReducer,
-  getUserGroupSuccess,
+  getUserGroupMessages,
   postMessageReducer,
   messageSendingReducer,
+  getGroupMembers,
+  addMemberSuccess,
   userGroupReducer,
   loginError,
+  recoverPassword,
 });

@@ -1,12 +1,16 @@
+// import webpack from 'webpack';
+// import path from 'path';
+
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+  devtool: 'eval-source-map',
   entry: './client/index.jsx',
   output: {
     path: path.resolve('./client/bundled'),
     filename: 'index_bundle.js',
+    publicPath: '/',
   },
   module: {
     loaders: [
@@ -18,14 +22,17 @@ module.exports = {
       {
         test: /\.scss$/,
         include: /client/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader'],
+        loaders: 'style-loader!css-loader!sass-loader',
       },
     ],
   },
   plugins: [
-    new ExtractTextPlugin('./client/scss/posit.scss', {
-      allChunks: true,
+    new webpack.LoaderOptionsPlugin({
+      debug: true,
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+
   ],
 };
-  
