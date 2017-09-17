@@ -12,11 +12,11 @@ const Group = props => (
         <div className="input-field">
           <p>Choose message priority </p>
         </div>
-        <input type="radio" id="normal" name="messagePriority" value="Normal" checked onChange={props.handleMessageChange.bind(this)} />
+        <input type="radio" id="normal" name="messagePriority" value="Normal" onChange={props.handleMessageChange} />
         <label htmlFor="normal"> Normal </label>
-        <input type="radio" id="urgent" name="messagePriority" value="Urgent" onChange={props.handleMessageChange.bind(this)} />
+        <input type="radio" id="urgent" name="messagePriority" value="Urgent" onChange={props.handleMessageChange} />
         <label htmlFor="urgent"> Urgent </label>
-        <input type="radio" id="critical" name="messagePriority" value="Critical" onChange={props.handleMessageChange.bind(this)} />
+        <input type="radio" id="critical" name="messagePriority" value="Critical" onChange={props.handleMessageChange} />
         <label htmlFor="critical"> Critical</label>
         <div className="input-field">
           <input type="submit" className="btn light-blue"value="Post" />

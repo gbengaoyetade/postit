@@ -46,28 +46,29 @@ export const createMessage = (req, res) => {
                 res.json(message);
               }
             });
-            
           });
         })
         .catch((error) => {
           res.status(400).json({ error, bad: 'bad request' });
         });
+      } else {
+        const messageData = {
+          messageId: message.id,
+          userId: message.userId,
+          groupId: message.groupId,
+          messageBody: message.messageBody,
+          messagePriority: message.messagePriority,
+        };
+        res.json({ message: messageData });
       }
-      const messageData = {
-        messageId: message.id,
-        userId: message.userId,
-        groupId: message.groupId,
-        messageBody: message.messageBody,
-        messagePriority: message.messagePriority,
-      };
     })
     .catch((error) => {
-      // const data = {
-      //   error: error.errors[0].message,
-      //   message: 'Could not create message',
-      // };
+      const data = {
+        error: error.errors[0].message,
+        message: 'Could not create message',
+      };
       console.log(error);
-      res.status(400).json({ error, bad: 'bad request fdzdfs' });
+      res.status(400).json({ error });
     });
   } else {
     res.status(400).json({ error: validateReturn });
@@ -75,17 +76,24 @@ export const createMessage = (req, res) => {
 };
 
 export const getMessages = (req, res) => {
-  Messages.findAll({
-    where: { groupId: req.params.groupId },
-    attributes: {
-      exclude: ['createdAt', 'updatedAt'],
-    },
+  const userId = getId(req.headers['x-access-token']);
+  const groupId = req.params.groupId;
+  db.groupMembers.find({
+    where: { userId, groupId },
   })
-  .then((messages) => {
-    res.status(200).json(messages);
-  })
-  .catch((err) => {
-    res.status(401).json(err.message);
+  .then((groupMember) => {
+    Messages.findAll({
+      where: { groupId },
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    })
+    .then((messages) => {
+      res.status(200).json(messages);
+    })
+    .catch((err) => {
+      res.status(401).json(err.message);
+    });
   });
 };
 

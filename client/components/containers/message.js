@@ -23,28 +23,8 @@ class Message extends React.Component {
   }
   render() {
     return (
-      <div>
-      <div id="createMessageModal" className="modal col s10 ">
-        <div className="modal-content">
-          <form onSubmit={this.props.handleSubmit}>
-          <div className="input-field">
-            <textarea name="messageBody" onChange={this.props.handleChange}>
-            </textarea>
-            <label htmlFor="message">Message</label>
-          </div> 
-            <select className="browser-default" value={this.props.priority}name="messagePriority" onChange={this.props.handleChange}>
-              <option value="" disabled >Choose message priority </option>
-              <option value="Normal"> Normal </option>
-              <option value="Urgent"> Urgent</option>
-              <option value="Critical"> Critical</option>
-            </select>
-            <label htmlFor="priority">Message priority</label>
-          <p className="row"> <input type="submit" value="POST" className="btn light-blue darken-4 col s8 offset-s2" />
-          </p>
-      </form>
-        </div>
-      </div>
-    </div>
+      <div />
+
     );
   }
 }

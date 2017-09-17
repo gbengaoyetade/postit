@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import SideNav from '../presentational/userSideNav.jsx';
 import { searchUser } from '../../actions/search';
 import { addMember, getGroupMembers, addMemberSuccess } from '../../actions/groupAction';
@@ -72,7 +73,8 @@ class AddMembers extends React.Component {
   }
 }
 AddMembers.propTypes = {
-  searchUsers: React.PropTypes.func.isRequired,
+  searchUsers: PropTypes.func.isRequired,
+  addMemberSuccess: PropTypes.bool.isRequired,
 };
 const mapStateToProps = state => (
   {

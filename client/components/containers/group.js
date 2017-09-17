@@ -65,7 +65,6 @@ class Group extends React.Component {
           handleMessageChange={this.handleMessageChange}
           groupId={this.props.match.params.groupId}
         />
-        <Message />
         <GroupMembers groupId={this.props.match.params.groupId} history={this.props.history} />
       </div>
     );

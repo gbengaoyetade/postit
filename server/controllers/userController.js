@@ -197,7 +197,7 @@ export const userSearch = (req, res) => {
       attributes: ['id'],
     })
     .then((users) => {
-      // filter the arrays of id only from it because it returns groupmembers with it
+      // filter the arrays of ids only from it because it returns groupMembers data too
       const usersId = users.map(user => (
         user.id
       ));
