@@ -125,7 +125,7 @@ export const leaveGroup = (req, res) => {
         where: { userId, groupId },
       })
       .then(() => {
-        res.json('User left group');
+        res.json({ message: 'User left group' });
       })
       .catch((error) => {
         res.status(400).json(error);
@@ -141,7 +141,7 @@ export const leaveGroup = (req, res) => {
 export const getGroupMembers = (req, res) => {
   const requiredFields = ['groupId'];
   const inputValidationResponse = validateInput(req.params, requiredFields);
-  if (inputValidationResponse === 'ok') {
+  if (inputValidationResponse === 'ok' && !isNaN(req.params.groupId)) {
     Groups.find({
       where: { id: req.params.groupId },
     })
@@ -151,7 +151,7 @@ export const getGroupMembers = (req, res) => {
       },
       })
       .then((users) => {
-        res.json(users);
+        res.json({ users });
       })
       .catch(() => {
       });

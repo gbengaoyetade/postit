@@ -1,19 +1,4 @@
-// {
-//   "development": {
-//     "use_env_variable": "postgres://postgres@localhost:5432/postgres"
-//   },
-//   "test": {
-//    "use_env_variable": "TEST_DB"
-//   },
-//   "production": {
-//     "use_env_variable": "DATABASE_URL",
-//     "dialect": "postgres",
-//     "dialectOptions": {
-//       "ssl" : true
-//     }
-//   }
-// }
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 
 dotenv.load();
 const config = {
@@ -30,4 +15,4 @@ const config = {
     dialect: 'postgres',
   },
 };
-module.exports = config;
+export default config;

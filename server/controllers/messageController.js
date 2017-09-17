@@ -36,14 +36,14 @@ export const createMessage = (req, res) => {
             const mailOptions = {
               from: 'ioyetade@gmail.com',
               to: membersEmail,
-              subject: 'Reset Password',
+              subject: 'Postit Message Notification',
               html: email,
             };
             transporter.sendMail(mailOptions, (error, info) => {
               if (error) {
                 res.status(400).json({ error: 'notifications not sent' });
               } else {
-                res.json(message);
+                res.status(200).json({ message });
               }
             });
           });
@@ -59,7 +59,7 @@ export const createMessage = (req, res) => {
           messageBody: message.messageBody,
           messagePriority: message.messagePriority,
         };
-        res.json({ message: messageData });
+        res.status(201).json({ message: messageData });
       }
     })
     .catch((error) => {
@@ -89,7 +89,7 @@ export const getMessages = (req, res) => {
       },
     })
     .then((messages) => {
-      res.status(200).json(messages);
+      res.status(200).json({ messages });
     })
     .catch((err) => {
       res.status(401).json(err.message);

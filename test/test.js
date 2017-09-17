@@ -108,7 +108,8 @@ describe('group test', () => {
   });
   it('Add member should add member to a group if conditions are satisfactory', (done) => {
     const groupData = { userId: 1 };
-    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData).end((err, res) => {
+    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData)
+    .end((err, res) => {
       assert.equal(res.body.message, 'User successfully added to group');
       assert.isOk(res.body.member);
       done();
@@ -116,8 +117,33 @@ describe('group test', () => {
   });
   it('Add member should detect if user is already a member of the group', (done) => {
     const groupData = { userId: 1 };
-    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData).end((err, res) => {
+    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData)
+    .end((err, res) => {
       assert.equal(res.body.error, 'User already a member of this group');
+      done();
+    });
+  });
+  it('getGroupMembers should return group members', (done) => {
+    supertest(app).get('/api/group/1/users').set('x-access-token', token).send()
+    .end((err, res) => {
+      assert.isOk(res.body.users);
+      assert.equal(res.statusCode, 200);
+      done();
+    });
+  });
+  it('leave group should remove user from group if he belongs to the group', (done) => {
+    supertest(app).delete('/api/group/1/user').set('x-access-token', token).send()
+    .end((err, res) => {
+      assert.isOk(res.body.message);
+      assert.equal(res.statusCode, 200);
+      done();
+    });
+  });
+  it('leave group should detect if user is a member of the group', (done) => {
+    supertest(app).delete('/api/group/2/user').set('x-access-token', token).send()
+    .end((err, res) => {
+      assert.isOk(res.body.error);
+      assert.equal(res.statusCode, 400);
       done();
     });
   });
