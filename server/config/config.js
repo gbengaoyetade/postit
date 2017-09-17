@@ -1,4 +1,5 @@
-import dotenv from 'dotenv';
+
+const dotenv = require('dotenv');
 
 dotenv.load();
 const config = {
@@ -15,4 +16,4 @@ const config = {
     dialect: 'postgres',
   },
 };
-export default config;
+module.exports = config;
