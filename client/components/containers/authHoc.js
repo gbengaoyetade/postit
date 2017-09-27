@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import UserNav from '../presentational/usernav';
 
@@ -8,19 +9,18 @@ export default (Component) => {
       if (!window.sessionStorage.postitToken) {
         this.props.history.push('/login');
       }
-      console.log(this.props);
     }
     render() {
       return (
         <div>
-          <UserNav username={this.props.user.username} />
+          <UserNav username={localStorage.getItem('username')} />
           <Component {...this.props} />
         </div>
       );
     }
   }
   AuthHoc.proptypes = {
-    history: React.PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   };
   const mapStateToProps = state => (
     {

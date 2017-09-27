@@ -10,21 +10,15 @@ class GroupMembers extends React.Component {
   }
   componentDidMount() {
     const groupId = this.props.groupId;
-    console.log(this.props);
-    console.log(groupId);
     this.props.getGroupMembers(groupId);
   }
   leaveGroup() {
     const groupId = this.props.groupId;
-    console.log(this.props.history);
     this.props.leaveGroup(groupId, this.props.history);
-  }
-  testClick() {
-    alert('working');
   }
   render() {
     let groupMembersList;
-    const toatContent = `Do want to leave group? <a href="#" class="btn-flat toast-action" onclick=> Yes </a>`;
+    // const toas÷÷tContent = `Do want to leave group? <a href="#" class="btn-flat toast-action" onclick=> Yes </a>`;
     if (this.props.groupMembers.members) {
       const members = this.props.groupMembers.members;
       groupMembersList = (<ul className="collection">

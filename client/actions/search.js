@@ -15,11 +15,9 @@ export const searchUser = (userInput, groupId) => (
     axios.get(`/api/user/${groupId}/search?query=${userInput}`,
     { headers })
     .then((response) => {
-      console.log(response.data);
       dispatch(searchResultSuccess({ users: response.data }));
     })
     .catch((error) => {
-      console.log(userInput, groupId, error.response);
     });
   }
 );

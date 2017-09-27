@@ -26,12 +26,10 @@ export const recoverPassword = email => (
     email)
     .then((response) => {
       window.location.replace('/email_sent');
-      console.log(response);
     })
     .catch((error) => {
       dispatch(emailSending(false));
       dispatch(passwordResetError(error.response.data.error));
-      console.log(error.response);
     });
   }
 );
@@ -41,17 +39,14 @@ export const updatePassword = (password, token) => (
     const headers = {
       'x-access-token': window.sessionStorage.postitToken,
     };
-    console.log(token);
     axios.post(`api/user/password_update?token=${token}`,
     password, { headers })
     .then((response) => {
-      console.log(response.data.token);
       window.sessionStorage.postitToken = response.data.token;
       window.location.replace('/dashboard');
     })
     .catch((error) => {
       dispatch(passwordResetError(error.response.data.error || ''));
-      console.log(error.response);
     });
   }
 );

@@ -5,7 +5,7 @@ const groupModal = (props) => {
   return (
     <div className="row">
       <SideNav />
-      <div  className="col s12 m5 offset-m1 component-container">
+      <div  className="col s12 m6 component-container">
         <div className="modal-content">
           <form  onSubmit={props.handleSubmit.bind(this)}>
           <div className="input-field">

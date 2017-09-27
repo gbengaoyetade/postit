@@ -67,7 +67,6 @@ export const createMessage = (req, res) => {
         error: error.errors[0].message,
         message: 'Could not create message',
       };
-      console.log(error);
       res.status(400).json({ error });
     });
   } else {

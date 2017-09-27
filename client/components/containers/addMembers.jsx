@@ -32,22 +32,22 @@ class AddMembers extends React.Component {
     }
     if (this.props.searchResult.searchResult) {
       const searchResultArray = this.props.searchResult.searchResult.users;
-      if (searchResultArray.length > 0 ) {
+      if (searchResultArray.length > 0) {
         searchResult = (
-        <ul className="collection" >
-          {searchResultArray.map(user => (
-            <li className="collection-item" key={user.id}>
-              <a
-                className="right small btn"
-                onClick={() => { this.addMembers(user.id, groupId); }}
-              > Add
-              </a>
-              {user.fullName}
-              <div className="clearfix" />
-            </li>
-        ))
-        }
-        </ul>
+          <ul className="collection" >
+            {searchResultArray.map(user => (
+              <li className="collection-item" key={user.id}>
+                <a
+                  className="right small btn"
+                  onClick={() => { this.addMembers(user.id, groupId); }}
+                > Add
+                </a>
+                {user.fullName}
+                <div className="clearfix" />
+              </li>
+          ))
+          }
+          </ul>
       );
       } else {
         searchResult = '';
@@ -61,19 +61,21 @@ class AddMembers extends React.Component {
           <form>
             <div className="input-field">
               <input id="search" type="search" autoComplete="off" name="userSearch" onChange={this.handleSearch} />
-              <label htmlFor="search"> Enter user </label>
+              <label htmlFor="search"> Search users </label>
             </div>
           </form>
           {searchResult}
         </div>
-        <GroupMembers groupId={this.props.match.params.groupId} history={this.props.history} />
+        {/* <GroupMembers groupId={this.props.match.params.groupId} history={this.props.history} /> */}
       </div>
-     
     );
   }
 }
 AddMembers.propTypes = {
   searchUsers: PropTypes.func.isRequired,
+  addMember: PropTypes.func.isRequired,
+  getGroupMembers: PropTypes.func.isRequired,
+  setAddMembersSucces: PropTypes.func.isRequired,
   addMemberSuccess: PropTypes.bool.isRequired,
 };
 const mapStateToProps = state => (

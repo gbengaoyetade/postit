@@ -73,7 +73,9 @@ export const signIn = (req, res) => {
   const validateInputResponse = validateInput(req.body, requiredFields);
   if (validateInputResponse === 'ok') {
     User.findOne({
-      where: { username: req.body.username },
+      where: {
+        username: req.body.username,
+      },
     })
   .then((user) => {
     if (user === null) {
@@ -84,7 +86,7 @@ export const signIn = (req, res) => {
           const userToken = generateToken(user.id);
           const data = {
             token: userToken,
-            message: 'Login was successful',
+            user,
           };
           res.status(200).json(data);
         } else {
@@ -211,25 +213,9 @@ export const userSearch = (req, res) => {
       .then((otherUsers) => {
         res.json(otherUsers);
       });
-    // groups.getUsers({
-    //   where: { username: {
-    //     $like: `%${query}%`,
-    //   },
-    //   },
-    //   attributes: {
-    //     exclude: ['createdAt', 'updatedAt', 'password', 'email'],
-    //   },
-    // })
-    // .then((users) => {
-    //   res.json({ users });
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // });
     });
   })
   .catch((error) => {
-    console.log(error);
     res.status(400).json({ error });
   });
 };

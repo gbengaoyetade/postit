@@ -1,11 +1,11 @@
-$navy-blue:#045373;
+$blue:#039be5;
 $orange:#fd8966;
-$grey:#eee;
+$grey:#999;
 
 body{
 	padding: 0;
 	margin: 0;
-	background-color: #eee;
+	background-color: #fff;
 	display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -17,19 +17,77 @@ body{
   }
 // materialize css footer fix 
 .mycontainer{
-	background-color:$navy-blue; 
+	background-color:$blue; 
 	padding: 0.5%;
 }
 .component-container{
-	border-radius: 5px;
-	background-color: #fff;
 	width: 100%;
-	color: #999;
+	color: $grey;
 	padding: 40px;
-	margin: 0 15px;
+	// box-shadow: 10px 10px 5px #888888;
 }
 nav{
-	margin-bottom: 20px;
+	padding: 0 15px;
+}
+.dashboard-header{
+	border-bottom: 1px solid $grey;
+	height: 50px;
+	width: 100%;
+	padding-top: 15px;
+
+}
+.dashboard-header a {
+	color: $grey;
+	
+}
+.bold {
+	font-weight: bold;
+}
+ // Customize materialize input field styles
+.input-field input:focus + label{
+	color: $blue !important;
+}
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]){
+	border-bottom: 1px solid $blue;
+	box-shadow: 0 1px 0 0 $blue;
+}
+.dropdown-content li>span{
+	color: $blue;
+}
+// End of Customize
+// .message-form{
+// 	border: 5px solid #ddd;
+// 	position: fixed;
+// 	top: 670px;
+// 	padding: 25px;
+// 	border-radius: 25px;
+// }
+.message-form button {
+	border: none;
+	background-color:none;
+}
+.message-input-field {
+	width: 60%;
+	border: 1px solid #eee;
+}
+.message-priority-field {
+	width:30%;
+}
+.scrollable-component{
+	height:300px;
+	overflow-y: scroll;
+}
+.user-side-nav{
+	height: 750px;
+	background-color:#eee;
+}
+.group-messages {
+	height: 500px;
+	overflow: scroll;
+	padding: 20px;
 }
 footer{
    position:fixed;
@@ -41,15 +99,5 @@ footer{
    border-top: 1px solid $grey;
 }
 
-// .block{
-// 	@extend .curve;
-// 	display: block;
-// 	margin-bottom: 2%;
-// 	padding: 6px;
-// 	&:hover{
-// 		text-decoration:none;
-// 		background-color: #fff;
-// 	}
-// }
 
 

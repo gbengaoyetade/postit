@@ -1,47 +1,65 @@
 import axios from 'axios';
 
-export const createGroup = (group) => {
-  return {
+export const createGroup = group => (
+  {
     type: 'CREATE_GROUP',
     group,
-  };
-};
+  }
+);
 
-export const getUserGroups = (groups) => {
-  return {
+export const getUserGroups = groups => (
+  {
     type: 'GET_USER_GROUPS',
     groups,
-  };
-};
+  }
+);
+export const postMessage = message => (
+  {
+    type: 'POST_MESSAGE',
+    message,
+  }
+);
 
-export const getUserGroupMessages = (messages) => {
-  return {
+export const messageSending = bool => (
+  {
+    type: 'MESSAGE_SENDING',
+    bool,
+  }
+);
+export const getUserGroupMessages = messages => (
+  {
     type: 'GET_USER_GROUP_MESSAGES',
     messages,
-  };
-};
+  }
+);
 
-export const getUserGroupsSuccess = (payload) => {
-  return {
+export const getUserGroupsSuccess = payload => (
+  {
     type: 'GET_USER_GROUPS_SUCCESS',
     payload,
-  };
-};
-export const getGroupMembersAction = (members) => {
-  return {
+  }
+);
+export const getGroupMembersAction = members => (
+  {
     type: 'GET_GROUP_MEMBERS',
     members,
-  };
-};
-export const getUserGroupsError = (payload) => {
-  return {
+  }
+);
+export const getUserGroupsError = payload => (
+  {
     type: 'GET_USER_GROUPS_ERROR',
     payload,
-  };
-};
+  }
+);
 export const addMemberSuccess = bool => (
   {
     type: 'ADD_MEMBER_SUCCESS',
+    bool,
+  }
+);
+export const sendMessageSuccess = bool => (
+  {
+    type: 'SEND_MESSAGE_SUCCESS',
     bool,
   }
 );
@@ -58,7 +76,6 @@ export const sendGroupDetails = (groupDetails, history) => {
       history.push('/dashboard');
     })
     .catch((error) => {
-      console.log(error.response);
     });
   };
 };
@@ -71,12 +88,9 @@ export const getGroups = () => {
     axios.get('/api/group/user',
       { headers })
     .then((groups) => {
-      console.log(groups.data[0]);
-      console.log(groups);
       dispatch(getUserGroups(groups.data.groups));
     })
     .catch((error) => {
-      console.log(error);
       dispatch(getUserGroupsError(true));
     });
   };
@@ -89,12 +103,9 @@ export const getGroupMessages = (groupId) => {
     axios.get(`/api/group/${groupId}/messages`,
       { headers })
     .then((groups) => {
-      console.log(groups.data);
-      dispatch(getUserGroupMessages(groups.data));
-      dispatch(getUserGroupsSuccess(true));
+      dispatch(getUserGroupMessages(groups.data.messages));
     })
     .catch((error) => {
-      console.log(error);
     });
   };
 };
@@ -107,11 +118,9 @@ export const getGroupMembers = (groupId) => {
     axios.get(`/api/group/${groupId}/users`,
       { headers })
     .then((members) => {
-      console.log(members.data);
       dispatch(getGroupMembersAction(members.data));
     })
     .catch((error) => {
-      console.log(error);
     });
   };
 };
@@ -124,10 +133,8 @@ export const addMember = (userId, groupId) => {
     .then((response) => {
       // this is used to control automatic member appearance on the groupMembers section of the page
       dispatch(addMemberSuccess(true));
-      console.log(response.data);
     })
     .catch((error) => {
-      console.log(error.response);
     });
   };
 };
@@ -141,7 +148,22 @@ export const leaveGroup = (groupId, history) => {
       history.push('/dashboard');
     })
     .catch((error) => {
-      console.log(error.response);
+    });
+  };
+};
+
+export const sendUserMessage = (groupId, message) => {
+  return (dispatch) => {
+    const headers = {
+      'x-access-token': window.sessionStorage.postitToken,
+    };
+    const URL = `/api/group/${groupId}/message`;
+    axios.post(URL, message, { headers })
+    .then((response) => {
+      dispatch(sendMessageSuccess(true));
+    })
+    .catch((error) => {
+      dispatch(sendMessageSuccess(false));
     });
   };
 };

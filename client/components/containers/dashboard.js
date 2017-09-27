@@ -3,13 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { getGroups } from '../../actions/groupAction';
-import UserDashboard from '../presentational/userDashboard.jsx';
+import SideNav from '../presentational/userSideNav.jsx';
 
 class Dashboard extends React.Component {
-  componentDidMount() {
-    this.props.getGroups();
-    console.log(this.props);
-  }
   render() {
     let groups;
     let userGroups;
@@ -23,8 +19,11 @@ class Dashboard extends React.Component {
         </ul>);
     }
     return (
-      <div>
-        <UserDashboard userGroups={userGroups} />
+      <div className="row">
+        <SideNav currentUrl={this.props.match.path} />
+        <div className="col m6 s12 component-container">
+          <p className="center header">Group messages</p>
+        </div>
       </div>
     );
   }

@@ -1,71 +1,45 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import GroupPage from '../presentational/group';
-import { getGroupMessages, getGroupMembers, leaveGroup } from '../../actions/groupAction';
-import { sendUserMessage } from '../../actions/messageAction';
-import Message from './message';
-import GroupMembers from './groupMembers.jsx';
+import { Link } from 'react-router-dom';
+import { getGroupMessages, getGroupMembers, leaveGroup, sendUserMessage } from '../../actions/groupAction';
+import SideNav from '../presentational/userSideNav.jsx';
+import DashboardHeader from '../presentational/dashboardHeader.jsx';
+import Messages from './messages.jsx';
 
 class Group extends React.Component {
-  constructor() {
-    super();
-    this.postMessage = this.postMessage.bind(this);
-    this.handleMessageChange = this.handleMessageChange.bind(this);
-  }
   componentDidMount() {
     const groupId = this.props.match.params.groupId;
     this.props.getMessages(groupId);
     this.props.getGroupMembers(groupId);
   }
-  handleMessageChange(event) {
-    const value = event.target.value;
-    const name = event.target.name;
-    this.props.message[name] = value;
-    console.log(this.props.message);
+  componentWillUpdate() {
+    $('.dropdown-button').dropdown();
+    $('select').material_select();
   }
-  postMessage(event) {
-    event.preventDefault();
-    console.log('postMessage', this.props.message);
-    const groupId = this.props.match.params.groupId;
-    console.log(groupId);
-    this.props.sendUserMessage(groupId, this.props.message);
-  }
+
   render() {
+    const groupId = this.props.match.params.groupId;
+    let numberOfGroupMembers;
     let groupMessages;
-    let groupMembers;
+    let groupName;
     if (this.props.groupMembers.members) {
-      console.log(this.props.groupMembers.members);
-      const members = this.props.groupMembers.members;
-      groupMembers = (
-      <ul>
-        {members.map(member => (
-          <li key={member.id}>{member.username}</li>
-        ))}
-      </ul>
-      );
-    }
-    if (this.props.messages.messages) {
-      console.log('in messages', this.props.messages.messages);
-      const messages = this.props.messages.messages;
-      groupMessages = (
-        <ul>
-          {messages.map(message => (
-            <li key={message.id}>{message.messageBody}</li>
-          ))}
-        </ul>
-      );
+      groupName = this.props.groupMembers.members.group.groupName;
+      numberOfGroupMembers = this.props.groupMembers.members.users.length;
     }
     return (
       <div className="row">
-        <GroupPage
-          groupMessages={groupMessages}
-          groupMembers={groupMembers}
-          postMessage={this.postMessage}
-          handleMessageChange={this.handleMessageChange}
-          groupId={this.props.match.params.groupId}
-        />
-        <GroupMembers groupId={this.props.match.params.groupId} history={this.props.history} />
+        <div>
+          <SideNav groupId={groupId} numberOfGroupMembers={numberOfGroupMembers} groupName={groupName} />
+            <ul id="group-more" className="dropdown-content">
+              <li><Link to={`/group/${groupId}/addmembers`}>Add Members</Link></li>
+              <li><a href="#!">Leave group</a></li>
+            </ul>
+          <div className="col s10 offset-s1 m6   s10 component-container">
+            <Messages groupId={this.props.match.params.groupId} />
+          </div>
+        </div>
+        {/* <GroupMembers groupId={this.props.match.params.groupId} history={this.props.history} /> */}
       </div>
     );
   }
@@ -73,6 +47,7 @@ class Group extends React.Component {
 Group.propTypes = {
   getGroupMembers: PropTypes.func.isRequired,
   getMessages: PropTypes.func.isRequired,
+  // groupId: PropTypes.number.isRequired,
 };
 const mapStateToProps = state => (
   {
@@ -80,11 +55,12 @@ const mapStateToProps = state => (
     messages: state.getUserGroupMessages,
     groupMembers: state.getGroupMembers,
     message: state.postMessageReducer,
+    messageSuccess: state.sendMessageSuccess,
   }
 );
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = dispatch => (
+  {
     getMessages: (groupId) => {
       dispatch(getGroupMessages(groupId));
     },
@@ -94,10 +70,7 @@ const mapDispatchToProps = (dispatch) => {
     leaveGroup: (groupId) => {
       dispatch(leaveGroup(groupId));
     },
-    sendUserMessage: (groupId, message) => {
-      dispatch(sendUserMessage(groupId, message));
-    },
-  };
-};
+  }
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Group);

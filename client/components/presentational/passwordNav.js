@@ -1,8 +1,8 @@
 import React from 'react';
 
 const PasswordNav = props => (
-  <nav>
-    <div className="nav-wrapper light-blue darken-4">
+  <nav className="light-blue darken-4">
+    <div className="nav-wrapper">
     <div className="row">
       <div className="col s2 offset-s1 hide-on-med-and-down">
       <h5 className="center brand-logo"> <span > Password Reset </span></h5>

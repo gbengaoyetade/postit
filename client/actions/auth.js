@@ -45,7 +45,9 @@ export const loginUser = (user, history) => (
     .then((response) => {
       if (response.status === 200) {
         dispatch(userLoginSuccess(response.data));
-        window.sessionStorage.postitToken = response.data.token;
+        dispatch(loginLoading(false));
+        localStorage.setItem('username', response.data.user.username);
+        sessionStorage.postitToken = response.data.token;
         history.push('/dashboard');
       }
     })
@@ -54,14 +56,14 @@ export const loginUser = (user, history) => (
       let errorMessage;
       if (error.response.data.message || error.response.data.name) {
         if (error.response.data.name === 'SequelizeHostNotFoundError') {
-          errorMessage = 'Internet connection error';
+          errorMessage = 'Error connecting to server';
         } else if (error.response.data.name === 'TimeoutError') {
           errorMessage = 'Request timed out';
         }
         dispatch(
           loginError(error.response.data.message || errorMessage || error.response.data.name));
       }
-      console.log(error.response);
+      
     });
   }
 );
@@ -74,14 +76,11 @@ export const signupUser = (user, history) => {
         dispatch(userLoginSuccess(user));
         window.sessionStorage.postitToken = response.data.user.token;
         history.push('/dashboard');
-        console.log(response);
       }
-      console.log(response);
     })
     .catch((error) => {
       dispatch(signupError(error.response.data.error || null));
       dispatch(signupLoading(false));
-      console.log(error.response);
     });
   };
 };

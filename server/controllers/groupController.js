@@ -151,7 +151,7 @@ export const getGroupMembers = (req, res) => {
       },
       })
       .then((users) => {
-        res.json({ users });
+        res.json({ users, group: foundGroup });
       })
       .catch(() => {
       });

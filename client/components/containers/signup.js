@@ -10,14 +10,10 @@ class Signup extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentDidMount() {
-    console.log(this.props);
-  }
   handleChange(e) {
     const value = e.target.value;
     const name = e.target.name;
     this.props.user[name] = value;
-    console.log(this.props.user);
   }
   // validateInput() {
   // }

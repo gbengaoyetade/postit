@@ -35,7 +35,6 @@ class ChangePassword extends React.Component {
     const search = new URLSearchParams(this.props.location.search);
     const validate = this.validateForm(event);
     const token = search.get('token');
-    console.log(token);
     if (validate) {
       this.props.updatePassword({ password: this.state.password }, token);
     }

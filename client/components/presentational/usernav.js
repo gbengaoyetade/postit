@@ -6,6 +6,7 @@ import { loginLoading } from '../../actions/auth';
 const UserNav = (props) => {
   const logout = () => {
     window.sessionStorage.postitToken = '';
+    window.localStorage.removeItem('username');
     props.history.push('/login');
     props.loginLoading(false);
   };
@@ -32,8 +33,8 @@ const UserNav = (props) => {
         </li>
       </ul>
       { /* end of sidenav  */ }
-      <nav>
-        <div className="nav-wrapper  light-blue darken-4 ">
+      <nav className="light-blue darken-4">
+        <div className="nav-wrapper  ">
           <Link to="#" className="left brand-logo hide-on-med-and-down">Postit</Link>
           <a href="#" className="brand-logo hide-on-med-and-up">Postit</a>
           <div className="hide-on-med-and-up left white-text " >
@@ -41,17 +42,15 @@ const UserNav = (props) => {
               <i className="material-icons">menu</i>
             </Link>
           </div>
-          
           <ul className="right hide-on-med-and-down">
             {/* <li><Link to="#" ><i className="material-icons">notifications</i></Link></li> */}
             <li><Link to="/user" >{props.username}</Link></li>
             <li><Link to="#" onClick={logout}>Logout</Link></li>
           </ul>
           <form className="right hide-on-med-and-down">
-          <div className="input-field">
-            <input id="search" type="search" required />
-            <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
-            <i className="material-icons">close</i>
+          <div className="input-field col s6 s12 li">
+          <i className="material-icons prefix">search</i>
+          <input type="text" placeholder="search" id="autocomplete-input" className="autocomplete" />
           </div>
         </form>
         </div>

@@ -9,9 +9,6 @@ class RecoverPassword extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  componentDidMount() {
-    console.log(this.props);
-  }
   handleSubmit(event) {
     event.preventDefault();
     this.props.sendEmail(this.props.email);
@@ -20,7 +17,6 @@ class RecoverPassword extends React.Component {
     const value = event.target.value;
     const name = event.target.name;
     this.props.email[name] = value;
-    console.log(this.props.email);
   }
   render() {
     return (

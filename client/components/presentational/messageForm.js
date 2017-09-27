@@ -12,7 +12,7 @@ const MessageForm = (props) => {
             </textarea>
             <label htmlFor="message">Message</label>
           </div> 
-            <select className="browser-default" value={props.priority}name="messagePriority" onChange={props.handleChange.bind(this)}>
+            <select className="" value={props.priority}name="messagePriority" onChange={props.handleChange.bind(this)}>
               <option value="" disabled >Choose message priority </option>
               <option value="Normal"> Normal </option>
               <option value="Urgent"> Urgent</option>

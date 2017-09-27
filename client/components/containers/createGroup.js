@@ -13,7 +13,6 @@ class CreateGroup extends React.Component {
     const name = e.target.name;
     const value = e.target.value;
     this.props.group[name] = value;
-    console.log(this.props.group);
   }
   handleSubmit(e) {
     e.preventDefault();

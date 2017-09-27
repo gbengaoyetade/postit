@@ -53,7 +53,6 @@ export const groupExist = (req, res, next) => {
   .then((group) => {
     if (group) {
       const userId = getId(req.headers['x-access-token']);
-      console.log(db.groupMembers);
       db.groupMembers.findOne({
         where: { userId, groupId },
       })
@@ -65,7 +64,6 @@ export const groupExist = (req, res, next) => {
         }
       })
       .catch((error) => {
-        console.log(error);
       });
     } else {
       res.status(400).json({ error: 'Group does not exist' });

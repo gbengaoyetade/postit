@@ -7,7 +7,6 @@ class Authenticate extends React.Component {
   componentDidMount() {
     if (this.props.isLoggedIn) {
       this.props.history.push('/login');
-      console.log(this.props);
     }
   }
   render() {

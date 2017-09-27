@@ -1,23 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import UserGroups from '../containers/userGroups.jsx';
+import DashboardHeader from './dashboardHeader.jsx';
 
 export default props => (
-  <div className="col m2 component-container hide-on-med-and-down">
+  <div>
+  <div className="col m3 component-container hide-on-med-and-down user-side-nav">
     <ul className="">
       <li>
         <Link to="/group/create" className="hide-on-med-and-up">
           <i className="material-icons">group_add</i> New Group
         </Link>
       </li>
-      <li><Link className="waves-effect" to="/dashboard">
-        Dashboard
-      </Link><i className="left material-icons">home</i>
-      <div className="clearfix"> </div>
-      </li>
-      <li>
-        <Link to="/group/create" className="waves-effect" > New Group</Link>
-        <i className="left material-icons">group_add</i>
-      </li>
+      <li className=""><p> Groups <Link to="/group/create"><i className="big material-icons right">add_circle</i></Link></p> </li>
+      <UserGroups />
     </ul>
+  </div>
+    <div className="col s10 offset-s1 m6   s10 component-container">
+      <DashboardHeader currentUrl={props.currentUrl} groupName={props.groupName} groupId={props.groupId} numberOfGroupMembers={props.numberOfGroupMembers} />
+    </div>
   </div>
 );
