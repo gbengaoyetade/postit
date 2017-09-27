@@ -15,8 +15,6 @@ class Signup extends React.Component {
     const name = e.target.name;
     this.props.user[name] = value;
   }
-  // validateInput() {
-  // }
   handleSubmit(e) {
     e.preventDefault();
     this.props.setLoading(true);

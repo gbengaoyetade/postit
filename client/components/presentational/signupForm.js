@@ -13,7 +13,7 @@ const SignupForm = (props) => {
   return (
     <div>
       <VisitorNav />
-      <Container /> 
+      <Container>
         <div className="col s12 m6  offset-m3 component-container">
         <h1 className="header center grey-text" >Signup</h1>
           <p className="red-text">&nbsp; {props.error}</p>
