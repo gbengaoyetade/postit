@@ -95,7 +95,7 @@ export const getGroups = () => {
     });
   };
 };
-export const getGroupMessages = (groupId) => {
+export const getGroupMessages = (groupId, history) => {
   const headers = {
     'x-access-token': window.sessionStorage.postitToken,
   };
@@ -106,6 +106,9 @@ export const getGroupMessages = (groupId) => {
       dispatch(getUserGroupMessages(groups.data.messages));
     })
     .catch((error) => {
+      if (error.response.data.error) {
+        history.push('/error');
+      }
     });
   };
 };

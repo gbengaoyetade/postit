@@ -12,6 +12,7 @@ import MailSent from './presentational/mailSent';
 import AuthHoc from './containers/authHoc';
 import NewGroup from './containers/createGroup';
 import Addmembers from './containers/addMembers';
+import ErrorPage from './presentational/error';
 
 
 const Routes = () => (
@@ -27,6 +28,7 @@ const Routes = () => (
       <Route exact path="/group/:groupId/addmembers" component={AuthHoc(Addmembers)} />
       <Route exact path="/group/create" component={AuthHoc(NewGroup)} />
       <Route exact path="/group/:groupId" component={AuthHoc(Group)} />
+      <Route exact path="/error" component={AuthHoc(ErrorPage)} />
       <Route path="*" component={NotFound} />
     </Switch>
   </BrowserRouter>

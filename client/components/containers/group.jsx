@@ -2,15 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getGroupMessages, getGroupMembers, leaveGroup, sendUserMessage } from '../../actions/groupAction';
+import { getGroupMessages, getGroupMembers, leaveGroup } from '../../actions/groupAction';
 import SideNav from '../presentational/userSideNav';
-import DashboardHeader from '../presentational/dashboardHeader';
 import Messages from './messages';
 
 class Group extends React.Component {
   componentDidMount() {
     const groupId = this.props.match.params.groupId;
-    this.props.getMessages(groupId);
+    this.props.getMessages(groupId, this.props.history);
     this.props.getGroupMembers(groupId);
   }
   componentWillUpdate() {
@@ -61,8 +60,8 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => (
   {
-    getMessages: (groupId) => {
-      dispatch(getGroupMessages(groupId));
+    getMessages: (groupId, history) => {
+      dispatch(getGroupMessages(groupId, history));
     },
     getGroupMembers: (groupId) => {
       dispatch(getGroupMembers(groupId));
