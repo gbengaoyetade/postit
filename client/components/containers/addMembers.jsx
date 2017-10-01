@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SideNav from '../presentational/userSideNav.jsx';
+import SideNav from '../presentational/userSideNav';
 import { searchUser } from '../../actions/search';
 import { addMember, getGroupMembers, addMemberSuccess } from '../../actions/groupAction';
-import GroupMembers from './groupMembers.jsx';
+import GroupMembers from './groupMembers';
 
 class AddMembers extends React.Component {
   constructor() {

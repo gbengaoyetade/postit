@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Container from './container';
-import PassworNav from './passwordNav';
+import Nav from './nav';
 
 const ResetPasswordPage = props => {
   let disabled;
@@ -12,7 +12,7 @@ const ResetPasswordPage = props => {
   }
   return (
     <div>
-      <PassworNav />
+      <Nav page="Password Reset" />
       <Container>
         <div className="component-container col s12 m6 offset-m3">
           <p className="red-text flow-text">{props.error} &nbsp;</p>

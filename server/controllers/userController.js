@@ -86,7 +86,7 @@ export const signIn = (req, res) => {
           const userToken = generateToken(user.id);
           const data = {
             token: userToken,
-            user,
+            user: { username: user.username, email: user.email, fullName: user.fullName },
           };
           res.status(200).json(data);
         } else {

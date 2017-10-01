@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const VisitorNav = (props) => (
-  <div>
-    <nav className="light-blue darken-4">
+  <div className="row">
+    <nav className="light-blue darken-4 col-s12">
       <div className="nav-wrapper">
-      <div className="row">
+      <div>
         <div className="col s2 offset-s1 hide-on-med-and-down">
         <a href="#!" className="left brand-logo">Postit</a>
         </div>

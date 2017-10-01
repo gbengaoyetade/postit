@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import 'url-search-params-polyfill';
 import { InputField, Submit } from '../presentational/forms';
-import PasswordNav from '../presentational/passwordNav';
+import Nav from '../presentational/nav';
 import { updatePassword } from '../../actions/passwordAction';
 
 class ChangePassword extends React.Component {
@@ -42,17 +42,17 @@ class ChangePassword extends React.Component {
   render() {
     return (
       <div>
-      <PasswordNav />
-      <div className="row">
-        <div className="component-container col s10 offset-s1 m6 offset-m3">
-          <p className="red-text"> {this.state.error} </p>
-          <form onSubmit={this.handleSubmit} >
-            <InputField type="password" required="required" labelValue="Password" name="password" handleChange={this.handleChange} />
-            <InputField type="password" required="required" labelValue="Confirm Password" name="confirmPassword" handleChange={this.handleChange} />
-            <Submit submitValue="Reset Password" />
-          </form>
+        <Nav page={'Password Reset'} />
+        <div className="row">
+          <div className="component-container col s10 offset-s1 m6 offset-m3">
+            <p className="red-text"> {this.state.error} </p>
+            <form onSubmit={this.handleSubmit} >
+              <InputField type="password" required="required" labelValue="Password" name="password" handleChange={this.handleChange} />
+              <InputField type="password" required="required" labelValue="Confirm Password" name="confirmPassword" handleChange={this.handleChange} />
+              <Submit submitValue="Reset Password" />
+            </form>
+          </div>
         </div>
-      </div>
       </div>
     );
   }

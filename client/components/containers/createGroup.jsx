@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CreateGroupForm from '../presentational/createGroupForm.jsx';
+import CreateGroupForm from '../presentational/createGroupForm';
 import { sendGroupDetails } from '../../actions/groupAction';
 
 class CreateGroup extends React.Component {

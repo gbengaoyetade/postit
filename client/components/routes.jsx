@@ -11,7 +11,7 @@ import ChangePassword from './containers/changePassword';
 import MailSent from './presentational/mailSent';
 import AuthHoc from './containers/authHoc';
 import NewGroup from './containers/createGroup';
-import Addmembers from './containers/addMembers.jsx';
+import Addmembers from './containers/addMembers';
 
 
 const Routes = () => (

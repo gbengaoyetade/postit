@@ -1,5 +1,5 @@
 import React from 'react';
-import SideNav from './userSideNav.jsx';
+import SideNav from './userSideNav';
 
 const groupModal = (props) => {
   return (

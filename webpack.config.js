@@ -26,6 +26,9 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json'],
+  },
   plugins: [
     new webpack.LoaderOptionsPlugin({
       debug: true,

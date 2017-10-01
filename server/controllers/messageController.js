@@ -80,18 +80,31 @@ export const getMessages = (req, res) => {
   db.groupMembers.find({
     where: { userId, groupId },
   })
-  .then((groupMember) => {
+  .then(() => {
     Messages.findAll({
       where: { groupId },
       attributes: {
         exclude: ['createdAt', 'updatedAt'],
       },
+      // include: [
+      //   {
+      //     model: db.users,
+      //   },
+      // ],
     })
     .then((messages) => {
+      // messages.getUsers()
+      // .then((user) => {
+      //   console.log(user);
+      // })
+      // .catch((error) => {
+      //   console.log(error);
+      // })
       res.status(200).json({ messages });
     })
-    .catch((err) => {
-      res.status(401).json(err.message);
+    .catch((error) => {
+      res.status(401).json(error.message);
+      console.log(error);
     });
   });
 };
