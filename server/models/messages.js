@@ -31,15 +31,9 @@ module.exports = (sequelize, DataTypes) => {
         isInt: { value: true, msg: 'userId can only be a number' },
       },
     },
-  }, {
-    classMethods: {
-      associate: (models) => {
-        Messages.belongsTo(models.users, {
-          foreingKey: 'userId',
-        });
-        Messages.belongsTo(models.groups);
-      },
-    },
   });
+  Messages.associate = (models) => {
+    Messages.belongsTo(models.users);
+  };
   return Messages;
 };

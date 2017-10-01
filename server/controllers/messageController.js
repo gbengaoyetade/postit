@@ -81,16 +81,19 @@ export const getMessages = (req, res) => {
     where: { userId, groupId },
   })
   .then(() => {
-    Messages.findAll({
+    db.messages.findAll({
       where: { groupId },
       attributes: {
-        exclude: ['createdAt', 'updatedAt'],
+        exclude: ['password', 'createdAt', 'updatedAt'],
       },
-      // include: [
-      //   {
-      //     model: db.users,
-      //   },
-      // ],
+      include: [
+        {
+          model: db.users,
+          attributes: {
+            exclude: ['password', 'createdAt', 'updatedAt'],
+          },
+        },
+      ],
     })
     .then((messages) => {
       // messages.getUsers()
