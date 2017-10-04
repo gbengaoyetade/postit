@@ -1,20 +1,28 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
-import router from './route';
-import { verifyToken } from './includes/functions';
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpackConfig from '../webpack.config';
+import router from './routes';
 
 const app = express();
-
+const compiler = webpack(webpackConfig);
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(webpackMiddleware(compiler));
+
+app.use(webpackHotMiddleware(compiler, {
+  hot: true,
+  noInfo: true,
+  publicPath: webpackConfig.output.publicPath,
+}));
 app.use(express.static(path.join(__dirname, '../client')));
 
 app.use('/api', router);
-
-app.get('/verifytoken', verifyToken);
 
 app.get('*', (req, res) => {
   res.status(404).sendFile(path.join(__dirname, '../client', 'index.html'));

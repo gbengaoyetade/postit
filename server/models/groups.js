@@ -1,5 +1,3 @@
-import Users from './users';
-
 export default (sequelize, DataTypes) => {
   const Groups = sequelize.define('groups', {
     groupName: {
@@ -26,6 +24,9 @@ export default (sequelize, DataTypes) => {
       through: models.groupMembers,
       foreignKey: 'groupId',
       onDelete: 'cascade',
+    });
+    Groups.hasMany(models.messages, {
+      foreignKey: 'groupId',
     });
   };
   return Groups;

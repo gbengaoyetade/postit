@@ -1,14 +1,15 @@
 import jwt from 'jsonwebtoken';
 import db from '../models/index';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.load()
 
 const invalidToken = db.invalidToken;
-// const secret = process.env.TOKEN_SECRET;
+const secret = process.env.TOKEN_SECRET;
 const authenticate = (req, res, next) => {
   const userToken = req.headers['x-access-token'];
   if (userToken) {
-    jwt.verify(userToken, 'andela-bootcamp', (err) => {
+    jwt.verify(userToken, secret, (err) => {
       if (err) {
         res.status(401).json({ message: 'Token authentication failure' });
       } else {

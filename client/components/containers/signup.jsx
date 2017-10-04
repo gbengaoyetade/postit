@@ -1,72 +1,52 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import createUser from '../../actions/createUser';
-import sendUserData from '../../actions/sendUserData';
-import { signupLoading } from '../../actions/auth';
-import SignupForm from '../presentational/signupForm.jsx';
+import { signupLoading, signupUser } from '../../actions/auth';
+import SignupForm from '../presentational/signupForm';
 
 class Signup extends React.Component {
   constructor(props) {
     super(props);
-  }
-  componentWillMount() {
-     if(window.sessionStorage.postitToken){
-       this.props.history.push('/dashboard');
-    }
-  }
-  componentDidMount() {
-   
-    console.log(this.props);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(e) {
     const value = e.target.value;
     const name = e.target.name;
     this.props.user[name] = value;
-    console.log(this.props.user);
-  }
-  validateInput(e) {
-    const User = this.props.user;
-    if(!User.username || !User.password || !User.email || !User.phoneNumber)
-    {
-      // this.props.error = 'One or more input fields are empty';
-      alert('One or more input fields are empty');
-    }
   }
   handleSubmit(e) {
     e.preventDefault();
     this.props.setLoading(true);
-    this.props.signupUser(this.props.user);
+    this.props.signupUser(this.props.user, this.props.history);
   }
   render() {
     return (
       <SignupForm 
-        loading={this.props.isLoading} 
-        error={this.props.error} 
-        validate={this.validateInput.bind(this)} 
-        handleSubmit={this.handleSubmit.bind(this)} 
-        handleChange={this.handleChange.bind(this)} 
+        loading={this.props.isLoading}
+        error={this.props.error}
+        validate={this.validateInput}
+        handleSubmit={this.handleSubmit}
+        handleChange={this.handleChange}
       />
-      );
+    );
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    user: state.createAccount,
+const mapStateToProps = state => (
+  {
+    user: state.userAuth,
     error: state.signupError,
-    isLoading: state.signupLoading,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUser: (user) => { 
-      dispatch(createUser(user));
-    },
-    signupUser: (user) => {
-      dispatch(sendUserData(user));
+    isLoading: state.itemLoading,
+  }
+);
+const mapDispatchToProps = dispatch => (
+  {
+    signupUser: (user, history) => {
+      dispatch(signupUser(user, history));
     },
     setLoading: (bool) => {
       dispatch(signupLoading(bool));
     },
-  };
-};
+  }
+);
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

@@ -1,55 +1,54 @@
 import axios from 'axios';
 
-export const loginLoading = (isLoading) => {
-  return {
+export const loginLoading = isLoading => (
+  {
     type: 'LOGIN_LOADING',
     isLoading,
-  };
-};
+  }
+);
+export const userLoginSuccess = user => (
+  {
+    type: 'USER_LOGIN_SUCCESS',
+    user,
+  }
+);
 
-export const signupLoading = (isLoading) => {
-  return {
+export const signupLoading = isLoading => (
+  {
     type: 'SIGNUP_LOADING',
     isLoading,
-  };
-};
-
-export const loginHasErrored = (payload) => {
-  return {
-    type: 'LOGIN_ERROR',
-    payload,
-  };
-};
-
-export const signupHasErrored = (payload) => {
-  return {
+  }
+);
+export const signupHasErrored = payload => (
+  {
     type: 'SIGNUP_ERROR',
     payload,
-  };
-};
-
-export const loginError = (error) => {
-  return {
+  }
+);
+export const loginError = error => (
+  {
     type: 'LOGIN_ERROR',
     error,
-  };
-};
+  }
+);
 
-export const signupError = (error) => {
-  return {
+export const signupError = error => (
+  {
     type: 'SIGNUP_ERROR',
     error,
-  };
-};
-
-export const loginUser = (user) => {
-  return (dispatch) => {
+  }
+);
+export const loginUser = (user, history) => (
+  (dispatch) => {
     axios.post('/api/user/signin',
      user)
     .then((response) => {
       if (response.status === 200) {
-        window.sessionStorage.postitToken = response.data.token;
-        window.location.replace('/dashboard'); 
+        dispatch(userLoginSuccess(response.data));
+        dispatch(loginLoading(false));
+        localStorage.setItem('username', response.data.user.username);
+        localStorage.setItem('postitToken', response.data.token);
+        history.push('/dashboard');
       }
     })
     .catch((error) => {
@@ -57,13 +56,32 @@ export const loginUser = (user) => {
       let errorMessage;
       if (error.response.data.message || error.response.data.name) {
         if (error.response.data.name === 'SequelizeHostNotFoundError') {
-          errorMessage = 'Internet connection error';
+          errorMessage = 'Error connecting to server';
         } else if (error.response.data.name === 'TimeoutError') {
           errorMessage = 'Request timed out';
-        } 
-        dispatch(loginError(error.response.data.message || errorMessage || error.response.data.name));
+        }
+        dispatch(
+          loginError(error.response.data.message || errorMessage || error.response.data.name));
       }
-      console.log(error.response);
+      
     });
-  }  
+  }
+);
+export const signupUser = (user, history) => {
+  return (dispatch) => {
+    axios.post(
+    '/api/user/signup', user)
+    .then((response) => {
+      if (response.status === 201) {
+        dispatch(userLoginSuccess(user));
+        localStorage.setItem('username', response.data.user.username);
+        localStorage.setItem('postitToken', response.data.user.token);
+        history.push('/dashboard');
+      }
+    })
+    .catch((error) => {
+      dispatch(signupError(error.response.data.error || null));
+      dispatch(signupLoading(false));
+    });
+  };
 };

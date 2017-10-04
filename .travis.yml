@@ -5,7 +5,8 @@ services:
   - postgresql
 before_script:
   - npm install sequelize-cli -g
-  - export DEV_DB=postgres://lgitfcgq:1T6i6xAB6KW9fC-D4AsRgq5qlcDQA-VU@stampy.db.elephantsql.com:5432/lgitfcgq
+  - psql -c "CREATE DATABASE postit_test;" -U postgres
+  - sequelize db:migrate --env test
 after_success:
 - npm run cover
 after_script: 

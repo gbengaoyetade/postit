@@ -7,10 +7,12 @@ export const loginLoading = (state = false, action) => {
   }
 };
 
-export const signupLoading = (state = false, action) => {
+export const itemLoading = (state = false, action) => {
   switch (action.type) {
     case 'SIGNUP_LOADING':
       return action.isLoading;
+    case 'EMAIL_SENDING':
+      return action.bool;
     default:
       return state;
   }
