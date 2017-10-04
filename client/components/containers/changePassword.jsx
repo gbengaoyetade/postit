@@ -21,6 +21,8 @@ class ChangePassword extends React.Component {
       this.setState({ error: 'Password cannot be less than 6 characters' });
     } else if (this.state.password !== this.state.confirmPassword) {
       this.setState({ error: 'Passwords did not match' });
+    } else if (this.state.password.trim().length === 0) {
+      this.setState({ error: 'Password cannot be all spaces' });
     } else {
       return true;
     }
