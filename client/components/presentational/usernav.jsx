@@ -5,8 +5,8 @@ import { loginLoading } from '../../actions/auth';
 
 const UserNav = (props) => {
   const logout = () => {
-    window.sessionStorage.postitToken = '';
     window.localStorage.removeItem('username');
+    window.localStorage.removeItem('postitToken');
     props.history.push('/login');
     props.loginLoading(false);
   };

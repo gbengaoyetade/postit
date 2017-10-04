@@ -33,7 +33,7 @@ class GroupMembers extends React.Component {
       <div className="col m3 component-container hide-on-med-and-down">
         <p> &nbsp; </p>
         <div className="row">
-          <Link className="btn blue col m6" to={`/group/${this.props.groupId}/addmembers`}> Add Members </Link>
+          <Link className="btn blue col m6" to={`/group/${this.props.groupId}/addmembers`}> Add Memb </Link>
           <a href=""className="btn red modal-trigger" data-target="modal1" >leaveGroup</a>
         </div>
         <p className="center"> Group Members </p>

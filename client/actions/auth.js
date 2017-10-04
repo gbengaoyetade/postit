@@ -47,7 +47,7 @@ export const loginUser = (user, history) => (
         dispatch(userLoginSuccess(response.data));
         dispatch(loginLoading(false));
         localStorage.setItem('username', response.data.user.username);
-        sessionStorage.postitToken = response.data.token;
+        localStorage.setItem('postitToken', response.data.token);
         history.push('/dashboard');
       }
     })
@@ -74,7 +74,8 @@ export const signupUser = (user, history) => {
     .then((response) => {
       if (response.status === 201) {
         dispatch(userLoginSuccess(user));
-        window.sessionStorage.postitToken = response.data.user.token;
+        localStorage.setItem('username', response.data.user.username);
+        localStorage.setItem('postitToken', response.data.user.token);
         history.push('/dashboard');
       }
     })

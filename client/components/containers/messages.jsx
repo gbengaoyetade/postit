@@ -20,6 +20,7 @@ class Messages extends React.Component {
     this.props.sendUserMessage(groupId, this.props.message);
   }
   render() {
+    console.log(this.props.messages.messages);
     let groupMessages;
     if (this.props.sendMessageSuccess) {
       this.props.getMessages(this.props.groupId);
@@ -30,9 +31,11 @@ class Messages extends React.Component {
       <ul>
         {
           this.props.messages.messages.map( message => (
-            <div key={message.id}>
-            <p className="right"><small>Priority</small>: {message.messagePriority}</p>
+            <div id="single-message" key={message.id}>
+              <p><a href="">{message.user.username}</a></p>
+            <p className="right"><small>{message.messagePriority}</small></p>
               <p>{message.messageBody}</p>
+              {/* <hr /> */}
               <div className="clearfix" />
             </div>
         ))

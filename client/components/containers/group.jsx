@@ -16,7 +16,10 @@ class Group extends React.Component {
     $('.dropdown-button').dropdown();
     $('select').material_select();
   }
-
+  leaveGroup() {
+    const groupId = this.props.match.params.groupId;
+    this.props.leaveGroup(groupId, this.props.history);
+  }
   render() {
     const groupId = this.props.match.params.groupId;
     let numberOfGroupMembers;
@@ -31,8 +34,8 @@ class Group extends React.Component {
         <div>
           <SideNav groupId={groupId} numberOfGroupMembers={numberOfGroupMembers} groupName={groupName} />
             <ul id="group-more" className="dropdown-content">
-              <li><Link to={`/group/${groupId}/addmembers`}>Add Members</Link></li>
-              <li><a href="#!">Leave group</a></li>
+              <li><Link to={`/group/${groupId}/addmembers`}>Add Memb</Link></li>
+              <li><a href="#!" onClick={this.leaveGroup}>Leave group</a></li>
             </ul>
           <div className="col s10 offset-s1 m6   s10 component-container">
             <Messages groupId={this.props.match.params.groupId} />

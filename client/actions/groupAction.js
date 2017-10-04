@@ -148,9 +148,11 @@ export const leaveGroup = (groupId, history) => {
   return () => {
     axios.delete(`/api/group/${groupId}/user`, { headers })
     .then((response) => {
+      console.log(response);
       history.push('/dashboard');
     })
     .catch((error) => {
+      console.log(error.response);
     });
   };
 };

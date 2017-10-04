@@ -6,7 +6,7 @@ import UserNav from '../presentational/usernav';
 export default (Component) => {
   class AuthHoc extends React.Component {
     componentWillMount() {
-      if (!window.sessionStorage.postitToken) {
+      if (!localStorage.getItem('postitToken')) {
         this.props.history.push('/login');
       }
     }

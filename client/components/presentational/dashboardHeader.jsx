@@ -11,10 +11,10 @@ const DashboardHeader = ({ numberOfGroupMembers, groupId, groupName, currentUrl 
   return (
     <div>
       <div className="dashboard-header row">
-        <a className="col m3">
-          <i className="material-icons">person</i><span className=""> {numberOfGroupMembers} </span></a>
+        <a className="right">
         <a href="#" className="right dropdown-button" data-activates="group-more"> <i className="material-icons">more_vert</i> </a>
-        <span className="col m4 offset-m2 bold">{groupName}</span>
+        <i className="material-icons">person</i><span className="group-members"> {numberOfGroupMembers} </span></a>
+        <span className="bold">{groupName}</span>
       </div>
     </div>
   );
