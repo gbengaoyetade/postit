@@ -15,6 +15,14 @@ export const createMessage = (req, res) => {
       groupId: req.params.groupId,
     })
     .then((message) => {
+      const messageData = {
+        messageId: message.id,
+        userId: message.userId,
+        groupId: message.groupId,
+        messageBody: message.messageBody,
+        messagePriority: message.messagePriority,
+      };
+      res.status(201).json({ message: messageData });
       // if priority is Urgent or Critical, send E-mail Notifications
       if (message.messagePriority === 'Urgent' || message.messagePriority === 'Critical') {
         db.groups.find({
@@ -51,15 +59,6 @@ export const createMessage = (req, res) => {
         .catch((error) => {
           res.status(400).json({ error, bad: 'bad request' });
         });
-      } else {
-        const messageData = {
-          messageId: message.id,
-          userId: message.userId,
-          groupId: message.groupId,
-          messageBody: message.messageBody,
-          messagePriority: message.messagePriority,
-        };
-        res.status(201).json({ message: messageData });
       }
     })
     .catch((error) => {

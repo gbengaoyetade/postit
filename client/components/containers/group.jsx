@@ -32,7 +32,7 @@ class Group extends React.Component {
     return (
       <div className="row">
         <div>
-          <SideNav groupId={groupId} numberOfGroupMembers={numberOfGroupMembers} groupName={groupName} />
+          <SideNav groupId={groupId} currentUrl="groupPage" numberOfGroupMembers={numberOfGroupMembers} groupName={groupName} />
             <ul id="group-more" className="dropdown-content">
               <li><Link to={`/group/${groupId}/addmembers`}>Add Memb</Link></li>
               <li><a href="#!" onClick={this.leaveGroup}>Leave group</a></li>

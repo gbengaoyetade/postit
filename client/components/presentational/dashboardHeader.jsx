@@ -2,10 +2,9 @@ import React from 'react';
 
 const DashboardHeader = ({ numberOfGroupMembers, groupId, groupName, currentUrl }) => {
   // this if statement checks if the currentUrl props is set
-  // it is only the dashboard component that sets this props
-  // if it is set, display nothing in the header
+  // if it is not set, display nothing in the header
   // else display the dashboard header component
-  if (currentUrl) {
+  if (!currentUrl) {
     return <div />;
   }
   return (
