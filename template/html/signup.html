@@ -1,83 +1,79 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PostIt homepage</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="../css/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PostIt-Gbenga</title>
+  <link rel="shortcut icon" href="../images/andela.png" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+<link rel="stylesheet" href="../css/main.css" />
   
+          
 </head>
 <body>
-      <header>
+    <nav>
+        <div class="nav-wrapper light-blue darken-4">
         <div class="row">
-          <div class="col-md-3 col-xs-12">
-            <h1 class="site-blue">Post<span class="site-orange">It</span></h1>
+          <div class="col s2 offset-s1 hide-on-med-and-down">
+          <a href="#!" ="left brand-logo">Postit</a>
           </div>
-          <div class="col-md-5 col-xs-6">
-            <form>
-
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-            <div class="input-group-btn">
-                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-        </div>
-         
-       </form>
-        
+          <div class="col s2 offset-s2 hide-on-med-and-up">
+            <a href="#!" class="center brand-logo">Postit</a>
           </div>
-          <div class="col-md-3">
-            <ul class="nav nav-pills">
-            <li role="presentation" ><a href="board.html">Board</a></li>
-            <li role="presentation"><a href="post.html">Post</a></li>
-            <li role="presentation"><a href=""><span class="glyphicon glyphicon-bell"></span></a></li>
+          <div class="col s2 push-s7" >
+          <ul class="hide-on-med-and-down">
+            <li><a href="login.html" > Login </a> </li>
+            <li><a href="signup.html" > Signup </a> </li>
           </ul>
           </div>
         </div>
-        
-       
-       
-      </header>
-  <div class="mycontainer">
-  <div class="container">
-  <div class="row">
-  		<div class="col-md-4">
-        
-      </div>
-  		<div class="col-md-4 section curve">
-      <fieldset>
-        <legend class="text-center">Sign up</legend>
-        <form class="" method="post">  
-       <div class="form-group">
-       <label>Full Name</label>
-       <input type="text" name="name"  class="form-control" placeholder="Enter your full name" required>
-       </div>
-       <div class="form-group">
-       <label>Email</label>
-       <input type="email" name="email" class="form-control" placeholder="Enter your email address" required>
-       </div>
-       <div class="form-group">
-       <label>Password</label>
-       <input type="password" name="password" class="form-control" placeholder="password" required>
-       </div>
-       <div class="">
-          <button class="btn btn-info">Sign Up</button>
-          <span>Already a user? <a href="login.html">Login</a></span>
-       </div>
-       
+        </div>
+      </nav>
+	<div class="container" >
+    <div class="row" > 
+        <div class="col s10 m6 offset-s1 offset-m3 component-container">
+            <h1 class="header center grey-text" >Signup</h1>
+            <form method="POST" action="#" >
+  
+              <div class="input-field">
+                <input type="text" name="fullName" id="fullName" required />
+                <label htmlFor="fullName"> Full Name </label>
+              </div>
+  
+              <div class="input-field">
+                <input type="text" name="username" id="username"  required />
+                <label htmlFor="username"> Username </label>
+              </div>
+  
+              <div class="input-field">
+                <input type="email" name="email"  required/>
+                <label htmlFor="email"> Email </label>
+              </div>
+  
+              <div class="input-field">
+                <input type="text" name="phoneNumber" id="phoneNumber" required />
+                <label htmlFor="phoneNumber"> Phone Number</label>
+              </div>
+  
+              <div class="input-field">
+                <input type="password" name="password"  required />
+                <label htmlFor="password"> Password </label>
+              </div>
+  
+              <p class="row">
+                <input type="submit" value="Signup" class="btn align-center blue col s8 offset-s2" />
+              </p>
+              <p class="center"> Already have and acount? <a href="login.html"> Login </a> </p>
+            </form>
+          </div>
+    </div>
+  </div>
 
-       </form>
-      </fieldset>
-  		
-  		</div>
-      <div class="col-md-4">
-        
-      </div>
-  </div>
-  </div>
-  </div>
-      <footer >
-        <p class="text-center align-middle">&copy; PostIt inc. All rights reserved.</p>
-      </footer>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 </body>
 </html>

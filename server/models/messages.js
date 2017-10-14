@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Message = sequelize.define('messages', {
+  const Messages = sequelize.define('messages', {
     messageBody: {
       type: DataTypes.STRING,
       allowNull: { value: false, msg: 'Message body cannot be null' },
@@ -31,14 +31,9 @@ module.exports = (sequelize, DataTypes) => {
         isInt: { value: true, msg: 'userId can only be a number' },
       },
     },
-  }, {
-    classMethods: {
-      associate: (models) => {
-        Message.belongsTo(models.Users);
-        console.log(models);
-        Message.belongsTo(models.groups);
-      },
-    },
   });
-  return Message;
+  Messages.associate = (models) => {
+    Messages.belongsTo(models.users);
+  };
+  return Messages;
 };

@@ -1,15 +1,18 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 import { Provider } from 'react-redux';
-import MyRoute from './components/myroutes.jsx';
+import Routes from './components/routes.jsx';
 import store from './store';
-// import './postit.scss';
+import './assets/scss/postit.scss';
+
+const history = createHistory();
 
 
 render(
-  <Provider store={store}>
+  <Provider store={store} history={history}>
     <BrowserRouter >
-      <MyRoute />
+      <Routes />
     </BrowserRouter>
   </Provider>, document.getElementById('app'));

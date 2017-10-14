@@ -1,5 +1,8 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
+dotenv.load();
+const secret = process.env.TOKEN_SECRET;
 // checks to see if requests contains required fields as defined by the end point 
 export const validateInput = (request, requiredFields) => {
   for (let counter = 0; counter < requiredFields.length; counter += 1) {
@@ -34,3 +37,12 @@ export const getId = (token) => {
   const decoded = jwt.decode(token);
   return decoded.name;
 };
+
+export const generateToken = (userData) => {
+  const userToken = jwt.sign({ name: userData },
+    secret,
+    { expiresIn: 60 * 60 * 24 * 365 },
+    );
+  return userToken;
+};
+

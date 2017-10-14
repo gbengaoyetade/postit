@@ -5,16 +5,17 @@ import VisitorNav from './visitornav';
 
 const SignupForm = (props) => {
   let signupValue = '';
-    if (props.loading) {
-      signupValue = 'Signing up...';
-    } else {
-      signupValue = 'Signup';
-    } 
+  if (props.loading) {
+    signupValue = 'Signing up...';
+  } else {
+    signupValue = 'Signup';
+  }
   return (
     <div>
       <VisitorNav />
-      <Container> 
-        <div className="col s10 m6 offset-s1 offset-m3">
+      <Container>
+        <div className="col s12 m6  offset-m3 component-container">
+        <h1 className="header center grey-text" >Signup</h1>
           <p className="red-text">&nbsp; {props.error}</p>
           <form method="POST" action="#" onSubmit={props.handleSubmit.bind(this)}>
 
@@ -34,7 +35,7 @@ const SignupForm = (props) => {
             </div>
 
             <div className="input-field">
-              <input type="text" name="phoneNumber" id="phoneNumber" onChange={props.handleChange.bind(this)} required />
+              <input type="tel" name="phoneNumber" id="phoneNumber" onChange={props.handleChange.bind(this)} required />
               <label htmlFor="phoneNumber"> Phone Number</label>
             </div>
 
@@ -44,7 +45,7 @@ const SignupForm = (props) => {
             </div>
 
             <p className="row">
-              <input type="submit" value={signupValue} className="btn align-center blue col s8 offset-s2" />
+              <input type="submit" value={signupValue} className="btn align-center light-blue darken-4 col s8 offset-s2" />
             </p>
             <p className="center"> Already have and acount? <Link to="login"> Login </Link> </p>
           </form>
