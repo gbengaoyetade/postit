@@ -1,4 +1,4 @@
- [![Build Status](https://travis-ci.org/gbengaPS/PostIT-Gbenga.svg?branch=dev)](https://travis-ci.org/gbengaPS/postit) [![Code Climate](https://codeclimate.com/github/gbengaPS/PostIT-Gbenga/badges/gpa.svg)](https://codeclimate.com/github/gbengaPS/postit) [![Coverage Status](https://coveralls.io/repos/github/gbengaPS/PostIT-Gbenga/badge.svg?branch=dev)](https://coveralls.io/github/gbengaPS/postit?branch=dev)
+ [![Build Status](https://travis-ci.org/gbengaPS/PostIT-Gbenga.svg?branch=dev)](https://travis-ci.org/gbengaPS/postit) [![Code Climate](https://codeclimate.com/github/gbengaPS/PostIT-Gbenga/badges/gpa.svg)](https://codeclimate.com/github/gbengaPS/postit) [![Coverage Status](https://coveralls.io/repos/github/gbengaPS/postit/badge.svg?branch=develop)](https://coveralls.io/github/gbengaPS/postit?branch=develop)
 
 # PostIt
 PostIt is a group messaging application that allows registered users communicate prioritized messages

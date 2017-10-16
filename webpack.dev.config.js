@@ -1,5 +1,3 @@
-// import webpack from 'webpack';
-// import path from 'path';
 
 const webpack = require('webpack');
 const path = require('path');
@@ -9,7 +7,7 @@ module.exports = {
   entry: './client/index.jsx',
   output: {
     path: path.resolve('./client/bundled'),
-    filename: 'index_bundle.js',
+    filename: 'bundle.js',
     publicPath: '/',
   },
   module: {
@@ -32,10 +30,6 @@ module.exports = {
   plugins: [
     new webpack.LoaderOptionsPlugin({
       debug: true,
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      include: /\.min\.js$/,
-      minimize: true,
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
