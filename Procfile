@@ -1,1 +1,1 @@
-web: npm run build && node ./node_modules/.bin/babel-node server/bin/www
+web: node ./node_modules/.bin/babel-node server/bin/www
