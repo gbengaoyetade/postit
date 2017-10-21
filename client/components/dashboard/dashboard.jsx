@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { getGroups } from '../../actions/groupAction';
-import SideNav from '../presentational/userSideNav';
+import SideNav from '../navigation/userSideNav';
 
 class Dashboard extends React.Component {
   render() {

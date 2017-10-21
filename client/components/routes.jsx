@@ -1,18 +1,18 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import Signup from './containers/signup';
-import Login from './containers/login';
+import Signup from './authentication/signup';
+import Login from './authentication/login';
 import Dashboard from './containers/dashboard';
-import NotFound from './presentational/notfound';
-import Group from './containers/group';
-import Welcome from './presentational/welcome';
-import Recover from './containers/recoverPassword';
-import ChangePassword from './containers/changePassword';
-import MailSent from './presentational/mailSent';
-import AuthHoc from './containers/authHoc';
-import NewGroup from './containers/createGroup';
-import Addmembers from './containers/addMembers';
-import ErrorPage from './presentational/error';
+import NotFound from './errors/notfound';
+import Group from './group/group';
+import Welcome from './index';
+import Recover from './password/recoverPassword';
+import ChangePassword from './password/changePassword';
+import MailSent from './password/mailSent';
+import AuthHoc from './authentication/authHoc';
+import NewGroup from './group/createGroup';
+import Addmembers from './group/addMembers';
+import ErrorPage from './errors/error';
 
 
 const Routes = () => (

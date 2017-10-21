@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SideNav from '../presentational/userSideNav';
+import SideNav from '../navigation/userSideNav';
 import { searchUser } from '../../actions/search';
 import { addMember, getGroupMembers, addMemberSuccess } from '../../actions/groupAction';
 import GroupMembers from './groupMembers';

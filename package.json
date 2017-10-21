@@ -85,7 +85,9 @@
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.19.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-eslint": "^8.0.1"
+  },
   "engines": {
     "node": "7.10.0"
   }
