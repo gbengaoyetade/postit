@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getGroupMessages, getGroupMembers, leaveGroup } from '../../actions/groupAction';
-import SideNav from '../presentational/userSideNav';
-import Messages from './messages';
+import SideNav from '../navigation/userSideNav';
+import Messages from '../message/messages';
 
 class Group extends React.Component {
   componentDidMount() {

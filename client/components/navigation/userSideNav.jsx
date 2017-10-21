@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UserGroups from '../containers/userGroups';
+import UserGroups from '../group/userGroups';
 import DashboardHeader from './dashboardHeader';
 
 export default props => (

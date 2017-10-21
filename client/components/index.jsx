@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Nav from './visitornav';
-import Container from './container';
+import Nav from './navigation/visitornav';
+import Container from './general/container';
 
 const Welcome = (props) => {
   if (window.sessionStorage.postitToken) {

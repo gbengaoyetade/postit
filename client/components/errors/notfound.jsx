@@ -1,5 +1,5 @@
 import React from 'react';
-import Nav from './nav';
+import Nav from '../navigation/nav';
 
 const NotFound = () => (
   <div className="black-text">
