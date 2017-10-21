@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Signup from './authentication/signup';
 import Login from './authentication/login';
-import Dashboard from './containers/dashboard';
+import Dashboard from './dashboard/dashboard';
 import NotFound from './errors/notfound';
 import Group from './group/group';
 import Welcome from './index';
