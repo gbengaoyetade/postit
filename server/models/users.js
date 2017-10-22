@@ -7,12 +7,19 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        is: { args: /^[a-zA-Z0-9_]*$/, msg: 'Username cannot contain special characters aside from _' },
+        is: {
+          args: /^[a-zA-Z0-9_]*$/,
+          msg: 'Username cannot contain special characters aside from _' },
       },
     },
     fullName: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        is: {
+          args: /^[a-zA-Z]*$/,
+          msg: 'Name can only be alphabets' },
+      },
     },
     email: {
       type: DataTypes.STRING,
@@ -24,6 +31,9 @@ export default (sequelize, DataTypes) => {
     phoneNumber: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: { value: true, msg: 'Phonenumber is required' },
+      },
       // validate: {
       //   isMobilePhone: { value: true, msg: 'Invalid phone number supplied' },
       // },
