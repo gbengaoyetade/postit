@@ -1,7 +1,8 @@
 import { assert } from 'chai';
 import supertest from 'supertest';
-import app from '../server/app';
 import testInclude from './tests.includes';
+import app from '../server/app';
+
 
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZnVsbE5hbWUiOiJnYmVuZ2EgT3lldGFkZSIsImVtYWlsIjoidGVzdF9zaWdudXBAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIrMjM0ODA2NDE0MDY5NTMzIiwiaWF0IjoxNTA4NjkzNTQ4LCJleHAiOjE1NDAyMjk1NDh9.NmVm9HklrmPDs67p-aC7moae5xgRQMY5emdhaWRM3V8';
 describe('Signup', () => {
@@ -242,6 +243,7 @@ describe('Reset password', () => {
     const email = { email: 'apptest@gmail.com' };
     supertest(app).post('/api/user/password_reset').send(email)
     .end((err, res) => {
+      console.log('message resultttttttt', res.body);
       assert.equal(res.body.message, 'Mail sent successfully');
       assert.equal(res.statusCode, 200);
       done();

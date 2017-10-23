@@ -1,20 +1,21 @@
 import { assert } from 'chai';
 import supertest from 'supertest';
+import './tests.includes';
 import app from '../server/app';
 import { checkParams, getId } from '../server/includes/functions';
 
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZnVsbE5hbWUiOiJnYmVuZ2EgT3lldGFkZSIsImVtYWlsIjoiZ2JlbmdhLm95ZXRhZGVAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwODA2NDE0MDY5NSIsImlhdCI6MTUwODcyOTExMSwiZXhwIjoxNTQwMjY1MTExfQ.jEyMrWd4FjnKsPM-3yIL9w1o6YdzP2MbOZ2b3nd9LDM';
 describe('Function ', () => {
-  it('Detect validateInput function', () => {
+  it('detect checkParams function', () => {
     assert.equal(typeof checkParams, 'function');
   });
-  it('Detect getId function', () => {
+  it('detect getId function', () => {
     assert.equal(typeof getId, 'function');
   });
   it('getId should return a number if token is passed', () => {
     assert.equal(typeof getId(token), 'number');
   });
-  it('validateInput should return ok if inputs are well structured', () => {
+  it('checkParams should return ok if inputs are well structured', () => {
     const request = {
       name: 'gbenga',
       email: 'gbenga.oyetade@gmail.com',
@@ -22,7 +23,7 @@ describe('Function ', () => {
     const requiredFields = ['name', 'email'];
     assert.equal(checkParams(request, requiredFields), 'ok');
   });
-  it('validateInput should return the first missing field if not provided',
+  it('checkParams should return the first missing field if not provided',
   () => {
     const request = {
       name: 'gbenga',
@@ -43,7 +44,7 @@ describe('Function ', () => {
         done();
       });
     });
-    it('should detect invalidToken', (done) => {
+    it('detect should detect invalidToken', (done) => {
       supertest(app).post('/api/user/token/verify')
       .set('x-access-token', token2).send()
       .end((err, res) => {
