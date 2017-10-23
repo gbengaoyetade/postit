@@ -3,8 +3,9 @@ import dotenv from 'dotenv';
 
 dotenv.load();
 const secret = process.env.TOKEN_SECRET;
-// checks to see if requests contains required fields as defined by the end point 
-export const validateInput = (request, requiredFields) => {
+// checks to see if requests contains required
+// fields as defined by the end point
+export const checkParams = (request, requiredFields) => {
   for (let counter = 0; counter < requiredFields.length; counter += 1) {
     if (!request.hasOwnProperty(requiredFields[counter])) {
       return `${requiredFields[counter]} field not provided`;
@@ -21,15 +22,15 @@ export const validateInput = (request, requiredFields) => {
 export const verifyToken = (req, res) => {
   const token = req.headers['x-access-token'];
   if (token) {
-    jwt.verify(token, 'andela-bootcamp', (err) => {
+    jwt.verify(token, secret, (err) => {
       if (err) {
-        res.status(401).json({ message: 'Token authentication failure' });
+        res.status(401).send({ error: 'Token authentication failure' });
       } else {
         res.json({ message: 'Token verified' });
       }
     });
   } else {
-    res.status(400).json({ error: 'Token error', message: 'No token provided' });
+    res.status(400).send({ error: 'No token provided' });
   }
 };
 

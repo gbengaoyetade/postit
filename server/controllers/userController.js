@@ -3,17 +3,22 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import db from '../models/index';
 import transporter from '../config/mail.config';
-import { validateInput, getId, generateToken } from '../includes/functions';
+import { checkParams, getId, generateToken } from '../includes/functions';
 
 dotenv.load();
 const User = db.users;
 const groupMembers = db.groupMembers;
 const secret = process.env.TOKEN_SECRET;
 
+const encryptPassword = (password) => {
+  const salt = bcrypt.genSaltSync(5);
+  const hash = bcrypt.hashSync(password, salt);
+  return hash;
+};
 export const signUp = (req, res) => {
   const requiredFields = [
     'username', 'email', 'password', 'fullName', 'phoneNumber'];
-  const validateInputResponse = validateInput(req.body, requiredFields);
+  const validateInputResponse = checkParams(req.body, requiredFields);
   if (validateInputResponse === 'ok') {
     User.create({
       username: req.body.username,
@@ -65,7 +70,7 @@ export const signUp = (req, res) => {
 
 export const signIn = (req, res) => {
   const requiredFields = ['username', 'password'];
-  const validateInputResponse = validateInput(req.body, requiredFields);
+  const validateInputResponse = checkParams(req.body, requiredFields);
   if (validateInputResponse === 'ok') {
     User.findOne({
       where: {
@@ -102,7 +107,7 @@ export const signIn = (req, res) => {
 }; // end of signIn
 export const resetPassword = (req, res) => {
   const requiredFields = ['email'];
-  const validateInputResponse = validateInput(req.body, requiredFields);
+  const validateInputResponse = checkParams(req.body, requiredFields);
   const email = req.body.email;
   if (validateInputResponse === 'ok') {
     User.findOne({
@@ -111,7 +116,7 @@ export const resetPassword = (req, res) => {
     .then((user) => {
       if (user) {
         // structure email
-        const token = jwt.sign({ name: user.id },
+        const token = jwt.sign({ id: user.id },
           secret,
           { expiresIn: 60 * 30 },
           );
@@ -149,7 +154,7 @@ export const resetPassword = (req, res) => {
 export const updatePassword = (req, res) => {
   // Check if password field was provided
   const requiredFields = ['password'];
-  const validateInputResponse = validateInput(req.body, requiredFields);
+  const validateInputResponse = checkParams(req.body, requiredFields);
   if (validateInputResponse === 'ok') {
     // Check if URL contians parameter token
     const userToken = req.query.token;
@@ -161,8 +166,7 @@ export const updatePassword = (req, res) => {
           res.status(401).json({ error: 'Token authentication failure' });
         } else {
           // Update user password if token was verified successfully
-          const salt = bcrypt.genSaltSync(5);
-          const hash = bcrypt.hashSync(req.body.password, salt);
+          const hash = encryptPassword(req.body.password);
           userId = getId(userToken);
           User.update(
             { password: hash },

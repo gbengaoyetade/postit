@@ -72,7 +72,7 @@ describe('group test', () => {
   it('Create group route should be defined ', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send()
     .end((err, res) => {
-      assert.equal(res.body.message, 'groupName field not provided');
+      assert.equal(res.body.error, 'groupName field not provided');
       done();
     });
   });
@@ -95,16 +95,16 @@ describe('group test', () => {
   it('Should detect if groupName field is not provided', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send()
     .end((err, res) => {
-      assert.equal(res.body.message, 'groupName field not provided');
+      assert.equal(res.body.error, 'groupName field not provided');
       done();
     });
   });
-  it('Should detect empty groupName', (done) => {
-    const groupData = { groupName: '  ', groupDescription: '' };
+  it('Should not create group if group name is empty', (done) => {
+    const groupData = { groupName: '  ', groupDescription: '', createdBy: 1 };
     supertest(app).post('/api/group').set('x-access-token', token)
     .send(groupData)
     .end((err, res) => {
-      assert.equal(res.body.error[0].message, 'Group name cannot be empty');
+      assert.equal(res.body.error, 'Could not create group');
       done();
     });
   });
@@ -113,7 +113,7 @@ describe('group test', () => {
     supertest(app).post('/api/group').set('x-access-token', token)
     .send(groupData)
     .end((err, res) => {
-      assert.equal(res.body.message, 'groupDescription field not provided');
+      assert.equal(res.body.error, 'groupDescription field not provided');
       done();
     });
   });
@@ -176,6 +176,16 @@ describe('group test', () => {
       done();
     });
   });
+  it('should detect if groupId is an integer', (done) => {
+    supertest(app).get('/api/group/3ttt/users').set('x-access-token', token)
+    .send()
+    .end((err, res) => {
+      assert.isOk(res.body.error);
+      assert.equal(res.statusCode, 400);
+      assert.equal(res.body.error, 'groupId is not a number');
+      done();
+    });
+  });
 });
 
 // Login tests
@@ -225,6 +235,15 @@ describe('Reset password', () => {
     .end((err, res) => {
       assert.equal(res.body.error, 'Email address does not exist on Postit');
       assert.equal(res.statusCode, 400);
+      done();
+    });
+  });
+  it('Should should send mail if email exist', (done) => {
+    const email = { email: 'apptest@gmail.com' };
+    supertest(app).post('/api/user/password_reset').send(email)
+    .end((err, res) => {
+      assert.equal(res.body.message, 'Mail sent successfully');
+      assert.equal(res.statusCode, 200);
       done();
     });
   });

@@ -1,13 +1,14 @@
-import { validateInput, getId } from '../includes/functions';
+import { checkParams, getId } from '../includes/functions';
+import db from '../models/index';
 
-const Groups = require('../models').groups;
-const Users = require('../models').users;
-const Messages = require('../models').messages;
-const Members = require('../models').groupMembers;
+const Groups = db.groups;
+const Users = db.users;
+const Messages = db.messages;
+const Members = db.groupMembers;
 
 export const create = (req, res) => {
   const requiredFields = ['groupName', 'groupDescription'];
-  if (validateInput(req.body, requiredFields) === 'ok') {
+  if (checkParams(req.body, requiredFields) === 'ok') {
     Groups.create({
       groupName: req.body.groupName,
       groupDescription: req.body.groupDescription,
@@ -21,39 +22,37 @@ export const create = (req, res) => {
         addedBy: getId(req.headers['x-access-token']),
       })
       .then(() => {
-        const groupData = {
+        const groupDetails = {
           groupId: group.id,
           groupName: group.groupName,
           groupDescription: group.groupDescription,
         };
-        res.status(201).send({ group: groupData });
+        res.status(201).send({ group: groupDetails });
       })
       .catch((error) => {
-        res.status(400).json(error);
+        res.status(500).json({
+          error: 'Could not add user to group', message: error.message });
       });
     })
-    .catch((error) => {
-      const data = {
-        error: error.errors,
-        message: 'Could not create group',
-      };
-      res.status(401).send(data);
+    .catch(() => {
+      res.status(500).send({ error: 'Could not create group' });
     });
   } else {
-    res.status(400).json({ message: validateInput(req.body, requiredFields) });
+    res.status(400).json({ error: checkParams(req.body, requiredFields) });
   }
 }; // end of Create
 
 export const addMembers = (req, res) => {
   const requiredFields = ['userId'];
-  const inputValidation = validateInput(req.body, requiredFields);
+  const inputValidation = checkParams(req.body, requiredFields);
   if (inputValidation === 'ok') {
     Members.findOne({
       where: { userId: req.body.userId, groupId: req.params.groupId },
     })
     .then((member) => {
       if (member) {
-        res.status(400).json({ error: 'User already a member of this group', member });
+        res.status(409).json({
+          error: 'User already a member of this group', member });
       } else {
         Members.create({
           groupId: req.params.groupId,
@@ -61,20 +60,20 @@ export const addMembers = (req, res) => {
           addedBy: getId(req.headers['x-access-token']),
         })
         .then((groupMember) => {
-          res.json({ member: groupMember, message: 'User successfully added to group' });
+          res.status(201).json({
+            member: groupMember, message: 'User successfully added to group' });
         })
         .catch((error) => {
-          res.json({ error: error.message, message: 'Could not add user to group' });
+          res.status(500).json({
+            error: error.message, message: 'Could not add user to group' });
         });
       }
     })
-    .catch((error) => {
-      res.status(401).json({ error: error.message, message: 'Could not find user' });
+    .catch(() => {
+      res.status(500).json({
+        error: 'Could not process request' });
     });
   }
-  // } else {
-  //   res.status(400).json({ error: inputValidation, message: 'Parameter not well sturcutred' });
-  // }
 }; // end of addMembers
 
 export const getGroups = (req, res) => {
@@ -108,8 +107,8 @@ export const getGroups = (req, res) => {
   .then((groups) => {
     res.json(groups);
   })
-  .catch((error) => {
-    res.json(error);
+  .catch(() => {
+    res.status(500).json({ error: 'Could not perform action' });
   });
 };
 
@@ -127,20 +126,20 @@ export const leaveGroup = (req, res) => {
       .then(() => {
         res.json({ message: 'User left group' });
       })
-      .catch((error) => {
-        res.status(400).json(error);
+      .catch(() => {
+        res.status(500).json({ error: 'Could not process request' });
       });
     } else {
-      res.status(400).json({ error: 'User not a member of the group' });
+      res.status(404).json({ error: 'User not a member of the group' });
     }
   })
-  .catch((error) => {
-    res.status(400).json(error);
+  .catch(() => {
+    res.status(500).json({ error: 'Could not process request' });
   });
 };
 export const getGroupMembers = (req, res) => {
   const requiredFields = ['groupId'];
-  const inputValidationResponse = validateInput(req.params, requiredFields);
+  const inputValidationResponse = checkParams(req.params, requiredFields);
   if (inputValidationResponse === 'ok' && !isNaN(req.params.groupId)) {
     Groups.find({
       where: { id: req.params.groupId },
@@ -154,10 +153,11 @@ export const getGroupMembers = (req, res) => {
         res.json({ users, group: foundGroup });
       })
       .catch(() => {
+        res.status(500).send({ error: 'Could not process request' });
       });
     })
-    .catch((error) => {
-      res.status(400).json({ error });
+    .catch(() => {
+      res.status(500).json({ error: 'Could not process request' });
     });
   } else {
     res.status(400).json({ error: inputValidationResponse });

@@ -1,11 +1,11 @@
 import db from '../models/index';
-import { validateInput, getId } from '../includes/functions';
+import { checkParams, getId } from '../includes/functions';
 import transporter from '../config/mail.config';
 
 const Messages = db.messages;
 export const createMessage = (req, res) => {
   const requieredFields = ['messageBody', 'messagePriority'];
-  const validateReturn = validateInput(req.body, requieredFields);
+  const validateReturn = checkParams(req.body, requieredFields);
   if (validateReturn === 'ok') {
     // create the message
     Messages.create({
