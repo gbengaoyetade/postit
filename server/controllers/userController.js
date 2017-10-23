@@ -29,7 +29,7 @@ export const signUp = (req, res) => {
         addedBy: 1,
       })
       .then(() => {
-        const userToken = generateToken(user.id);
+        const userToken = generateToken(user);
         const userData = {
           id: user.id,
           username: user.username,
@@ -78,7 +78,7 @@ export const signIn = (req, res) => {
     } else {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (result) {
-          const userToken = generateToken(user.id);
+          const userToken = generateToken(user);
           const data = {
             token: userToken,
             user: {

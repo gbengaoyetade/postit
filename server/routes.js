@@ -6,6 +6,7 @@ from './controllers/groupController';
 import { createMessage, getMessages } from './controllers/messageController';
 import authenticate from './middleware/authenticate';
 import { groupAndUserExist, groupExist } from './middleware/exist';
+import { verifyToken } from './includes/functions';
 
 const router = express.Router();
 
@@ -16,6 +17,8 @@ router.post('/user/signin', signIn);
 router.post('/user/password_reset', resetPassword);
 
 router.post('/user/password_update', updatePassword);
+
+router.post('/user/token/verify', verifyToken);
 
 router.use(authenticate);
 

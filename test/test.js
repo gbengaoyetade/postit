@@ -3,23 +3,24 @@ import supertest from 'supertest';
 import app from '../server/app';
 import testInclude from './tests.includes';
 
-const data2 = { fullName: 'gbenga Oyetade', username: 'apptest2', password: 'some password', email: 'apptest2@gmail.com', phoneNumber: '+22348064140695' };
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjozLCJpYXQiOjE1MDUwNzY0NjEsImV4cCI6MTUzNjYxMjQ2MX0.omL5OG_IPewasCg0GweT5Xg3WbpL7f4FrWu2d6qYstM';
-
-describe('Signup tests', () => {
+const data2 = {
+  fullName: 'gbenga Oyetade',
+  username: 'apptest2',
+  password: 'some password',
+  email: 'apptest2@gmail.com',
+  phoneNumber: '+22348064140695'
+};
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZnVsbE5hbWUiOiJnYmVuZ2EgT3lldGFkZSIsImVtYWlsIjoidGVzdF9zaWdudXBAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIrMjM0ODA2NDE0MDY5NTMzIiwiaWF0IjoxNTA4NjkzNTQ4LCJleHAiOjE1NDAyMjk1NDh9.NmVm9HklrmPDs67p-aC7moae5xgRQMY5emdhaWRM3V8';
+describe('Signup', () => {
   before(() => {
     testInclude();
   });
-  it('signup post url should be defined', (done) => {
-    supertest(app).post('/api/user/signup').send().end((err, res) => {
-      assert.equal(res.statusCode, 401);
-      done();
-    });
-  });
-  it('should validate input parameters are well structred', (done) => {
-    supertest(app).post('/api/user/signup').send(data2).end((err, res) => {
-      assert.equal(res.body.parameters, 'ok');
-      done();
+  describe('URL', () => {
+    it('should be defined', (done) => {
+      supertest(app).post('/api/user/signup').send().end((err, res) => {
+        assert.equal(res.statusCode, 400);
+        done();
+      });
     });
   });
   it('should detect invalid email address', (done) => {
@@ -147,13 +148,14 @@ describe('group test', () => {
       done();
     });
   });
-  // it('should detect if groupId is not a number', (done) => {
-  //   const groupData = { userId: 1 };
-  //   supertest(app).post('/api/group/r/user').set('x-access-token', token).send(groupData).end((err, res) => {
-  //     assert.equal(res.body.error, 'groupId or userId not a number');
-  //     done();
-  //   });
-  // });
+  it('should detect if groupId is not a number', (done) => {
+    const groupData = { userId: 1 };
+    supertest(app).post('/api/group/0r/user').set('x-access-token', token).send(groupData)
+    .end((err, res) => {
+      assert.equal(res.body.error, 'groupId or userId not a number');
+      done();
+    });
+  });
 });
 
 // Login tests
@@ -201,7 +203,7 @@ describe('Reset password', () => {
     const email = { email: 'something@gmail.com' };
     supertest(app).post('/api/user/password_reset').send(email).end((err, res) => {
       assert.equal(res.body.error, 'Email address does not exist on Postit');
-      assert.equal(res.statusCode, 401);
+      assert.equal(res.statusCode, 400);
       done();
     });
   });

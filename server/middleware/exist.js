@@ -45,7 +45,7 @@ export const groupAndUserExist = (req, res, next) => {
 
 export const groupExist = (req, res, next) => {
   const groupId = req.params.groupId;
-  if (!isNaN(groupId)) {
+  if (typeof groupId === 'number') {
     Groups.findOne({
       where: { id: groupId },
     })
@@ -63,16 +63,16 @@ export const groupExist = (req, res, next) => {
           res.status(400).json({ error: 'User not a member of the group' });
         }
       })
-      .catch((error) => {
+      .catch(() => {
       });
     } else {
       res.status(400).json({ error: 'Group does not exist' });
     }
   })
-  .catch((error) => {
-    res.status(400).json({ error });
+  .catch(() => {
+    res.status(500).json({ error: 'Could not find group' });
   });
   } else {
-    res.json({ error: 'groupId is not a number' });
+    res.status(400).json({ error: 'groupId is not a number' });
   }
 };

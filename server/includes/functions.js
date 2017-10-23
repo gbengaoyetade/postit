@@ -15,7 +15,8 @@ export const validateInput = (request, requiredFields) => {
 
 /*
 * There is an authentication middleware that handles verification of token
-* This function serves to verify token supplied from undefined routes i.e frontend token
+* This function serves to verify token supplied from
+* undefined routes i.e frontend token
 */
 export const verifyToken = (req, res) => {
   const token = req.headers['x-access-token'];
@@ -35,11 +36,16 @@ export const verifyToken = (req, res) => {
 // decodes user id from token
 export const getId = (token) => {
   const decoded = jwt.decode(token);
-  return decoded.name;
+  return decoded.id;
 };
 
-export const generateToken = (userData) => {
-  const userToken = jwt.sign({ name: userData },
+export const generateToken = (userDetails) => {
+  const userToken = jwt.sign({
+    id: userDetails.id,
+    fullName: userDetails.fullName,
+    email: userDetails.email,
+    phoneNumber: userDetails.phoneNumber,
+  },
     secret,
     { expiresIn: 60 * 60 * 24 * 365 },
     );

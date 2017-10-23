@@ -17,8 +17,8 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         is: {
-          args: /^[a-zA-Z]*$/,
-          msg: 'Name can only be alphabets' },
+          args: /^[a-zA-Z ]*$/,
+          msg: 'Name can only contain alphabets' },
       },
     },
     email: {
