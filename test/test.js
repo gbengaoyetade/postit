@@ -3,13 +3,6 @@ import supertest from 'supertest';
 import app from '../server/app';
 import testInclude from './tests.includes';
 
-const data2 = {
-  fullName: 'gbenga Oyetade',
-  username: 'apptest2',
-  password: 'some password',
-  email: 'apptest2@gmail.com',
-  phoneNumber: '+22348064140695'
-};
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZnVsbE5hbWUiOiJnYmVuZ2EgT3lldGFkZSIsImVtYWlsIjoidGVzdF9zaWdudXBAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIrMjM0ODA2NDE0MDY5NTMzIiwiaWF0IjoxNTA4NjkzNTQ4LCJleHAiOjE1NDAyMjk1NDh9.NmVm9HklrmPDs67p-aC7moae5xgRQMY5emdhaWRM3V8';
 describe('Signup', () => {
   before(() => {
@@ -24,28 +17,49 @@ describe('Signup', () => {
     });
   });
   it('should detect invalid email address', (done) => {
-    const wrongEmail = { fullName: 'gbenga Oyetade', username: 'apptest', password: 'some password', email: 'apptestgmail.com', phoneNumber: '+2348064140695' };
+    const wrongEmail = {
+      fullName: 'gbenga Oyetade',
+      username: 'apptest',
+      password: 'some password',
+      email: 'apptestgmail.com',
+      phoneNumber: '+2348064140695' };
     supertest(app).post('/api/user/signup').send(wrongEmail).end((err, res) => {
       assert.equal(res.body.error, 'Invalid email address supplied');
       done();
     });
   });
   it('should make sure password parameter is at least 6 characters', (done) => {
-    const user = { fullName: 'gbenga Oyetade', username: 'gbenga_ps', password: 'pass', email: 'ioyetade@gmail.com', phoneNumber: '+2348064140695' };
+    const user = {
+      fullName: 'gbenga Oyetade',
+      username: 'gbenga_ps',
+      password: 'pass',
+      email: 'ioyetade@gmail.com',
+      phoneNumber: '+2348064140695' };
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
       assert.equal(res.body.error, 'Password must be at least 6 characters');
       done();
     });
   });
   it('should detect if username contains special characters', (done) => {
-    const user = { fullName: 'gbenga Oyetade', username: '$gbenga_ps', password: 'password', email: 'ioyetade2@gmail.com', phoneNumber: '+2348064140695' };
+    const user = {
+      fullName: 'gbenga Oyetade',
+      username: '$gbenga_ps',
+      password: 'password',
+      email: 'ioyetade2@gmail.com',
+      phoneNumber: '+2348064140695' };
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
-      assert.equal(res.body.error, 'Username cannot contain special characters aside from _');
+      assert.equal(res.body.error,
+        'Username cannot contain special characters aside from _');
       done();
     });
   });
   it('should sign user up if parameters are well structured', (done) => {
-    const user = { fullName: 'gbenga Oyetade', username: 'test_signup', password: 'password', email: 'test_signup@gmail.com', phoneNumber: '+234806414069533' };
+    const user = {
+      fullName: 'gbenga Oyetade',
+      username: 'test_signup',
+      password: 'password',
+      email: 'test_signup@gmail.com',
+      phoneNumber: '+234806414069533' };
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
       assert.isOk(res.body.user.token);
       done();
@@ -63,14 +77,16 @@ describe('group test', () => {
     });
   });
   it('Leave group should detect if group exist', (done) => {
-    supertest(app).delete('/api/group/10789/user').set('x-access-token', token).send()
+    supertest(app).delete('/api/group/10789/user')
+    .set('x-access-token', token).send()
     .end((err, res) => {
       assert.equal(res.body.error, 'Group does not exist');
       done();
     });
   });
   it('Leave group should detect if user belongs to group', (done) => {
-    supertest(app).delete('/api/group/2/user').set('x-access-token', token).send()
+    supertest(app).delete('/api/group/2/user')
+    .set('x-access-token', token).send()
     .end((err, res) => {
       assert.equal(res.body.error, 'User not a member of the group');
       done();
@@ -85,7 +101,8 @@ describe('group test', () => {
   });
   it('Should detect empty groupName', (done) => {
     const groupData = { groupName: '  ', groupDescription: '' };
-    supertest(app).post('/api/group').set('x-access-token', token).send(groupData)
+    supertest(app).post('/api/group').set('x-access-token', token)
+    .send(groupData)
     .end((err, res) => {
       assert.equal(res.body.error[0].message, 'Group name cannot be empty');
       done();
@@ -93,7 +110,8 @@ describe('group test', () => {
   });
   it('Should detect if group description field is not provided', (done) => {
     const groupData = { groupName: 'react leaders' };
-    supertest(app).post('/api/group').set('x-access-token', token).send(groupData)
+    supertest(app).post('/api/group').set('x-access-token', token)
+    .send(groupData)
     .end((err, res) => {
       assert.equal(res.body.message, 'groupDescription field not provided');
       done();
@@ -101,39 +119,48 @@ describe('group test', () => {
   });
   it('Add member function should be defined', (done) => {
     const groupData = {};
-    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData).end((err, res) => {
+    supertest(app).post('/api/group/1/user').set('x-access-token', token)
+    .send(groupData)
+    .end((err, res) => {
       assert.equal(res.statusCode, 400);
       assert.isOk(res.body.error);
       done();
     });
   });
-  it('Add member should add member to a group if conditions are satisfactory', (done) => {
+  it('Add member should add member to a group if conditions are satisfactory',
+  (done) => {
     const groupData = { userId: 1 };
-    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData)
+    supertest(app).post('/api/group/1/user').set('x-access-token', token)
+    .send(groupData)
     .end((err, res) => {
       assert.equal(res.body.message, 'User successfully added to group');
       assert.isOk(res.body.member);
       done();
     });
   });
-  it('Add member should detect if user is already a member of the group', (done) => {
+  it('Add member should detect if user is already a member of the group',
+  (done) => {
     const groupData = { userId: 1 };
-    supertest(app).post('/api/group/1/user').set('x-access-token', token).send(groupData)
+    supertest(app).post('/api/group/1/user').set('x-access-token', token)
+    .send(groupData)
     .end((err, res) => {
       assert.equal(res.body.error, 'User already a member of this group');
       done();
     });
   });
   it('getGroupMembers should return group members', (done) => {
-    supertest(app).get('/api/group/1/users').set('x-access-token', token).send()
+    supertest(app).get('/api/group/1/users').set('x-access-token', token)
+    .send()
     .end((err, res) => {
       assert.isOk(res.body.users);
       assert.equal(res.statusCode, 200);
       done();
     });
   });
-  it('leave group should remove user from group if he belongs to the group', (done) => {
-    supertest(app).delete('/api/group/1/user').set('x-access-token', token).send()
+  it('leave group should remove user from group if he belongs to the group',
+  (done) => {
+    supertest(app).delete('/api/group/1/user').set('x-access-token', token)
+    .send()
     .end((err, res) => {
       assert.isOk(res.body.message);
       assert.equal(res.statusCode, 200);
@@ -141,18 +168,11 @@ describe('group test', () => {
     });
   });
   it('leave group should detect if user is a member of the group', (done) => {
-    supertest(app).delete('/api/group/2/user').set('x-access-token', token).send()
+    supertest(app).delete('/api/group/2/user').set('x-access-token', token)
+    .send()
     .end((err, res) => {
       assert.isOk(res.body.error);
       assert.equal(res.statusCode, 400);
-      done();
-    });
-  });
-  it('should detect if groupId is not a number', (done) => {
-    const groupData = { userId: 1 };
-    supertest(app).post('/api/group/0r/user').set('x-access-token', token).send(groupData)
-    .end((err, res) => {
-      assert.equal(res.body.error, 'groupId or userId not a number');
       done();
     });
   });
@@ -201,7 +221,8 @@ describe('Reset password', () => {
   });
   it('Should detect if provided email exists', (done) => {
     const email = { email: 'something@gmail.com' };
-    supertest(app).post('/api/user/password_reset').send(email).end((err, res) => {
+    supertest(app).post('/api/user/password_reset').send(email)
+    .end((err, res) => {
       assert.equal(res.body.error, 'Email address does not exist on Postit');
       assert.equal(res.statusCode, 400);
       done();
@@ -220,7 +241,8 @@ describe('Update password', () => {
   });
   it('should detect if url contains token', (done) => {
     const password = { password: 'password' };
-    supertest(app).post('/api/user/password_update').send(password).end((err, res) => {
+    supertest(app).post('/api/user/password_update').send(password)
+    .end((err, res) => {
       assert.equal(res.body.error, 'No token provided');
       assert.equal(res.statusCode, 401);
     });
@@ -228,7 +250,8 @@ describe('Update password', () => {
   });
   it('should verify token if provided', (done) => {
     const password = { password: 'password' };
-    supertest(app).post('/api/user/password_update?token=whatever').send(password).end((err, res) => {
+    supertest(app).post('/api/user/password_update?token=whatever')
+    .send(password).end((err, res) => {
       assert.equal(res.body.error, 'Token authentication failure');
       assert.equal(res.statusCode, 401);
     });
@@ -266,7 +289,9 @@ describe('Authenticate', () => {
     });
   });
   it('should detect if token is invalid', (done) => {
-    supertest(app).get('/api/group').set('x-access-token', 'invalid token').send().end((err, res) => {
+    supertest(app).get('/api/group').set('x-access-token', 'invalid token')
+    .send()
+    .end((err, res) => {
       assert.equal(res.body.message, 'Token authentication failure');
       done();
     });

@@ -45,7 +45,7 @@ export const groupAndUserExist = (req, res, next) => {
 
 export const groupExist = (req, res, next) => {
   const groupId = req.params.groupId;
-  if (typeof groupId === 'number') {
+  if (!isNaN(groupId)) {
     Groups.findOne({
       where: { id: groupId },
     })
