@@ -1,5 +1,5 @@
 import db from '../models/index';
-import { validateInput, getId } from '../includes/functions';
+import { checkParams, getId } from '../includes/functions';
 
 const Users = db.users;
 const Groups = db.groups;
@@ -7,7 +7,7 @@ export const groupAndUserExist = (req, res, next) => {
   const groupId = req.params.groupId;
   const userId = req.body.userId || req.params.userId;
   const requiredFields = ['userId'];
-  const validateInputResponse = validateInput(req.body, requiredFields);
+  const validateInputResponse = checkParams(req.body, requiredFields);
   if (validateInputResponse === 'ok') {
     if (!isNaN(groupId) || !isNaN(userId)) {
       Groups.findOne({

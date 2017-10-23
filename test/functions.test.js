@@ -1,12 +1,12 @@
 import { assert } from 'chai';
 import supertest from 'supertest';
 import app from '../server/app';
-import { validateInput, getId, verifyToken } from '../server/includes/functions';
+import { checkParams, getId } from '../server/includes/functions';
 
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZnVsbE5hbWUiOiJnYmVuZ2EgT3lldGFkZSIsImVtYWlsIjoiZ2JlbmdhLm95ZXRhZGVAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwODA2NDE0MDY5NSIsImlhdCI6MTUwODcyOTExMSwiZXhwIjoxNTQwMjY1MTExfQ.jEyMrWd4FjnKsPM-3yIL9w1o6YdzP2MbOZ2b3nd9LDM';
 describe('Function ', () => {
   it('Detect validateInput function', () => {
-    assert.equal(typeof validateInput, 'function');
+    assert.equal(typeof checkParams, 'function');
   });
   it('Detect getId function', () => {
     assert.equal(typeof getId, 'function');
@@ -20,7 +20,7 @@ describe('Function ', () => {
       email: 'gbenga.oyetade@gmail.com',
     };
     const requiredFields = ['name', 'email'];
-    assert.equal(validateInput(request, requiredFields), 'ok');
+    assert.equal(checkParams(request, requiredFields), 'ok');
   });
   it('validateInput should return the first missing field if not provided',
   () => {
@@ -29,7 +29,7 @@ describe('Function ', () => {
       email: 'gbenga.oyetade@gmail.com',
     };
     const requiredFields = ['name', 'email', 'age'];
-    assert.equal(validateInput(request, requiredFields),
+    assert.equal(checkParams(request, requiredFields),
     'age field not provided');
   });
   describe('verifyToken', () => {
@@ -39,7 +39,7 @@ describe('Function ', () => {
       .end((err, res) => {
         assert.equal(res.statusCode, 400);
         assert.equal(res.body.error, 'No token provided');
-        //assert.equal(res.body.error, 'No token provided');
+        // assert.equal(res.body.error, 'No token provided');
         done();
       });
     });
