@@ -3,16 +3,23 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import db from '../models/index';
 import transporter from '../config/mail.config';
-import { validateInput, getId, generateToken } from '../includes/functions';
+import { checkParams, getId, generateToken } from '../includes/functions';
 
 dotenv.load();
 const User = db.users;
 const groupMembers = db.groupMembers;
 const secret = process.env.TOKEN_SECRET;
 
+const encryptPassword = (password) => {
+  const salt = bcrypt.genSaltSync(5);
+  const hash = bcrypt.hashSync(password, salt);
+  return hash;
+};
 export const signUp = (req, res) => {
-  const requiredFields = ['username', 'email', 'password', 'fullName', 'phoneNumber'];
-  if (validateInput(req.body, requiredFields) === 'ok') {
+  const requiredFields = [
+    'username', 'email', 'password', 'fullName', 'phoneNumber'];
+  const validateInputResponse = checkParams(req.body, requiredFields);
+  if (validateInputResponse === 'ok') {
     User.create({
       username: req.body.username,
       password: req.body.password,
@@ -27,50 +34,43 @@ export const signUp = (req, res) => {
         addedBy: 1,
       })
       .then(() => {
-        const userToken = generateToken(user.id);
+        const userToken = generateToken(user);
         const userData = {
           id: user.id,
           username: user.username,
           email: user.email,
           token: userToken,
         };
-        const data = {
+        const userCreateResponse = {
           user: userData,
           message: `User ${req.body.username} was created successfully`,
-          parameters: 'ok',
         };
-        res.status(201).send(data);
+        res.status(201).send(userCreateResponse);
       })
       .catch((error) => {
-        res.json({ error: error.message });
+        res.status(500).json({ error: error.message });
       });
     })
     .catch((error) => {
-      let errorMessage;
-      if (error.errors.message === 'username must be unique') {
-        errorMessage = 'Username not available';
+      if (error.errors[0].message === 'username must be unique') {
+        res.status(409).json({ error: 'Username not available' });
       } else if (error.errors[0].message === 'email must be unique') {
-        errorMessage = 'Email address already in use';
+        res.status(409).json({ error: 'Email address already in use' });
+      } else if (error.errors[0].message === 'phoneNumber must be unique') {
+        res.status(409).json({ error: 'Phone Number already in use' });
       } else {
-        errorMessage = error.errors[0].message;
+        const errorMessage = error.errors[0].message;
+        res.status(400).json({ error: errorMessage });
       }
-      const data = {
-        error: errorMessage,
-        parameters: 'ok',
-      };
-      res.status(401).json(data);
     });
   } else {
-    const data = {
-      error: validateInput(req.body, requiredFields),
-    };
-    res.status(401).send(data);
+    res.status(400).json({ error: validateInputResponse });
   }
 }; // end of signup
 
 export const signIn = (req, res) => {
   const requiredFields = ['username', 'password'];
-  const validateInputResponse = validateInput(req.body, requiredFields);
+  const validateInputResponse = checkParams(req.body, requiredFields);
   if (validateInputResponse === 'ok') {
     User.findOne({
       where: {
@@ -83,10 +83,13 @@ export const signIn = (req, res) => {
     } else {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (result) {
-          const userToken = generateToken(user.id);
+          const userToken = generateToken(user);
           const data = {
             token: userToken,
-            user: { username: user.username, email: user.email, fullName: user.fullName },
+            user: {
+              username: user.username,
+              email: user.email,
+              fullName: user.fullName },
           };
           res.status(200).json(data);
         } else {
@@ -96,7 +99,7 @@ export const signIn = (req, res) => {
     }
   })
   .catch((error) => {
-    res.status(401).send(error);
+    res.status(500).send(error.message);
   });
   } else {
     res.status(400).json({ error: validateInputResponse });
@@ -104,7 +107,7 @@ export const signIn = (req, res) => {
 }; // end of signIn
 export const resetPassword = (req, res) => {
   const requiredFields = ['email'];
-  const validateInputResponse = validateInput(req.body, requiredFields);
+  const validateInputResponse = checkParams(req.body, requiredFields);
   const email = req.body.email;
   if (validateInputResponse === 'ok') {
     User.findOne({
@@ -113,12 +116,14 @@ export const resetPassword = (req, res) => {
     .then((user) => {
       if (user) {
         // structure email
-        const token = jwt.sign({ name: user.id },
+        const token = jwt.sign({ id: user.id },
           secret,
           { expiresIn: 60 * 30 },
           );
-        const resetPasswordMail = `<p> Click the link to change your password.</p>
-        <a href='http://localhost:3000/password_change?token=${token}'>Change password</a> `;
+        const resetPasswordMail =
+        `<p> Click the link to change your password.</p>
+        <a href='http://localhost:3000/password_change?token=${token}'>
+        Change password</a> `;
         const mailOptions = {
           from: 'ioyetade@gmail.com',
           to: email,
@@ -127,25 +132,29 @@ export const resetPassword = (req, res) => {
         };
         transporter.sendMail(mailOptions, (error) => {
           if (error) {
-            res.status(400).json({ error });
+            res.status(503).json({ error: 'Could not send mail' });
           } else {
             res.json({ message: 'Mail sent successfully' });
           }
         });
       } else {
-        res.status(401).json({ error: 'Email address does not exist on Postit' });
+        res.status(400).json({
+          error: 'Email address does not exist on Postit' });
       }
     })
     .catch(() => {
+      res.status(500).json({
+        error: 'Cannot process your request at the moment' });
     });
   } else {
-    res.status(400).json({ error: validateInputResponse, message: 'Parameter not well structured' });
+    res.status(400).json({
+      error: validateInputResponse, message: 'Parameter not well structured' });
   }
 };
 export const updatePassword = (req, res) => {
   // Check if password field was provided
   const requiredFields = ['password'];
-  const validateInputResponse = validateInput(req.body, requiredFields);
+  const validateInputResponse = checkParams(req.body, requiredFields);
   if (validateInputResponse === 'ok') {
     // Check if URL contians parameter token
     const userToken = req.query.token;
@@ -157,8 +166,7 @@ export const updatePassword = (req, res) => {
           res.status(401).json({ error: 'Token authentication failure' });
         } else {
           // Update user password if token was verified successfully
-          const salt = bcrypt.genSaltSync(5);
-          const hash = bcrypt.hashSync(req.body.password, salt);
+          const hash = encryptPassword(req.body.password);
           userId = getId(userToken);
           User.update(
             { password: hash },
@@ -169,23 +177,25 @@ export const updatePassword = (req, res) => {
               const authToken = generateToken(userId);
               res.json({ token: authToken });
             } else {
-              res.status(400).json({ error: 'Password not updated. Try again' });
+              res.status(500).json({
+                error: 'Password not updated. Try again' });
             }
           })
-          .catch((updateError) => {
-            res.status(400).json(updateError);
+          .catch(() => {
+            res.status(500).json({
+              error: 'Could not update password at the moment' });
           });
         }
       });
     } else { // Token not provided response
-      res.status(401).json({ error: 'No token provided' });
+      res.status(400).json({ error: 'No token provided' });
     }
   } else { // Password field not provided response
     res.status(400).json({ error: validateInputResponse });
   }
 };
 
-export const userSearch = (req, res) => {
+export const groupMemberSearch = (req, res) => {
   const groupId = req.params.groupId;
   const query = req.query.query;
   db.groups.find({
@@ -199,23 +209,31 @@ export const userSearch = (req, res) => {
       attributes: ['id'],
     })
     .then((users) => {
-      // filter the arrays of ids only from it because it returns groupMembers data too
+      // Get the arrays of ids only from the result returned
+      // because it returns groupMembers data too
       const usersId = users.map(user => (
         user.id
       ));
       db.users.findAll({
         // Take the usersIds gotten above to search the users table
-        // The query below finds users that are not in the arrays of usersId and whose ...
+        // The query below finds users that are not in the arrays
+        // of usersId and whose ...
         // ...usernames are like the value in the search query
         where: { id: { not: usersId },
           username: { $like: `%${query}%` } },
       })
       .then((otherUsers) => {
         res.json(otherUsers);
+      })
+      .catch(() => {
+        res.status(500).json({ error: 'Could not search group members' });
       });
+    })
+    .catch(() => {
+      res.status(500).json({ error: 'Could not search group members' });
     });
   })
-  .catch((error) => {
-    res.status(400).json({ error });
+  .catch(() => {
+    res.status(500).json({ error: 'Could not search group members' });
   });
 };

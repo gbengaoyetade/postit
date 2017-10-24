@@ -1,11 +1,11 @@
 import db from '../models/index';
-import { validateInput, getId } from '../includes/functions';
+import { checkParams, getId } from '../includes/functions';
 import transporter from '../config/mail.config';
 
 const Messages = db.messages;
 export const createMessage = (req, res) => {
   const requieredFields = ['messageBody', 'messagePriority'];
-  const validateReturn = validateInput(req.body, requieredFields);
+  const validateReturn = checkParams(req.body, requieredFields);
   if (validateReturn === 'ok') {
     // create the message
     Messages.create({
@@ -24,7 +24,8 @@ export const createMessage = (req, res) => {
       };
       res.status(201).json({ message: messageData });
       // if priority is Urgent or Critical, send E-mail Notifications
-      if (message.messagePriority === 'Urgent' || message.messagePriority === 'Critical') {
+      if (message.messagePriority === 'Urgent'
+        || message.messagePriority === 'Critical') {
         db.groups.find({
           where: { id: message.groupId },
         })
@@ -47,12 +48,7 @@ export const createMessage = (req, res) => {
               subject: 'Postit Message Notification',
               html: email,
             };
-            transporter.sendMail(mailOptions, (error, info) => {
-              if (error) {
-                res.status(400).json({ error: 'notifications not sent' });
-              } else {
-                res.status(200).json({ message });
-              }
+            transporter.sendMail(mailOptions, () => {
             });
           });
         })
@@ -62,10 +58,6 @@ export const createMessage = (req, res) => {
       }
     })
     .catch((error) => {
-      const data = {
-        error: error.errors[0].message,
-        message: 'Could not create message',
-      };
       res.status(400).json({ error });
     });
   } else {
@@ -95,19 +87,10 @@ export const getMessages = (req, res) => {
       ],
     })
     .then((messages) => {
-      // messages.getUsers()
-      // .then((user) => {
-      //   console.log(user);
-      // })
-      // .catch((error) => {
-      //   console.log(error);
-      // })
       res.status(200).json({ messages });
     })
-    .catch((error) => {
-      res.status(401).json(error.message);
-      console.log(error);
+    .catch(() => {
+      res.status(500).json({ error: 'Could not get messages' });
     });
   });
 };
-
