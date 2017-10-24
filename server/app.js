@@ -13,13 +13,13 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(webpackMiddleware(compiler));
-
-app.use(webpackHotMiddleware(compiler, {
+app.use(webpackMiddleware(compiler, {
   hot: true,
   noInfo: true,
   publicPath: webpackConfig.output.publicPath,
 }));
+
+app.use(webpackHotMiddleware(compiler));
 app.use(express.static(path.join(__dirname, '../client')));
 
 app.use('/api', router);

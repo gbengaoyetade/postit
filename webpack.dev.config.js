@@ -4,7 +4,10 @@ const path = require('path');
 
 module.exports = {
   devtool: 'eval-source-map',
-  entry: './client/index.jsx',
+  entry: [
+    './client/index.jsx',
+    'webpack-hot-middleware/client',
+  ],
   output: {
     path: path.resolve('./client/bundled'),
     filename: 'bundle.js',
