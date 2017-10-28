@@ -46,29 +46,19 @@ export const loginUser = (user, history) => (
       if (response.status === 200) {
         dispatch(userLoginSuccess(response.data));
         dispatch(loginLoading(false));
-        localStorage.setItem('username', response.data.user.username);
         localStorage.setItem('postitToken', response.data.token);
+        localStorage.setItem('postitUser', response.data.user);
         history.push('/dashboard');
       }
     })
     .catch((error) => {
       dispatch(loginLoading(false));
-      let errorMessage;
-      if (error.response.data.message || error.response.data.name) {
-        if (error.response.data.name === 'SequelizeHostNotFoundError') {
-          errorMessage = 'Error connecting to server';
-        } else if (error.response.data.name === 'TimeoutError') {
-          errorMessage = 'Request timed out';
-        }
-        dispatch(
-          loginError(error.response.data.message || errorMessage || error.response.data.name));
-      }
-      
+      dispatch(loginError(error.response.data.error));
     });
   }
 );
-export const signupUser = (user, history) => {
-  return (dispatch) => {
+export const signupUser = (user, history) => (
+  (dispatch) => {
     axios.post(
     '/api/user/signup', user)
     .then((response) => {
@@ -83,5 +73,5 @@ export const signupUser = (user, history) => {
       dispatch(signupError(error.response.data.error || null));
       dispatch(signupLoading(false));
     });
-  };
-};
+  }
+);

@@ -10,11 +10,9 @@ const DashboardHeader = ({ numberOfGroupMembers, groupName, currentUrl }) => {
   return (
     <div>
       <div className="dashboard-header row">
-        <a className="right">
         <a href="#" className="right dropdown-button"
         data-activates="group-more">
         <i className="material-icons">more_vert</i>
-        </a>
         <i className="material-icons">person</i>
         <span className="group-members"> {numberOfGroupMembers}</span></a>
         <span className="bold">{groupName}</span>

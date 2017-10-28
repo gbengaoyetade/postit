@@ -6,6 +6,7 @@ import UserNav from '../navigation/Usernav';
 export default (Component) => {
   class AuthHoc extends React.Component {
     componentWillMount() {
+      console.log(localStorage.getItem('postitUser'));
       if (!localStorage.getItem('postitToken')) {
         this.props.history.push('/login');
       }
@@ -13,7 +14,7 @@ export default (Component) => {
     render() {
       return (
         <div>
-          <UserNav username={localStorage.getItem('username')} />
+          <UserNav username={localStorage.getItem('postitUser').username} />
           <Component {...this.props} />
         </div>
       );

@@ -8,21 +8,20 @@ import MessageForm from './MessageForm';
 class Messages extends React.Component {
   constructor() {
     super();
-    this.handleMessageChange = this.handleMessageChange.bind(this);
-    this.postMessage = this.postMessage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(event) {
     const value = event.target.value;
     const name = event.target.name;
     this.props.message[name] = value;
   }
-  postMessage(event) {
+  handleSubmit(event) {
     event.preventDefault();
     const groupId = this.props.groupId;
     this.props.sendUserMessage(groupId, this.props.message);
   }
   render() {
-    console.log(this.props.messages.messages);
     let groupMessages;
     if (this.props.sendMessageSuccess) {
       this.props.getMessages(this.props.groupId);

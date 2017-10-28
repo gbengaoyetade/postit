@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+axios.defaults.headers.common['x-access-token'] =
+localStorage.getItem('postitToken');
 export const createGroup = group => (
   {
     type: 'CREATE_GROUP',
@@ -66,12 +68,8 @@ export const sendMessageSuccess = bool => (
 
 export const sendGroupDetails = (groupDetails, history) => {
   return () => {
-    const headers = {
-      'x-access-token': window.sessionStorage.postitToken,
-    };
     axios.post('/api/group',
-    groupDetails,
-    { headers })
+    groupDetails)
     .then(() => {
       history.push('/dashboard');
     })
@@ -80,46 +78,35 @@ export const sendGroupDetails = (groupDetails, history) => {
   };
 };
 
-export const getGroups = () => {
-  const headers = {
-    'x-access-token': window.sessionStorage.postitToken,
-  };
-  return (dispatch) => {
-    axios.get('/api/group/user',
-      { headers })
+export const getGroups = () => (
+  (dispatch) => {
+    axios.get('/api/group/user')
     .then((groups) => {
       dispatch(getUserGroups(groups.data.groups));
     })
     .catch((error) => {
       dispatch(getUserGroupsError(true));
     });
-  };
-};
+  }
+);
 export const getGroupMessages = (groupId, history) => {
-  const headers = {
-    'x-access-token': window.sessionStorage.postitToken,
-  };
   return (dispatch) => {
-    axios.get(`/api/group/${groupId}/messages`,
-      { headers })
+    axios.get(`/api/group/${groupId}/messages`)
     .then((groups) => {
       dispatch(getUserGroupMessages(groups.data.messages));
     })
     .catch((error) => {
-      if (error.response.data.error) {
-        history.push('/error');
-      }
+      console.log(error);
+      // if (error.response.data.error) {
+      //   history.push('/error');
+      // }
     });
   };
 };
 
 export const getGroupMembers = (groupId) => {
-  const headers = {
-    'x-access-token': window.sessionStorage.postitToken,
-  };
   return (dispatch) => {
-    axios.get(`/api/group/${groupId}/users`,
-      { headers })
+    axios.get(`/api/group/${groupId}/users`)
     .then((members) => {
       dispatch(getGroupMembersAction(members.data));
     })
@@ -128,13 +115,11 @@ export const getGroupMembers = (groupId) => {
   };
 };
 export const addMember = (userId, groupId) => {
-  const headers = {
-    'x-access-token': window.sessionStorage.postitToken,
-  };
   return (dispatch) => {
-    axios.post(`/api/group/${groupId}/user`, { userId }, { headers })
+    axios.post(`/api/group/${groupId}/user`, { userId })
     .then((response) => {
-      // this is used to control automatic member appearance on the groupMembers section of the page
+      // this is used to control automatic member
+      // appearance on the groupMembers section of the page
       dispatch(addMemberSuccess(true));
     })
     .catch((error) => {
@@ -142,28 +127,20 @@ export const addMember = (userId, groupId) => {
   };
 };
 export const leaveGroup = (groupId, history) => {
-  const headers = {
-    'x-access-token': window.sessionStorage.postitToken,
-  };
   return () => {
-    axios.delete(`/api/group/${groupId}/user`, { headers })
+    axios.delete(`/api/group/${groupId}/user`)
     .then((response) => {
-      console.log(response);
       history.push('/dashboard');
     })
     .catch((error) => {
-      console.log(error.response);
     });
   };
 };
 
 export const sendUserMessage = (groupId, message) => {
   return (dispatch) => {
-    const headers = {
-      'x-access-token': window.sessionStorage.postitToken,
-    };
     const URL = `/api/group/${groupId}/message`;
-    axios.post(URL, message, { headers })
+    axios.post(URL, message)
     .then((response) => {
       dispatch(sendMessageSuccess(true));
     })
