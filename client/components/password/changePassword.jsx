@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import 'url-search-params-polyfill';
-import { InputField, Submit } from '../general/forms';
-import Nav from '../navigation/nav';
+import { InputField, Submit } from '../general/Forms';
+import Nav from '../navigation/Nav';
 import { updatePassword } from '../../actions/passwordAction';
 
 class ChangePassword extends React.Component {
@@ -49,8 +49,14 @@ class ChangePassword extends React.Component {
           <div className="component-container col s10 offset-s1 m6 offset-m3">
             <p className="red-text"> {this.state.error} </p>
             <form onSubmit={this.handleSubmit} >
-              <InputField type="password" required="required" labelValue="Password" name="password" handleChange={this.handleChange} />
-              <InputField type="password" required="required" labelValue="Confirm Password" name="confirmPassword" handleChange={this.handleChange} />
+              <InputField
+              type="password" required="required"
+              labelValue="Password" name="password"
+              handleChange={this.handleChange} />
+              <InputField
+              type="password" required="required"
+              labelValue="Confirm Password" name="confirmPassword"
+              handleChange={this.handleChange} />
               <Submit submitValue="Reset Password" />
             </form>
           </div>
@@ -59,10 +65,6 @@ class ChangePassword extends React.Component {
     );
   }
 }
-const mapStateToProps = state => (
-  {
-  }
-);
 const mapDispatchToProps = dispatch => (
   {
     updatePassword: (password, token) => {
@@ -71,4 +73,4 @@ const mapDispatchToProps = dispatch => (
   }
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);
+export default connect(null, mapDispatchToProps)(ChangePassword);

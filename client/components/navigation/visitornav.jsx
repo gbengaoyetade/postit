@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const VisitorNav = (props) => (
+const VisitorNav = () => (
   <div className="row">
     <nav className="light-blue darken-4 col-s12">
       <div className="nav-wrapper">

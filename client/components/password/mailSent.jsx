@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Nav from '../navigation/nav';
+import Nav from '../navigation/Nav';
 
 export default () => (
   <div className="row">

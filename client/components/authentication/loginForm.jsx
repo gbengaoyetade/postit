@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Container from '../general/container';
-import VisitorNav from '../navigation/visitornav';
+import Container from '../general/Container';
+import VisitorNav from '../navigation/Visitornav';
 
 const Login = (props) => {
   let loginValue = '';

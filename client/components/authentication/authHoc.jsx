@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import UserNav from '../navigation/usernav';
+import UserNav from '../navigation/Usernav';
 
 export default (Component) => {
   class AuthHoc extends React.Component {
