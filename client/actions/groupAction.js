@@ -53,10 +53,10 @@ export const getUserGroupsError = payload => (
     payload,
   }
 );
-export const addMemberSuccess = bool => (
+export const addMemberSuccess = memberAdded => (
   {
     type: 'ADD_MEMBER_SUCCESS',
-    bool,
+    memberAdded,
   }
 );
 export const sendMessageSuccess = bool => (

@@ -4,17 +4,18 @@ import { connect } from 'react-redux';
 import UserNav from '../navigation/Usernav';
 
 export default (Component) => {
+  let user;
   class AuthHoc extends React.Component {
     componentWillMount() {
-      console.log(localStorage.getItem('postitUser'));
       if (!localStorage.getItem('postitToken')) {
         this.props.history.push('/login');
       }
+      user = JSON.parse(localStorage.getItem('postitUser'));
     }
     render() {
       return (
         <div>
-          <UserNav username={localStorage.getItem('postitUser').username} />
+          <UserNav username={user.username} />
           <Component {...this.props} />
         </div>
       );

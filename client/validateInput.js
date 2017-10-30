@@ -2,7 +2,7 @@ import validator from 'validator';
 
 const validateInput = (userInput) => {
   const errors = {};
-  if (!validator.isMobilePhone(userInput.phoneNumber, 'en-NG')) {
+  if (!validator.isMobilePhone(userInput.phoneNumber, 'any')) {
     errors.phoneNumber = 'Phone number not valid';
   }
   if (!validator.matches(userInput.username, /^[a-zA-Z0-9_]*$/)) {

@@ -47,7 +47,7 @@ export const loginUser = (user, history) => (
         dispatch(userLoginSuccess(response.data));
         dispatch(loginLoading(false));
         localStorage.setItem('postitToken', response.data.token);
-        localStorage.setItem('postitUser', response.data.user);
+        localStorage.setItem('postitUser', JSON.stringify(response.data.user));
         history.push('/dashboard');
       }
     })

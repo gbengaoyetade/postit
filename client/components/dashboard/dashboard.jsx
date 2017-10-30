@@ -6,6 +6,10 @@ import { getGroups } from '../../actions/groupAction';
 import UserSideNav from '../navigation/UserSideNav';
 
 class Dashboard extends React.Component {
+  componentWillMount() {
+    $('.dropdown-button').dropdown();
+    $('select').material_select();
+  }
   render() {
     let groups;
     let userGroups;

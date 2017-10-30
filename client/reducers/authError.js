@@ -1,4 +1,4 @@
-export const signupError = (state = [], action) => {
+export const signupError = (state = '', action) => {
   switch (action.type) {
     case 'SIGNUP_ERROR':
       return action.error;
@@ -7,7 +7,7 @@ export const signupError = (state = [], action) => {
   }
 };
 
-export const loginError = (state = [], action) => {
+export const loginError = (state = '', action) => {
   switch (action.type) {
     case 'LOGIN_ERROR':
       return action.error;
@@ -15,7 +15,7 @@ export const loginError = (state = [], action) => {
       return state;
   }
 };
-export const passwordError = (state = [], action) => {
+export const passwordError = (state = '', action) => {
   switch (action.type) {
     case 'PASSWORD_ERROR':
       return action.error;

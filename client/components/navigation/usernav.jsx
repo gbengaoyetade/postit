@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginLoading } from '../../actions/auth';
 
 const UserNav = (props) => {
   const logout = () => {
-    window.localStorage.removeItem('username');
-    window.localStorage.removeItem('postitToken');
+    localStorage.removeItem('username');
+    localStorage.removeItem('postitToken');
     props.history.push('/login');
     props.loginLoading(false);
   };
@@ -29,37 +30,49 @@ const UserNav = (props) => {
           <i className="material-icons">account_circle</i> Profile
         </Link></li>
         <li>
-          <Link to="#" onClick={logout}><i className="material-icons"></i>Logout</Link>
+          <Link to="#" onClick={logout}>
+          <i className="material-icons"></i>
+          Logout
+          </Link>
         </li>
       </ul>
       { /* end of sidenav  */ }
       <nav className="light-blue darken-4">
         <div className="nav-wrapper  ">
-          <Link to="#" className="left brand-logo hide-on-med-and-down">Postit</Link>
+          <Link to="#" className="left brand-logo hide-on-med-and-down">
+            Postit
+          </Link>
           <a href="#" className="brand-logo hide-on-med-and-up">Postit</a>
           <div className="hide-on-med-and-up left white-text " >
-            <Link to="#" data-activates="slide-out" className="button-collapse left">
+            <Link to="#" data-activates="slide-out"
+            className="button-collapse left">
               <i className="material-icons">menu</i>
             </Link>
           </div>
-          <ul className="right hide-on-med-and-down">
-            {/* <li><Link to="#" ><i className="material-icons">notifications</i></Link></li> */}
-            <li><Link to="/user" >{props.username}</Link></li>
-            <li><Link to="#" onClick={logout}>Logout</Link></li>
+          {/* <ul className="hide-on-med-and-down">
+            <li><a href="#">{props.username}
+              </a></li>
+          </ul> */}
+
+          <ul id='userDropdown' className='dropdown-content'>
+            <li><a href="#" onClick={logout}>Logout</a></li>
           </ul>
-          <form className="right hide-on-med-and-down">
-          <div className="input-field col s6 s12 li">
-          <i className="material-icons prefix">search</i>
-          <input type="text" placeholder="search" id="autocomplete-input" className="autocomplete" />
-          </div>
-        </form>
+            <div className="right">
+            <a className='dropdown-button' href='#'
+            data-activates='userDropdown'>
+              {props.username}
+              <i className="material-icons red-text">arrow_drop_down</i>
+            </a>
+            </div>
         </div>
       </nav>
     </div>
-    );
+  );
 };
 UserNav.propTypes = {
-  loginLoading: React.PropTypes.func.isRequired,
+  loginLoading: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
 };
 const mapDispatchToProps = dispatch => (
   {
