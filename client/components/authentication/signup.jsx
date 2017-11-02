@@ -16,7 +16,7 @@ class Signup extends React.Component {
   handleChange(e) {
     const value = e.target.value;
     const name = e.target.name;
-    this.props.user[name] = value;
+    this.props.user[name] = value.trim();
   }
   handleSubmit(e) {
     e.preventDefault();

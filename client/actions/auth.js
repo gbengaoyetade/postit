@@ -38,6 +38,10 @@ export const signupError = error => (
     error,
   }
 );
+const storeUserDetails = (response) => {
+  localStorage.setItem('postitToken', response.data.token);
+  localStorage.setItem('postitUser', JSON.stringify(response.data.user));
+};
 export const loginUser = (user, history) => (
   (dispatch) => {
     axios.post('/api/user/signin',
@@ -46,8 +50,7 @@ export const loginUser = (user, history) => (
       if (response.status === 200) {
         dispatch(userLoginSuccess(response.data));
         dispatch(loginLoading(false));
-        localStorage.setItem('postitToken', response.data.token);
-        localStorage.setItem('postitUser', JSON.stringify(response.data.user));
+        storeUserDetails(response);
         history.push('/dashboard');
       }
     })
@@ -64,8 +67,7 @@ export const signupUser = (user, history) => (
     .then((response) => {
       if (response.status === 201) {
         dispatch(userLoginSuccess(user));
-        localStorage.setItem('username', response.data.user.username);
-        localStorage.setItem('postitToken', response.data.user.token);
+        storeUserDetails(response);
         history.push('/dashboard');
       }
     })

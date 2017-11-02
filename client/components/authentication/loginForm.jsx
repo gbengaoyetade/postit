@@ -19,7 +19,7 @@ const Login = (props) => {
     <div>
       <VisitorNav />
       <Container>
-      <div className="col s12 l6 offset-l3 component-container " >
+      <div className="col s12 m6 offset-m3 component-container" >
       <h3 className="header center grey-text" >Login</h3>
       <p className="red-text"> {props.error} </p>
       <form method="POST" onSubmit={props.handleSubmit} >
@@ -27,7 +27,7 @@ const Login = (props) => {
           <input type="text" name="username" id="username" required="required"
             onChange={props.handleChange}
           />
-          <label htmlFor="username"> Username or email address</label>
+          <label htmlFor="username"> Email or username</label>
         </div>
         <div className="input-field">
           <input type="password" name="password" id="password"

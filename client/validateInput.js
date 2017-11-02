@@ -11,9 +11,6 @@ const validateInput = (userInput) => {
   if (!validator.isLength(userInput.username, { min: 3 })) {
     errors.username = 'Username is too short';
   }
-  // if (!validator.isEmpty(userInput.password)) {
-  //   errors.password = 'Password cannot be empty';
-  // }
   if (!validator.isLength(userInput.password, { min: 6 })) {
     errors.password = 'Password cannot be less than 6 characters';
   }
