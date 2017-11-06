@@ -24,7 +24,9 @@ body{
 	width: 100%;
 	color: $grey;
 	padding: 40px;
-	// box-shadow: 10px 10px 5px #888888;
+	box-shadow: 5	px 5px 5px #5c5c5c;
+	background: #fff;
+	border-radius: 5px;
 }
 nav{
 	padding: 0 15px;
@@ -113,5 +115,10 @@ footer{
 	padding: 5px;
 	margin-right: 10px; 
 }
-
+.postit-icon-wrapper {
+	display: inline;
+}
+.big {
+	font-size: 2.0em;
+}
 

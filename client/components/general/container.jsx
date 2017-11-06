@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Container = (props) => {
-  return (
+const Container = props => (
+  (
     <div className="container" >
-      <div className="row" > 
+      <div className="row">
         {props.children}
       </div>
     </div>
-    );
-};
+  )
+);
 export default Container;

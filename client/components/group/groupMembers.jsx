@@ -18,7 +18,6 @@ class GroupMembers extends React.Component {
   }
   render() {
     let groupMembersList;
-    // const toas÷÷tContent = `Do want to leave group? <a href="#" class="btn-flat toast-action" onclick=> Yes </a>`;
     if (this.props.groupMembers.members) {
       const members = this.props.groupMembers.members;
       groupMembersList = (<ul className="collection">
@@ -33,8 +32,10 @@ class GroupMembers extends React.Component {
       <div className="col m3 component-container hide-on-med-and-down">
         <p> &nbsp; </p>
         <div className="row">
-          <Link className="btn blue col m6" to={`/group/${this.props.groupId}/addmembers`}> Add Memb </Link>
-          <a href=""className="btn red modal-trigger" data-target="modal1" >leaveGroup</a>
+          <Link className="btn blue col m6"
+          to={`/group/${this.props.groupId}/addmembers`}>Add Member</Link>
+          <a href=""className="btn red modal-trigger"
+          data-target="modal1" >leaveGroup</a>
         </div>
         <p className="center"> Group Members </p>
         {groupMembersList}
@@ -48,7 +49,8 @@ class GroupMembers extends React.Component {
               className="modal-action modal-close waves-effect waves-green btn"
               onClick={this.leaveGroup}
             >Yes</a>
-            <a href="#" className="modal-action modal-close waves-effect waves-green btn red">No</a>
+            <a href="#" className=
+            "modal-action modal-close waves-effect waves-green btn red">No</a>
           </div>
         </div>
       </div>
@@ -56,10 +58,8 @@ class GroupMembers extends React.Component {
   }
 }
 GroupMembers.propTypes = {
-  // members: React.PropTypes.arrayOf(React.PropTypes.obj),
   leaveGroup: React.PropTypes.func.isRequired,
   getGroupMembers: React.PropTypes.func.isRequired,
-  //groupId: React.PropTypes.int.isRequired,
 };
 const mapStateToProps = state => (
   {

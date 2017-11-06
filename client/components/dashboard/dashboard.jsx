@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { getGroups } from '../../actions/groupAction';
-import SideNav from '../navigation/userSideNav';
+import UserSideNav from '../navigation/UserSideNav';
 
 class Dashboard extends React.Component {
+  componentWillMount() {
+    $('.dropdown-button').dropdown();
+    $('select').material_select();
+  }
   render() {
     let groups;
     let userGroups;
@@ -14,13 +18,16 @@ class Dashboard extends React.Component {
       userGroups = (
         <ul className="collection">
           {groups.map(group => (
-            <li key={group.id} className="collection-item"><Link to={`/group/${group.id}`}> {group.groupName} </Link> </li>
+            <li key={group.id}
+            className="collection-item">
+            <Link to={`/group/${group.id}`}> {group.groupName}</Link>
+            </li>
             ))}
         </ul>);
     }
     return (
       <div className="row">
-        <SideNav currentUrl={this.props.match.path} />
+        <UserSideNav currentUrl={this.props.match.path} />
         <div className="col m6 s12 component-container">
           <p className="center header">Group messages</p>
         </div>
@@ -50,4 +57,5 @@ const mapDispatchToProps = dispatch => (
     },
   }
 );
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Dashboard));
