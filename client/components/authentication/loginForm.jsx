@@ -41,7 +41,7 @@ const Login = (props) => {
           className="btn light-blue darken-4 col s8 offset-s2" />
         </div>
         <p className="center">
-          <span> Don't have an account?</span> 
+          <span> Don't have an account? </span>
           <Link to="/signup" className="waves-effect"> Signup </Link>
         </p>
         <p className="center">
@@ -49,6 +49,7 @@ const Login = (props) => {
             Forgot password
           </Link>
         </p>
+        <p>&nbsp;</p>
       </form>
       </div>
       </Container>

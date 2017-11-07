@@ -3,13 +3,15 @@ $orange:#fd8966;
 $grey:#999;
 
 body{
+	color:#fff;
 	padding: 0;
 	margin: 0;
-	background-color: #fff;
-	display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-	color:#fff;
+	height: 100%;
+	background: url('../images/postit-bg.png') no-repeat center center fixed;
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+	background-size: cover;
 }
 // materialize css footer fix
   main {
@@ -30,6 +32,7 @@ body{
 }
 nav{
 	padding: 0 15px;
+	margin:0 !important;
 }
 .dashboard-header{
 	border-bottom: 1px solid $grey;
@@ -59,14 +62,6 @@ input[type=search]:not(.browser-default):focus:not([readonly]){
 .dropdown-content li>span{
 	color: $blue;
 }
-// End of Customize
-// .message-form{
-// 	border: 5px solid #ddd;
-// 	position: fixed;
-// 	top: 670px;
-// 	padding: 25px;
-// 	border-radius: 25px;
-// }
 .message-form button {
 	border: none;
 	background-color:none;
@@ -115,10 +110,13 @@ footer{
 	padding: 5px;
 	margin-right: 10px; 
 }
-.postit-icon-wrapper {
-	display: inline;
-}
 .big {
 	font-size: 2.0em;
 }
-
+.centralized-div {
+	position: absolute;
+  top: 30%;
+	height: 100px;
+	width: 100%;
+  // margin-top: -50px;
+}

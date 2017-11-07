@@ -1,26 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './navigation/Visitornav.jsx';
-import Container from './general/Container.jsx';
 
 const Home = () => (
   (
-    <div className="grey">
+    <div >
       <Nav />
-      <Container>
-        <div className="s8 offset-s1 m6 ">
-          <h1 className=""> Built for</h1>
+      <div className="centralized-div row">
+        <div className="col m4 offset-m3 s8 offset-s3" >
+        <h1 className=""> Built for</h1>
           <h2 className="">Group messaging</h2>
           <p>
-            Postit allows you create groups and send
-            prioritized messages to these groups.</p>
-          <Link to="signup"
-          className=
-          "center btn light-blue darken-4 col s8 offset-s2 m4 offset-m4">
-          Get Started </Link>
+            Postit allows you communicate within the scope of a group.
+            You get to create groups, join existing ones and send prioritized
+            messages to group members.
+            </p>
+          <Link
+            to="signup"
+            className=
+            "center btn grey darken-4">
+            Get Started
+          </Link>
           <p className="clearfix" />
         </div>
-      </Container>
+      </div>
     </div>
   )
 );

@@ -17,7 +17,9 @@ const SignupForm = (props) => {
     <div>
       <VisitorNav />
       <Container>
-        <div className="col s12 m6  offset-m3 component-container">
+        <div
+        className="col s12 m6 offset-m3 component-container"
+        >
         <p className="center grey-text big" >Signup</p>
           <p className="red-text">&nbsp; {props.error}</p>
           <form method="POST" action="#" onSubmit={props.handleSubmit}>
@@ -68,6 +70,7 @@ const SignupForm = (props) => {
             <p className="center"> Already have and acount?
               <Link to="login"> Login </Link>
             </p>
+            <p></p>
           </form>
         </div>
       </Container>
