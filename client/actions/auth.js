@@ -38,6 +38,10 @@ export const signupError = error => (
     error,
   }
 );
+const storeUserDetails = (response) => {
+  localStorage.setItem('postitToken', response.data.token);
+  localStorage.setItem('postitUser', JSON.stringify(response.data.user));
+};
 export const loginUser = (user, history) => (
   (dispatch) => {
     axios.post('/api/user/signin',
@@ -46,36 +50,24 @@ export const loginUser = (user, history) => (
       if (response.status === 200) {
         dispatch(userLoginSuccess(response.data));
         dispatch(loginLoading(false));
-        localStorage.setItem('username', response.data.user.username);
-        localStorage.setItem('postitToken', response.data.token);
+        storeUserDetails(response);
         history.push('/dashboard');
       }
     })
     .catch((error) => {
       dispatch(loginLoading(false));
-      let errorMessage;
-      if (error.response.data.message || error.response.data.name) {
-        if (error.response.data.name === 'SequelizeHostNotFoundError') {
-          errorMessage = 'Error connecting to server';
-        } else if (error.response.data.name === 'TimeoutError') {
-          errorMessage = 'Request timed out';
-        }
-        dispatch(
-          loginError(error.response.data.message || errorMessage || error.response.data.name));
-      }
-      
+      dispatch(loginError(error.response.data.error));
     });
   }
 );
-export const signupUser = (user, history) => {
-  return (dispatch) => {
+export const signupUser = (user, history) => (
+  (dispatch) => {
     axios.post(
     '/api/user/signup', user)
     .then((response) => {
       if (response.status === 201) {
         dispatch(userLoginSuccess(user));
-        localStorage.setItem('username', response.data.user.username);
-        localStorage.setItem('postitToken', response.data.user.token);
+        storeUserDetails(response);
         history.push('/dashboard');
       }
     })
@@ -83,5 +75,5 @@ export const signupUser = (user, history) => {
       dispatch(signupError(error.response.data.error || null));
       dispatch(signupLoading(false));
     });
-  };
-};
+  }
+);

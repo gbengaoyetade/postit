@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { getGroups, getGroupMembers, getGroupMessages } from '../../actions/groupAction';
+import { getGroups, getGroupMembers, getGroupMessages }
+from '../../actions/groupAction';
 
 class UserGroups extends React.Component {
   constructor() {
@@ -60,4 +61,5 @@ const mapDispatchToProps = dispatch => (
     },
   }
 );
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserGroups));
+export default
+withRouter(connect(mapStateToProps, mapDispatchToProps)(UserGroups));

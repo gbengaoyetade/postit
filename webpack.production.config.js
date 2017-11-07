@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
   devtool: 'source-map',
-  entry: './client/index.jsx',
+  entry: './client/index.js',
   output: {
     path: path.resolve('./client/bundled'),
     filename: 'bundle.js',
@@ -13,7 +13,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.jsx?/,
+        test: /\.(js|jsx)$/,
         include: /client/,
         loaders: ['babel-loader'],
       },

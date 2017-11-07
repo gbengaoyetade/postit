@@ -48,23 +48,23 @@ export const signUp = (req, res) => {
         res.status(201).send(userCreateResponse);
       })
       .catch((error) => {
-        res.status(500).json({ error: error.message });
+        res.status(500).send({ error: error.message });
       });
     })
     .catch((error) => {
       if (error.errors[0].message === 'username must be unique') {
-        res.status(409).json({ error: 'Username not available' });
+        res.status(409).send({ error: 'Username not available' });
       } else if (error.errors[0].message === 'email must be unique') {
-        res.status(409).json({ error: 'Email address already in use' });
+        res.status(409).send({ error: 'Email address already in use' });
       } else if (error.errors[0].message === 'phoneNumber must be unique') {
-        res.status(409).json({ error: 'Phone Number already in use' });
+        res.status(409).send({ error: 'Phone Number already in use' });
       } else {
         const errorMessage = error.errors[0].message;
-        res.status(400).json({ error: errorMessage });
+        res.status(400).send({ error: errorMessage });
       }
     });
   } else {
-    res.status(400).json({ error: validateInputResponse });
+    res.status(400).send({ error: validateInputResponse });
   }
 }; // end of signup
 
@@ -74,12 +74,12 @@ export const signIn = (req, res) => {
   if (validateInputResponse === 'ok') {
     User.findOne({
       where: {
-        username: req.body.username,
-      },
+        $or: [{ username: req.body.username }, { email: req.body.username }]
+      }
     })
   .then((user) => {
     if (user === null) {
-      res.status(401).send({ message: 'Username or password incorect' });
+      res.status(401).send({ error: 'Username or password incorect' });
     } else {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (result) {
@@ -87,13 +87,14 @@ export const signIn = (req, res) => {
           const data = {
             token: userToken,
             user: {
+              id: user.id,
               username: user.username,
               email: user.email,
               fullName: user.fullName },
           };
-          res.status(200).json(data);
+          res.status(200).send(data);
         } else {
-          res.status(401).json({ message: 'Username or password incorect' });
+          res.status(401).send({ error: 'Username or password incorect' });
         }
       });
     }
@@ -102,7 +103,7 @@ export const signIn = (req, res) => {
     res.status(500).send(error.message);
   });
   } else {
-    res.status(400).json({ error: validateInputResponse });
+    res.status(400).send({ error: validateInputResponse });
   }
 }; // end of signIn
 export const resetPassword = (req, res) => {
@@ -132,22 +133,22 @@ export const resetPassword = (req, res) => {
         };
         transporter.sendMail(mailOptions, (error) => {
           if (error) {
-            res.status(503).json({ error: 'Could not send mail' });
+            res.status(503).send({ error: 'Could not send mail' });
           } else {
-            res.json({ message: 'Mail sent successfully' });
+            res.send({ message: 'Mail sent successfully' });
           }
         });
       } else {
-        res.status(400).json({
+        res.status(400).send({
           error: 'Email address does not exist on Postit' });
       }
     })
     .catch(() => {
-      res.status(500).json({
+      res.status(500).send({
         error: 'Cannot process your request at the moment' });
     });
   } else {
-    res.status(400).json({
+    res.status(400).send({
       error: validateInputResponse, message: 'Parameter not well structured' });
   }
 };
@@ -163,7 +164,7 @@ export const updatePassword = (req, res) => {
       // Verify user token
       jwt.verify(userToken, secret, (error) => {
         if (error) {
-          res.status(401).json({ error: 'Token authentication failure' });
+          res.status(401).send({ error: 'Token authentication failure' });
         } else {
           // Update user password if token was verified successfully
           const hash = encryptPassword(req.body.password);
@@ -175,23 +176,23 @@ export const updatePassword = (req, res) => {
           .then((updateValue) => {
             if (updateValue[0] === 1) {
               const authToken = generateToken(userId);
-              res.json({ token: authToken });
+              res.send({ token: authToken });
             } else {
-              res.status(500).json({
+              res.status(500).send({
                 error: 'Password not updated. Try again' });
             }
           })
           .catch(() => {
-            res.status(500).json({
+            res.status(500).send({
               error: 'Could not update password at the moment' });
           });
         }
       });
     } else { // Token not provided response
-      res.status(400).json({ error: 'No token provided' });
+      res.status(400).send({ error: 'No token provided' });
     }
   } else { // Password field not provided response
-    res.status(400).json({ error: validateInputResponse });
+    res.status(400).send({ error: validateInputResponse });
   }
 };
 
@@ -223,17 +224,17 @@ export const groupMemberSearch = (req, res) => {
           username: { $like: `%${query}%` } },
       })
       .then((otherUsers) => {
-        res.json(otherUsers);
+        res.send(otherUsers);
       })
       .catch(() => {
-        res.status(500).json({ error: 'Could not search group members' });
+        res.status(500).send({ error: 'Could not search group members' });
       });
     })
     .catch(() => {
-      res.status(500).json({ error: 'Could not search group members' });
+      res.status(500).send({ error: 'Could not search group members' });
     });
   })
   .catch(() => {
-    res.status(500).json({ error: 'Could not search group members' });
+    res.status(500).send({ error: 'Could not search group members' });
   });
 };

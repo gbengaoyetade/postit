@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SideNav from '../navigation/userSideNav';
+import UserSideNav from '../navigation/UserSideNav.jsx';
 import { searchUser } from '../../actions/search';
-import { addMember, getGroupMembers, addMemberSuccess } from '../../actions/groupAction';
-import GroupMembers from './groupMembers';
+import { addMember, getGroupMembers, addMemberSuccess }
+from '../../actions/groupAction';
 
 class AddMembers extends React.Component {
   constructor() {
@@ -55,18 +55,20 @@ class AddMembers extends React.Component {
     }
     return (
       <div className="row">
-        <SideNav />
+        <UserSideNav />
         <div className="col m6 component-container" >
           <h5 className="center">Search users</h5>
           <form>
             <div className="input-field">
-              <input id="search" type="search" autoComplete="off" name="userSearch" onChange={this.handleSearch} />
+              <input
+              id="search" type="search" autoComplete="off"
+              name="userSearch" onChange={this.handleSearch}
+              />
               <label htmlFor="search"> Search users </label>
             </div>
           </form>
           {searchResult}
         </div>
-        {/* <GroupMembers groupId={this.props.match.params.groupId} history={this.props.history} /> */}
       </div>
     );
   }

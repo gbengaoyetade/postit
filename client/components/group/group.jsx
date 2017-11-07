@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getGroupMessages, getGroupMembers, leaveGroup } from '../../actions/groupAction';
-import SideNav from '../navigation/userSideNav';
-import Messages from '../message/messages';
+import { getGroupMessages, getGroupMembers, leaveGroup }
+from '../../actions/groupAction';
+import SideNav from '../navigation/UserSideNav.jsx';
+import Messages from '../message/Messages.jsx';
 
 class Group extends React.Component {
   componentDidMount() {
@@ -32,7 +33,9 @@ class Group extends React.Component {
     return (
       <div className="row">
         <div>
-          <SideNav groupId={groupId} currentUrl="groupPage" numberOfGroupMembers={numberOfGroupMembers} groupName={groupName} />
+          <SideNav groupId={groupId}
+          currentUrl="groupPage" numberOfGroupMembers={numberOfGroupMembers}
+          groupName={groupName} />
             <ul id="group-more" className="dropdown-content">
               <li><Link to={`/group/${groupId}/addmembers`}>Add Memb</Link></li>
               <li><a href="#!" onClick={this.leaveGroup}>Leave group</a></li>
@@ -41,7 +44,6 @@ class Group extends React.Component {
             <Messages groupId={this.props.match.params.groupId} />
           </div>
         </div>
-        {/* <GroupMembers groupId={this.props.match.params.groupId} history={this.props.history} /> */}
       </div>
     );
   }

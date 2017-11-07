@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CreateGroupForm from './createGroupForm';
+import CreateGroupForm from './CreateGroupForm.jsx';
 import { sendGroupDetails } from '../../actions/groupAction';
 
 class CreateGroup extends React.Component {
@@ -28,18 +28,18 @@ class CreateGroup extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = state => (
+  {
     group: state.createGroupReducer,
-  };
-};
+  }
+);
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = dispatch => (
+  {
     createGroup: (group, history) => {
       dispatch(sendGroupDetails(group, history));
     },
-  };
-};
+  }
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateGroup);
