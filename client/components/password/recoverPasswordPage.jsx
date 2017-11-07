@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Container from '../general/Container';
-import Nav from '../navigation/Nav';
+import Container from '../general/Container.jsx';
+import Nav from '../navigation/Nav.jsx';
 
 const ResetPasswordPage = (props) => {
   let disabled;

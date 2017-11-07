@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import UserNav from '../navigation/Usernav';
+import UserNav from '../navigation/Usernav.jsx';
 
 export default (Component) => {
   let user;

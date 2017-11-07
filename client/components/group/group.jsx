@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getGroupMessages, getGroupMembers, leaveGroup }
 from '../../actions/groupAction';
-import SideNav from '../navigation/UserSideNav';
-import Messages from '../message/Messages';
+import SideNav from '../navigation/UserSideNav.jsx';
+import Messages from '../message/Messages.jsx';
 
 class Group extends React.Component {
   componentDidMount() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Nav from './navigation/Visitornav';
-import Container from './general/Container';
+import Nav from './navigation/Visitornav.jsx';
+import Container from './general/Container.jsx';
 
 const Home = (props) => {
   if (window.sessionStorage.postitToken) {

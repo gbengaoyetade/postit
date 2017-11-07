@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import Proptypes from 'prop-types';
-import Container from '../general/Container';
-import VisitorNav from '../navigation/Visitornav';
-import TextInput from '../general/TextInput';
+import Container from '../general/Container.jsx';
+import VisitorNav from '../navigation/Visitornav.jsx';
+import TextInput from '../general/TextInput.jsx';
 
 const SignupForm = (props) => {
   let signupValue = '';

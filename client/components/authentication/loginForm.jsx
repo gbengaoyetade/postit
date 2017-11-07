@@ -1,8 +1,8 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Container from '../general/Container';
-import VisitorNav from '../navigation/Visitornav';
+import Container from '../general/Container.jsx';
+import VisitorNav from '../navigation/Visitornav.jsx';
 
 
 const Login = (props) => {

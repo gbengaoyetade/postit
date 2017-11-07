@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import 'url-search-params-polyfill';
-import { InputField, Submit } from '../general/Forms';
-import Nav from '../navigation/Nav';
+import { InputField, Submit } from '../general/Forms.jsx';
+import Nav from '../navigation/Nav.jsx';
 import { updatePassword } from '../../actions/passwordAction';
 
 class ChangePassword extends React.Component {

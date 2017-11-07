@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { recoverPassword } from '../../actions/passwordAction';
-import ResetPasswordPage from './RecoverPasswordPage';
+import ResetPasswordPage from './RecoverPasswordPage.jsx';
 
 class RecoverPassword extends React.Component {
   constructor() {
