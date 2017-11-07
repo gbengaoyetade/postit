@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
   devtool: 'eval-source-map',
-  entry: ['webpack-hot-middleware/client', './client/index.jsx'],
+  entry: ['webpack-hot-middleware/client', './client/index.js'],
   output: {
     path: path.resolve('./client/bundled'),
     filename: 'bundle.js',
@@ -13,7 +13,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.jsx?/,
+        test: /\.(js|jsx)$/,
         include: /client/,
         loaders: ['react-hot-loader', 'babel-loader'],
       },

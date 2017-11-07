@@ -3,11 +3,8 @@ import { Link } from 'react-router-dom';
 import Nav from './navigation/Visitornav.jsx';
 import Container from './general/Container.jsx';
 
-const Home = (props) => {
-  if (window.sessionStorage.postitToken) {
-    props.history.push('/dashboard');
-  }
-  return (
+const Home = () => (
+  (
     <div className="grey">
       <Nav />
       <Container>
@@ -25,6 +22,6 @@ const Home = (props) => {
         </div>
       </Container>
     </div>
-  );
-};
+  )
+);
 export default Home;
