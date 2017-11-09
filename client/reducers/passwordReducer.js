@@ -1,9 +1,7 @@
 const recoverPassword = (state = {}, action) => {
   switch (action.type) {
     case 'USER_EMAIL':
-      const newState = Object.assign({}, state);
-      newState.email = action.email;
-      return newState;
+      return { ...state, email: action.email };
     default:
       return state;
   }

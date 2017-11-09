@@ -1,7 +1,7 @@
 export const createGroupReducer = (state = {}, action) => {
   switch (action.type) {
     case 'CREATE_GROUP':
-      return [...state, action.user];
+      return { ...state, user: action.user };
     default:
       return state;
   }
@@ -9,7 +9,7 @@ export const createGroupReducer = (state = {}, action) => {
 export const getUserGroupMessages = (state = {}, action) => {
   switch (action.type) {
     case 'GET_USER_GROUP_MESSAGES':
-      return [...state, action.messages];
+      return { ...state, messages: action.messages };
     default:
       return state;
   }
@@ -17,7 +17,7 @@ export const getUserGroupMessages = (state = {}, action) => {
 export const getGroupMembers = (state = {}, action) => {
   switch (action.type) {
     case 'GET_GROUP_MEMBERS':
-      return [...state, action.members];
+      return { ...state, members: action.members };
     default:
       return state;
   }
