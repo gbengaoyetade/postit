@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { sendUserMessage, getGroupMessages, sendMessageSuccess }
-from '../../actions/groupAction';
+from '../../actions/groupActions';
 import MessageForm from './MessageForm.jsx';
 
 class Messages extends React.Component {

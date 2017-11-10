@@ -2,10 +2,11 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import LoginForm from './LoginForm.jsx';
-import { loginUser, loginLoading, loginError } from '../../actions/auth';
+import { loginUser, loginLoading, loginError }
+from '../../actions/userAuthActions';
 
 /**
- * 
+ * @description -Login Class
  */
 class Login extends React.Component {
   /**

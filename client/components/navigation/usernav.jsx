@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginLoading } from '../../actions/auth';
+import { loginLoading } from '../../actions/userAuthActions';
 
 const UserNav = (props) => {
   const logout = () => {

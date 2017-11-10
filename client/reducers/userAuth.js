@@ -1,6 +1,6 @@
 const userAuth = (state = {}, action) => {
   switch (action.type) {
-    case 'CREATE_USER':
+    case 'AUTHENTICATE_USER':
       return { ...state, user: action.user };
     default:
       return state;

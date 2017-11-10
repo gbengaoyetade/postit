@@ -19,7 +19,8 @@ const Login = (props) => {
     <div>
       <VisitorNav />
       <Container>
-      <div className="col s12 m6 offset-m3 component-container" >
+      <div className="col s12 m6 offset-m3" >
+        <div className="component-container">
       <h3 className="header center grey-text" >Login</h3>
       <p className="red-text"> {props.error} </p>
       <form method="POST" onSubmit={props.handleSubmit} >
@@ -51,6 +52,7 @@ const Login = (props) => {
         </p>
         <p>&nbsp;</p>
       </form>
+      </div>
       </div>
       </Container>
     </div>

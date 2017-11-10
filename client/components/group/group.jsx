@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getGroupMessages, getGroupMembers, leaveGroup }
-from '../../actions/groupAction';
+from '../../actions/groupActions';
 import SideNav from '../navigation/UserSideNav.jsx';
 import Messages from '../message/Messages.jsx';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CreateGroupForm from './CreateGroupForm.jsx';
-import { sendGroupDetails } from '../../actions/groupAction';
+import { sendGroupDetails } from '../../actions/groupActions';
 
 class CreateGroup extends React.Component {
   constructor() {
