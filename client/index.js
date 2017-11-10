@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import { Provider } from 'react-redux';
-import Routes from './components/Routes.jsx';
+import Routes from './components/Routes';
 import store from './store';
 import './assets/scss/postit.scss';
 

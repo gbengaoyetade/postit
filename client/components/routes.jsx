@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import Signup from './authentication/Signup.jsx';
+import Signup from './authentication/Signup';
 import Login from './authentication/Login.jsx';
 import Dashboard from './dashboard/Dashboard.jsx';
 import NotFound from './errors/Notfound.jsx';
