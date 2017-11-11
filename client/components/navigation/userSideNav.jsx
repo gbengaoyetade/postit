@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UserGroups from '../group/UserGroups.jsx';
-import DashboardHeader from './DashboardHeader.jsx';
+import UserGroups from '../group/UserGroups';
+import DashboardHeader from './DashboardHeader';
 
 export default props => (
   <div>

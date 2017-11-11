@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getGroupMembers, leaveGroup } from '../../actions/groupAction';
+import { getGroupMembers, leaveGroup } from '../../actions/groupActions';
 
 class GroupMembers extends React.Component {
   constructor() {

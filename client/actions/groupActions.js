@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-axios.defaults.headers.common['x-access-token'] =
-localStorage.getItem('postitToken');
 export const createGroup = group => (
   {
     type: 'CREATE_GROUP',
@@ -21,7 +19,6 @@ export const postMessage = message => (
     message,
   }
 );
-
 export const messageSending = bool => (
   {
     type: 'MESSAGE_SENDING',
@@ -96,7 +93,6 @@ export const getGroupMessages = (groupId, history) => {
       dispatch(getUserGroupMessages(groups.data.messages));
     })
     .catch((error) => {
-      console.log(error);
       // if (error.response.data.error) {
       //   history.push('/error');
       // }

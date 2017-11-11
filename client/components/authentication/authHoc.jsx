@@ -1,27 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import UserNav from '../navigation/Usernav.jsx';
+import Nav from '../common/Nav';
 
 export default (Component) => {
-  let user;
+  let user, rightLinkObject;
   class AuthHoc extends React.Component {
     componentWillMount() {
       if (!localStorage.getItem('postitToken')) {
         this.props.history.push('/login');
+      } else {
+        user = JSON.parse(localStorage.getItem('postitUser'));
+        rightLinkObject = (
+          <a className='dropdown-button' href='#' data-activates='userDropdown'>
+            {user.username}
+          </a>
+        );
       }
-      user = JSON.parse(localStorage.getItem('postitUser'));
     }
     render() {
       return (
         <div>
-          <UserNav username={user.username} />
+          <Nav rightLink={rightLinkObject} />
           <Component {...this.props} />
         </div>
       );
     }
   }
-  AuthHoc.proptypes = {
+  AuthHoc.propTypes = {
     history: PropTypes.object.isRequired,
   };
   const mapStateToProps = state => (

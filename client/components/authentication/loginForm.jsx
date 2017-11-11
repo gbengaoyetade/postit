@@ -1,8 +1,8 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Container from '../general/Container.jsx';
-import VisitorNav from '../navigation/Visitornav.jsx';
+import Container from '../common/Container';
+import Nav from '../common/Nav';
 
 
 const Login = (props) => {
@@ -12,12 +12,9 @@ const Login = (props) => {
   } else {
     loginValue = 'Login';
   }
-  /**
-   * @returns {object}
-   */
   return (
     <div>
-      <VisitorNav />
+      <Nav />
       <Container>
       <div className="col s12 m6 offset-m3" >
         <div className="component-container">

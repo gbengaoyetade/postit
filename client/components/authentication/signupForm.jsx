@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import Proptypes from 'prop-types';
-import Container from '../general/Container.jsx';
-import VisitorNav from '../navigation/Visitornav.jsx';
-import TextInput from '../general/TextInput.jsx';
+import Nav from '../common/Nav';
+import Container from '../common/Container';
+import TextInput from '../common/TextInput';
 
 const SignupForm = (props) => {
   let signupValue = '';
@@ -15,7 +15,7 @@ const SignupForm = (props) => {
   }
   return (
     <div>
-      <VisitorNav />
+      <Nav />
       <Container>
         <div className="col s12 m6 offset-m3">
           <div className="component-container">
@@ -63,7 +63,8 @@ const SignupForm = (props) => {
               <p className="row">
                 <input
                 type="submit" value={signupValue}
-                className="btn align-center light-blue darken-4 col s8 offset-s2"
+                className=
+                "btn align-center light-blue darken-4 col s8 offset-s2"
                 />
               </p>
               <p className="center"> Already have and acount?

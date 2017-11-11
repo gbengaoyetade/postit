@@ -1,11 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Nav from './navigation/Visitornav.jsx';
+import Nav from './common/Nav';
 
-const Home = () => (
-  (
+const Home = () => {
+  const rightLinkObject = (
+  <ul className="hide-on-med-and-down">
+    <li><Link className="" to="/login" > Login </Link> </li>
+    <li><Link className="" to="/signup" > Signup </Link> </li>
+  </ul>);
+  return (
     <div >
-      <Nav />
+      <Nav
+      rightLink={rightLinkObject}
+      />
       <div className="centralized-div row">
         <div className="col m4 offset-m3 s8 offset-s3" >
         <h1 className=""> Built for</h1>
@@ -25,6 +32,6 @@ const Home = () => (
         </div>
       </div>
     </div>
-  )
-);
+  );
+};
 export default Home;

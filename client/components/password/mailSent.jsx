@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Nav from '../navigation/Nav.jsx';
+import Nav from '../common/Nav';
 
 export default () => (
   <div className="row">
-    <Nav />
+    <Nav middleLink="Password Reset"/>
     <div className="col s10 offset-s1 m5 offset-m4 component-container">
       <h2 className="center">Mail Sent</h2>
       <p>A password reset mail has been sent to the address you provided.</p>

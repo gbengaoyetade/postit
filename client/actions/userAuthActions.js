@@ -41,6 +41,8 @@ export const signupError = error => (
 const storeUserDetails = (response) => {
   localStorage.setItem('postitToken', response.data.token);
   localStorage.setItem('postitUser', JSON.stringify(response.data.user));
+  axios.defaults.headers.common['x-access-token'] =
+  localStorage.getItem('postitToken');
 };
 export const loginUser = (user, history) => (
   (dispatch) => {
