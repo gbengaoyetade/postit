@@ -35,14 +35,14 @@ export const signUp = (req, res) => {
       })
       .then(() => {
         const userToken = generateToken(user);
-        const userData = {
+        const userDetails = {
           id: user.id,
           username: user.username,
           email: user.email,
           token: userToken,
         };
         const userCreateResponse = {
-          user: userData,
+          user: userDetails,
           message: `User ${req.body.username} was created successfully`,
         };
         res.status(201).send(userCreateResponse);
@@ -84,15 +84,16 @@ export const signIn = (req, res) => {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (result) {
           const userToken = generateToken(user);
-          const data = {
-            token: userToken,
+          const userDetails = {
             user: {
               id: user.id,
               username: user.username,
               email: user.email,
-              fullName: user.fullName },
+              fullName: user.fullName,
+              token: userToken,
+            },
           };
-          res.status(200).send(data);
+          res.status(200).send(userDetails);
         } else {
           res.status(401).send({ error: 'Username or password incorect' });
         }

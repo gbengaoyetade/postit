@@ -1,10 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import validateInput from '../../validateInput';
+
 import { signupLoading, signupUser } from '../../actions/userAuthActions';
 import SignupForm from './SignupForm';
 
 class Signup extends React.Component {
+  /**
+   * Creates an instance of Signup.
+   * @param {object} props -react props object
+   * @returns {void} -return void
+   */
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -13,13 +20,21 @@ class Signup extends React.Component {
       errors: {},
     };
   }
-  handleChange(e) {
-    const value = e.target.value;
-    const name = e.target.name;
+  /**
+   * @param {object} event
+   * @returns {void}
+   */
+  handleChange(event) {
+    const value = event.target.value;
+    const name = event.target.name;
     this.props.user[name] = value.trim();
   }
-  handleSubmit(e) {
-    e.preventDefault();
+   /**
+   * @param {object} event
+   * @returns {void}
+   */
+  handleSubmit(event) {
+    event.preventDefault();
     this.setState({ errors: {} });
     const { errors, isValid } = validateInput(this.props.user);
     if (!isValid) {
@@ -59,4 +74,12 @@ const mapDispatchToProps = dispatch => (
     },
   }
 );
+Signup.propTypes = {
+  user: PropTypes.object,
+  isLoading: PropTypes.bool,
+  setLoading: PropTypes.func.isRequired,
+  signupUser: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  error: PropTypes.string,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);
