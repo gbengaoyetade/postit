@@ -198,7 +198,7 @@ describe('Login', () => {
       done();
     });
   });
-  it('Return 401 error if user does not exist', (done) => {
+  it('should return 401 error if user does not exist', (done) => {
     const user = {
       username: 'does not exist',
       password: 'password',
@@ -208,12 +208,29 @@ describe('Login', () => {
       done();
     });
   });
-  it('Return a token on successful login', (done) => {
-    const data = {
+  it('should return a token on successful login', (done) => {
+    const userDetails = {
       username: 'apptest', password: 'some password',
     };
-    supertest(app).post('/api/user/signin').send(data).end((err, res) => {
-      assert.isOk(res.body.token);
+    supertest(app).post('/api/user/signin')
+    .send(userDetails).end((err, res) => {
+      assert.isOk(res.body.user.token);
+      assert.isOk(res.body.user.id);
+      assert.isOk(res.body.user.email);
+      assert.equal(res.body.user.username, userDetails.username);
+      done();
+    });
+  });
+  it('should login user if email is provided in the username field', (done) => {
+    const userDetails = {
+      username: 'apptest@gmail.com', password: 'some password',
+    };
+    supertest(app).post('/api/user/signin')
+    .send(userDetails).end((err, res) => {
+      assert.isOk(res.body.user.token);
+      assert.isOk(res.body.user.id);
+      assert.isOk(res.body.user.email);
+      assert.equal(res.body.user.username, 'apptest');
       done();
     });
   });
@@ -281,20 +298,22 @@ describe('Update password', () => {
 // Message test
 
 // General Application tests
-describe('General tests', () => {
-  it('Undefined GET urls should return 404 statusCode', (done) => {
+describe('Undefined GET urls', () => {
+  it(' should return 404 statusCode', (done) => {
     supertest(app).get('/whatever').send().end((err, res) => {
       assert.equal(res.statusCode, 404);
       done();
     });
   });
-  it('Undefined POST urls should return 404 statusCode', (done) => {
+});
+describe('Undefined POST urls', () => {
+  it('should return 404 statusCode', (done) => {
     supertest(app).post('/whatever').send().end((err, res) => {
       assert.equal(res.statusCode, 404);
       done();
     });
   });
-  it('Undefined POST urls should return a message', (done) => {
+  it('should return a message', (done) => {
     supertest(app).post('/whatever').send().end((err, res) => {
       assert.isOk(res.body.message);
       done();
