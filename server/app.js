@@ -2,11 +2,23 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import webpack from 'webpack';
+import dotenv from 'dotenv';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from '../webpack.dev.config';
+import webpackDev from '../webpack.dev.config';
+import webpackProduction from '../webpack.production.config';
 import router from './routes';
 
+dotenv.config();
+let webpackConfig;
+
+// This conditional statement ensures a different webpack configuration
+// gets used in production
+if (process.env.NODE_ENV) {
+  webpackConfig = webpackProduction;
+} else {
+  webpackConfig = webpackDev;
+}
 const app = express();
 const compiler = webpack(webpackConfig);
 app.use(bodyParser.json());
