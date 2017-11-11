@@ -22,6 +22,14 @@ module.exports = {
         include: /client/,
         loaders: 'style-loader!css-loader!sass-loader',
       },
+      {
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'bundle.[ext]',
+        },
+      },
     ],
   },
   resolve: {
