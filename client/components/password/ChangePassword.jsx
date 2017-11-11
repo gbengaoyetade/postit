@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import 'url-search-params-polyfill';
-import { InputField, Submit } from '../general/Forms';
-import Nav from '../navigation/Nav';
+import { InputField, Submit } from '../common/Forms';
+import Nav from '../common/Nav';
 import { updatePassword } from '../../actions/passwordAction';
 
 class ChangePassword extends React.Component {
@@ -44,7 +44,7 @@ class ChangePassword extends React.Component {
   render() {
     return (
       <div>
-        <Nav page={'Password Reset'} />
+        <Nav middleLink="Password Reset" />
         <div className="row">
           <div className="component-container col s10 offset-s1 m6 offset-m3">
             <p className="red-text"> {this.state.error} </p>

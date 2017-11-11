@@ -8,7 +8,7 @@ export const loginLoading = isLoading => (
 );
 export const userLoginSuccess = user => (
   {
-    type: 'USER_LOGIN_SUCCESS',
+    type: 'AUTHENTICATE_USER',
     user,
   }
 );
@@ -41,6 +41,8 @@ export const signupError = error => (
 const storeUserDetails = (response) => {
   localStorage.setItem('postitToken', response.data.token);
   localStorage.setItem('postitUser', JSON.stringify(response.data.user));
+  axios.defaults.headers.common['x-access-token'] =
+  localStorage.getItem('postitToken');
 };
 export const loginUser = (user, history) => (
   (dispatch) => {

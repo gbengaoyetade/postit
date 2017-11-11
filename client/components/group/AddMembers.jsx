@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import UserSideNav from '../navigation/UserSideNav';
 import { searchUser } from '../../actions/search';
 import { addMember, getGroupMembers, addMemberSuccess }
-from '../../actions/groupAction';
+from '../../actions/groupActions';
 
 class AddMembers extends React.Component {
   constructor() {

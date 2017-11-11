@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { getGroups, getGroupMembers, getGroupMessages }
-from '../../actions/groupAction';
+from '../../actions/groupActions';
 
 class UserGroups extends React.Component {
   constructor() {

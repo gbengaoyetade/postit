@@ -2,17 +2,29 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import LoginForm from './LoginForm';
-import { loginUser, loginLoading, loginError } from '../../actions/auth';
+import { loginUser, loginLoading, loginError }
+from '../../actions/userAuthActions';
 
 /**
- * 
+ * @description -Login Class
  */
 class Login extends React.Component {
+  /**
+   * Creates an instance of Login.
+   * @param {object} props -react props
+   * @memberof Login
+   * @returns {void}
+   */
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+/**
+ *
+ * @param {any} event -event element
+ * @returns {void} -return nothing
+ */
   handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -31,7 +43,7 @@ class Login extends React.Component {
   }
 
   /**
-   * @returns {}
+   * @returns {object} -returns a react element
    * @memberof Login
    */
   render() {

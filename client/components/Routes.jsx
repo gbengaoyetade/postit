@@ -3,7 +3,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Signup from './authentication/Signup';
 import Login from './authentication/Login';
 import Dashboard from './dashboard/Dashboard';
-import NotFound from './errors/Notfound';
+import NotFound from './errors/NotFound';
 import Group from './group/Group';
 import Welcome from './Home';
 import Recover from './password/RecoverPassword';

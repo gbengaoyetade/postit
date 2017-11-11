@@ -1,8 +1,8 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Container from '../general/Container';
-import VisitorNav from '../navigation/Visitornav';
+import Container from '../common/Container';
+import Nav from '../common/Nav';
 
 
 const Login = (props) => {
@@ -12,14 +12,12 @@ const Login = (props) => {
   } else {
     loginValue = 'Login';
   }
-  /**
-   * @returns {object}
-   */
   return (
     <div>
-      <VisitorNav />
+      <Nav />
       <Container>
-      <div className="col s12 m6 offset-m3 component-container" >
+      <div className="col s12 m6 offset-m3" >
+        <div className="component-container">
       <h3 className="header center grey-text" >Login</h3>
       <p className="red-text"> {props.error} </p>
       <form method="POST" onSubmit={props.handleSubmit} >
@@ -41,7 +39,7 @@ const Login = (props) => {
           className="btn light-blue darken-4 col s8 offset-s2" />
         </div>
         <p className="center">
-          <span> Don't have an account?</span> 
+          <span> Don't have an account? </span>
           <Link to="/signup" className="waves-effect"> Signup </Link>
         </p>
         <p className="center">
@@ -49,7 +47,9 @@ const Login = (props) => {
             Forgot password
           </Link>
         </p>
+        <p>&nbsp;</p>
       </form>
+      </div>
       </div>
       </Container>
     </div>

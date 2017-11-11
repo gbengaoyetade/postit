@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getGroupMessages, getGroupMembers, leaveGroup }
-from '../../actions/groupAction';
+from '../../actions/groupActions';
 import SideNav from '../navigation/UserSideNav';
 import Messages from '../message/Messages';
 
@@ -38,7 +38,7 @@ class Group extends React.Component {
           groupName={groupName} />
             <ul id="group-more" className="dropdown-content">
               <li><Link to={`/group/${groupId}/addmembers`}>Add Memb</Link></li>
-              <li><a href="#!" onClick={this.leaveGroup}>Leave group</a></li>
+              <li><a href="#" onClick={this.leaveGroup}>Leave group</a></li>
             </ul>
           <div className="col s10 offset-s1 m6   s10 component-container">
             <Messages groupId={this.props.match.params.groupId} />
@@ -51,6 +51,8 @@ class Group extends React.Component {
 Group.propTypes = {
   getGroupMembers: PropTypes.func.isRequired,
   getMessages: PropTypes.func.isRequired,
+  groupMembers: PropTypes.object,
+  leaveGroup: PropTypes.func,
   // groupId: PropTypes.number.isRequired,
 };
 const mapStateToProps = state => (

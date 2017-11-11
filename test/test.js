@@ -243,7 +243,6 @@ describe('Reset password', () => {
     const email = { email: 'apptest@gmail.com' };
     supertest(app).post('/api/user/password_reset').send(email)
     .end((err, res) => {
-      console.log('message resultttttttt', res.body);
       assert.equal(res.body.message, 'Mail sent successfully');
       assert.equal(res.statusCode, 200);
       done();

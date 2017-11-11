@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  $(".button-collapse").sideNav();
+  $('.button-collapse').sideNav();
   $('.modal').modal();
   $('select').material_select();
 });

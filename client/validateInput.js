@@ -1,8 +1,13 @@
 import validator from 'validator';
 
+/**
+ *
+ * @param {object} userInput -each the input field
+ * @returns {object} -errors and isValid
+ */
 const validateInput = (userInput) => {
   const errors = {};
-  if (!validator.isMobilePhone(userInput.phoneNumber, 'any')) {
+  if (!validator.isMobilePhone(userInput.phoneNumber, 'en-NG')) {
     errors.phoneNumber = 'Phone number not valid';
   }
   if (!validator.matches(userInput.username, /^[a-zA-Z0-9_]*$/)) {
