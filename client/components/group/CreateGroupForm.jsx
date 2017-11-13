@@ -1,10 +1,10 @@
 import React from 'react';
-import UserSideNav from '../navigation/UserSideNav';
+import AppNav from '../navigation/AppNav';
 
 const groupModal = props => (
   (
     <div className="row">
-      <UserSideNav />
+      <AppNav />
       <div className="col s12 m6 component-container">
         <div className="modal-content">
           <form onSubmit={props.handleSubmit.bind(this)}>

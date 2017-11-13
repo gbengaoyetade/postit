@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import UserSideNav from '../navigation/UserSideNav';
+import AppNav from '../navigation/AppNav';
 import { searchUser } from '../../actions/search';
 import { addMember, getGroupMembers, addMemberSuccess }
 from '../../actions/groupActions';
@@ -55,7 +55,7 @@ class AddMembers extends React.Component {
     }
     return (
       <div className="row">
-        <UserSideNav />
+        <AppNav />
         <div className="col m6 component-container" >
           <h5 className="center">Search users</h5>
           <form>

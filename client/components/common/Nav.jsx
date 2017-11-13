@@ -8,17 +8,26 @@ const Nav = (props) => {
     localStorage.removeItem('postitToken');
     location.replace('/login');
   };
+  // Check where postit logo links to.
+  // It should link to dashboard if user is signed in, otherwise, landing page.
+  let postitLink;
+  if (localStorage.getItem('postitToken')) {
+    postitLink = '/dashboard';
+  } else {
+    postitLink = '/';
+  }
   return (
   <div className="row">
       <nav className="transparent col-s12">
-        {/* User dropdown */}
+
         <ul id='userDropdown' className='dropdown-content'>
           <li><a href="#" onClick={logout}>Logout</a></li>
           </ul>
+
         <div className="nav-wrapper">
         <div>
           <div className="col s2 offset-s1 hide-on-med-and-down">
-          <Link to="/" className="left brand-logo">Postit</Link>
+          <Link to={postitLink} className="left brand-logo">Postit</Link>
           </div>
           <div className="col s2 ">
             <span className="center brand-logo">{props.middleLink}</span>
