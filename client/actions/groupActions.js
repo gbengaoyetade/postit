@@ -138,9 +138,11 @@ export const sendUserMessage = (groupId, message) => {
     const URL = `/api/group/${groupId}/message`;
     axios.post(URL, message)
     .then((response) => {
+      console.log(response)
       dispatch(sendMessageSuccess(true));
     })
     .catch((error) => {
+      console.log(error.response);
       dispatch(sendMessageSuccess(false));
     });
   };

@@ -24,10 +24,8 @@ body{
 }
 .component-container{
 	color: $grey;
-	padding: 3px 20px;
 	box-shadow: 5	px 5px 5px #5c5c5c;
 	background: #fff;
-	border-radius: 5px;
 }
 .row{
 	margin: 0;
@@ -79,11 +77,11 @@ input[type=search]:not(.browser-default):focus:not([readonly]){
 	overflow-y: scroll;
 }
 .user-side-nav{
-	height: 750px;
+	height: 780px;
 	background-color:#eee;
 }
 .group-messages {
-	height: 500px;
+	height: 600px;
 	overflow: scroll;
 	padding: 20px;
 }
@@ -136,5 +134,11 @@ footer{
 .postitCardFooter {
 	position: relative;
 	bottom: 0px;
-
+}
+.messageButton {
+	background: transparent;
+	color: $blue;
+	border: none;
+	position: relative;
+	top: 7px;
 }

@@ -1,33 +1,41 @@
 import React from 'react';
+import PropType from 'prop-types';
 
 const MessageForm = props => (
   (
     <div>
-      <div id="createMessageModal" className="modal col s10 ">
-        <div className="modal-content">
-          <form className="" onSubmit={props.handleSubmit}>
-          <div className="input-field">
-            <textarea name="messageBody" onChange={props.handleChange}>
-            </textarea>
-            <label htmlFor="message">Message</label>
-          </div>
-            <select className="" value={props.priority}
-            name="messagePriority" onChange={props.handleChange}>
-              <option value="" disabled >Choose message priority </option>
-              <option value="Normal"> Normal </option>
-              <option value="Urgent"> Urgent</option>
-              <option value="Critical"> Critical</option>
-            </select>
-            <label htmlFor="priority">Message priority</label>
-          <p className="row">
-            <input type="submit" value="POST"
-            className="btn light-blue darken-4 col s8 offset-s2"
-            />
-          </p>
-      </form>
+        <div className="message-form" >
+        <form method="Post" className="" onSubmit={props.handleSubmit}>
+            <div className="">
+              <textarea
+              placeholder="Enter message here"
+              name="messageBody" required="required"
+              className="message-input-field col s7"
+              onChange={props.handleChange}
+              />
+            </div>
+            <div className="message-priority-field col s4" >
+              <select
+              name="messagePriority"
+              className="browser-default"
+              onChange={props.handleChange}>
+                <option value="Normal">Normal</option>
+                <option value="Urgent">Urgent</option>
+                <option value="Critical">Critical</option>
+              </select>
+            </div>
+            <div className="col s1">
+              <button className="messageButton">
+                <i className="material-icons">send</i>
+              </button>
+            </div>
+        </form>
         </div>
-      </div>
     </div>
   )
 );
+MessageForm.propTypes = {
+  handleChange: PropType.func.isRequired,
+  handleSubmit: PropType.func.isRequired,
+};
 export default MessageForm;

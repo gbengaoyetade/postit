@@ -36,7 +36,7 @@ const AppNav = (props) => {
         </li>
       </ul>
     </div>
-      <div className="col s10 offset-s1 m6   s10 component-container">
+      <div className="col s10 offset-s1 m6 component-container">
         {appHeader}
       </div>
     </div>

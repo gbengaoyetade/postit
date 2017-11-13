@@ -1,4 +1,5 @@
-export const postMessageReducer = (state = {}, action) => {
+export const postMessageReducer =
+(state = { messagePriority: 'Normal' }, action) => {
   switch (action.type) {
     case 'POST_MESSAGE':
       return { ...state, message: action.message };

@@ -31,7 +31,7 @@ class Messages extends React.Component {
       groupMessages = (
       <ul>
         {
-          this.props.messages.messages.map( message => (
+          this.props.messages.messages.map(message => (
             <div id="single-message" key={message.id}>
               <p><a href="">{message.user.username}</a></p>
             <p className="right"><small>{message.messagePriority}</small></p>
@@ -58,7 +58,14 @@ class Messages extends React.Component {
     );
   }
 }
-
+Messages.propTypes = {
+  message: PropTypes.object,
+  groupId: PropTypes.number,
+  sendUserMessage: PropTypes.func.isRequired,
+  sendMessageSuccess: PropTypes.bool,
+  getMessages: PropTypes.func,
+  messages: PropTypes.object,
+};
 const mapStateToProps = state => (
   {
     message: state.postMessageReducer,

@@ -22,7 +22,9 @@ export default (Component) => {
       return (
         <div>
           <Nav rightLink={rightLinkObject} />
+          <div className="component-container">
           <Component {...this.props} />
+          </div>
         </div>
       );
     }

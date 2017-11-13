@@ -6,6 +6,7 @@ import { getGroupMessages, getGroupMembers, leaveGroup }
 from '../../actions/groupActions';
 import AppNav from '../navigation/AppNav';
 import Messages from '../message/Messages';
+import MessageForm from '../message/MessageForm';
 
 class Group extends React.Component {
   componentDidMount() {
@@ -54,8 +55,9 @@ Group.propTypes = {
   getGroupMembers: PropTypes.func.isRequired,
   getMessages: PropTypes.func.isRequired,
   groupMembers: PropTypes.object,
+  match: PropTypes.object,
   leaveGroup: PropTypes.func,
-  // groupId: PropTypes.number.isRequired,
+  history: PropTypes.object,
 };
 const mapStateToProps = state => (
   {
