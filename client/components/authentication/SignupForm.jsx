@@ -18,7 +18,7 @@ const SignupForm = (props) => {
       <Nav />
       <Container>
         <div className="col s12 m6 offset-m3">
-          <div className="component-container">
+          <div className="form-container">
             <p className="center grey-text big" >Signup</p>
             <p className="red-text">&nbsp; {props.error}</p>
             <form method="POST" action="#" onSubmit={props.handleSubmit}>

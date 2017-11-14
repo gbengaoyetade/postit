@@ -27,7 +27,7 @@ export const create = (req, res) => {
           groupName: group.groupName,
           groupDescription: group.groupDescription,
         };
-        res.status(201).send({ group: groupDetails });
+        res.status(201).send(groupDetails);
       })
       .catch((error) => {
         res.status(500).json({

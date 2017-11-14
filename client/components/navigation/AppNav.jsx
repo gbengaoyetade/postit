@@ -21,18 +21,34 @@ const AppNav = (props) => {
     <div>
     <div
       className="col m3 component-container hide-on-med-and-down user-side-nav">
-      <ul className="text-center">
-        <i className="material-icons left">group</i>
-        <li className="big">
-          <a href="#">
-          Your groups
-          </a>
-        </li>
-        <UserGroups />
-        <li className="big">
-          <Link to="/group/create">
-            <i className="material-icons left">group_add</i>Create group
+      <ul className="text-center collapsible" data-collapsible="accordion">
+      <li className="big">
+        <div className="collapsible-header">
+        <i className="material-icons">home</i>
+        <Link to="/dashboard">
+           &nbsp;&nbsp;Dashboard
           </Link>
+        </div>
+        <div className="collapsible-body">
+        <span>Lorem ipsum dolor sit amet.</span>
+        </div>
+        </li>
+
+        <li className="big">
+        <i className="material-icons">group_add</i>
+          <Link to="/group/create">
+           &nbsp;&nbsp;Create group
+          </Link>
+        </li>
+
+        <li className="big">
+          <div className="collapsible-header">
+          <i className="material-icons">group</i>
+          &nbsp;&nbsp;Groups
+          </div>
+        <div className="collapsible-body">
+          <UserGroups />
+        </div>
         </li>
       </ul>
     </div>

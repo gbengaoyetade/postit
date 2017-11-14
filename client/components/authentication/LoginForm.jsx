@@ -17,7 +17,7 @@ const Login = (props) => {
       <Nav />
       <Container>
       <div className="col s12 m6 offset-m3" >
-        <div className="component-container">
+        <div className="form-container">
       <h3 className="header center grey-text" >Login</h3>
       <p className="red-text"> {props.error} </p>
       <form method="POST" onSubmit={props.handleSubmit} >

@@ -1,11 +1,5 @@
 import axios from 'axios';
 
-export const createGroup = group => (
-  {
-    type: 'CREATE_GROUP',
-    group,
-  }
-);
 
 export const getUserGroups = groups => (
   {
@@ -17,12 +11,6 @@ export const postMessage = message => (
   {
     type: 'POST_MESSAGE',
     message,
-  }
-);
-export const messageSending = bool => (
-  {
-    type: 'MESSAGE_SENDING',
-    bool,
   }
 );
 export const getUserGroupMessages = messages => (
@@ -56,24 +44,26 @@ export const addMemberSuccess = memberAdded => (
     memberAdded,
   }
 );
-export const sendMessageSuccess = bool => (
+export const sendMessageSuccess = messageSent => (
   {
     type: 'SEND_MESSAGE_SUCCESS',
-    bool,
+    messageSent,
   }
 );
 
-export const sendGroupDetails = (groupDetails, history) => {
-  return () => {
+export const createGroup = (groupDetails, history) => (
+  () => {
     axios.post('/api/group',
     groupDetails)
-    .then(() => {
-      history.push('/dashboard');
+    .then((response) => {
+      const groupId = response.data.groupId;
+      // redirect user to the group he created
+      history.push(`/group/${groupId}`);
     })
-    .catch((error) => {
+    .catch(() => {
     });
-  };
-};
+  }
+);
 
 export const getGroups = () => (
   (dispatch) => {
@@ -81,39 +71,36 @@ export const getGroups = () => (
     .then((groups) => {
       dispatch(getUserGroups(groups.data.groups));
     })
-    .catch((error) => {
+    .catch(() => {
       dispatch(getUserGroupsError(true));
     });
   }
 );
-export const getGroupMessages = (groupId, history) => {
-  return (dispatch) => {
+export const getGroupMessages = groupId => (
+  (dispatch) => {
     axios.get(`/api/group/${groupId}/messages`)
     .then((groups) => {
       dispatch(getUserGroupMessages(groups.data.messages));
     })
-    .catch((error) => {
-      // if (error.response.data.error) {
-      //   history.push('/error');
-      // }
+    .catch(() => {
     });
-  };
-};
+  }
+);
 
-export const getGroupMembers = (groupId) => {
-  return (dispatch) => {
+export const getGroupMembers = groupId => (
+  (dispatch) => {
     axios.get(`/api/group/${groupId}/users`)
     .then((members) => {
       dispatch(getGroupMembersAction(members.data));
     })
-    .catch((error) => {
+    .catch(() => {
     });
-  };
-};
+  }
+);
 export const addMember = (userId, groupId) => {
   return (dispatch) => {
     axios.post(`/api/group/${groupId}/user`, { userId })
-    .then((response) => {
+    .then(() => {
       // this is used to control automatic member
       // appearance on the groupMembers section of the page
       dispatch(addMemberSuccess(true));
@@ -137,12 +124,10 @@ export const sendUserMessage = (groupId, message) => {
   return (dispatch) => {
     const URL = `/api/group/${groupId}/message`;
     axios.post(URL, message)
-    .then((response) => {
-      console.log(response)
+    .then(() => {
       dispatch(sendMessageSuccess(true));
     })
-    .catch((error) => {
-      console.log(error.response);
+    .catch(() => {
       dispatch(sendMessageSuccess(false));
     });
   };
