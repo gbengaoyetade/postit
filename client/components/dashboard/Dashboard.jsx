@@ -6,10 +6,6 @@ import { getGroups } from '../../actions/groupActions';
 import AppNav from '../navigation/AppNav';
 
 class Dashboard extends React.Component {
-  componentWillMount() {
-    $('.dropdown-button').dropdown();
-    $('select').material_select();
-  }
   render() {
     let groups;
     let userGroups;
@@ -33,7 +29,7 @@ class Dashboard extends React.Component {
       <div className="row">
         <AppNav />
         <div className="col m6 s12 component-container">
-          <p className="center header">Your Groups</p>
+          <p className="center header">My Groups</p>
           <div className="divider"/>
           {userGroups}
         </div>

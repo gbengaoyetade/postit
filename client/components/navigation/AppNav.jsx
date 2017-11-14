@@ -29,12 +29,9 @@ const AppNav = (props) => {
            &nbsp;&nbsp;Dashboard
           </Link>
         </div>
-        <div className="collapsible-body">
-        <span>Lorem ipsum dolor sit amet.</span>
-        </div>
         </li>
 
-        <li className="big">
+        <li className="big collapsible-header">
         <i className="material-icons">group_add</i>
           <Link to="/group/create">
            &nbsp;&nbsp;Create group
@@ -44,7 +41,7 @@ const AppNav = (props) => {
         <li className="big">
           <div className="collapsible-header">
           <i className="material-icons">group</i>
-          &nbsp;&nbsp;Groups
+          <Link to="#">&nbsp;&nbsp;My Groups</Link>
           </div>
         <div className="collapsible-body">
           <UserGroups />

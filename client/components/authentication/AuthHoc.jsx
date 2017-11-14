@@ -18,6 +18,11 @@ export default (Component) => {
         );
       }
     }
+    componentWillUpdate() {
+      $('.dropdown-button').dropdown();
+      $('select').material_select();
+      $('.collapsible').collapsible();
+    }
     render() {
       return (
         <div>
