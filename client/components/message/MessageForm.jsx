@@ -12,7 +12,7 @@ const MessageForm = props => (
               name="messageBody" required="required"
               className="message-input-field col s7"
               onChange={props.handleChange}
-              />
+              value={props.messageBody} />
             </div>
             <div className="message-priority-field col s4" >
               <select
