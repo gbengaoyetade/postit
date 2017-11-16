@@ -30,14 +30,15 @@ class Messages extends React.Component {
     this.setState({ messageBody: '' });
   }
   render() {
-    let groupMessages;
+    let groupMessages = (
+      <p className="flow-text center red-text">
+    This group currently has no messages</p>);
     if (this.props.sendMessageSuccess) {
       this.props.getMessages(this.props.groupId);
       this.props.setSendMessageSuccess(false);
     }
-    if (!this.props.messages.messages) {
-      groupMessages = <p>This group currently has no messages</p>;
-    } else {
+    if (this.props.messages.messages &&
+      this.props.messages.messages.length > 0) {
       groupMessages = (
         <ul>
           {
