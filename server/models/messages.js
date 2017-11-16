@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Messages = sequelize.define('messages', {
     messageBody: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: { value: false, msg: 'Message body cannot be null' },
       validate: {
         notEmpty: { value: true, msg: 'Message body cannot be empty' },
@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isIn: { args: [['Normal', 'Urgent', 'Critical']], msg: 'Message priority can only Normal, Urgent, or Critical' },
+        isIn: { args: [['Normal', 'Urgent', 'Critical']],
+          msg: 'Message priority can only Normal, Urgent, or Critical' },
       },
     },
 

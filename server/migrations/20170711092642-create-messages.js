@@ -8,7 +8,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       messageBody: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       messagePriority: {
