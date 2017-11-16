@@ -196,46 +196,35 @@ export const updatePassword = (req, res) => {
     res.status(400).send({ error: validateInputResponse });
   }
 };
-
-export const groupMemberSearch = (req, res) => {
-  const groupId = req.params.groupId;
-  const query = req.query.query;
-  db.groups.find({
+/**
+ *
+ * @param {object} req -request
+ * @param {object} res -response
+ * @returns {void} - returns nothing
+ */
+export const userSearch = (req, res) => {
+  const query = req.query.query.toLowerCase();
+  const offset = req.query.offset;
+  const limit = req.query.limit;
+  db.users.findAndCountAll({
     where: {
-      id: groupId,
+      $or: [{
+        username: { like: `%${query}%` },
+        fullName: { like: `%${query}%` },
+      }],
     },
+    offset,
+    limit,
+    attributes: {
+      exclude: ['createdAt', 'updatedAt', 'password'],
+    }
   })
-  .then((groups) => {
-    // Get the ids of users that belong to the current group
-    groups.getUsers({
-      attributes: ['id'],
-    })
-    .then((users) => {
-      // Get the arrays of ids only from the result returned
-      // because it returns groupMembers data too
-      const usersId = users.map(user => (
-        user.id
-      ));
-      db.users.findAll({
-        // Take the usersIds gotten above to search the users table
-        // The query below finds users that are not in the arrays
-        // of usersId and whose ...
-        // ...usernames are like the value in the search query
-        where: { id: { not: usersId },
-          username: { $like: `%${query}%` } },
-      })
-      .then((otherUsers) => {
-        res.send(otherUsers);
-      })
-      .catch(() => {
-        res.status(500).send({ error: 'Could not search group members' });
-      });
-    })
-    .catch(() => {
-      res.status(500).send({ error: 'Could not search group members' });
-    });
-  })
-  .catch(() => {
-    res.status(500).send({ error: 'Could not search group members' });
+  .then((result) => {
+    const pagination = {
+      pageCount: Math.floor(result.count / limit),
+      count: result.count,
+      users: result.rows,
+    };
+    res.send(pagination);
   });
 };

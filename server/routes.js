@@ -1,5 +1,5 @@
 import express from 'express';
-import { signUp, signIn, resetPassword, updatePassword, groupMemberSearch }
+import { signUp, signIn, resetPassword, updatePassword, userSearch }
 from './controllers/userController';
 import { create, addMembers, getGroups, leaveGroup, getGroupMembers }
 from './controllers/groupController';
@@ -34,7 +34,7 @@ router.get('/group/user', getGroups);
 
 router.get('/group/:groupId/users', groupExist, getGroupMembers);
 
-router.get('/user/:groupId/search', groupMemberSearch);
+router.get('/user/search', userSearch);
 
 router.delete('/group/:groupId/user', groupExist, leaveGroup);
 

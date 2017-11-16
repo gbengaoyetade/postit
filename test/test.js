@@ -336,3 +336,16 @@ describe('Authenticate', () => {
     });
   });
 });
+
+// user search test
+describe('User search', () => {
+  it('should be defined', () => {
+
+  });
+  it('should return not more than 10 users per search', () => {
+
+  });
+  it('should indicate if user belongs to group', () => {
+
+  });
+});

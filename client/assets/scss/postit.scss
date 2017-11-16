@@ -146,3 +146,6 @@ footer{
 	position: relative;
 	top: 7px;
 }
+.pagination li.active {
+	background-color: $blue;
+}
