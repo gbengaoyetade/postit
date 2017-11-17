@@ -18,10 +18,12 @@ export default (Component) => {
         );
       }
     }
-    componentWillUpdate() {
-      $('.dropdown-button').dropdown();
-      $('select').material_select();
-      $('.collapsible').collapsible();
+    componentDidUpdate() {
+      setTimeout(() => {
+        $('.dropdown-button').dropdown();
+        $('select').material_select();
+        $('.collapsible').collapsible();
+      }, 500);
     }
     render() {
       return (

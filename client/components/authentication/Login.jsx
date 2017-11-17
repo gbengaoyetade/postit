@@ -22,7 +22,7 @@ class Login extends React.Component {
   }
 /**
  *
- * @param {any} event -event element
+ * @param {object} event -event element
  * @returns {void} -return nothing
  */
   handleChange(event) {
@@ -65,14 +65,12 @@ Login.propTypes = {
   setLoading: Proptypes.func.isRequired,
   history: Proptypes.object.isRequired,
   user: Proptypes.object.isRequired,
-  passwordUpdated: Proptypes.bool,
 };
 const mapStateToProps = state => (
   {
     user: state.userAuth,
     isLoading: state.loginLoading,
     loginError: state.loginError,
-    passwordUpdated: state.recoverPassword,
   }
 );
 const mapDispatchToProps = dispatch => (
