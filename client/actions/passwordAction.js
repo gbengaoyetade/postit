@@ -14,7 +14,7 @@ export const emailSending = sendingMail => (
 );
 export const passwordResetError = error => (
   {
-    type: 'PASSWORD_ERROR',
+    type: 'PASSWORD_UPDATE_ERROR',
     error,
   }
 );
@@ -42,12 +42,15 @@ export const recoverPassword = email => (
 
 export const updatePassword = (password, token) => (
   (dispatch) => {
-    console.log(token);
+    // // set error and success to default values
+    // dispatch(passwordResetError(''));
+    // dispatch(updatePasswordSuccess(false));
     axios.post(`/api/user/password/update?token=${token}`,
     password)
     .then((response) => {
+      console.log(response.data);
       if (response.data.token) {
-        location.replace('/login');
+        dispatch(updatePasswordSuccess(true));
       }
     })
     .catch((error) => {

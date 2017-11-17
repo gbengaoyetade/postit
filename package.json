@@ -4,7 +4,7 @@
   "description": "group messaging application",
   "main": "index.js",
   "scripts": {
-    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+    "watch-css": "./node_modules/.bin/nodemon -e scss -x \"npm run build-css\"",
     "watch": "./node_modules/.bin/babel-node ./node_modules/.bin/webpack --watch ",
     "build-css": "node-sass  template/scss/main.scss   template/css/main.css",
     "test": "NODE_ENV=test mocha --timeout 15000 --require babel-polyfill --compilers js:babel-register",
@@ -13,7 +13,7 @@
     "babel": "babel-node server/app.js",
     "cover": "nyc npm run test",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
-    "start": "nodemon --watch server --exec ./node_modules/.bin/babel-node server/bin/www"
+    "start": "./node_modules/.bin/nodemon --watch server --exec ./node_modules/.bin/babel-node server/bin/www"
   },
   "repository": {
     "type": "git",
@@ -85,6 +85,7 @@
     "sequelize-cli": "^2.7.0",
     "style-loader": "^0.18.2",
     "supertest": "^3.0.0",
+    "sweetalert": "^2.0.8",
     "url-loader": "^0.6.2",
     "url-search-params-polyfill": "^2.0.0",
     "validator": "^8.0.0",

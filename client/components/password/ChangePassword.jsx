@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import swal from 'sweetalert';
 import 'url-search-params-polyfill';
 import { InputField, Submit } from '../common/Forms';
 import Nav from '../common/Nav';
@@ -42,14 +44,26 @@ class ChangePassword extends React.Component {
     }
   }
   render() {
+    if (this.props.updatePasswordSuccess.passwordUpdated) {
+      swal({
+        title: 'Password',
+        text: 'Password updated successfully',
+        icon: 'success',
+      })
+      .then((result) => {
+        if (result) {
+          this.props.history.push('/login');
+        }
+      });
+    }
     return (
       <div className="row">
         <Nav middleLink="Password Reset" />
           <div className="form-container col s10 offset-s1 m4 offset-m4">
             <p className="big center"> Password Reset</p>
-            <p className="red-text center flow-text">
-              {this.state.error} &nbsp;
-            </p>
+            <span className="red-text center">
+            &nbsp;{ this.state.error || this.props.error.passwordUpdateError }
+            </span>
             <form onSubmit={this.handleSubmit} >
               <InputField
               type="password" required="required"
@@ -67,6 +81,17 @@ class ChangePassword extends React.Component {
     );
   }
 }
+ChangePassword.propTypes = {
+  location: PropTypes.object.isRequired,
+  updatePassword: PropTypes.func.isRequired,
+  error: PropTypes.object,
+};
+const mapStateToProps = state => (
+  {
+    updatePasswordSuccess: state.recoverPassword,
+    error: state.recoverPassword,
+  }
+);
 const mapDispatchToProps = dispatch => (
   {
     updatePassword: (password, token) => {
@@ -75,4 +100,4 @@ const mapDispatchToProps = dispatch => (
   }
 );
 
-export default connect(null, mapDispatchToProps)(ChangePassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);
