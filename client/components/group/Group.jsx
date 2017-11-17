@@ -40,7 +40,7 @@ class Group extends React.Component {
             groupName={groupName}
           />
             <ul id="group-more" className="dropdown-content">
-              <li><Link to={`/group/${groupId}/addmembers`}>Add Memb</Link></li>
+              <li><Link to={`/group/${groupId}/addmembers`}>Add Members</Link></li>
               <li><a href="#" onClick={this.leaveGroup}>Leave group</a></li>
             </ul>
           <div className="col s10 offset-s1 m6   s10 component-container">

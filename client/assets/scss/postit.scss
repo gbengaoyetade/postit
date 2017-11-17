@@ -149,3 +149,9 @@ footer{
 .pagination li.active {
 	background-color: $blue;
 }
+.dropdown-content li>a, .dropdown-content li>span {
+	color: $blue;
+}
+.dropdown-content {
+	width: 15% !important;
+}

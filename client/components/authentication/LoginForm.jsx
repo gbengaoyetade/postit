@@ -1,7 +1,6 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Container from '../common/Container';
 import Nav from '../common/Nav';
 
 
@@ -13,10 +12,9 @@ const Login = (props) => {
     loginValue = 'Login';
   }
   return (
-    <div>
+    <div className="row">
       <Nav />
-      <Container>
-      <div className="col s12 m6 offset-m3" >
+      <div className="col s12 m4 offset-m4" >
         <div className="form-container">
       <h3 className="header center grey-text" >Login</h3>
       <p className="red-text"> {props.error} </p>
@@ -43,7 +41,7 @@ const Login = (props) => {
           <Link to="/signup" className="waves-effect"> Signup </Link>
         </p>
         <p className="center">
-          <Link to="/password_reset" className="waves-effect">
+          <Link to="/password/reset" className="waves-effect">
             Forgot password
           </Link>
         </p>
@@ -51,7 +49,6 @@ const Login = (props) => {
       </form>
       </div>
       </div>
-      </Container>
     </div>
   );
 };

@@ -8,11 +8,14 @@ const AppNav = (props) => {
   if (props.useHeader) {
     appHeader = (
       <div className="dashboard-header row">
-      <a href="#" className="right dropdown-button"
+      <Link to="" className="right dropdown-button"
       data-activates="group-more">
       <i className="material-icons">more_vert</i>
+      </Link>
+      <span className="right">
       <i className="material-icons">person</i>
-      <span className="group-members"> {props.numberOfGroupMembers}</span></a>
+      <span className="group-members"> {props.numberOfGroupMembers}</span>
+      </span>
       <span className="bold">{props.groupName}</span>
     </div>
     );
@@ -27,7 +30,7 @@ const AppNav = (props) => {
         <i className="material-icons">home</i>
         <Link to="/dashboard">
            &nbsp;&nbsp;Dashboard
-          </Link>
+        </Link>
         </div>
         </li>
 

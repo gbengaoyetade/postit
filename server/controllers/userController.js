@@ -6,6 +6,7 @@ import transporter from '../config/mail.config';
 import { checkParams, getId, generateToken } from '../includes/functions';
 
 dotenv.load();
+const APP_URL = process.env.APP_URL;
 const User = db.users;
 const groupMembers = db.groupMembers;
 const secret = process.env.TOKEN_SECRET;
@@ -124,7 +125,7 @@ export const resetPassword = (req, res) => {
           );
         const resetPasswordMail =
         `<p> Click the link to change your password.</p>
-        <a href='http://localhost:3000/password_change?token=${token}'>
+        <a href='${APP_URL}/password/update?token=${token}'>
         Change password</a> `;
         const mailOptions = {
           from: 'ioyetade@gmail.com',
@@ -153,6 +154,13 @@ export const resetPassword = (req, res) => {
       error: validateInputResponse, message: 'Parameter not well structured' });
   }
 };
+/**
+ *
+ *
+ * @param {object} req -request
+ * @param {object} res -response
+ * @returns {void} -returns nothing
+ */
 export const updatePassword = (req, res) => {
   // Check if password field was provided
   const requiredFields = ['password'];
@@ -176,8 +184,16 @@ export const updatePassword = (req, res) => {
           )
           .then((updateValue) => {
             if (updateValue[0] === 1) {
-              const authToken = generateToken(userId);
-              res.send({ token: authToken });
+              User.findOne(({
+                where: { id: userId },
+                attributes: {
+                  exclude: ['createdAt', 'updatedAt', 'password'],
+                },
+              }))
+              .then((user) => {
+                const token = generateToken(user);
+                res.send({ token });
+              });
             } else {
               res.status(500).send({
                 error: 'Password not updated. Try again' });

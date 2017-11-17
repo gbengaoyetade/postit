@@ -14,9 +14,9 @@ router.post('/user/signup', signUp);
 
 router.post('/user/signin', signIn);
 
-router.post('/user/password_reset', resetPassword);
+router.post('/user/password/reset', resetPassword);
 
-router.post('/user/password_update', updatePassword);
+router.post('/user/password/update', updatePassword);
 
 router.post('/user/token/verify', verifyToken);
 

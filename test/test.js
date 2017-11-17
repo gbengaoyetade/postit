@@ -240,7 +240,7 @@ describe('Login', () => {
 
 describe('Reset password', () => {
   it('Should detect if email was provided', (done) => {
-    supertest(app).post('/api/user/password_reset').send().end((err, res) => {
+    supertest(app).post('/api/user/password/reset').send().end((err, res) => {
       assert.equal(res.body.message, 'Parameter not well structured');
       assert.isOk(res.body.error);
       assert.equal(res.statusCode, 400);
@@ -249,7 +249,7 @@ describe('Reset password', () => {
   });
   it('Should detect if provided email exists', (done) => {
     const email = { email: 'something@gmail.com' };
-    supertest(app).post('/api/user/password_reset').send(email)
+    supertest(app).post('/api/user/password/reset').send(email)
     .end((err, res) => {
       assert.equal(res.body.error, 'Email address does not exist on Postit');
       assert.equal(res.statusCode, 400);
@@ -258,7 +258,7 @@ describe('Reset password', () => {
   });
   it('Should should send mail if email exist', (done) => {
     const email = { email: 'apptest@gmail.com' };
-    supertest(app).post('/api/user/password_reset').send(email)
+    supertest(app).post('/api/user/password/reset').send(email)
     .end((err, res) => {
       assert.equal(res.body.message, 'Mail sent successfully');
       assert.equal(res.statusCode, 200);
@@ -270,7 +270,7 @@ describe('Reset password', () => {
 // update password tests
 describe('Update password', () => {
   it('should detect if the password field was provided', (done) => {
-    supertest(app).post('/api/user/password_update').send().end((err, res) => {
+    supertest(app).post('/api/user/password/update').send().end((err, res) => {
       assert.isOk(res.body.error);
       assert.equal(res.statusCode, 400);
     });
@@ -278,7 +278,7 @@ describe('Update password', () => {
   });
   it('should detect if url contains token', (done) => {
     const password = { password: 'password' };
-    supertest(app).post('/api/user/password_update').send(password)
+    supertest(app).post('/api/user/password/update').send(password)
     .end((err, res) => {
       assert.equal(res.body.error, 'No token provided');
       assert.equal(res.statusCode, 401);
@@ -287,7 +287,7 @@ describe('Update password', () => {
   });
   it('should verify token if provided', (done) => {
     const password = { password: 'password' };
-    supertest(app).post('/api/user/password_update?token=whatever')
+    supertest(app).post('/api/user/password/update?token=whatever')
     .send(password).end((err, res) => {
       assert.equal(res.body.error, 'Token authentication failure');
       assert.equal(res.statusCode, 401);
@@ -323,7 +323,8 @@ describe('Undefined POST urls', () => {
 describe('Authenticate', () => {
   it('should detect if token is not provided', (done) => {
     supertest(app).get('/api/group').send().end((err, res) => {
-      assert.equal(res.body.message, 'No token provided');
+      assert.equal(res.body.error, 'No token provided');
+      assert.equal(res.statusCode, 400);
       done();
     });
   });
@@ -331,7 +332,8 @@ describe('Authenticate', () => {
     supertest(app).get('/api/group').set('x-access-token', 'invalid token')
     .send()
     .end((err, res) => {
-      assert.equal(res.body.message, 'Token authentication failure');
+      assert.equal(res.body.error, 'Token authentication failure');
+      assert.equal(res.statusCode, 401);
       done();
     });
   });

@@ -6,10 +6,10 @@ export const userEmail = email => (
     email,
   }
 );
-export const emailSending = bool => (
+export const emailSending = sendingMail => (
   {
     type: 'EMAIL_SENDING',
-    bool,
+    sendingMail,
   }
 );
 export const passwordResetError = error => (
@@ -18,14 +18,20 @@ export const passwordResetError = error => (
     error,
   }
 );
+export const updatePasswordSuccess = passwordUpdated => (
+  {
+    type: 'PASSWORD_UPDATED',
+    passwordUpdated
+  }
+);
 export const recoverPassword = email => (
   (dispatch) => {
     dispatch(passwordResetError(''));
     dispatch(emailSending(true));
-    axios.post('api/user/password_reset',
+    axios.post('/api/user/password/reset',
     email)
     .then(() => {
-      window.location.replace('/email_sent');
+      location.replace('/email/sent');
     })
     .catch((error) => {
       dispatch(emailSending(false));
@@ -36,14 +42,13 @@ export const recoverPassword = email => (
 
 export const updatePassword = (password, token) => (
   (dispatch) => {
-    const headers = {
-      'x-access-token': localStorage.postitToken,
-    };
-    axios.post(`api/user/password_update?token=${token}`,
-    password, { headers })
+    console.log(token);
+    axios.post(`/api/user/password/update?token=${token}`,
+    password)
     .then((response) => {
-      localStorage.postitToken = response.data.token;
-      window.location.replace('/dashboard');
+      if (response.data.token) {
+        location.replace('/login');
+      }
     })
     .catch((error) => {
       dispatch(passwordResetError(error.response.data.error));

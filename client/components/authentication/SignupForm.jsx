@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import Proptypes from 'prop-types';
 import Nav from '../common/Nav';
-import Container from '../common/Container';
 import TextInput from '../common/TextInput';
 
 const SignupForm = (props) => {
@@ -14,10 +13,9 @@ const SignupForm = (props) => {
     signupValue = 'Signup';
   }
   return (
-    <div>
+    <div className="row">
       <Nav />
-      <Container>
-        <div className="col s12 m6 offset-m3">
+        <div className="col s12 m4 offset-m4">
           <div className="form-container">
             <p className="center grey-text big" >Signup</p>
             <p className="red-text">&nbsp; {props.error}</p>
@@ -74,7 +72,6 @@ const SignupForm = (props) => {
             </form>
         </div>
         </div>
-      </Container>
     </div>
   );
 };

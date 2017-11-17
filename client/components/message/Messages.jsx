@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { sendUserMessage, getGroupMessages, sendMessageSuccess }
 from '../../actions/groupActions';
@@ -30,30 +31,50 @@ class Messages extends React.Component {
     this.setState({ messageBody: '' });
   }
   render() {
-    let groupMessages = (
-      <p className="flow-text center red-text">
-    This group currently has no messages</p>);
+    let groupMessages = '';
     if (this.props.sendMessageSuccess) {
       this.props.getMessages(this.props.groupId);
       this.props.setSendMessageSuccess(false);
     }
-    if (this.props.messages.messages &&
-      this.props.messages.messages.length > 0) {
+    if (this.props.messages.messages) {
+      if (this.props.messages.messages.length > 0) {
+        groupMessages = (
+          <ul>
+            {
+              this.props.messages.messages.map(message => (
+                <div className="single-message" key={message.id}>
+                  <p><Link to="#">{message.user.username}</Link></p>
+                <p className="right">
+                  <small>{message.messagePriority}</small>
+                  </p>
+                  <p>{message.messageBody}</p>
+                  {/* <hr /> */}
+                  <div className="clearfix" />
+                </div>
+            ))
+          }
+          </ul>
+        );
+      } else {
+        groupMessages = (
+        <p className="flow-text center red-text">
+          Group currently has no messages
+          </p>);
+      }
+    } else {
       groupMessages = (
-        <ul>
-          {
-            this.props.messages.messages.map(message => (
-              <div className="single-message" key={message.id}>
-                <p><a href="">{message.user.username}</a></p>
-              <p className="right"><small>{message.messagePriority}</small></p>
-                <p>{message.messageBody}</p>
-                {/* <hr /> */}
-                <div className="clearfix" />
-              </div>
-          ))
-        }
-        </ul>
-      );
+        <div className="preloader-wrapper big active center">
+        <div className="spinner-layer spinner-blue-only">
+          <div className="circle-clipper center">
+            <div className="circle"></div>
+          </div><div className="gap-patch">
+            <div className="circle"></div>
+          </div><div className="circle-clipper right">
+            <div className="circle"></div>
+          </div>
+        </div>
+        </div>
+  );
     }
     return (
       <div>

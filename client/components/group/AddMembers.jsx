@@ -8,7 +8,18 @@ import { searchUser } from '../../actions/search';
 import { addMember, getGroupMembers, addMemberSuccess }
 from '../../actions/groupActions';
 
+/**
+ *
+ *
+ * @class AddMembers
+ * @extends {React.Component}
+ */
 class AddMembers extends React.Component {
+  /**
+   * Creates an instance of AddMembers.
+   * @param {object} props - react props
+   * @returns {void}
+   */
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
@@ -16,23 +27,56 @@ class AddMembers extends React.Component {
     this.handlePageClick = this.handlePageClick.bind(this);
     this.state = { userInput: '', limit: 3 };
   }
+  /**
+   *
+   * @returns {void}
+   * @memberof AddMembers
+   */
   componentWillMount() {
     this.props.getGroupMembers(this.props.match.params.groupId);
   }
+  /**
+   *
+   *
+   * @param {object} event -javascript event
+   * @returns {void}
+   * @memberof AddMembers
+   */
   handleSearch(event) {
     this.setState({ userInput: event.target.value });
     if (this.state.userInput.length > 0) {
       this.props.searchUsers(this.state.userInput, 0, this.state.limit);
     }
   }
+  /**
+   *
+   *
+   * @param {object} page -the current selected page
+   * @returns {void}
+   * @memberof AddMembers
+   *
+   */
   handlePageClick(page) {
     const offset = page.selected * 3;
     this.props.searchUsers(this.state.userInput, offset, this.state.limit);
   }
+  /**
+   *
+   *
+   * @param {number} userId -user Id
+   * @returns {void}
+   * @memberof AddMembers
+   */
   addMember(userId) {
     const groupId = this.props.match.params.groupId;
     this.props.addMember(userId, groupId);
   }
+  /**
+   *
+   *
+   * @returns {object} -React element
+   * @memberof AddMembers
+   */
   render() {
     let searchResult;
     if (this.props.addMemberSuccess) {
@@ -40,14 +84,12 @@ class AddMembers extends React.Component {
       this.props.setAddMembersSucces(false);
     }
     if (this.props.searchResult.searchResult) {
-      console.log(this.props.searchResult);
       const searchResultArray = this.props.searchResult.searchResult.users;
       const groupMemberIds = this.props.groupMembers.members.users.map(member =>
         member.id
     );
       if (searchResultArray.length > 0 && this.state.userInput.length > 0) {
         const pageCount = this.props.searchResult.searchResult.pageCount;
-        console.log(pageCount);
         searchResult = (
           <div>
           <ul className="collection" >
