@@ -22,10 +22,10 @@ export const createMessage = (req, res) => {
         messageBody: message.messageBody,
         messagePriority: message.messagePriority,
       };
-      res.status(201).json({ message: messageData });
+      res.status(201).send({ message: messageData });
       // if priority is Urgent or Critical, send E-mail Notifications
-      if (message.messagePriority === 'Urgent'
-        || message.messagePriority === 'Critical') {
+      if (message.messagePriority === 'Urgent' ||
+      message.messagePriority === 'Critical') {
         db.groups.find({
           where: { id: message.groupId },
         })
@@ -53,15 +53,15 @@ export const createMessage = (req, res) => {
           });
         })
         .catch((error) => {
-          res.status(400).json({ error, bad: 'bad request' });
+          res.status(400).send({ error: error.message, bad: 'bad request' });
         });
       }
     })
     .catch((error) => {
-      res.status(400).json({ error });
+      res.status(400).send({ error: error.message });
     });
   } else {
-    res.status(400).json({ error: validateReturn });
+    res.status(400).send({ error: validateReturn });
   }
 };
 
@@ -87,10 +87,10 @@ export const getMessages = (req, res) => {
       ],
     })
     .then((messages) => {
-      res.status(200).json({ messages });
+      res.status(200).send({ messages });
     })
     .catch(() => {
-      res.status(500).json({ error: 'Could not get messages' });
+      res.status(500).send({ error: 'Could not get messages' });
     });
   });
 };

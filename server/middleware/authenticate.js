@@ -4,17 +4,17 @@ import dotenv from 'dotenv';
 dotenv.load();
 const secret = process.env.TOKEN_SECRET;
 const authenticate = (req, res, next) => {
-  const userToken = req.headers['x-access-token'];
+  const userToken = req.query.token || req.headers['x-access-token'];
   if (userToken) {
     jwt.verify(userToken, secret, (err) => {
       if (err) {
-        res.status(401).json({ message: 'Token authentication failure' });
+        res.status(401).send({ error: 'Token authentication failure' });
       } else {
         next();
       }
     });
   } else {
-    res.status(401).json({ message: 'No token provided' });
+    res.status(400).send({ error: 'No token provided' });
   }
 };
 

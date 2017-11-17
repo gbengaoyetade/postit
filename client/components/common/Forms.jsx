@@ -15,7 +15,7 @@ export const Submit = props => (
   <div className="row">
     <input type="submit"
     value={props.submitValue}
-    className="btn blue col s8 offset-s2"
+    className="btn light-blue darken-4 col m4 offset-m4"
     />
   </div>
 );

@@ -5,37 +5,40 @@ import app from '../server/app';
 import { checkParams, getId } from '../server/includes/functions';
 
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZnVsbE5hbWUiOiJnYmVuZ2EgT3lldGFkZSIsImVtYWlsIjoiZ2JlbmdhLm95ZXRhZGVAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwODA2NDE0MDY5NSIsImlhdCI6MTUwODcyOTExMSwiZXhwIjoxNTQwMjY1MTExfQ.jEyMrWd4FjnKsPM-3yIL9w1o6YdzP2MbOZ2b3nd9LDM';
-describe('Function ', () => {
-  it('detect checkParams function', () => {
-    assert.equal(typeof checkParams, 'function');
+  describe('checkParams function', () => {
+    it('should be defined', () => {
+      assert.equal(typeof checkParams, 'function');
+    });
+    it('should return ok if inputs are well structured', () => {
+      const request = {
+        name: 'gbenga',
+        email: 'gbenga.oyetade@gmail.com',
+      };
+      const requiredFields = ['name', 'email'];
+      assert.equal(checkParams(request, requiredFields), 'ok');
+    });
+    it('should return the first missing field if not provided',
+    () => {
+      const request = {
+        name: 'gbenga',
+        email: 'gbenga.oyetade@gmail.com',
+      };
+      const requiredFields = ['name', 'email', 'age'];
+      assert.equal(checkParams(request, requiredFields),
+      'age field not provided');
+    });
   });
-  it('detect getId function', () => {
-    assert.equal(typeof getId, 'function');
-  });
-  it('getId should return a number if token is passed', () => {
-    assert.equal(typeof getId(token), 'number');
-  });
-  it('checkParams should return ok if inputs are well structured', () => {
-    const request = {
-      name: 'gbenga',
-      email: 'gbenga.oyetade@gmail.com',
-    };
-    const requiredFields = ['name', 'email'];
-    assert.equal(checkParams(request, requiredFields), 'ok');
-  });
-  it('checkParams should return the first missing field if not provided',
-  () => {
-    const request = {
-      name: 'gbenga',
-      email: 'gbenga.oyetade@gmail.com',
-    };
-    const requiredFields = ['name', 'email', 'age'];
-    assert.equal(checkParams(request, requiredFields),
-    'age field not provided');
+  describe('getId function', () => {
+    it('should be defined', () => {
+      assert.equal(typeof getId, 'function');
+    });
+    it('should return a number if token is passed', () => {
+      assert.equal(typeof getId(token), 'number');
+    });
   });
   describe('verifyToken', () => {
     const token2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDIsImZ1bGxOYW1lIjoiQnVrb2xhIEVsZW1pZGUiLCJlbWFpbCI6ImFzYUBnbWFpbC5jb20iLCJwaG9uZU51bWJlciI6IiAwMDciLCJpYXQiOjE1MDg2ODE5NTksImV4cCI6MTU0MDIxNzk1OX0.7K66I1DSBiGQ-Gwe5DGzBfPcJjF9R3bIsmZfjdtcD0';
-    it('Should detect if token is provided', (done) => {
+    it('should detect if token is provided', (done) => {
       supertest(app).post('/api/user/token/verify').send()
       .end((err, res) => {
         assert.equal(res.statusCode, 400);
@@ -44,7 +47,7 @@ describe('Function ', () => {
         done();
       });
     });
-    it('detect should detect invalidToken', (done) => {
+    it('should detect invalidToken', (done) => {
       supertest(app).post('/api/user/token/verify')
       .set('x-access-token', token2).send()
       .end((err, res) => {
@@ -54,7 +57,7 @@ describe('Function ', () => {
         done();
       });
     });
-    it('Should verify accurate token', (done) => {
+    it('should verify accurate token', (done) => {
       supertest(app).post('/api/user/token/verify')
       .set('x-access-token', token).send()
       .end((err, res) => {
@@ -65,4 +68,3 @@ describe('Function ', () => {
       });
     });
   });
-});

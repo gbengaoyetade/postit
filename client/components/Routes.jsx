@@ -20,9 +20,9 @@ const Routes = () => (
       <Route exact path="/" component={Welcome} />
       <Route path="/signup" component={Signup} />
       <Route path="/login" component={Login} />
-      <Route path="/password_reset" component={Recover} />
-      <Route path="/password_change" component={ChangePassword} />
-      <Route path="/email_sent" component={MailSent} />
+      <Route path="/password/reset" component={Recover} />
+      <Route path="/password/update" component={ChangePassword} />
+      <Route path="/email/sent" component={MailSent} />
       <Route path="/dashboard" component={AuthHoc(Dashboard)} />
       <Route exact path="/group/:groupId/addmembers"
       component={AuthHoc(Addmembers)} />

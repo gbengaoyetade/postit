@@ -198,7 +198,7 @@ describe('Login', () => {
       done();
     });
   });
-  it('Return 401 error if user does not exist', (done) => {
+  it('should return 401 error if user does not exist', (done) => {
     const user = {
       username: 'does not exist',
       password: 'password',
@@ -208,12 +208,29 @@ describe('Login', () => {
       done();
     });
   });
-  it('Return a token on successful login', (done) => {
-    const data = {
+  it('should return a token on successful login', (done) => {
+    const userDetails = {
       username: 'apptest', password: 'some password',
     };
-    supertest(app).post('/api/user/signin').send(data).end((err, res) => {
-      assert.isOk(res.body.token);
+    supertest(app).post('/api/user/signin')
+    .send(userDetails).end((err, res) => {
+      assert.isOk(res.body.user.token);
+      assert.isOk(res.body.user.id);
+      assert.isOk(res.body.user.email);
+      assert.equal(res.body.user.username, userDetails.username);
+      done();
+    });
+  });
+  it('should login user if email is provided in the username field', (done) => {
+    const userDetails = {
+      username: 'apptest@gmail.com', password: 'some password',
+    };
+    supertest(app).post('/api/user/signin')
+    .send(userDetails).end((err, res) => {
+      assert.isOk(res.body.user.token);
+      assert.isOk(res.body.user.id);
+      assert.isOk(res.body.user.email);
+      assert.equal(res.body.user.username, 'apptest');
       done();
     });
   });
@@ -223,7 +240,7 @@ describe('Login', () => {
 
 describe('Reset password', () => {
   it('Should detect if email was provided', (done) => {
-    supertest(app).post('/api/user/password_reset').send().end((err, res) => {
+    supertest(app).post('/api/user/password/reset').send().end((err, res) => {
       assert.equal(res.body.message, 'Parameter not well structured');
       assert.isOk(res.body.error);
       assert.equal(res.statusCode, 400);
@@ -232,7 +249,7 @@ describe('Reset password', () => {
   });
   it('Should detect if provided email exists', (done) => {
     const email = { email: 'something@gmail.com' };
-    supertest(app).post('/api/user/password_reset').send(email)
+    supertest(app).post('/api/user/password/reset').send(email)
     .end((err, res) => {
       assert.equal(res.body.error, 'Email address does not exist on Postit');
       assert.equal(res.statusCode, 400);
@@ -241,7 +258,7 @@ describe('Reset password', () => {
   });
   it('Should should send mail if email exist', (done) => {
     const email = { email: 'apptest@gmail.com' };
-    supertest(app).post('/api/user/password_reset').send(email)
+    supertest(app).post('/api/user/password/reset').send(email)
     .end((err, res) => {
       assert.equal(res.body.message, 'Mail sent successfully');
       assert.equal(res.statusCode, 200);
@@ -253,7 +270,7 @@ describe('Reset password', () => {
 // update password tests
 describe('Update password', () => {
   it('should detect if the password field was provided', (done) => {
-    supertest(app).post('/api/user/password_update').send().end((err, res) => {
+    supertest(app).post('/api/user/password/update').send().end((err, res) => {
       assert.isOk(res.body.error);
       assert.equal(res.statusCode, 400);
     });
@@ -261,7 +278,7 @@ describe('Update password', () => {
   });
   it('should detect if url contains token', (done) => {
     const password = { password: 'password' };
-    supertest(app).post('/api/user/password_update').send(password)
+    supertest(app).post('/api/user/password/update').send(password)
     .end((err, res) => {
       assert.equal(res.body.error, 'No token provided');
       assert.equal(res.statusCode, 401);
@@ -270,7 +287,7 @@ describe('Update password', () => {
   });
   it('should verify token if provided', (done) => {
     const password = { password: 'password' };
-    supertest(app).post('/api/user/password_update?token=whatever')
+    supertest(app).post('/api/user/password/update?token=whatever')
     .send(password).end((err, res) => {
       assert.equal(res.body.error, 'Token authentication failure');
       assert.equal(res.statusCode, 401);
@@ -281,20 +298,22 @@ describe('Update password', () => {
 // Message test
 
 // General Application tests
-describe('General tests', () => {
-  it('Undefined GET urls should return 404 statusCode', (done) => {
+describe('Undefined GET urls', () => {
+  it(' should return 404 statusCode', (done) => {
     supertest(app).get('/whatever').send().end((err, res) => {
       assert.equal(res.statusCode, 404);
       done();
     });
   });
-  it('Undefined POST urls should return 404 statusCode', (done) => {
+});
+describe('Undefined POST urls', () => {
+  it('should return 404 statusCode', (done) => {
     supertest(app).post('/whatever').send().end((err, res) => {
       assert.equal(res.statusCode, 404);
       done();
     });
   });
-  it('Undefined POST urls should return a message', (done) => {
+  it('should return a message', (done) => {
     supertest(app).post('/whatever').send().end((err, res) => {
       assert.isOk(res.body.message);
       done();
@@ -304,7 +323,8 @@ describe('General tests', () => {
 describe('Authenticate', () => {
   it('should detect if token is not provided', (done) => {
     supertest(app).get('/api/group').send().end((err, res) => {
-      assert.equal(res.body.message, 'No token provided');
+      assert.equal(res.body.error, 'No token provided');
+      assert.equal(res.statusCode, 400);
       done();
     });
   });
@@ -312,7 +332,39 @@ describe('Authenticate', () => {
     supertest(app).get('/api/group').set('x-access-token', 'invalid token')
     .send()
     .end((err, res) => {
-      assert.equal(res.body.message, 'Token authentication failure');
+      assert.equal(res.body.error, 'Token authentication failure');
+      assert.equal(res.statusCode, 401);
+      done();
+    });
+  });
+});
+
+// user search test
+describe('User search', () => {
+  it('should be defined', () => {
+    supertest(app).get('/api/user/search')
+    .send()
+    .end((err, res) => {
+      assert.notEqual(res.statusCode, 404);
+    });
+  });
+  it('should return results for every search', (done) => {
+    supertest(app).get('/api/user/search?query=a&limit=1')
+    .set('x-access-token', token)
+    .send()
+    .end((err, res) => {
+      assert.isOk(res.body.pageCount);
+      assert.isOk(res.body.users);
+      assert.isOk(res.body.count);
+      done();
+    });
+  });
+  it('should return null pageCount when limit is not provided', (done) => {
+    supertest(app).get('/api/user/search?query=gb')
+    .set('x-access-token', token)
+    .send()
+    .end((err, res) => {
+      assert.equal(res.body.pageCount, null);
       done();
     });
   });

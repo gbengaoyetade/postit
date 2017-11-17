@@ -6,6 +6,7 @@ import transporter from '../config/mail.config';
 import { checkParams, getId, generateToken } from '../includes/functions';
 
 dotenv.load();
+const APP_URL = process.env.APP_URL;
 const User = db.users;
 const groupMembers = db.groupMembers;
 const secret = process.env.TOKEN_SECRET;
@@ -35,14 +36,14 @@ export const signUp = (req, res) => {
       })
       .then(() => {
         const userToken = generateToken(user);
-        const userData = {
+        const userDetails = {
           id: user.id,
           username: user.username,
           email: user.email,
           token: userToken,
         };
         const userCreateResponse = {
-          user: userData,
+          user: userDetails,
           message: `User ${req.body.username} was created successfully`,
         };
         res.status(201).send(userCreateResponse);
@@ -84,15 +85,16 @@ export const signIn = (req, res) => {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (result) {
           const userToken = generateToken(user);
-          const data = {
-            token: userToken,
+          const userDetails = {
             user: {
               id: user.id,
               username: user.username,
               email: user.email,
-              fullName: user.fullName },
+              fullName: user.fullName,
+              token: userToken,
+            },
           };
-          res.status(200).send(data);
+          res.status(200).send(userDetails);
         } else {
           res.status(401).send({ error: 'Username or password incorect' });
         }
@@ -123,7 +125,7 @@ export const resetPassword = (req, res) => {
           );
         const resetPasswordMail =
         `<p> Click the link to change your password.</p>
-        <a href='http://localhost:3000/password_change?token=${token}'>
+        <a href='${APP_URL}/password/update?token=${token}'>
         Change password</a> `;
         const mailOptions = {
           from: 'ioyetade@gmail.com',
@@ -152,6 +154,13 @@ export const resetPassword = (req, res) => {
       error: validateInputResponse, message: 'Parameter not well structured' });
   }
 };
+/**
+ *
+ *
+ * @param {object} req -request
+ * @param {object} res -response
+ * @returns {void} -returns nothing
+ */
 export const updatePassword = (req, res) => {
   // Check if password field was provided
   const requiredFields = ['password'];
@@ -175,8 +184,16 @@ export const updatePassword = (req, res) => {
           )
           .then((updateValue) => {
             if (updateValue[0] === 1) {
-              const authToken = generateToken(userId);
-              res.send({ token: authToken });
+              User.findOne(({
+                where: { id: userId },
+                attributes: {
+                  exclude: ['createdAt', 'updatedAt', 'password'],
+                },
+              }))
+              .then((user) => {
+                const token = generateToken(user);
+                res.send({ token });
+              });
             } else {
               res.status(500).send({
                 error: 'Password not updated. Try again' });
@@ -195,46 +212,35 @@ export const updatePassword = (req, res) => {
     res.status(400).send({ error: validateInputResponse });
   }
 };
-
-export const groupMemberSearch = (req, res) => {
-  const groupId = req.params.groupId;
-  const query = req.query.query;
-  db.groups.find({
+/**
+ *
+ * @param {object} req -request
+ * @param {object} res -response
+ * @returns {void} - returns nothing
+ */
+export const userSearch = (req, res) => {
+  const query = req.query.query.toLowerCase();
+  const offset = req.query.offset;
+  const limit = req.query.limit;
+  db.users.findAndCountAll({
     where: {
-      id: groupId,
+      $or: [{
+        username: { like: `%${query}%` },
+        fullName: { like: `%${query}%` },
+      }],
     },
+    offset,
+    limit,
+    attributes: {
+      exclude: ['createdAt', 'updatedAt', 'password'],
+    }
   })
-  .then((groups) => {
-    // Get the ids of users that belong to the current group
-    groups.getUsers({
-      attributes: ['id'],
-    })
-    .then((users) => {
-      // Get the arrays of ids only from the result returned
-      // because it returns groupMembers data too
-      const usersId = users.map(user => (
-        user.id
-      ));
-      db.users.findAll({
-        // Take the usersIds gotten above to search the users table
-        // The query below finds users that are not in the arrays
-        // of usersId and whose ...
-        // ...usernames are like the value in the search query
-        where: { id: { not: usersId },
-          username: { $like: `%${query}%` } },
-      })
-      .then((otherUsers) => {
-        res.send(otherUsers);
-      })
-      .catch(() => {
-        res.status(500).send({ error: 'Could not search group members' });
-      });
-    })
-    .catch(() => {
-      res.status(500).send({ error: 'Could not search group members' });
-    });
-  })
-  .catch(() => {
-    res.status(500).send({ error: 'Could not search group members' });
+  .then((result) => {
+    const pagination = {
+      pageCount: Math.floor(result.count / limit),
+      count: result.count,
+      users: result.rows,
+    };
+    res.send(pagination);
   });
 };

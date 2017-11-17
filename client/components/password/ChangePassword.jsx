@@ -43,11 +43,13 @@ class ChangePassword extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="row">
         <Nav middleLink="Password Reset" />
-        <div className="row">
-          <div className="component-container col s10 offset-s1 m6 offset-m3">
-            <p className="red-text"> {this.state.error} </p>
+          <div className="form-container col s10 offset-s1 m4 offset-m4">
+            <p className="big center"> Password Reset</p>
+            <p className="red-text center flow-text">
+              {this.state.error} &nbsp;
+            </p>
             <form onSubmit={this.handleSubmit} >
               <InputField
               type="password" required="required"
@@ -58,10 +60,10 @@ class ChangePassword extends React.Component {
               labelValue="Confirm Password" name="confirmPassword"
               handleChange={this.handleChange} />
               <Submit submitValue="Reset Password" />
+              <p> &nbsp; </p>
             </form>
           </div>
         </div>
-      </div>
     );
   }
 }

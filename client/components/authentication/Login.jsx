@@ -65,12 +65,14 @@ Login.propTypes = {
   setLoading: Proptypes.func.isRequired,
   history: Proptypes.object.isRequired,
   user: Proptypes.object.isRequired,
+  passwordUpdated: Proptypes.bool,
 };
 const mapStateToProps = state => (
   {
     user: state.userAuth,
     isLoading: state.loginLoading,
     loginError: state.loginError,
+    passwordUpdated: state.recoverPassword,
   }
 );
 const mapDispatchToProps = dispatch => (

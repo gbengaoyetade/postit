@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getGroupMessages, getGroupMembers, leaveGroup }
 from '../../actions/groupActions';
-import SideNav from '../navigation/UserSideNav';
+import AppNav from '../navigation/AppNav';
 import Messages from '../message/Messages';
+import MessageForm from '../message/MessageForm';
 
 class Group extends React.Component {
   componentDidMount() {
@@ -24,7 +25,6 @@ class Group extends React.Component {
   render() {
     const groupId = this.props.match.params.groupId;
     let numberOfGroupMembers;
-    let groupMessages;
     let groupName;
     if (this.props.groupMembers.members) {
       groupName = this.props.groupMembers.members.group.groupName;
@@ -33,11 +33,14 @@ class Group extends React.Component {
     return (
       <div className="row">
         <div>
-          <SideNav groupId={groupId}
-          currentUrl="groupPage" numberOfGroupMembers={numberOfGroupMembers}
-          groupName={groupName} />
+          <AppNav
+            groupId={groupId}
+            useHeader='true'
+            numberOfGroupMembers={numberOfGroupMembers}
+            groupName={groupName}
+          />
             <ul id="group-more" className="dropdown-content">
-              <li><Link to={`/group/${groupId}/addmembers`}>Add Memb</Link></li>
+              <li><Link to={`/group/${groupId}/addmembers`}>Add Members</Link></li>
               <li><a href="#" onClick={this.leaveGroup}>Leave group</a></li>
             </ul>
           <div className="col s10 offset-s1 m6   s10 component-container">
@@ -52,8 +55,9 @@ Group.propTypes = {
   getGroupMembers: PropTypes.func.isRequired,
   getMessages: PropTypes.func.isRequired,
   groupMembers: PropTypes.object,
+  match: PropTypes.object,
   leaveGroup: PropTypes.func,
-  // groupId: PropTypes.number.isRequired,
+  history: PropTypes.object,
 };
 const mapStateToProps = state => (
   {

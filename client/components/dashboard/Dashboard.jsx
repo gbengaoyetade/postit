@@ -3,33 +3,35 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { getGroups } from '../../actions/groupActions';
-import UserSideNav from '../navigation/UserSideNav';
+import AppNav from '../navigation/AppNav';
 
 class Dashboard extends React.Component {
-  componentWillMount() {
-    $('.dropdown-button').dropdown();
-    $('select').material_select();
-  }
   render() {
     let groups;
     let userGroups;
     if (this.props.groups.groups) {
       groups = this.props.groups.groups;
       userGroups = (
-        <ul className="collection">
-          {groups.map(group => (
-            <li key={group.id}
-            className="collection-item">
+        groups.map(group => (
+          <div className="postitCard col m3 s5" key={group.id}>
+          <p className="header">
             <Link to={`/group/${group.id}`}> {group.groupName}</Link>
-            </li>
-            ))}
-        </ul>);
+          </p>
+          <p>{group.groupDescription} </p>
+          <p className="postitCardFooter">
+            Active: <span>3 mins ago </span>
+          </p>
+        </div>
+        ))
+      );
     }
     return (
       <div className="row">
-        <UserSideNav currentUrl={this.props.match.path} />
+        <AppNav />
         <div className="col m6 s12 component-container">
-          <p className="center header">Group messages</p>
+          <p className="center header">My Groups</p>
+          <div className="divider"/>
+          {userGroups}
         </div>
       </div>
     );
@@ -38,8 +40,6 @@ class Dashboard extends React.Component {
 
 Dashboard.propTypes = {
   getGroups: PropTypes.func.isRequired,
-  // user: PropTypes.shape().isRequired,
-  // groups: PropTypes.shape().isRequired,
 };
 
 const mapStateToProps = state => (

@@ -10,15 +10,22 @@ export const searchResultSuccess = searchResult => (
   }
 );
 
-export const searchUser = (userInput, groupId) => (
+export const searchUser = (userInput, offset) => (
   (dispatch) => {
     const headers = {
       'x-access-token': localStorage.postitToken,
     };
-    axios.get(`/api/user/${groupId}/search?query=${userInput}`,
+    axios.get(
+      `/api/user/search?query=${userInput}&offset=${offset}&limit=${3}`,
     { headers })
     .then((response) => {
-      dispatch(searchResultSuccess({ users: response.data }));
+      dispatch(searchResultSuccess(
+        {
+          users: response.data.users,
+          count: response.data.count,
+          pageCount: response.data.pageCount,
+        }
+      ));
     })
     .catch((error) => {
     });

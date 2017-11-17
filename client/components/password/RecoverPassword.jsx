@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { recoverPassword } from '../../actions/passwordAction';
-import ResetPasswordPage from './RecoverPasswordPage';
+import RecoverPasswordPage from './RecoverPasswordPage';
 
 class RecoverPassword extends React.Component {
   constructor() {
@@ -20,7 +20,7 @@ class RecoverPassword extends React.Component {
   }
   render() {
     return (
-      <ResetPasswordPage
+      <RecoverPasswordPage
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
         error={this.props.error}

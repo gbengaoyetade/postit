@@ -1,11 +1,4 @@
-export const createGroupReducer = (state = {}, action) => {
-  switch (action.type) {
-    case 'CREATE_GROUP':
-      return { ...state, user: action.user };
-    default:
-      return state;
-  }
-};
+
 export const getUserGroupMessages = (state = {}, action) => {
   switch (action.type) {
     case 'GET_USER_GROUP_MESSAGES':

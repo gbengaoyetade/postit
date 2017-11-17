@@ -18,11 +18,18 @@ export default (Component) => {
         );
       }
     }
+    componentWillUpdate() {
+      $('.dropdown-button').dropdown();
+      $('select').material_select();
+      $('.collapsible').collapsible();
+    }
     render() {
       return (
         <div>
           <Nav rightLink={rightLinkObject} />
+          <div className="component-container">
           <Component {...this.props} />
+          </div>
         </div>
       );
     }

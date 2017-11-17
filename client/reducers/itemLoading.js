@@ -12,7 +12,7 @@ export const itemLoading = (state = false, action) => {
     case 'SIGNUP_LOADING':
       return action.isLoading;
     case 'EMAIL_SENDING':
-      return action.bool;
+      return action.sendingMail;
     default:
       return state;
   }
