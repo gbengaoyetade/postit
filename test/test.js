@@ -342,12 +342,30 @@ describe('Authenticate', () => {
 // user search test
 describe('User search', () => {
   it('should be defined', () => {
-
+    supertest(app).get('/api/user/search')
+    .send()
+    .end((err, res) => {
+      assert.notEqual(res.statusCode, 404);
+    });
   });
-  it('should return not more than 10 users per search', () => {
-
+  it('should return results for every search', (done) => {
+    supertest(app).get('/api/user/search?query=a&limit=1')
+    .set('x-access-token', token)
+    .send()
+    .end((err, res) => {
+      assert.isOk(res.body.pageCount);
+      assert.isOk(res.body.users);
+      assert.isOk(res.body.count);
+      done();
+    });
   });
-  it('should indicate if user belongs to group', () => {
-
+  it('should return null pageCount when limit is not provided', (done) => {
+    supertest(app).get('/api/user/search?query=gb')
+    .set('x-access-token', token)
+    .send()
+    .end((err, res) => {
+      assert.equal(res.body.pageCount, null);
+      done();
+    });
   });
 });
