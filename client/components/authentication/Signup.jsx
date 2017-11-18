@@ -6,6 +6,12 @@ import validateInput from '../../validateInput';
 import { signupLoading, signupUser } from '../../actions/userAuthActions';
 import SignupForm from './SignupForm';
 
+/**
+ *
+ *
+ * @class Signup
+ * @extends {React.Component}
+ */
 class Signup extends React.Component {
   /**
    * Creates an instance of Signup.

@@ -1,7 +1,7 @@
 const recoverPassword = (state = {}, action) => {
   switch (action.type) {
-    case 'USER_EMAIL':
-      return { ...state, email: action.email };
+    case 'EMAIL_ERROR':
+      return { ...state, emailError: action.emailError };
     case 'PASSWORD_UPDATED':
       return { ...state, passwordUpdated: action.passwordUpdated };
     case 'PASSWORD_UPDATE_ERROR':

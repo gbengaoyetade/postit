@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const userEmail = email => (
+export const userEmailError = emailError => (
   {
-    type: 'USER_EMAIL',
-    email,
+    type: 'EMAIL_ERROR',
+    emailError,
   }
 );
 export const emailSending = sendingMail => (
@@ -28,6 +28,7 @@ export const recoverPassword = email => (
   (dispatch) => {
     dispatch(passwordResetError(''));
     dispatch(emailSending(true));
+    dispatch(userEmailError(''));
     axios.post('/api/user/password/reset',
     email)
     .then(() => {
@@ -35,7 +36,7 @@ export const recoverPassword = email => (
     })
     .catch((error) => {
       dispatch(emailSending(false));
-      dispatch(passwordResetError(error.response.data.error));
+      dispatch(userEmailError(error.response.data.error));
     });
   }
 );
@@ -48,7 +49,6 @@ export const updatePassword = (password, token) => (
     axios.post(`/api/user/password/update?token=${token}`,
     password)
     .then((response) => {
-      console.log(response.data);
       if (response.data.token) {
         dispatch(updatePasswordSuccess(true));
       }
