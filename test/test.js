@@ -173,7 +173,7 @@ describe('Leave group', () => {
     .send()
     .end((err, res) => {
       assert.isOk(res.body.error);
-      assert.equal(res.statusCode, 400);
+      assert.equal(res.statusCode, 401);
       done();
     });
   });

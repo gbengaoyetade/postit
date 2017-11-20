@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
-import { getGroupMessages, getGroupMembers, leaveGroup }
+import { getGroupMessages, getGroupMembers, leaveGroup, leaveGroupSuccess }
 from '../../actions/groupActions';
 import AppNav from '../navigation/AppNav';
 import Messages from '../message/Messages';
@@ -13,7 +13,7 @@ class Group extends React.Component {
     super(props);
     this.leaveGroup = this.leaveGroup.bind(this);
   }
-  componentDidMount() {
+  componentWillMount() {
     const groupId = this.props.match.params.groupId;
     this.props.getMessages(groupId, this.props.history);
     this.props.getGroupMembers(groupId);
@@ -27,7 +27,7 @@ class Group extends React.Component {
       title: 'Leave group warning',
       text: 'Are you sure you want to leave group?',
       icon: 'warning',
-      buttons: true,
+      buttons: ['Cancel', 'Yes'],
       dangerMode: true,
     })
     .then((leave) => {
@@ -41,6 +41,7 @@ class Group extends React.Component {
     if (this.props.leftGroup.leftGroup) {
       swal('you left group')
       .then(() => {
+        this.props.leaveGroupSuccess(false);
         this.props.history.push('/dashboard');
       });
     }
@@ -67,7 +68,7 @@ class Group extends React.Component {
               </li>
               <li><a href="#" onClick={this.leaveGroup}>Leave group</a></li>
             </ul>
-          <div className="col s10 offset-s1 m6   s10 component-container">
+          <div className="col s12 m6 component-container">
             <Messages groupId={this.props.match.params.groupId} />
           </div>
         </div>
@@ -82,6 +83,8 @@ Group.propTypes = {
   match: PropTypes.object,
   leaveGroup: PropTypes.func,
   history: PropTypes.object,
+  leftGroup: PropTypes.object,
+  leaveGroupSuccess: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => (
   {
@@ -104,6 +107,9 @@ const mapDispatchToProps = dispatch => (
     leaveGroup: (groupId) => {
       dispatch(leaveGroup(groupId));
     },
+    leaveGroupSuccess: (leftGroup) => {
+      dispatch(leaveGroupSuccess(leftGroup));
+    }
   }
 );
 

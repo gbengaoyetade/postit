@@ -1,6 +1,18 @@
 import axios from 'axios';
+import swal from 'sweetalert';
 
 
+/**
+ * -unathorisedRedirect function
+ * @param {any} response -response object
+ * @returns {bool} -returns a boolean
+ */
+const unauthorisedRedirect = (response) => {
+  if (response.status === 401) {
+    location.replace('/error');
+  }
+  return false;
+};
 export const getUserGroups = groups => (
   {
     type: 'GET_USER_GROUPS',
@@ -81,13 +93,15 @@ export const getGroups = () => (
     });
   }
 );
+
 export const getGroupMessages = groupId => (
   (dispatch) => {
     axios.get(`/api/group/${groupId}/messages`)
     .then((groups) => {
       dispatch(getUserGroupMessages(groups.data.messages));
     })
-    .catch(() => {
+    .catch((error) => {
+      unauthorisedRedirect(error.response);
     });
   }
 );
@@ -102,8 +116,8 @@ export const getGroupMembers = groupId => (
     });
   }
 );
-export const addMember = (userId, groupId) => {
-  return (dispatch) => {
+export const addMember = (userId, groupId) => (
+  (dispatch) => {
     axios.post(`/api/group/${groupId}/user`, { userId })
     .then(() => {
       // this is used to control automatic member
@@ -112,9 +126,9 @@ export const addMember = (userId, groupId) => {
     })
     .catch((error) => {
     });
-  };
-};
-export const leaveGroup = (groupId) => (
+  }
+);
+export const leaveGroup = (groupId, history) => (
   (dispatch) => {
     dispatch(leaveGroupSuccess(false));
     axios.delete(`/api/group/${groupId}/leave`)
@@ -126,8 +140,8 @@ export const leaveGroup = (groupId) => (
   }
 );
 
-export const sendUserMessage = (groupId, message) => {
-  return (dispatch) => {
+export const sendUserMessage = (groupId, message) => (
+  (dispatch) => {
     const URL = `/api/group/${groupId}/message`;
     axios.post(URL, message)
     .then(() => {
@@ -136,6 +150,6 @@ export const sendUserMessage = (groupId, message) => {
     .catch(() => {
       dispatch(sendMessageSuccess(false));
     });
-  };
-};
+  }
+);
 

@@ -60,7 +60,7 @@ export const groupExist = (req, res, next) => {
         if (member) {
           next();
         } else {
-          res.status(400).json({ error: 'User not a member of the group' });
+          res.status(401).json({ error: 'User not a member of the group' });
         }
       })
       .catch(() => {

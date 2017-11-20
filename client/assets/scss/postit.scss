@@ -108,7 +108,10 @@ footer{
 .message-priority {
 	font-weight: bold;
 	padding: 5px;
-	margin: 12px 0 0 0;
+	margin: 20px 0 0 0;
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
 .group-members{
 	float: right;
