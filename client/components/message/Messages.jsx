@@ -5,7 +5,11 @@ import PropTypes from 'prop-types';
 import { sendUserMessage, getGroupMessages, sendMessageSuccess }
 from '../../actions/groupActions';
 import MessageForm from './MessageForm';
-
+/**
+ * -Messages class
+ * @class Messages
+ * @extends {React.Component}
+ */
 class Messages extends React.Component {
   constructor(props) {
     super(props);
@@ -42,10 +46,11 @@ class Messages extends React.Component {
           <ul>
             {
               this.props.messages.messages.map(message => (
-                <div className="single-message" key={message.id}>
+                <div className="single-message col s12" key={message.id}>
                   <p><Link to="#">{message.user.username}</Link></p>
-                <p className="right">
-                  <small>{message.messagePriority}</small>
+                <p className="message-priority">
+                  <span>Message priority: </span>
+                  <small> {message.messagePriority}</small>
                   </p>
                   <p>{message.messageBody}</p>
                   {/* <hr /> */}
@@ -65,7 +70,7 @@ class Messages extends React.Component {
       groupMessages = (
         <div className="preloader-wrapper big active center">
         <div className="spinner-layer spinner-blue-only">
-          <div className="circle-clipper center">
+          <div className="circle-clipper left">
             <div className="circle"></div>
           </div><div className="gap-patch">
             <div className="circle"></div>
@@ -79,7 +84,7 @@ class Messages extends React.Component {
     return (
       <div>
         <h5 className="center"> Messages </h5>
-        <div className="group-messages" id="single">
+        <div className="group-messages" >
           {groupMessages}
           <p>&nbsp; </p>
           <p>&nbsp; </p>

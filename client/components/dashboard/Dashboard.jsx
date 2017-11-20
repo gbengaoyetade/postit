@@ -2,10 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import moment from 'moment';
 import { getGroups } from '../../actions/groupActions';
 import AppNav from '../navigation/AppNav';
-
+/**
+ * -Dashboard class
+ * @class Dashboard
+ * @extends {React.Component}
+ */
 class Dashboard extends React.Component {
+  /**
+   * -render fucntion
+   * @returns {object} -jsx
+   * @memberof Dashboard
+   */
   render() {
     let groups;
     let userGroups;
@@ -13,13 +23,17 @@ class Dashboard extends React.Component {
       groups = this.props.groups.groups;
       userGroups = (
         groups.map(group => (
-          <div className="postitCard col m3 s5" key={group.id}>
+          <div className="postit-card col m3 s5" key={group.id}>
           <p className="header">
             <Link to={`/group/${group.id}`}> {group.groupName}</Link>
           </p>
           <p>{group.groupDescription} </p>
-          <p className="postitCardFooter">
-            Active: <span>3 mins ago </span>
+          <p className="bottom-element">
+            Active: <span className="bold">
+            {group.messages[0] ?
+              moment(group.messages[0].updatedAt).fromNow() :
+              'Not yet active' }
+            </span>
           </p>
         </div>
         ))
@@ -40,6 +54,7 @@ class Dashboard extends React.Component {
 
 Dashboard.propTypes = {
   getGroups: PropTypes.func.isRequired,
+  groups: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => (

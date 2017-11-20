@@ -1,6 +1,17 @@
 import axios from 'axios';
 
 
+/**
+ * -unathorisedRedirect function
+ * @param {any} response -response object
+ * @returns {bool} -returns a boolean
+ */
+const unauthorisedRedirect = (response) => {
+  if (response.status === 401) {
+    location.replace('/error');
+  }
+  return false;
+};
 export const getUserGroups = groups => (
   {
     type: 'GET_USER_GROUPS',
@@ -50,7 +61,12 @@ export const sendMessageSuccess = messageSent => (
     messageSent,
   }
 );
-
+export const leaveGroupSuccess = leftGroup => (
+  {
+    type: 'LEAVE_GROUP_SUCCESS',
+    leftGroup,
+  }
+);
 export const createGroup = (groupDetails, history) => (
   () => {
     axios.post('/api/group',
@@ -76,13 +92,15 @@ export const getGroups = () => (
     });
   }
 );
+
 export const getGroupMessages = groupId => (
   (dispatch) => {
     axios.get(`/api/group/${groupId}/messages`)
     .then((groups) => {
       dispatch(getUserGroupMessages(groups.data.messages));
     })
-    .catch(() => {
+    .catch((error) => {
+      unauthorisedRedirect(error.response);
     });
   }
 );
@@ -97,31 +115,32 @@ export const getGroupMembers = groupId => (
     });
   }
 );
-export const addMember = (userId, groupId) => {
-  return (dispatch) => {
+export const addMember = (userId, groupId) => (
+  (dispatch) => {
     axios.post(`/api/group/${groupId}/user`, { userId })
     .then(() => {
       // this is used to control automatic member
       // appearance on the groupMembers section of the page
       dispatch(addMemberSuccess(true));
     })
-    .catch((error) => {
+    .catch(() => {
     });
-  };
-};
-export const leaveGroup = (groupId, history) => {
-  return () => {
-    axios.delete(`/api/group/${groupId}/user`)
-    .then((response) => {
-      history.push('/dashboard');
+  }
+);
+export const leaveGroup = groupId => (
+  (dispatch) => {
+    dispatch(leaveGroupSuccess(false));
+    axios.delete(`/api/group/${groupId}/leave`)
+    .then(() => {
+      dispatch(leaveGroupSuccess(true));
     })
-    .catch((error) => {
+    .catch(() => {
     });
-  };
-};
+  }
+);
 
-export const sendUserMessage = (groupId, message) => {
-  return (dispatch) => {
+export const sendUserMessage = (groupId, message) => (
+  (dispatch) => {
     const URL = `/api/group/${groupId}/message`;
     axios.post(URL, message)
     .then(() => {
@@ -130,6 +149,6 @@ export const sendUserMessage = (groupId, message) => {
     .catch(() => {
       dispatch(sendMessageSuccess(false));
     });
-  };
-};
+  }
+);
 

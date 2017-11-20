@@ -5,11 +5,20 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: { args: true, msg: 'Group name cannot be empty' },
+        len: {
+          args: [1, 255],
+          msg: 'Group name cannot be more than 255 characters' }
       },
     },
     groupDescription: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: { args: true, msg: 'Group description cannot be empty' },
+        len: {
+          args: [1, 255],
+          msg: 'Group description cannot be more than 255 characters' }
+      },
     },
     createdBy: {
       type: DataTypes.INTEGER,

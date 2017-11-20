@@ -69,27 +69,11 @@ describe('Signup', () => {
 });
 
 // Test for the group controller
-describe('group test', () => {
-  it('Create group route should be defined ', (done) => {
+describe('Create group', () => {
+  it('route should be defined ', (done) => {
     supertest(app).post('/api/group').set('x-access-token', token).send()
     .end((err, res) => {
       assert.equal(res.body.error, 'groupName field not provided');
-      done();
-    });
-  });
-  it('Leave group should detect if group exist', (done) => {
-    supertest(app).delete('/api/group/10789/user')
-    .set('x-access-token', token).send()
-    .end((err, res) => {
-      assert.equal(res.body.error, 'Group does not exist');
-      done();
-    });
-  });
-  it('Leave group should detect if user belongs to group', (done) => {
-    supertest(app).delete('/api/group/2/user')
-    .set('x-access-token', token).send()
-    .end((err, res) => {
-      assert.equal(res.body.error, 'User not a member of the group');
       done();
     });
   });
@@ -106,6 +90,8 @@ describe('group test', () => {
     .send(groupData)
     .end((err, res) => {
       assert.equal(res.body.error, 'Could not create group');
+      assert.equal(res.statusCode, 400);
+      assert.isOk(res.body.message);
       done();
     });
   });
@@ -118,17 +104,93 @@ describe('group test', () => {
       done();
     });
   });
-  it('Add member function should be defined', (done) => {
+});
+describe('getGroupMembers', () => {
+  it('endpoint should be defined', (done) => {
+    supertest(app).get('/api/group/1/users').set('x-access-token', token)
+    .send()
+    .end((err, res) => {
+      assert.notEqual(res.statusCode, 404);
+      done();
+    });
+  });
+  it('should detect if groupId is a number', (done) => {
+    supertest(app).get('/api/group/k/users').set('x-access-token', token)
+    .send()
+    .end((err, res) => {
+      assert.equal(res.statusCode, 400);
+      assert.equal(res.body.error, 'groupId is not a number');
+      done();
+    });
+  });
+  it('should return group members', (done) => {
+    supertest(app).get('/api/group/1/users').set('x-access-token', token)
+    .send()
+    .end((err, res) => {
+      assert.isOk(res.body.users);
+      assert.equal(res.statusCode, 200);
+      done();
+    });
+  });
+});
+describe('Leave group', () => {
+  it('endpoint should be defined', (done) => {
+    supertest(app).delete('/api/group/e/leave')
+    .set('x-access-token', token).send()
+    .end((err, res) => {
+      assert.notEqual(res.statusCode, 404);
+      done();
+    });
+  });
+  it('should detect if group exist', (done) => {
+    supertest(app).delete('/api/group/10789/leave')
+    .set('x-access-token', token).send()
+    .end((err, res) => {
+      assert.equal(res.body.error, 'Group does not exist');
+      done();
+    });
+  });
+  it('should detect if user belongs to group', (done) => {
+    supertest(app).delete('/api/group/2/leave')
+    .set('x-access-token', token).send()
+    .end((err, res) => {
+      assert.equal(res.body.error, 'User not a member of the group');
+      done();
+    });
+  });
+  it('should remove user from group if he belongs to the group',
+  (done) => {
+    supertest(app).delete('/api/group/1/leave').set('x-access-token', token)
+    .send()
+    .end((err, res) => {
+      assert.isOk(res.body.message);
+      assert.equal(res.statusCode, 200);
+      done();
+    });
+  });
+  it('should detect if user is a member of the group', (done) => {
+    supertest(app).delete('/api/group/2/leave').set('x-access-token', token)
+    .send()
+    .end((err, res) => {
+      assert.isOk(res.body.error);
+      assert.equal(res.statusCode, 401);
+      done();
+    });
+  });
+});
+describe('Add member', () => {
+  it('function should be defined', (done) => {
     const groupData = {};
     supertest(app).post('/api/group/1/user').set('x-access-token', token)
     .send(groupData)
     .end((err, res) => {
+      assert.notEqual(res.statusCode, 404);
       assert.equal(res.statusCode, 400);
       assert.isOk(res.body.error);
       done();
     });
   });
-  it('Add member should add member to a group if conditions are satisfactory',
+  it('should to a group if conditions are satisfactory',
   (done) => {
     const groupData = { userId: 1 };
     supertest(app).post('/api/group/1/user').set('x-access-token', token)
@@ -139,41 +201,13 @@ describe('group test', () => {
       done();
     });
   });
-  it('Add member should detect if user is already a member of the group',
+  it('should detect if user is already a member of the group',
   (done) => {
     const groupData = { userId: 1 };
     supertest(app).post('/api/group/1/user').set('x-access-token', token)
     .send(groupData)
     .end((err, res) => {
       assert.equal(res.body.error, 'User already a member of this group');
-      done();
-    });
-  });
-  it('getGroupMembers should return group members', (done) => {
-    supertest(app).get('/api/group/1/users').set('x-access-token', token)
-    .send()
-    .end((err, res) => {
-      assert.isOk(res.body.users);
-      assert.equal(res.statusCode, 200);
-      done();
-    });
-  });
-  it('leave group should remove user from group if he belongs to the group',
-  (done) => {
-    supertest(app).delete('/api/group/1/user').set('x-access-token', token)
-    .send()
-    .end((err, res) => {
-      assert.isOk(res.body.message);
-      assert.equal(res.statusCode, 200);
-      done();
-    });
-  });
-  it('leave group should detect if user is a member of the group', (done) => {
-    supertest(app).delete('/api/group/2/user').set('x-access-token', token)
-    .send()
-    .end((err, res) => {
-      assert.isOk(res.body.error);
-      assert.equal(res.statusCode, 400);
       done();
     });
   });
@@ -188,9 +222,14 @@ describe('group test', () => {
     });
   });
 });
-
 // Login tests
 describe('Login', () => {
+  it('endpoint should be defined', (done) => {
+    supertest(app).post('/api/user/signin').send().end((err, res) => {
+      assert.notEqual(res.statusCode, 404);
+      done();
+    });
+  });
   it('should detect if parameters are correct', (done) => {
     supertest(app).post('/api/user/signin').send().end((err, res) => {
       assert.isOk(res.body.error);
@@ -359,12 +398,12 @@ describe('User search', () => {
       done();
     });
   });
-  it('should return null pageCount when limit is not provided', (done) => {
+  it('should return 0 as pageCount when limit is not provided', (done) => {
     supertest(app).get('/api/user/search?query=gb')
     .set('x-access-token', token)
     .send()
     .end((err, res) => {
-      assert.equal(res.body.pageCount, null);
+      assert.equal(res.body.pageCount, 0);
       done();
     });
   });

@@ -7,7 +7,7 @@ const AppNav = (props) => {
   let appHeader;
   if (props.useHeader) {
     appHeader = (
-      <div className="dashboard-header row">
+      <div className="dashboard-header">
       <Link to="" className="right dropdown-button"
       data-activates="group-more">
       <i className="material-icons">more_vert</i>

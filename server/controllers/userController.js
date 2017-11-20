@@ -221,7 +221,7 @@ export const updatePassword = (req, res) => {
 export const userSearch = (req, res) => {
   const query = req.query.query.toLowerCase();
   const offset = req.query.offset;
-  const limit = req.query.limit;
+  const limit = req.query.limit || 10;
   db.users.findAndCountAll({
     where: {
       $or: [{

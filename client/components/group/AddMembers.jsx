@@ -79,6 +79,7 @@ class AddMembers extends React.Component {
    */
   render() {
     let searchResult;
+    // if member was added successfull, fetch group members again
     if (this.props.addMemberSuccess) {
       this.props.getGroupMembers(this.props.match.params.groupId);
       this.props.setAddMembersSucces(false);

@@ -7,7 +7,8 @@ const secret = process.env.TOKEN_SECRET;
 // fields as defined by the end point
 export const checkParams = (request, requiredFields) => {
   for (let counter = 0; counter < requiredFields.length; counter += 1) {
-    if (!request.hasOwnProperty(requiredFields[counter])) {
+    if (!Object.prototype.hasOwnProperty.call(
+      request, requiredFields[counter])) {
       return `${requiredFields[counter]} field not provided`;
     }
   }
@@ -53,3 +54,23 @@ export const generateToken = (userDetails) => {
   return userToken;
 };
 
+/**
+ *
+ * @param {object} requestObject -the request object
+ * @param {array} inputField -array of input fields
+ * @returns {object} -error
+ */
+export const checkInputLength = (requestObject, inputField) => {
+  let counter;
+  const error = {};
+  if (typeof requestObject === 'object' && Array.isArray(inputField)) {
+    for (counter = 0; counter < inputField.length; counter += 1) {
+      if (requestObject[inputField[counter]].length > 255) {
+        error[inputField[counter]] = 'Maximum character length exceeded';
+      }
+    }
+  } else {
+    return 'bad input to function';
+  }
+  return error;
+};
