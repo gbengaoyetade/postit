@@ -43,7 +43,6 @@ const storeUserDetails = (response) => {
   localStorage.setItem('postitUser', JSON.stringify(response.data.user));
   axios.defaults.headers.common['x-access-token'] =
   localStorage.getItem('postitToken');
-  console.log(localStorage.getItem('postitToken'));
 };
 export const loginUser = (user, history) => (
   (dispatch) => {

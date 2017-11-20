@@ -50,7 +50,12 @@ export const sendMessageSuccess = messageSent => (
     messageSent,
   }
 );
-
+export const leaveGroupSuccess = leftGroup => (
+  {
+    type: 'LEAVE_GROUP_SUCCESS',
+    leftGroup,
+  }
+);
 export const createGroup = (groupDetails, history) => (
   () => {
     axios.post('/api/group',
@@ -109,16 +114,17 @@ export const addMember = (userId, groupId) => {
     });
   };
 };
-export const leaveGroup = (groupId, history) => {
-  return () => {
-    axios.delete(`/api/group/${groupId}/user`)
-    .then((response) => {
-      history.push('/dashboard');
+export const leaveGroup = (groupId) => (
+  (dispatch) => {
+    dispatch(leaveGroupSuccess(false));
+    axios.delete(`/api/group/${groupId}/leave`)
+    .then(() => {
+      dispatch(leaveGroupSuccess(true));
     })
     .catch((error) => {
     });
-  };
-};
+  }
+);
 
 export const sendUserMessage = (groupId, message) => {
   return (dispatch) => {

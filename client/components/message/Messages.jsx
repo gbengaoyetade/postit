@@ -5,7 +5,11 @@ import PropTypes from 'prop-types';
 import { sendUserMessage, getGroupMessages, sendMessageSuccess }
 from '../../actions/groupActions';
 import MessageForm from './MessageForm';
-
+/**
+ * -Messages class
+ * @class Messages
+ * @extends {React.Component}
+ */
 class Messages extends React.Component {
   constructor(props) {
     super(props);
@@ -44,8 +48,9 @@ class Messages extends React.Component {
               this.props.messages.messages.map(message => (
                 <div className="single-message" key={message.id}>
                   <p><Link to="#">{message.user.username}</Link></p>
-                <p className="right">
-                  <small>{message.messagePriority}</small>
+                <p className="bottom-element right message-priority">
+                  <span>Message priority: </span>
+                  <small> {message.messagePriority}</small>
                   </p>
                   <p>{message.messageBody}</p>
                   {/* <hr /> */}

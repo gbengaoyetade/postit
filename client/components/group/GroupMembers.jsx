@@ -6,15 +6,10 @@ import { getGroupMembers, leaveGroup } from '../../actions/groupActions';
 class GroupMembers extends React.Component {
   constructor() {
     super();
-    this.leaveGroup = this.leaveGroup.bind(this);
   }
   componentDidMount() {
     const groupId = this.props.groupId;
     this.props.getGroupMembers(groupId);
-  }
-  leaveGroup() {
-    const groupId = this.props.groupId;
-    this.props.leaveGroup(groupId, this.props.history);
   }
   render() {
     let groupMembersList;

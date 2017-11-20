@@ -2,13 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 import { getGroupMessages, getGroupMembers, leaveGroup }
 from '../../actions/groupActions';
 import AppNav from '../navigation/AppNav';
 import Messages from '../message/Messages';
-import MessageForm from '../message/MessageForm';
 
 class Group extends React.Component {
+  constructor(props) {
+    super(props);
+    this.leaveGroup = this.leaveGroup.bind(this);
+  }
   componentDidMount() {
     const groupId = this.props.match.params.groupId;
     this.props.getMessages(groupId, this.props.history);
@@ -19,10 +23,27 @@ class Group extends React.Component {
     $('select').material_select();
   }
   leaveGroup() {
-    const groupId = this.props.match.params.groupId;
-    this.props.leaveGroup(groupId, this.props.history);
+    swal({
+      title: 'Leave group warning',
+      text: 'Are you sure you want to leave group?',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((leave) => {
+      if (leave) {
+        const groupId = this.props.match.params.groupId;
+        this.props.leaveGroup(groupId);
+      }
+    });
   }
   render() {
+    if (this.props.leftGroup.leftGroup) {
+      swal('you left group')
+      .then(() => {
+        this.props.history.push('/dashboard');
+      });
+    }
     const groupId = this.props.match.params.groupId;
     let numberOfGroupMembers;
     let groupName;
@@ -40,7 +61,10 @@ class Group extends React.Component {
             groupName={groupName}
           />
             <ul id="group-more" className="dropdown-content">
-              <li><Link to={`/group/${groupId}/addmembers`}>Add Members</Link></li>
+              <li>
+                <Link to={`/group/${groupId}/addmembers`}>
+                Add Members</Link>
+              </li>
               <li><a href="#" onClick={this.leaveGroup}>Leave group</a></li>
             </ul>
           <div className="col s10 offset-s1 m6   s10 component-container">
@@ -61,7 +85,7 @@ Group.propTypes = {
 };
 const mapStateToProps = state => (
   {
-    group: state.groupReducer,
+    leftGroup: state.userGroupReducer,
     messages: state.getUserGroupMessages,
     groupMembers: state.getGroupMembers,
     message: state.postMessageReducer,

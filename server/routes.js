@@ -36,6 +36,6 @@ router.get('/group/:groupId/users', groupExist, getGroupMembers);
 
 router.get('/user/search', userSearch);
 
-router.delete('/group/:groupId/user', groupExist, leaveGroup);
+router.delete('/group/:groupId/leave', groupExist, leaveGroup);
 
 export default router;
