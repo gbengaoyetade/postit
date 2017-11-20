@@ -1,5 +1,4 @@
 import axios from 'axios';
-import swal from 'sweetalert';
 
 
 /**
@@ -124,18 +123,18 @@ export const addMember = (userId, groupId) => (
       // appearance on the groupMembers section of the page
       dispatch(addMemberSuccess(true));
     })
-    .catch((error) => {
+    .catch(() => {
     });
   }
 );
-export const leaveGroup = (groupId, history) => (
+export const leaveGroup = groupId => (
   (dispatch) => {
     dispatch(leaveGroupSuccess(false));
     axios.delete(`/api/group/${groupId}/leave`)
     .then(() => {
       dispatch(leaveGroupSuccess(true));
     })
-    .catch((error) => {
+    .catch(() => {
     });
   }
 );
