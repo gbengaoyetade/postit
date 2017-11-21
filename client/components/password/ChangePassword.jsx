@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert';
 import 'url-search-params-polyfill';
-import { InputField, Submit } from '../common/Forms';
+import InputField from '../common/InputField';
+import SubmitButton from '../common/SubmitButton';
 import Nav from '../common/Nav';
 import { updatePassword } from '../../actions/passwordAction';
 
@@ -66,14 +67,18 @@ class ChangePassword extends React.Component {
             </span>
             <form onSubmit={this.handleSubmit} >
               <InputField
-              type="password" required="required"
-              labelValue="Password" name="password"
+              type="password"
+              required="required"
+              labelValue="Password"
+              name="password"
               handleChange={this.handleChange} />
               <InputField
-              type="password" required="required"
-              labelValue="Confirm Password" name="confirmPassword"
+              type="password"
+              required="required"
+              labelValue="Confirm Password"
+              name="confirmPassword"
               handleChange={this.handleChange} />
-              <Submit submitValue="Reset Password" />
+              <SubmitButton submitValue="Reset Password" />
               <p> &nbsp; </p>
             </form>
           </div>

@@ -2,14 +2,19 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Nav from '../common/Nav';
+import InputField from '../common/InputField';
+import SubmitButton from '../common/SubmitButton';
 
 
 const Login = (props) => {
-  let loginValue = '';
+  let submitValue = '';
+  let disabled = '';
   if (props.loading) {
-    loginValue = 'Loging in...';
+    submitValue = 'Loging in...';
+    disabled = 'disbaled';
   } else {
-    loginValue = 'Login';
+    submitValue = 'Login';
+    disabled = '';
   }
   return (
     <div className="row">
@@ -19,23 +24,24 @@ const Login = (props) => {
       <h3 className="header center grey-text" >Login</h3>
       <p className="red-text"> {props.error} </p>
       <form method="POST" onSubmit={props.handleSubmit} >
-        <div className="input-field">
-          <input type="text" name="username" id="username" required="required"
-            onChange={props.handleChange}
+        <InputField
+          type="text"
+          name="username"
+          required="required"
+          handleChange={props.handleChange}
+          labelValue= {'Email or username'}
           />
-          <label htmlFor="username"> Email or username</label>
-        </div>
-        <div className="input-field">
-          <input type="password" name="password" id="password"
-            onChange={props.handleChange}
-            required="required"
+          <InputField
+          type="password"
+          name="password"
+          required="required"
+          handleChange={props.handleChange}
+          labelValue= {'password'}
           />
-          <label htmlFor="password">Password</label>
-        </div>
-        <div className="row">
-          <input type="submit" value={loginValue}
-          className="btn light-blue darken-4 col s8 offset-s2" />
-        </div>
+        <SubmitButton
+        disabled={disabled}
+        submitValue={submitValue}
+        />
         <p className="center">
           <span> Don't have an account? </span>
           <Link to="/signup" className="waves-effect"> Signup </Link>

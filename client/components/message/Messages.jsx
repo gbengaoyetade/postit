@@ -40,12 +40,12 @@ class Messages extends React.Component {
       this.props.getMessages(this.props.groupId);
       this.props.setSendMessageSuccess(false);
     }
-    if (this.props.messages.messages) {
-      if (this.props.messages.messages.length > 0) {
+    if (this.props.messages) {
+      if (this.props.messages.length > 0) {
         groupMessages = (
           <ul>
             {
-              this.props.messages.messages.map(message => (
+              this.props.messages.map(message => (
                 <div className="single-message col s12" key={message.id}>
                   <p><Link to="#">{message.user.username}</Link></p>
                 <p className="message-priority">
@@ -108,9 +108,8 @@ Messages.propTypes = {
 };
 const mapStateToProps = state => (
   {
-    message: state.postMessageReducer,
-    messages: state.getUserGroupMessages,
-    sendMessageSuccess: state.sendMessageSuccess,
+    messages: state.messageReducer.messages,
+    sendMessageSuccess: state.messageReducer.messageSent,
   }
 );
 

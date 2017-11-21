@@ -38,7 +38,7 @@ class Group extends React.Component {
     });
   }
   render() {
-    if (this.props.leftGroup.leftGroup) {
+    if (this.props.leftGroup) {
       swal('you left group')
       .then(() => {
         this.props.leaveGroupSuccess(false);
@@ -48,9 +48,9 @@ class Group extends React.Component {
     const groupId = this.props.match.params.groupId;
     let numberOfGroupMembers;
     let groupName;
-    if (this.props.groupMembers.members) {
-      groupName = this.props.groupMembers.members.group.groupName;
-      numberOfGroupMembers = this.props.groupMembers.members.users.length;
+    if (this.props.groupMembers) {
+      groupName = this.props.groupMembers.group.groupName;
+      numberOfGroupMembers = this.props.groupMembers.users.length;
     }
     return (
       <div className="row">
@@ -83,16 +83,13 @@ Group.propTypes = {
   match: PropTypes.object,
   leaveGroup: PropTypes.func,
   history: PropTypes.object,
-  leftGroup: PropTypes.object,
+  leftGroup: PropTypes.bool,
   leaveGroupSuccess: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => (
   {
-    leftGroup: state.userGroupReducer,
-    messages: state.getUserGroupMessages,
-    groupMembers: state.getGroupMembers,
-    message: state.postMessageReducer,
-    messageSuccess: state.sendMessageSuccess,
+    leftGroup: state.groupReducer.leftGroup,
+    groupMembers: state.groupReducer.members,
   }
 );
 

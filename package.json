@@ -13,6 +13,8 @@
     "babel": "babel-node server/app.js",
     "cover": "nyc npm run test",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
+    "frontend-test": "jest client",
+    "frontend-coverage": "jest client --coverage",
     "start": "./node_modules/.bin/nodemon --watch server --exec ./node_modules/.bin/babel-node server/bin/www"
   },
   "repository": {
@@ -95,7 +97,10 @@
     "webpack-hot-middleware": "^2.19.0"
   },
   "devDependencies": {
-    "babel-eslint": "^8.0.1"
+    "babel-eslint": "^8.0.1",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
+    "jest": "^21.2.1"
   },
   "engines": {
     "node": "7.10.0"

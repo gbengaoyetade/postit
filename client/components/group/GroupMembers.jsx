@@ -4,13 +4,22 @@ import { connect } from 'react-redux';
 import { getGroupMembers, leaveGroup } from '../../actions/groupActions';
 
 class GroupMembers extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = {
+      
+    }
+    // this.handleChange = this.handleChange.bind(this);    
   }
   componentDidMount() {
     const groupId = this.props.groupId;
     this.props.getGroupMembers(groupId);
   }
+
+  handleChange = () => {
+
+  }
+
   render() {
     let groupMembersList;
     if (this.props.groupMembers.members) {
@@ -58,7 +67,7 @@ GroupMembers.propTypes = {
 };
 const mapStateToProps = state => (
   {
-    groupMembers: state.getGroupMembers,
+    groupMembers: state.groupReducer.members,
   }
 );
 

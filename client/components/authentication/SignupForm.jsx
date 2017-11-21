@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import Proptypes from 'prop-types';
 import Nav from '../common/Nav';
-import TextInput from '../common/TextInput';
+import InputField from '../common/InputField';
+import SubmitButton from '../common/SubmitButton';
 
 const SignupForm = (props) => {
-  let signupValue = '';
+  let submitValue = '';
+  let disabled;
   if (props.loading) {
-    signupValue = 'Signing up...';
+    submitValue = 'Signing up...';
+    disabled = 'disabled';
   } else {
-    signupValue = 'Signup';
+    submitValue = 'Signup';
+    disabled = '';
   }
   return (
     <div className="row">
@@ -20,51 +24,52 @@ const SignupForm = (props) => {
             <p className="center grey-text big" >Signup</p>
             <p className="red-text">&nbsp; {props.error}</p>
             <form method="POST" action="#" onSubmit={props.handleSubmit}>
-              <TextInput
+              <InputField
+              type="text"
               name="fullName"
-              description="Full name"
+              labelValue="Full name"
               handleChange={props.handleChange}
               classnames={classnames('', { invalid: props.errors.fullName })}
               />
               <span className="red-text">&nbsp;{props.errors.fullName}</span>
-              <TextInput
+              <InputField
+              type="text"
               name="username"
-              description="Username"
+              labelValue="Username"
               handleChange={props.handleChange}
               classnames={classnames('', { invalid: props.errors.username })}
               />
               <span className="red-text">&nbsp;{props.errors.username}</span>
-              <TextInput
+              <InputField
+              type="email"
               name="email"
-              description="Email"
+              labelValue="Email"
               handleChange={props.handleChange}
               classnames={classnames('', { invalid: props.errors.email })}
               />
               <span className="red-text">&nbsp;{props.errors.email}</span>
-              <TextInput
+              <InputField
+              type="number"
               name="phoneNumber"
-              description="Phone Number"
+              labelValue="Phone Number"
               handleChange={props.handleChange}
               errorClass="valid"
               classnames={classnames('', { invalid: props.errors.phoneNumber })}
               />
               <span className="red-text">&nbsp;{props.errors.phoneNumber}</span>
-              <div className="input-field">
-                <input type="password" name="password" id="password"
-                onChange={props.handleChange}
-                className={classnames('input',
-                { invalid: props.errors.password })}
-                required />
-                <label htmlFor="password"> Password </label>
-              </div>
+              <InputField
+              type="password"
+              name="password"
+              labelValue="Password"
+              handleChange={props.handleChange}
+              errorClass="valid"
+              classnames={classnames('', { invalid: props.errors.phoneNumber })}
+              />
               <span className="red-text" >&nbsp;{props.errors.password}</span>
-              <p className="row">
-                <input
-                type="submit" value={signupValue}
-                className=
-                "btn align-center light-blue darken-4 col s8 offset-s2"
-                />
-              </p>
+              <SubmitButton
+              submitValue={submitValue}
+              disabled={disabled}
+              />
               <p className="center"> Already have and acount?
                 <Link to="login"> Login </Link>
               </p>

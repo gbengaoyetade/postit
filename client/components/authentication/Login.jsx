@@ -70,7 +70,7 @@ const mapStateToProps = state => (
   {
     user: state.userAuth,
     isLoading: state.loginLoading,
-    loginError: state.loginError,
+    loginError: state.authError.loginError,
   }
 );
 const mapDispatchToProps = dispatch => (

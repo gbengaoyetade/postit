@@ -1,26 +1,12 @@
-export const signupError = (state = '', action) => {
+const authError = (state = {}, action) => {
   switch (action.type) {
     case 'SIGNUP_ERROR':
-      return action.error;
-    default:
-      return state;
-  }
-};
-
-export const loginError = (state = '', action) => {
-  switch (action.type) {
+      return { ...state, signupError: action.error };
     case 'LOGIN_ERROR':
-      return action.error;
+      return { ...state, loginError: action.error };
     default:
       return state;
   }
 };
-export const passwordError = (state = '', action) => {
-  switch (action.type) {
-    case 'PASSWORD_ERROR':
-      return action.error;
-    default:
-      return state;
-  }
-};
+export default authError;
 

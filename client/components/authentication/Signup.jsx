@@ -66,7 +66,7 @@ class Signup extends React.Component {
 const mapStateToProps = state => (
   {
     user: state.userAuth,
-    error: state.signupError,
+    error: state.authError.signupError,
     isLoading: state.itemLoading,
   }
 );

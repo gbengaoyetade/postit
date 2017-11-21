@@ -20,8 +20,8 @@ class UserGroups extends React.Component {
   render() {
     let groups;
     let userGroups;
-    if (this.props.groups.groups) {
-      groups = this.props.groups.groups;
+    if (this.props.groups) {
+      groups = this.props.groups;
       userGroups = (
         <ul className="collection scrollable-ul">
           {groups.map(group => (
@@ -45,7 +45,7 @@ UserGroups.propTypes = {
 
 const mapStateToProps = state => (
   {
-    groups: state.userGroupReducer,
+    groups: state.groupReducer.groups,
   }
 );
 const mapDispatchToProps = dispatch => (

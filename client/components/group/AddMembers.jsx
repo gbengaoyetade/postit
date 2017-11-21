@@ -86,7 +86,7 @@ class AddMembers extends React.Component {
     }
     if (this.props.searchResult.searchResult) {
       const searchResultArray = this.props.searchResult.searchResult.users;
-      const groupMemberIds = this.props.groupMembers.members.users.map(member =>
+      const groupMemberIds = this.props.groupMembers.users.map(member =>
         member.id
     );
       if (searchResultArray.length > 0 && this.state.userInput.length > 0) {
@@ -167,8 +167,8 @@ AddMembers.propTypes = {
 const mapStateToProps = state => (
   {
     searchResult: state.searchReducer,
-    addMemberSuccess: state.addMemberSuccess,
-    groupMembers: state.getGroupMembers,
+    addMemberSuccess: state.groupReducer.memberAdded,
+    groupMembers: state.groupReducer.members,
   }
 );
 const mapDispatchToProps = dispatch => (

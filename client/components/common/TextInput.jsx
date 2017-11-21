@@ -1,8 +1,7 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-const TextInput = props => (
-  <div>
+const InputField = props => (
     <div className="input-field">
       <input
       type="text" name={props.name}
@@ -10,12 +9,11 @@ const TextInput = props => (
       required className={props.classnames} />
       <label htmlFor={props.name}> {props.description} </label>
     </div>
-  </div>
 );
-TextInput.propTypes = {
+InputField.propTypes = {
   name: Proptypes.string.isRequired,
   handleChange: Proptypes.func.isRequired,
   classnames: Proptypes.string,
   description: Proptypes.string.isRequired,
 };
-export default TextInput;
+export default InputField;

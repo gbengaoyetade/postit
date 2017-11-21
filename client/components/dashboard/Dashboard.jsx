@@ -5,12 +5,22 @@ import { withRouter, Link } from 'react-router-dom';
 import moment from 'moment';
 import { getGroups } from '../../actions/groupActions';
 import AppNav from '../navigation/AppNav';
+
 /**
  * -Dashboard class
  * @class Dashboard
  * @extends {React.Component}
  */
 class Dashboard extends React.Component {
+  /**
+   * Creates an instance of Dashboard.
+   * @param {object} props -react props
+   * @returns {void} -return nothing
+   * @memberof Dashboard
+   */
+  constructor(props) {
+    super(props);
+  }
   /**
    * -render fucntion
    * @returns {object} -jsx
@@ -59,10 +69,7 @@ Dashboard.propTypes = {
 
 const mapStateToProps = state => (
   {
-    groups: state.userGroupReducer,
-    userGroupSuccess: state.getUserGroupSuccess,
-    user: state.userAuth,
-    error: state.loginError,
+    groups: state.groupReducer,
   }
 );
 const mapDispatchToProps = dispatch => (

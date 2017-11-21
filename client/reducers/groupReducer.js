@@ -1,25 +1,17 @@
 
-export const getUserGroupMessages = (state = {}, action) => {
-  switch (action.type) {
-    case 'GET_USER_GROUP_MESSAGES':
-      return { ...state, messages: action.messages };
-    default:
-      return state;
-  }
-};
-export const getGroupMembers = (state = {}, action) => {
+const groupReducer = (state = { leftGroup: false, memberAdded: false }, action) => {
   switch (action.type) {
     case 'GET_GROUP_MEMBERS':
       return { ...state, members: action.members };
-    default:
-      return state;
-  }
-};
-export const addMemberSuccess = (state = false, action) => {
-  switch (action.type) {
     case 'ADD_MEMBER_SUCCESS':
-      return action.memberAdded;
+      return { ...state, memberAdded: action.memberAdded };
+    case 'GET_USER_GROUPS':
+      return { ...state, groups: action.groups };
+    case 'LEAVE_GROUP_SUCCESS':
+      return { ...state, leftGroup: action.leftGroup };
     default:
       return state;
   }
 };
+export default groupReducer;
+
