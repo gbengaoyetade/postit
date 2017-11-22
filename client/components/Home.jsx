@@ -10,6 +10,7 @@ const Home = () => {
   <ul className="hide-on-med-and-down">
     <li><Link className="" to="/login" > Login </Link> </li>
     <li><Link className="" to="/signup" > Signup </Link> </li>
+    <li><a target="_blank" href="/doc" > API doc </a> </li>
   </ul>);
   return (
     <div >
