@@ -36,6 +36,9 @@ app.use(express.static(path.join(__dirname, '../client')));
 
 app.use('/api', router);
 
+app.get('/doc', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/doc/', 'index.html'));
+});
 app.get('*', (req, res) => {
   res.status(404).sendFile(path.join(__dirname, '../client', 'index.html'));
 });
