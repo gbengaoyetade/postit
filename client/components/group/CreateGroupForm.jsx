@@ -1,13 +1,18 @@
 import React from 'react';
-import AppNav from '../navigation/AppNav';
+import PropTypes from 'prop-types';
+import AppNav from '../common/AppNav';
 
-const groupModal = props => (
+/**
+ * @param {object} props
+ * @returns {object} -returns react element
+ */
+const CreateGroupForm = props => (
   (
     <div className="row">
       <AppNav />
       <div className="col s12 m6 component-container">
         <div className="modal-content">
-          <form onSubmit={props.handleSubmit.bind(this)}>
+          <form onSubmit={props.handleSubmit}>
           <div className="input-field">
             <input type="text" name="groupName" id="groupName"
             onChange={props.handleChange} required/>
@@ -28,4 +33,8 @@ const groupModal = props => (
     </div>
   )
 );
-export default groupModal;
+CreateGroupForm.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
+export default CreateGroupForm;

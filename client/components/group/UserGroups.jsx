@@ -4,19 +4,43 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { getGroups, getGroupMembers, getGroupMessages }
 from '../../actions/groupActions';
-
+/**
+ *
+ *
+ * @class UserGroups
+ * @extends {React.Component}
+ */
 class UserGroups extends React.Component {
-  constructor() {
-    super();
+  /**
+   * Creates an instance of UserGroups.
+   * @param {object} props
+   * @memberof UserGroups
+   */
+  constructor(props) {
+    super(props);
     this.getGroupData = this.getGroupData.bind(this);
   }
+  /**
+   *
+   *  @returns {void}
+   * @memberof UserGroups
+   */
   componentDidMount() {
     this.props.getGroups();
   }
+  /**
+   * @param {number} groupId
+   * @returns {void}
+   * @memberof UserGroups
+   */
   getGroupData(groupId) {
     this.props.getMessages(groupId);
     this.props.getGroupMembers(groupId);
   }
+  /**
+   * @returns {object} -returns react element
+   * @memberof UserGroups
+   */
   render() {
     let groups;
     let userGroups;
@@ -41,6 +65,9 @@ class UserGroups extends React.Component {
 }
 UserGroups.propTypes = {
   getGroups: PropTypes.func.isRequired,
+  groups: PropTypes.array,
+  getMessages: PropTypes.func,
+  getGroupMembers: PropTypes.func,
 };
 
 const mapStateToProps = state => (

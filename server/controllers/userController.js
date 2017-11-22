@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import db from '../models/index';
 import transporter from '../config/mail.config';
-import { checkParams, getId, generateToken } from '../includes/functions';
+import { checkParams, getId, generateToken, encryptPassword }
+from '../includes/functions';
 
 dotenv.load();
 const APP_URL = process.env.APP_URL;
@@ -11,11 +12,13 @@ const User = db.users;
 const groupMembers = db.groupMembers;
 const secret = process.env.TOKEN_SECRET;
 
-const encryptPassword = (password) => {
-  const salt = bcrypt.genSaltSync(5);
-  const hash = bcrypt.hashSync(password, salt);
-  return hash;
-};
+/**
+ * @function
+ * @name signUp
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const signUp = (req, res) => {
   const requiredFields = [
     'username', 'email', 'password', 'fullName', 'phoneNumber'];
@@ -38,8 +41,10 @@ export const signUp = (req, res) => {
         const userToken = generateToken(user);
         const userDetails = {
           id: user.id,
+          fullName: user.fullName,
           username: user.username,
           email: user.email,
+          phoneNumber: user.phoneNumber,
           token: userToken,
         };
         const userCreateResponse = {
@@ -69,6 +74,13 @@ export const signUp = (req, res) => {
   }
 }; // end of signup
 
+/**
+ * @function
+ * @name signIn
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const signIn = (req, res) => {
   const requiredFields = ['username', 'password'];
   const validateInputResponse = checkParams(req.body, requiredFields);
@@ -88,9 +100,10 @@ export const signIn = (req, res) => {
           const userDetails = {
             user: {
               id: user.id,
+              fullName: user.fullName,
               username: user.username,
               email: user.email,
-              fullName: user.fullName,
+              phoneNumber: user.phoneNumber,
               token: userToken,
             },
           };
@@ -108,6 +121,13 @@ export const signIn = (req, res) => {
     res.status(400).send({ error: validateInputResponse });
   }
 }; // end of signIn
+/**
+ * @function
+ * @name resetPassword
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const resetPassword = (req, res) => {
   const requiredFields = ['email'];
   const validateInputResponse = checkParams(req.body, requiredFields);
@@ -155,8 +175,8 @@ export const resetPassword = (req, res) => {
   }
 };
 /**
- *
- *
+ * @function
+ * @name updatePassword
  * @param {object} req -request
  * @param {object} res -response
  * @returns {void} -returns nothing
@@ -213,7 +233,8 @@ export const updatePassword = (req, res) => {
   }
 };
 /**
- *
+ * @function
+ * @name userSearch
  * @param {object} req -request
  * @param {object} res -response
  * @returns {void} - returns nothing

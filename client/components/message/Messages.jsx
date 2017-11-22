@@ -5,12 +5,19 @@ import PropTypes from 'prop-types';
 import { sendUserMessage, getGroupMessages, sendMessageSuccess }
 from '../../actions/groupActions';
 import MessageForm from './MessageForm';
+
 /**
  * -Messages class
  * @class Messages
  * @extends {React.Component}
  */
 class Messages extends React.Component {
+
+  /**
+   * Creates an instance of Messages.
+   * @param {object} props
+   * @memberof Messages
+   */
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -20,20 +27,41 @@ class Messages extends React.Component {
       messagePriority: 'Normal',
     };
   }
+  /**
+   *
+   * @returns {void}
+   * @memberof Messages
+   */
   componentWillReceiveProps() {
     document.getElementById('scrollTo').scrollIntoView();
   }
+  /**
+   *
+   * @param {objet} event
+   * @returns {void}
+   * @memberof Messages
+   */
   handleChange(event) {
     const value = event.target.value;
     const name = event.target.name;
     this.setState({ [name]: value });
   }
+  /**
+   * @param {object} event
+   * @returns {void}
+   * @memberof Messages
+   */
   handleSubmit(event) {
     event.preventDefault();
     const groupId = this.props.groupId;
     this.props.sendUserMessage(groupId, this.state);
     this.setState({ messageBody: '' });
   }
+  /**
+   *
+   * @returns {object} -returns react element
+   * @memberof Messages
+   */
   render() {
     let groupMessages = '';
     if (this.props.sendMessageSuccess) {

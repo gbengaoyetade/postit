@@ -1,4 +1,4 @@
-const recoverPassword = (state = {}, action) => {
+const recoverPassword = (state = { passwordUpdated: false }, action) => {
   switch (action.type) {
     case 'EMAIL_ERROR':
       return { ...state, emailError: action.emailError };

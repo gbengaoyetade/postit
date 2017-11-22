@@ -5,7 +5,12 @@ import Nav from '../common/Nav';
 import InputField from '../common/InputField';
 import SubmitButton from '../common/SubmitButton';
 
-
+/**
+ *
+ *
+ * @param {object} props
+ * @returns {object} -returns react element
+ */
 const Login = (props) => {
   let submitValue = '';
   let disabled = '';

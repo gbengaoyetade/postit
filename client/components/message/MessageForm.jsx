@@ -1,6 +1,9 @@
 import React from 'react';
 import PropType from 'prop-types';
-
+/**
+ * @param {any} props
+ * @returns {object} -returns react element
+ */
 const MessageForm = props => (
   (
     <div>
@@ -37,5 +40,6 @@ const MessageForm = props => (
 MessageForm.propTypes = {
   handleChange: PropType.func.isRequired,
   handleSubmit: PropType.func.isRequired,
+  messageBody: PropType.string.isRequired,
 };
 export default MessageForm;

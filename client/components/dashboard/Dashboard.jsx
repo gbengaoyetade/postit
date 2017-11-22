@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import moment from 'moment';
 import { getGroups } from '../../actions/groupActions';
-import AppNav from '../navigation/AppNav';
+import AppNav from '../common/AppNav';
 
 /**
  * -Dashboard class
@@ -12,15 +12,6 @@ import AppNav from '../navigation/AppNav';
  * @extends {React.Component}
  */
 class Dashboard extends React.Component {
-  /**
-   * Creates an instance of Dashboard.
-   * @param {object} props -react props
-   * @returns {void} -return nothing
-   * @memberof Dashboard
-   */
-  constructor(props) {
-    super(props);
-  }
   /**
    * -render fucntion
    * @returns {object} -jsx

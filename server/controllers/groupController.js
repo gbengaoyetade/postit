@@ -6,7 +6,13 @@ const Users = db.users;
 const Messages = db.messages;
 const Members = db.groupMembers;
 
-
+/**
+ * -Create group function
+ *
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const create = (req, res) => {
   const requiredFields = ['groupName', 'groupDescription'];
   if (checkParams(req.body, requiredFields) === 'ok') {
@@ -48,6 +54,14 @@ export const create = (req, res) => {
   }
 }; // end of Create
 
+
+/**
+ * -Add member function
+ *
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const addMembers = (req, res) => {
   const requiredFields = ['userId'];
   const inputValidation = checkParams(req.body, requiredFields);
@@ -82,6 +96,13 @@ export const addMembers = (req, res) => {
   }
 }; // end of addMembers
 
+/**
+ * @function
+ * @name getGroups
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const getGroups = (req, res) => {
   const userId = getId(req.headers['x-access-token']);
   Users.find({
@@ -117,6 +138,13 @@ export const getGroups = (req, res) => {
   });
 };
 
+/**
+ * @function
+ * @name leaveGroup
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const leaveGroup = (req, res) => {
   const userId = getId(req.headers['x-access-token']);
   const groupId = req.params.groupId;
@@ -142,6 +170,14 @@ export const leaveGroup = (req, res) => {
     res.status(500).json({ error: 'Could not process request' });
   });
 };
+
+/**
+ * @function
+ * @name getGroupMembers
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const getGroupMembers = (req, res) => {
   const requiredFields = ['groupId'];
   const inputValidationResponse = checkParams(req.params, requiredFields);

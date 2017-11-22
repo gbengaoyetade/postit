@@ -5,7 +5,18 @@ import Nav from '../common/Nav';
 
 export default (Component) => {
   let user, rightLinkObject;
+  /**
+   *
+   *
+   * @class AuthHoc
+   * @extends {React.Component}
+   */
   class AuthHoc extends React.Component {
+    /**
+     *
+     * @returns {void}
+     * @memberof AuthHoc
+     */
     componentWillMount() {
       if (!localStorage.getItem('postitToken')) {
         this.props.history.push('/login');
@@ -18,13 +29,12 @@ export default (Component) => {
         );
       }
     }
-    componentDidUpdate() {
-      setTimeout(() => {
-        $('.dropdown-button').dropdown();
-        $('select').material_select();
-        $('.collapsible').collapsible();
-      }, 500);
-    }
+    /**
+     *
+     *
+     * @returns {object} -returns react element
+     * @memberof AuthHoc
+     */
     render() {
       return (
         <div>

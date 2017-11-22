@@ -3,6 +3,13 @@ import { checkParams, getId } from '../includes/functions';
 import transporter from '../config/mail.config';
 
 const Messages = db.messages;
+/**
+ * @function
+ * @name createMessage
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const createMessage = (req, res) => {
   const requieredFields = ['messageBody', 'messagePriority'];
   const validateReturn = checkParams(req.body, requieredFields);
@@ -65,6 +72,13 @@ export const createMessage = (req, res) => {
   }
 };
 
+/**
+ * @function
+ * @name getMessages
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const getMessages = (req, res) => {
   const userId = getId(req.headers['x-access-token']);
   const groupId = req.params.groupId;

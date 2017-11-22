@@ -7,8 +7,17 @@ import InputField from '../common/InputField';
 import SubmitButton from '../common/SubmitButton';
 import Nav from '../common/Nav';
 import { updatePassword } from '../../actions/passwordAction';
-
+/**
+ *
+ *
+ * @class ChangePassword
+ * @extends {React.Component}
+ */
 class ChangePassword extends React.Component {
+/**
+ * Creates an instance of ChangePassword.
+ * @memberof ChangePassword
+ */
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,6 +28,11 @@ class ChangePassword extends React.Component {
       confirmPassword: '',
     };
   }
+  /**
+   *
+   * @returns {boolean} -
+   * @memberof ChangePassword
+   */
   validateForm() {
     if (this.state.password.length < 6) {
       this.setState({ error: 'Password cannot be less than 6 characters' });
@@ -30,11 +44,21 @@ class ChangePassword extends React.Component {
       return true;
     }
   }
+  /**
+   * @param {object} event
+   * @returns {void}
+   * @memberof ChangePassword
+   */
   handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
     this.setState({ [name]: value });
   }
+  /**
+   * @param {object} event
+   * @returns {void}
+   * @memberof ChangePassword
+   */
   handleSubmit(event) {
     event.preventDefault();
     const search = new URLSearchParams(this.props.location.search);
@@ -44,8 +68,13 @@ class ChangePassword extends React.Component {
       this.props.updatePassword({ password: this.state.password }, token);
     }
   }
+
+  /**
+   * @returns {object} -returns react element
+   * @memberof ChangePassword
+   */
   render() {
-    if (this.props.updatePasswordSuccess.passwordUpdated) {
+    if (this.props.updatePasswordSuccess) {
       swal({
         title: 'Password',
         text: 'Password updated successfully',
@@ -90,10 +119,12 @@ ChangePassword.propTypes = {
   location: PropTypes.object.isRequired,
   updatePassword: PropTypes.func.isRequired,
   error: PropTypes.object,
+  updatePasswordSuccess: PropTypes.bool.isRequired,
+  history: PropTypes.object
 };
 const mapStateToProps = state => (
   {
-    updatePasswordSuccess: state.recoverPassword,
+    updatePasswordSuccess: state.recoverPassword.passwordUpdated,
     error: state.recoverPassword,
   }
 );

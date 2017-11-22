@@ -3,6 +3,15 @@ import { checkParams, getId } from '../includes/functions';
 
 const Users = db.users;
 const Groups = db.groups;
+
+/**
+ *
+ *
+ * @param {object} req
+ * @param {object} res
+ * @param {function} next
+ * @returns {void} -returns nothing
+ */
 export const groupAndUserExist = (req, res, next) => {
   const groupId = req.params.groupId;
   const userId = req.body.userId || req.params.userId;
@@ -43,6 +52,14 @@ export const groupAndUserExist = (req, res, next) => {
   }
 };
 
+/**
+ *
+ *
+ * @param {object} req
+ * @param {object} res
+ * @param {function} next
+ * @returns {void} -returns nothing
+ */
 export const groupExist = (req, res, next) => {
   const groupId = req.params.groupId;
   if (!isNaN(groupId)) {

@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
+/**
+ *
+ *
+ * @param {object} props
+ * @returns {object} -returns react element
+ */
 const InputField = props => (
   <div className="input-field" >
     <input

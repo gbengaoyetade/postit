@@ -50,6 +50,12 @@ class Signup extends React.Component {
       this.props.signupUser(this.props.user, this.props.history);
     }
   }
+  /**
+   *
+   *
+   * @returns {void} -returns react element
+   * @memberof Signup
+   */
   render() {
     return (
       <SignupForm

@@ -5,7 +5,12 @@ import Proptypes from 'prop-types';
 import Nav from '../common/Nav';
 import InputField from '../common/InputField';
 import SubmitButton from '../common/SubmitButton';
-
+/**
+ *
+ *
+ * @param {object} props
+ * @returns {object} -returns react element
+ */
 const SignupForm = (props) => {
   let submitValue = '';
   let disabled;
@@ -73,7 +78,7 @@ const SignupForm = (props) => {
               <p className="center"> Already have and acount?
                 <Link to="login"> Login </Link>
               </p>
-              <p></p>
+              <p />
             </form>
         </div>
         </div>

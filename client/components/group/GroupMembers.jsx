@@ -1,29 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getGroupMembers, leaveGroup } from '../../actions/groupActions';
 
+/**
+ *
+ * @class GroupMembers
+ * @extends {React.Component}
+ */
 class GroupMembers extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      
-    }
-    // this.handleChange = this.handleChange.bind(this);    
-  }
+/**
+ *
+ * @returns {void}
+ * @memberof GroupMembers
+ */
   componentDidMount() {
     const groupId = this.props.groupId;
     this.props.getGroupMembers(groupId);
   }
-
-  handleChange = () => {
-
-  }
-
+/**
+ *
+ * @returns {object} -returns react element
+ * @memberof GroupMembers
+ */
   render() {
     let groupMembersList;
-    if (this.props.groupMembers.members) {
-      const members = this.props.groupMembers.members;
+    if (this.props.groupMembers) {
+      const members = this.props.groupMembers;
       groupMembersList = (<ul className="collection">
         {members.map(member => (
           <li key={member.id} className="collection-item center">
@@ -60,10 +64,12 @@ class GroupMembers extends React.Component {
       </div>
     );
   }
-}
+  }
 GroupMembers.propTypes = {
-  leaveGroup: React.PropTypes.func.isRequired,
-  getGroupMembers: React.PropTypes.func.isRequired,
+  leaveGroup: PropTypes.func.isRequired,
+  getGroupMembers: PropTypes.func.isRequired,
+  groupId: PropTypes.number,
+  groupMembers: PropTypes.object,
 };
 const mapStateToProps = state => (
   {

@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './common/Nav';
 
+/**
+ * @returns {object} -returns react element
+ */
 const Home = () => {
   const rightLinkObject = (
   <ul className="hide-on-med-and-down">

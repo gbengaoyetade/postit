@@ -12,7 +12,7 @@
     "window": true,
     "localStorage": true,
     "React": true,
-    "$": false,
+    "$": true,
     "io": true
   },
   "plugins": [

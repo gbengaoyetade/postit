@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import AppNav from '../navigation/AppNav';
+import AppNav from '../common/AppNav';
 import { searchUser } from '../../actions/search';
 import { addMember, getGroupMembers, addMemberSuccess }
 from '../../actions/groupActions';
@@ -15,6 +15,7 @@ from '../../actions/groupActions';
  * @extends {React.Component}
  */
 class AddMembers extends React.Component {
+
   /**
    * Creates an instance of AddMembers.
    * @param {object} props - react props

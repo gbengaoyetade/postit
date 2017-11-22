@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+/**
+ * @param {object} props
+ * @returns {object} -returns react element
+ */
 const Nav = (props) => {
   const logout = () => {
     localStorage.removeItem('postitUser');
@@ -19,20 +23,22 @@ const Nav = (props) => {
   return (
   <div className="row">
       <nav className="transparent col-s12">
-
         <ul id='userDropdown' className='dropdown-content'>
-          <li><a href="#" onClick={logout}>Logout</a></li>
-          </ul>
-
+          <li>
+            <a href="#" onClick={logout}>Logout</a>
+          </li>
+        </ul>
         <div className="nav-wrapper">
         <div>
           <div className="col s2 offset-s1 hide-on-med-and-down">
-          <Link to={postitLink} className="left brand-logo">Postit</Link>
+          <Link to={postitLink} className="left brand-logo">
+            Postit
+          </Link>
           </div>
           <div className="col s2 ">
             <span className="center brand-logo">{props.middleLink}</span>
           </div>
-          <div className="col m2 push-m5" >
+          <div className="col m2 push-m5">
             {props.rightLink}
           </div>
         </div>

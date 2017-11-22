@@ -2,7 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../common/Nav';
 
-export default () => (
+/**
+ *
+ * @returns {object} -returns react element
+ */
+const MailSent = () => (
   <div className="row">
     <Nav middleLink="Password Reset"/>
     <div className="col s10 offset-s1 m5 offset-m4 component-container">
@@ -13,3 +17,5 @@ export default () => (
     </div>
   </div>
 );
+export default MailSent;
+

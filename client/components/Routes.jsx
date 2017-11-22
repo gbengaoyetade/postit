@@ -14,6 +14,9 @@ import NewGroup from './group/CreateGroup';
 import Addmembers from './group/AddMembers';
 import ErrorPage from './errors/Error';
 
+/**
+ * @returns {object} -returns react element
+ */
 const Routes = () => (
   <BrowserRouter>
     <Switch>

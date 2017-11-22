@@ -5,23 +5,47 @@ import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import { getGroupMessages, getGroupMembers, leaveGroup, leaveGroupSuccess }
 from '../../actions/groupActions';
-import AppNav from '../navigation/AppNav';
+import AppNav from '../common/AppNav';
 import Messages from '../message/Messages';
 
+/**
+ * @class Group
+ * @extends {React.Component}
+ */
 class Group extends React.Component {
+  /**
+   * Creates an instance of Group.
+   * @param {object} props
+   * @memberof Group
+   */
   constructor(props) {
     super(props);
     this.leaveGroup = this.leaveGroup.bind(this);
   }
+  /**
+   *
+   * @returns {void}
+   * @memberof Group
+   */
   componentWillMount() {
     const groupId = this.props.match.params.groupId;
     this.props.getMessages(groupId, this.props.history);
     this.props.getGroupMembers(groupId);
   }
+/**
+ *
+ * @returns {void}
+ * @memberof Group
+ */
   componentWillUpdate() {
     $('.dropdown-button').dropdown();
     $('select').material_select();
   }
+  /**
+   *
+   * @returns {void}
+   * @memberof Group
+   */
   leaveGroup() {
     swal({
       title: 'Leave group warning',
@@ -37,6 +61,12 @@ class Group extends React.Component {
       }
     });
   }
+
+  /**
+   *
+   * @returns {object} -react element
+   * @memberof Group
+   */
   render() {
     if (this.props.leftGroup) {
       swal('you left group')

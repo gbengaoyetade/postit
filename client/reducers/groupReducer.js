@@ -1,5 +1,7 @@
 
-const groupReducer = (state = { leftGroup: false, memberAdded: false }, action) => {
+const groupReducer = (state =
+  { leftGroup: false, memberAdded: false },
+  action) => {
   switch (action.type) {
     case 'GET_GROUP_MEMBERS':
       return { ...state, members: action.members };

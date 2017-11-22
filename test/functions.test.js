@@ -36,38 +36,6 @@ describe('getId function', () => {
     assert.equal(typeof getId(token), 'number');
   });
 });
-describe('verifyToken', () => {
-  const token2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDIsImZ1bGxOYW1lIjoiQnVrb2xhIEVsZW1pZGUiLCJlbWFpbCI6ImFzYUBnbWFpbC5jb20iLCJwaG9uZU51bWJlciI6IiAwMDciLCJpYXQiOjE1MDg2ODE5NTksImV4cCI6MTU0MDIxNzk1OX0.7K66I1DSBiGQ-Gwe5DGzBfPcJjF9R3bIsmZfjdtcD0';
-  it('should detect if token is provided', (done) => {
-    supertest(app).post('/api/user/token/verify').send()
-    .end((err, res) => {
-      assert.equal(res.statusCode, 400);
-      assert.equal(res.body.error, 'No token provided');
-      // assert.equal(res.body.error, 'No token provided');
-      done();
-    });
-  });
-  it('should detect invalidToken', (done) => {
-    supertest(app).post('/api/user/token/verify')
-    .set('x-access-token', token2).send()
-    .end((err, res) => {
-      assert.equal(res.statusCode, 401);
-      assert.isOk(res.body.error);
-      assert.equal(res.body.error, 'Token authentication failure');
-      done();
-    });
-  });
-  it('should verify accurate token', (done) => {
-    supertest(app).post('/api/user/token/verify')
-    .set('x-access-token', token).send()
-    .end((err, res) => {
-      // assert.equal(res.statusCode, 200);
-      // assert.isOk(res.body.message);
-      assert.equal(res.body.message, 'Token verified');
-      done();
-    });
-  });
-});
 describe('checkInputLength', () => {
   it('should accept two parameters', () => {
     const response = checkInputLength('name');
@@ -82,8 +50,8 @@ describe('checkInputLength', () => {
   () => {
     const longInput = { statement:
       `is simply dummy text of the printing and typesetting
-     industry. Lorem Ipsum has been the industrys standard 
-     dummy text ever since the 1500s, when an unknown printer took 
+     industry. Lorem Ipsum has been the industrys standard
+     dummy text ever since the 1500s, when an unknown printer took
      a galley of type and scrambled it to make a type specimen book` };
     const response = checkInputLength(longInput, ['statement']);
     assert.deepEqual(response, {});
