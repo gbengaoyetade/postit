@@ -247,6 +247,18 @@ describe('Login', () => {
       done();
     });
   });
+  it('should return error if username is correct but password is wrong',
+  (done) => {
+    const user = {
+      username: 'apptest',
+      password: 'wrong password',
+    };
+    supertest(app).post('/api/user/signin').send(user).end((err, res) => {
+      assert.equal(res.statusCode, 401);
+      assert.equal(res.body.error, 'Username or password incorrect');
+      done();
+    });
+  });
   it('should return a token on successful login', (done) => {
     const userDetails = {
       username: 'apptest', password: 'some password',
@@ -355,6 +367,15 @@ describe('Undefined POST urls', () => {
   it('should return a message', (done) => {
     supertest(app).post('/whatever').send().end((err, res) => {
       assert.isOk(res.body.message);
+      done();
+    });
+  });
+});
+describe('API doc', () => {
+  it('should be defined', (done) => {
+    supertest(app).get('/doc')
+    .send().end((err, res) => {
+      assert.notEqual(res.statusCode, 404);
       done();
     });
   });

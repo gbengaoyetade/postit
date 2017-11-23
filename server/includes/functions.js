@@ -80,7 +80,13 @@ export const checkInputLength = (requestObject, inputField) => {
  * @returns {string} -returns hashed password
  */
 export const encryptPassword = (password) => {
-  const salt = bcrypt.genSaltSync(5);
-  const hash = bcrypt.hashSync(password, salt);
-  return hash;
+  let returnValue;
+  if (typeof password === 'string') {
+    const salt = bcrypt.genSaltSync(5);
+    returnValue = bcrypt.hashSync(password, salt);
+  } else {
+    returnValue = 'Wrong input type';
+  }
+
+  return returnValue;
 };

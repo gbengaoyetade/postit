@@ -109,7 +109,7 @@ export const signIn = (req, res) => {
           };
           res.status(200).send(userDetails);
         } else {
-          res.status(401).send({ error: 'Username or password incorect' });
+          res.status(401).send({ error: 'Username or password incorrect' });
         }
       });
     }

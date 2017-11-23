@@ -5,7 +5,7 @@ import seedDb from './tests.includes';
 
 seedDb();
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZnVsbE5hbWUiOiJnYmVuZ2EgT3lldGFkZSIsImVtYWlsIjoiYXBwdGVzdDIyQGdtYWlsLmNvbSIsInBob25lTnVtYmVyIjoiKzIyMzQ4MDY0MTQwNjkyNSIsImlhdCI6MTUwODY5MjIwNSwiZXhwIjoxNTQwMjI4MjA1fQ.z0gYZWEZGF15KsBJKh2dQWdyVg4EOvuVTuz2vZhHjV8';
-describe('Message tests', () => {
+describe('Message ', () => {
   it('should detect if messageBody field was provided', (done) => {
     supertest(app).post('/api/group/1/message')
       .set('x-access-token', token).send()
@@ -39,14 +39,14 @@ describe('Message tests', () => {
       done();
     });
   });
-  it('getMessages should return status 200 and message if provided the right information',
+  it('should return status 200 and message if provided the right information',
   (done) => {
     supertest(app).get('/api/group/2/messages')
     .set('x-access-token', token)
     .send()
     .end((err, res) => {
-      assert.equal(res.statusCode, 200);
       assert.isOk(res.body.messages);
+      assert.equal(res.statusCode, 200);
       done();
     });
   });
