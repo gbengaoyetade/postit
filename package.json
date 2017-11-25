@@ -3,6 +3,17 @@
   "version": "1.0.0",
   "description": "group messaging application",
   "main": "index.js",
+  "jest": {
+    "collectCoverageFrom": [
+      "client/**/*.(js|jsx)"
+    ],
+    "setupFiles": [
+      "./client/tests/jestSetup.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
   "scripts": {
     "watch-css": "./node_modules/.bin/nodemon -e scss -x \"npm run build-css\"",
     "watch": "./node_modules/.bin/babel-node ./node_modules/.bin/webpack --watch ",
@@ -14,7 +25,7 @@
     "cover": "nyc npm run test",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "frontend-test": "jest client",
-    "frontend-coverage": "jest client --coverage",
+    "frontend-coverage": "jest --coverage client",
     "start": "./node_modules/.bin/nodemon --watch server --exec ./node_modules/.bin/babel-node server/bin/www"
   },
   "repository": {
@@ -94,13 +105,16 @@
     "validator": "^8.0.0",
     "webpack": "^3.5.6",
     "webpack-dev-middleware": "^1.12.0",
-    "webpack-hot-middleware": "^2.19.0"
+    "webpack-hot-middleware": "^2.19.0",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
-    "enzyme": "^3.2.0",
-    "enzyme-adapter-react-16": "^1.1.0",
-    "jest": "^21.2.1"
+    "jest": "^21.2.1",
+    "mock-local-storage": "^1.0.5",
+    "moxios": "^0.4.0",
+    "redux-mock-store": "^1.3.0"
   },
   "engines": {
     "node": "7.10.0"
