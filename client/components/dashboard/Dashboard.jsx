@@ -26,7 +26,9 @@ class Dashboard extends React.Component {
         groups.map(group => (
           <div className="postit-card col m3 s5" key={group.id}>
           <p className="header">
-            <Link to={`/group/${group.id}`}> {group.groupName}</Link>
+            <Link className="" to={`/group/${group.id}`}>
+            {group.groupName}
+            </Link>
           </p>
           <p>{group.groupDescription} </p>
           <p className="bottom-element">

@@ -8,19 +8,25 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
 </head>
 <body>
-		
-	<div id="app">	
-	</div>	
+
+	<div id="app">
+	</div>
 
 
 	<script
 	src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
-	<script type="text/javascript" src="/postit.js"></script> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 
 <script type="text/javascript" src="/bundle.js"></script>
-
+<script>
+	$(document).ready(() => {
+  $('.button-collapse').sideNav();
+  $('.modal').modal();
+  $('select').material_select();
+	$('.collapsible').collapsible();
+});
+</script>
 </body>
 </html>

@@ -111,7 +111,6 @@ class Messages extends React.Component {
     }
     return (
       <div>
-        <h5 className="center"> Messages </h5>
         <div className="group-messages" >
           {groupMessages}
           <p>&nbsp; </p>
