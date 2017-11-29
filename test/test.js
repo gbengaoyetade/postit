@@ -1,6 +1,7 @@
 import { assert } from 'chai';
 import supertest from 'supertest';
 import testInclude from './tests.includes';
+import db from '../server/models/index';
 import app from '../server/app';
 
 
@@ -25,7 +26,8 @@ describe('Signup', () => {
       email: 'apptestgmail.com',
       phoneNumber: '+2348064140695' };
     supertest(app).post('/api/user/signup').send(wrongEmail).end((err, res) => {
-      assert.equal(res.body.error, 'Invalid email address supplied');
+      assert.isOk(res.body.error.email);
+      assert.equal(res.body.error.email, 'Not a valid email address');
       done();
     });
   });
@@ -37,7 +39,8 @@ describe('Signup', () => {
       email: 'ioyetade@gmail.com',
       phoneNumber: '+2348064140695' };
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
-      assert.equal(res.body.error, 'Password must be at least 6 characters');
+      assert.equal(res.body.error.password,
+        'Password cannot be less than 6 characters');
       done();
     });
   });
@@ -49,7 +52,7 @@ describe('Signup', () => {
       email: 'ioyetade2@gmail.com',
       phoneNumber: '+2348064140695' };
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
-      assert.equal(res.body.error,
+      assert.equal(res.body.error.username,
         'Username cannot contain special characters aside from _');
       done();
     });
@@ -60,9 +63,11 @@ describe('Signup', () => {
       username: 'test_signup',
       password: 'password',
       email: 'test_signup@gmail.com',
-      phoneNumber: '+234806414069533' };
+      phoneNumber: '+2348064140699' };
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
+      assert.isOk(res.body.user);
       assert.isOk(res.body.user.token);
+      assert.equal(res.body.user.username, user.username);
       done();
     });
   });
@@ -85,13 +90,40 @@ describe('Create group', () => {
     });
   });
   it('Should not create group if group name is empty', (done) => {
-    const groupData = { groupName: '  ', groupDescription: '', createdBy: 1 };
+    const groupData = {
+      groupName: '  ',
+      groupDescription: 'description',
+      createdBy: 1 };
     supertest(app).post('/api/group').set('x-access-token', token)
     .send(groupData)
     .end((err, res) => {
-      assert.equal(res.body.error, 'Could not create group');
+      assert.equal(res.body.error.groupName, 'Field cannot be empty');
       assert.equal(res.statusCode, 400);
-      assert.isOk(res.body.message);
+      done();
+    });
+  });
+  it('Should not create group if group description is empty', (done) => {
+    const groupData = {
+      groupName: 'group name',
+      groupDescription: ' ',
+      createdBy: 1 };
+    supertest(app).post('/api/group').set('x-access-token', token)
+    .send(groupData)
+    .end((err, res) => {
+      assert.equal(res.body.error.groupDescription, 'Field cannot be empty');
+      assert.equal(res.statusCode, 400);
+      done();
+    });
+  });
+  it('should create group when the right details are supplied', (done) => {
+    const groupData = {
+      groupName: 'test group 2',
+      groupDescription: 'test group description',
+      createdBy: 1 };
+    supertest(app).post('/api/group').set('x-access-token', token)
+    .send(groupData)
+    .end((err, res) => {
+      assert.equal(res.statusCode, 201);
       done();
     });
   });
@@ -129,6 +161,17 @@ describe('getGroupMembers', () => {
     .end((err, res) => {
       assert.isOk(res.body.users);
       assert.equal(res.statusCode, 200);
+      done();
+    });
+  });
+  it('should return error when details are wrong', (done) => {
+    db.groups.find = () => Promise.reject('dsfafd');
+    supertest(app).get('/api/group/1/users').set('x-access-token', token)
+    .send()
+    .end((err, res) => {
+      // assert.isOk(res.body.users);
+      assert.isOk(res.body.error);
+      assert.equal(res.statusCode, 500);
       done();
     });
   });

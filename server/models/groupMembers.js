@@ -24,7 +24,7 @@ export default(sequelize, DataTypes) => {
     },
   }, {
     classMethods: {
-      associate: (models) => {
+      associate: () => {
       },
     },
   });

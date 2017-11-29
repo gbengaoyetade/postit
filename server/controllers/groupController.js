@@ -20,33 +20,47 @@ export const create = (req, res) => {
     if (Object.keys(inputError).length > 0) {
       res.status(400).json({ error: inputError });
     } else {
-      Groups.create({
-        groupName: req.body.groupName,
-        groupDescription: req.body.groupDescription,
-        createdBy: getId(req.headers['x-access-token']),
+      Groups.find({
+        where: {
+          groupName: req.body.groupName.toLowerCase(),
+        },
       })
-      .then((group) => {
-        Members.create({
-          groupId: group.id,
-          userId: getId(req.headers['x-access-token']),
-          addedBy: getId(req.headers['x-access-token']),
-        })
-        .then(() => {
-          const groupDetails = {
-            groupId: group.id,
-            groupName: group.groupName,
-            groupDescription: group.groupDescription,
-          };
-          res.status(201).json(groupDetails);
-        })
-        .catch((error) => {
-          res.status(500).json({
-            error: 'Could not add user to group', message: error.message });
-        });
+      .then((groupExist) => {
+        if (groupExist) {
+          res.status(409).json({ error: 'group name already exist.' });
+        } else {
+          Groups.create({
+            groupName: req.body.groupName.toLowerCase(),
+            groupDescription: req.body.groupDescription,
+            createdBy: getId(req.headers['x-access-token']),
+          })
+          .then((group) => {
+            Members.create({
+              groupId: group.id,
+              userId: getId(req.headers['x-access-token']),
+              addedBy: getId(req.headers['x-access-token']),
+            })
+            .then(() => {
+              const groupDetails = {
+                groupId: group.id,
+                groupName: group.groupName,
+                groupDescription: group.groupDescription,
+              };
+              res.status(201).json(groupDetails);
+            })
+            .catch((error) => {
+              res.status(500).json({
+                error: 'Could not add user to group', message: error.message });
+            });
+          })
+          .catch((error) => {
+            res.status(500)
+            .json({ error: 'Could not create group', message: error.message });
+          });
+        }
       })
       .catch((error) => {
-        res.status(400)
-        .json({ error: 'Could not create group', message: error.message });
+        res.status(500).json({ error: error.message });
       });
     }
   } else {
@@ -179,28 +193,22 @@ export const leaveGroup = (req, res) => {
  * @returns {void} -returns nothing
  */
 export const getGroupMembers = (req, res) => {
-  const requiredFields = ['groupId'];
-  const inputValidationResponse = checkParams(req.params, requiredFields);
-  if (inputValidationResponse === 'ok' && !isNaN(req.params.groupId)) {
-    Groups.find({
-      where: { id: req.params.groupId },
+  Groups.find({
+    where: { id: req.params.groupId },
+  })
+  .then((foundGroup) => {
+    foundGroup.getUsers({ attributes: {
+      exclude: ['password', 'createdAt', 'updatedAt'],
+    },
     })
-    .then((foundGroup) => {
-      foundGroup.getUsers({ attributes: {
-        exclude: ['password', 'createdAt', 'updatedAt'],
-      },
-      })
-      .then((users) => {
-        res.json({ users, group: foundGroup });
-      })
-      .catch(() => {
-        res.status(500).json({ error: 'Could not process request' });
-      });
+    .then((users) => {
+      res.json({ users, group: foundGroup });
     })
     .catch(() => {
       res.status(500).json({ error: 'Could not process request' });
     });
-  } else {
-    res.status(400).json({ error: inputValidationResponse });
-  }
+  })
+  .catch(() => {
+    res.status(500).json({ error: 'Could not process request' });
+  });
 };

@@ -63,8 +63,10 @@ export const checkInputLength = (requestObject, inputField) => {
   const error = {};
   if (typeof requestObject === 'object' && Array.isArray(inputField)) {
     for (counter = 0; counter < inputField.length; counter += 1) {
-      if (requestObject[inputField[counter]].length > 255) {
+      if (requestObject[inputField[counter]].trim().length > 255) {
         error[inputField[counter]] = 'Maximum character length exceeded';
+      } else if (requestObject[inputField[counter]].trim().length < 1) {
+        error[inputField[counter]] = 'Field cannot be empty';
       }
     }
   } else {
