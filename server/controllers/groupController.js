@@ -176,8 +176,6 @@ export const leaveGroup = (req, res) => {
       .catch(() => {
         res.status(500).json({ error: 'Could not process request' });
       });
-    } else {
-      res.status(404).json({ error: 'User not a member of the group' });
     }
   })
   .catch(() => {
