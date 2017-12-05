@@ -75,13 +75,18 @@ class Messages extends React.Component {
             {
               this.props.messages.map(message => (
                 <div className="single-message col s12" key={message.id}>
-                  <p><Link to="#">{message.user.username}</Link></p>
-                <p className="message-priority">
-                  <span>Message priority: </span>
-                  <small> {message.messagePriority}</small>
+                  <p>
+                    <Link to="#">
+                    {message.user.username}
+                    </Link>
                   </p>
-                  <p>{message.messageBody}</p>
-                  {/* <hr /> */}
+                  <p className="message-priority">
+                    <span>Message priority: </span>
+                    <small> {message.messagePriority}</small>
+                  </p>
+                  <p className="message-body" >
+                    {message.messageBody}
+                  </p>
                   <div className="clearfix" />
                 </div>
             ))

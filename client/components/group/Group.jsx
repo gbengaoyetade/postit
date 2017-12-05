@@ -96,7 +96,7 @@ class Group extends React.Component {
                 <Link to={`/group/${groupId}/addmembers`}>
                 Add Members</Link>
               </li>
-              <li><a href="#" onClick={this.leaveGroup}>Leave group</a></li>
+              <li><Link to="#" onClick={this.leaveGroup}>Leave group</Link></li>
             </ul>
           <div className="col s12 m6 component-container">
             <Messages groupId={this.props.match.params.groupId} />

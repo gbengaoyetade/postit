@@ -47,7 +47,7 @@ class UserGroups extends React.Component {
     if (this.props.groups) {
       groups = this.props.groups;
       userGroups = (
-        <ul className="collection scrollable-ul">
+        <ul className="collection">
           {groups.map(group => (
             <li key={group.id} className="collection-item"><Link
               to={`/group/${group.id}`}
@@ -57,7 +57,7 @@ class UserGroups extends React.Component {
         </ul>);
     }
     return (
-        <div className="scrollable-component">
+        <div className="">
           {userGroups}
         </div>
     );

@@ -31,7 +31,7 @@ class GroupMembers extends React.Component {
       groupMembersList = (<ul className="collection">
         {members.map(member => (
           <li key={member.id} className="collection-item center">
-            <a> {member.fullName} </a></li>
+            <Link to="#"> {member.fullName} </Link></li>
       ))
       }
       </ul>);
@@ -47,20 +47,6 @@ class GroupMembers extends React.Component {
         </div>
         <p className="center"> Group Members </p>
         {groupMembersList}
-        <div id="modal1" className="modal">
-          <div className="modal-content">
-            <p>Are you sure you want to leave Group?</p>
-          </div>
-          <div className="modal-footer">
-            <a
-              href="#"
-              className="modal-action modal-close waves-effect waves-green btn"
-              onClick={this.leaveGroup}
-            >Yes</a>
-            <a href="#" className=
-            "modal-action modal-close waves-effect waves-green btn red">No</a>
-          </div>
-        </div>
       </div>
     );
   }

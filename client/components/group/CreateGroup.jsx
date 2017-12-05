@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CreateGroupForm from './CreateGroupForm';
-import { createGroup } from '../../actions/groupActions';
+import { createGroup, createGroupError } from '../../actions/groupActions';
 
 /**
  * @class CreateGroup
@@ -21,6 +21,14 @@ class CreateGroup extends React.Component {
       groupName: '',
       groupDescription: '',
     };
+  }
+  /**
+   *
+   * @return {void}
+   * @memberof CreateGroup
+   */
+  componentWillMount() {
+    this.props.createGroupError('');
   }
   /**
    * @param {object} event
@@ -50,20 +58,32 @@ class CreateGroup extends React.Component {
       <CreateGroupForm
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
+        error={this.props.groupError}
       />
     );
   }
 }
 CreateGroup.propTypes = {
   createGroup: PropTypes.func.isRequired,
+  createGroupError: PropTypes.func.isRequired,
+  groupError: PropTypes.string,
   history: PropTypes.object,
 };
+const mapStateToProps = state => (
+  {
+    groupError: state.groupReducer.groupError,
+  }
+);
+
 const mapDispatchToProps = dispatch => (
   {
     createGroup: (group, history) => {
       dispatch(createGroup(group, history));
     },
+    createGroupError: (error) => {
+      dispatch(createGroupError(error));
+    },
   }
 );
 
-export default connect(null, mapDispatchToProps)(CreateGroup);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateGroup);

@@ -55,7 +55,10 @@ export default (Component) => {
     render() {
       return (
         <div>
-          <UserNav rightLink={rightLinkObject} history={this.props.history} />
+          <UserNav
+          rightLink={rightLinkObject}
+          history={this.props.history}
+          />
           <div className="component-container">
           <Component {...this.props} />
           </div>

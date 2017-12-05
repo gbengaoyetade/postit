@@ -11,6 +11,8 @@ const groupReducer = (state =
       return { ...state, groups: action.groups };
     case 'LEAVE_GROUP_SUCCESS':
       return { ...state, leftGroup: action.leftGroup };
+    case 'CREATE_GROUP_ERROR':
+      return { ...state, groupError: action.groupError };
     default:
       return state;
   }

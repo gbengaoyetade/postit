@@ -13,6 +13,7 @@ const CreateGroupForm = props => (
       <div className="col s12 m6 component-container">
         <div className="modal-content">
           <form onSubmit={props.handleSubmit}>
+          <p className="postit-text red-text center"> &nbsp; {props.error} </p>
           <div className="input-field">
             <input type="text" name="groupName" id="groupName"
             onChange={props.handleChange} required/>
@@ -36,5 +37,6 @@ const CreateGroupForm = props => (
 CreateGroupForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  error: PropTypes.string,
 };
 export default CreateGroupForm;

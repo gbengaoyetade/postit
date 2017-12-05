@@ -23,7 +23,6 @@ const UserNav = (props) => {
         <div className="nav-wrapper">
         <div>
           {/* Mobile links */}
-          <div className="hide-on-med-and-up">
             <ul id="user-slide-out" className="side-nav">
               <p />
               <li><Link to="/dashboard">Dashboard</Link></li>
@@ -32,12 +31,13 @@ const UserNav = (props) => {
             <Link
               to="#"
               data-activates="user-slide-out"
-              className="left button-collapse">
+              className="left button-collapse hide-on-med-and-up ">
               <i className="material-icons">menu</i>
             </Link>
-          </div>
           <div className="col s2 ">
-            <span className="center brand-logo">{props.middleLink}</span>
+            <span className="left brand-logo hide-on-med-and-down">
+              Postit
+            </span>
           </div>
           <div className="right">
             {props.rightLink}

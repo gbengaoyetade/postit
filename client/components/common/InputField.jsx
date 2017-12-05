@@ -12,7 +12,7 @@ const InputField = props => (
     <input
     type={props.type}
     name={props.name}
-    onChange={props.handleChange}
+    onBlur={props.handleChange}
     required={props.required || ''}
     className={props.classnames || null}
     />
