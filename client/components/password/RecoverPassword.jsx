@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { recoverPassword } from '../../actions/passwordAction';
+import { recoverPassword } from '../../actions/passwordActions';
 import RecoverPasswordPage from './RecoverPasswordPage';
 
 /**
@@ -73,7 +73,7 @@ const mapStateToProps = state => (
   {
     email: state.recoverPassword,
     error: state.recoverPassword,
-    sending: state.itemLoading,
+    sending: state.itemLoadingReducer.sendingMail,
   }
 );
 const mapDispatchToProps = dispatch => (

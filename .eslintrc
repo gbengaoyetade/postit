@@ -13,7 +13,11 @@
     "localStorage": true,
     "React": true,
     "$": true,
-    "io": true
+    "io": true,
+    "expect": true,
+    "shallow": true,
+    "mount": true,
+    "Materialize": true
   },
   "plugins": [
     "react"

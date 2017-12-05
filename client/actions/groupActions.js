@@ -77,10 +77,9 @@ export const createGroup = (groupDetails, history) => (
   (dispatch) => {
     axios.post('/api/group',
     groupDetails)
-    .then((response) => {
-      const groupId = response.data.groupId;
+    .then(({ data }) => {
       // redirect user to the group he created
-      history.push(`/group/${groupId}`);
+      history.push(`/group/${data.groupId}`);
     })
     .catch((error) => {
       if (

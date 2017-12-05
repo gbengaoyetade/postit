@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppNav component  should render correctly 1`] = `
+<div>
+  <div
+    className="col m3 component-container hide-on-med-and-down user-side-nav"
+  >
+    <ul
+      className="text-center collapsible"
+      data-collapsible="accordion"
+    >
+      <li
+        className="big"
+      >
+        <div
+          className="collapsible-header"
+        >
+          <i
+            className="material-icons"
+          >
+            home
+          </i>
+          <Link
+            replace={false}
+            to="/dashboard"
+          >
+              Dashboard
+          </Link>
+        </div>
+      </li>
+      <li
+        className="big collapsible-header"
+      >
+        <i
+          className="material-icons"
+        >
+          group_add
+        </i>
+        <Link
+          replace={false}
+          to="/group/create"
+        >
+            Create group
+        </Link>
+      </li>
+      <li
+        className="big"
+      >
+        <div
+          className="collapsible-header"
+        >
+          <i
+            className="material-icons"
+          >
+            group
+          </i>
+          <Link
+            replace={false}
+            to="#"
+          >
+              My Groups
+          </Link>
+        </div>
+        <div
+          className="collapsible-body"
+        >
+          <withRouter(Connect(UserGroups)) />
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="col s10 offset-s1 m6 component-container"
+  />
+</div>
+`;

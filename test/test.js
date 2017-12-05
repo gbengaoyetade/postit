@@ -3,7 +3,6 @@ import supertest from 'supertest';
 import app from '../server/app';
 
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZnVsbE5hbWUiOiJnYmVuZ2EgT3lldGFkZSIsImVtYWlsIjoidGVzdF9zaWdudXBAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIrMjM0ODA2NDE0MDY5NTMzIiwiaWF0IjoxNTA4NjkzNTQ4LCJleHAiOjE1NDAyMjk1NDh9.NmVm9HklrmPDs67p-aC7moae5xgRQMY5emdhaWRM3V8';
-// Message test
 
 // General Application tests
 describe('Undefined GET urls', () => {
@@ -24,15 +23,6 @@ describe('Undefined POST urls', () => {
   it('should return a message', (done) => {
     supertest(app).post('/whatever').send().end((err, res) => {
       assert.isOk(res.body.message);
-      done();
-    });
-  });
-});
-describe('API doc', () => {
-  it('should be defined', (done) => {
-    supertest(app).get('/doc')
-    .send().end((err, res) => {
-      assert.notEqual(res.statusCode, 404);
       done();
     });
   });

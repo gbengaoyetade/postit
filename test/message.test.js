@@ -26,6 +26,22 @@ describe('Message ', () => {
       done();
     });
   });
+  it('should detect if messagePriority is Normal, Urgent or Critical',
+  (done) => {
+    const message = {
+      messageBody: 'this is a message',
+      messagePriority: 'something'
+    };
+    supertest(app).post('/api/group/1/message')
+    .set('x-access-token', token)
+    .send(message)
+    .end((err, res) => {
+      assert.equal(res.statusCode, 400);
+      assert.equal(res.body.error,
+        'Validation error: Message priority can only be Normal, Urgent, or Critical');
+      done();
+    });
+  });
   it('should create message if input is well structured', (done) => {
     const message = {
       messageBody: 'this is a message',

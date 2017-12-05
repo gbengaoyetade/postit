@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import validateInput from '../../validateInput';
+import validateSignUpInput from '../../../server/shared/validateSignUpInput';
 
 import { signupLoading, signupUser } from '../../actions/userAuthActions';
 import SignupForm from './SignupForm';
@@ -22,18 +22,16 @@ class Signup extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      errors: {},
-    };
+    this.state = { errors: {} };
   }
   /**
    * @param {object} event
    * @returns {void}
    */
   handleChange(event) {
-    const value = event.target.value;
+    const value = event.target.value.trim();
     const name = event.target.name;
-    this.props.user[name] = value.trim();
+    this.setState({ [name]: value });
   }
    /**
    * @param {object} event
@@ -42,12 +40,12 @@ class Signup extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ errors: {} });
-    const { errors, isValid } = validateInput(this.props.user);
+    const { errors, isValid } = validateSignUpInput(this.state);
     if (!isValid) {
       this.setState({ errors });
     } else {
       this.props.setLoading(true);
-      this.props.signupUser(this.props.user, this.props.history);
+      this.props.signupUser(this.state, this.props.history);
     }
   }
   /**
@@ -71,9 +69,9 @@ class Signup extends React.Component {
 }
 const mapStateToProps = state => (
   {
-    user: state.userAuth,
-    error: state.authError.signupError,
-    isLoading: state.itemLoading,
+    user: state.authReducer.user,
+    error: state.authReducer.signupError,
+    isLoading: state.itemLoadingReducer.signupLoading,
   }
 );
 const mapDispatchToProps = dispatch => (

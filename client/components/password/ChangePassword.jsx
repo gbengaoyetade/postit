@@ -6,7 +6,7 @@ import 'url-search-params-polyfill';
 import InputField from '../common/InputField';
 import SubmitButton from '../common/SubmitButton';
 import Nav from '../common/Nav';
-import { updatePassword } from '../../actions/passwordAction';
+import { updatePassword } from '../../actions/passwordActions';
 /**
  *
  *

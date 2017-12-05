@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 axios.defaults.headers.common['x-access-token'] =
-localStorage.getItem('postitToken');
+window.localStorage.getItem('postitToken');
 
 export const searchResultSuccess = searchResult => (
   {
@@ -27,7 +27,7 @@ export const searchUser = (userInput, offset) => (
         }
       ));
     })
-    .catch((error) => {
+    .catch(() => {
     });
   }
 );

@@ -6,7 +6,7 @@ export const loginLoading = isLoading => (
     isLoading,
   }
 );
-export const userLoginSuccess = user => (
+export const userAuthSuccess = user => (
   {
     type: 'AUTHENTICATE_USER',
     user,
@@ -17,12 +17,6 @@ export const signupLoading = isLoading => (
   {
     type: 'SIGNUP_LOADING',
     isLoading,
-  }
-);
-export const signupHasErrored = payload => (
-  {
-    type: 'SIGNUP_ERROR',
-    payload,
   }
 );
 export const loginError = error => (
@@ -50,7 +44,7 @@ export const loginUser = (user, history) => (
      user)
     .then((response) => {
       if (response.status === 200) {
-        dispatch(userLoginSuccess(response.data));
+        dispatch(userAuthSuccess(response.data));
         dispatch(loginLoading(false));
         storeUserDetails(response);
         history.push('/dashboard');
@@ -68,7 +62,7 @@ export const signupUser = (user, history) => (
     '/api/user/signup', user)
     .then((response) => {
       if (response.status === 201) {
-        dispatch(userLoginSuccess(user));
+        dispatch(userAuthSuccess(user));
         storeUserDetails(response);
         history.push('/dashboard');
       }

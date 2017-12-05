@@ -26,7 +26,9 @@ const Login = (props) => {
       <Nav />
       <div className="col s12 m4 offset-m4" >
         <div className="form-container">
-      <h3 className="header center grey-text" >Login</h3>
+      <h3 className="header center grey-text" >
+        Login
+      </h3>
       <p className="red-text"> {props.error} </p>
       <form method="POST" onSubmit={props.handleSubmit} >
         <InputField
@@ -48,8 +50,12 @@ const Login = (props) => {
         submitValue={submitValue}
         />
         <p className="center">
-          <span> Don't have an account? </span>
-          <Link to="/signup" className="waves-effect"> Signup </Link>
+          <span>
+            Don't have an account? &nbsp;
+          </span>
+          <Link to="/signup" className="waves-effect">
+            Signup
+          </Link>
         </p>
         <p className="center">
           <Link to="/password/reset" className="waves-effect">

@@ -3,25 +3,36 @@ import { Link } from 'react-router-dom';
 import Nav from './common/Nav';
 
 /**
- * @returns {object} -returns react element
+ *
+ * @class Home
+ * @extends {React.Component}
  */
 class Home extends React.Component {
+  /**
+   *
+   * @returns {void}
+   * @memberof Home
+   */
   componentWillUpdate() {
     $('.button-collapse').sideNav();
   }
+  /**
+   *
+   *
+   * @returns {object} -jsx
+   * @memberof Home
+   */
   render() {
     const rightLinkObject = (
       <div>
         <ul className="hide-on-med-and-down">
           <li><Link className="" to="/login" > Login </Link> </li>
           <li><Link className="" to="/signup" > Signup </Link> </li>
-          <li><a target="_blank" href="/doc" > API doc </a> </li>
         </ul>
           <ul id="slide-out" className="side-nav">
             <p />
             <li><Link to="/login">Login</Link></li>
             <li><Link to="/signup">Signup</Link></li>
-            <li><a target="_blank" href="/doc" > API doc </a> </li>
           </ul>
         <Link
           to="#"
@@ -38,18 +49,15 @@ class Home extends React.Component {
         />
         <div className="centralized-div row">
           <div className="col m4 offset-m3 s10 offset-s1" >
-          <h1 className=""> Built for</h1>
-            <h2 className="">Group messaging</h2>
-            <p>
+          <h1 className="bold-font"> Built for</h1>
+            <h2 className="bold-font">Group messaging</h2>
+            <p className="postit-text">
               Postit allows you communicate within the scope of a group.
               You get to create groups, join existing
               ones and send prioritized
               messages to group members.
               </p>
-            <Link
-              to="signup"
-              className=
-              "center btn grey darken-4">
+            <Link to="signup" className= "center btn light-blue darken-4">
               Get Started
             </Link>
             <p className="clearfix" />

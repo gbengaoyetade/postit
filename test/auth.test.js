@@ -2,18 +2,15 @@ import { assert } from 'chai';
 import supertest from 'supertest';
 import testInclude from './tests.includes';
 import app from '../server/app';
-import db from '../server/models/index';
 
 describe('Signup', () => {
   before(() => {
     testInclude();
   });
-  describe('URL', () => {
-    it('should be defined', (done) => {
-      supertest(app).post('/api/user/signup').send().end((err, res) => {
-        assert.equal(res.statusCode, 400);
-        done();
-      });
+  it('URL should be defined', (done) => {
+    supertest(app).post('/api/user/signup').send().end((err, res) => {
+      assert.equal(res.statusCode, 400);
+      done();
     });
   });
   it('should detect invalid email address', (done) => {
