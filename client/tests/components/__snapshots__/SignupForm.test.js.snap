@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignupForm component  should render correctly 1`] = `
+<div
+  className="row"
+>
+  <Nav />
+  <div
+    className="col s12 m4 offset-m4"
+  >
+    <div
+      className="form-container"
+    >
+      <p
+        className="center grey-text big"
+      >
+        Signup
+      </p>
+      <p
+        className="red-text"
+      >
+          
+      </p>
+      <form
+        action="#"
+        method="POST"
+        onSubmit={[Function]}
+      >
+        <InputField
+          classnames=""
+          handleChange={[Function]}
+          labelValue="Full name"
+          name="fullName"
+          type="text"
+        />
+        <span
+          className="red-text"
+        >
+           
+        </span>
+        <InputField
+          classnames=""
+          handleChange={[Function]}
+          labelValue="Username"
+          name="username"
+          type="text"
+        />
+        <span
+          className="red-text"
+        >
+           
+        </span>
+        <InputField
+          classnames=""
+          handleChange={[Function]}
+          labelValue="Email"
+          name="email"
+          type="email"
+        />
+        <span
+          className="red-text"
+        >
+           
+        </span>
+        <InputField
+          classnames=""
+          errorClass="valid"
+          handleChange={[Function]}
+          labelValue="Phone Number"
+          name="phoneNumber"
+          type="number"
+        />
+        <span
+          className="red-text"
+        >
+           
+        </span>
+        <InputField
+          classnames=""
+          errorClass="valid"
+          handleChange={[Function]}
+          labelValue="Password"
+          name="password"
+          type="password"
+        />
+        <span
+          className="red-text"
+        >
+           
+        </span>
+        <SubmitButton
+          disabled=""
+          submitValue="Signup"
+        />
+        <p
+          className="center"
+        >
+           Already have and acount?
+          <Link
+            replace={false}
+            to="login"
+          >
+             Login 
+          </Link>
+        </p>
+        <p />
+      </form>
+    </div>
+  </div>
+</div>
+`;

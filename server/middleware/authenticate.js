@@ -3,6 +3,15 @@ import dotenv from 'dotenv';
 
 dotenv.load();
 const secret = process.env.TOKEN_SECRET;
+
+/**
+ *
+ *
+ * @param {object} req
+ * @param {object} res
+ * @param {function} next
+ * @returns {void} -returns nothing
+ */
 const authenticate = (req, res, next) => {
   const userToken = req.query.token || req.headers['x-access-token'];
   if (userToken) {
@@ -18,4 +27,4 @@ const authenticate = (req, res, next) => {
   }
 };
 
-module.exports = authenticate;
+export default authenticate;

@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageForm component  should render correctly 1`] = `
+<div>
+  <div
+    className="message-form"
+  >
+    <form
+      method="Post"
+    >
+      <div
+        className=""
+      >
+        <textarea
+          className="message-input-field col s7"
+          name="messageBody"
+          placeholder="Enter message here"
+          required="required"
+        />
+      </div>
+      <div
+        className="message-priority-field col s4"
+      >
+        <select
+          className="browser-default"
+          name="messagePriority"
+        >
+          <option
+            value="Normal"
+          >
+            Normal
+          </option>
+          <option
+            value="Urgent"
+          >
+            Urgent
+          </option>
+          <option
+            value="Critical"
+          >
+            Critical
+          </option>
+        </select>
+      </div>
+      <div
+        className="col s1"
+      >
+        <button
+          className="messageButton"
+        >
+          <i
+            className="material-icons"
+          >
+            send
+          </i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

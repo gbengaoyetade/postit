@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import AppNav from '../navigation/AppNav';
-import { searchUser } from '../../actions/search';
+import AppNav from '../common/AppNav';
+import { searchUser } from '../../actions/searchActions';
 import { addMember, getGroupMembers, addMemberSuccess }
 from '../../actions/groupActions';
 
@@ -15,6 +15,7 @@ from '../../actions/groupActions';
  * @extends {React.Component}
  */
 class AddMembers extends React.Component {
+
   /**
    * Creates an instance of AddMembers.
    * @param {object} props - react props
@@ -82,13 +83,16 @@ class AddMembers extends React.Component {
     // if member was added successfull, fetch group members again
     if (this.props.addMemberSuccess) {
       this.props.getGroupMembers(this.props.match.params.groupId);
+      Materialize.toast('User added successfully', 2000);
       this.props.setAddMembersSucces(false);
     }
     if (this.props.searchResult.searchResult) {
       const searchResultArray = this.props.searchResult.searchResult.users;
-      const groupMemberIds = this.props.groupMembers.members.users.map(member =>
+      const groupMemberIds = this.props.groupMembers.users.map(member =>
         member.id
     );
+    // show search result only when input length is greater than 1 and
+    // there is some search result to show
       if (searchResultArray.length > 0 && this.state.userInput.length > 0) {
         const pageCount = this.props.searchResult.searchResult.pageCount;
         searchResult = (
@@ -114,7 +118,8 @@ class AddMembers extends React.Component {
           </ul>
           {pageCount > 1 ?
           <div className="center">
-          <ReactPaginate previousLabel={'previous'}
+          <ReactPaginate
+          previousLabel={'previous'}
           nextLabel={'next'}
           breakLabel={<a href=''>...</a>}
           breakClassName={'break-me'}
@@ -167,8 +172,8 @@ AddMembers.propTypes = {
 const mapStateToProps = state => (
   {
     searchResult: state.searchReducer,
-    addMemberSuccess: state.addMemberSuccess,
-    groupMembers: state.getGroupMembers,
+    addMemberSuccess: state.groupReducer.memberAdded,
+    groupMembers: state.groupReducer.members,
   }
 );
 const mapDispatchToProps = dispatch => (

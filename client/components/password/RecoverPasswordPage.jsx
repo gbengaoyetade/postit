@@ -2,7 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Nav from '../common/Nav';
-
+/**
+ *
+ *
+ * @param {object} props
+ * @returns {object} -returns react element
+ */
 const ResetPasswordPage = (props) => {
   let disabled, sendValue, progressBar;
   if (props.sending) {

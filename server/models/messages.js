@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isIn: { args: [['Normal', 'Urgent', 'Critical']],
-          msg: 'Message priority can only Normal, Urgent, or Critical' },
+          msg: 'Message priority can only be Normal, Urgent, or Critical' },
       },
     },
 

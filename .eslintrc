@@ -12,8 +12,12 @@
     "window": true,
     "localStorage": true,
     "React": true,
-    "$": false,
-    "io": true
+    "$": true,
+    "io": true,
+    "expect": true,
+    "shallow": true,
+    "mount": true,
+    "Materialize": true
   },
   "plugins": [
     "react"
@@ -25,6 +29,7 @@
       }
     }
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true,

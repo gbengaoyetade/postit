@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateGroupForm component  should render correctly 1`] = `
+<div
+  className="row"
+>
+  <AppNav />
+  <div
+    className="col s12 m6 component-container"
+  >
+    <div
+      className="modal-content"
+    >
+      <form
+        onSubmit={[Function]}
+      >
+        <p
+          className="postit-text red-text center"
+        >
+             
+           
+        </p>
+        <div
+          className="input-field"
+        >
+          <input
+            id="groupName"
+            name="groupName"
+            onChange={[Function]}
+            required={true}
+            type="text"
+          />
+          <label
+            htmlFor="groupName"
+          >
+            Group Name
+          </label>
+        </div>
+        <div
+          className="input-field"
+        >
+          <input
+            id="groupDescription"
+            name="groupDescription"
+            onChange={[Function]}
+            required={true}
+            type="text"
+          />
+          <label
+            htmlFor="password"
+          >
+            Group Description
+          </label>
+        </div>
+        <p
+          className="row"
+        >
+           
+          <input
+            className="btn light-blue darken-4 col s8 offset-s2"
+            type="submit"
+            value="Create Group"
+          />
+        </p>
+      </form>
+      <p>
+           
+      </p>
+    </div>
+  </div>
+</div>
+`;

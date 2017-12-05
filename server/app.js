@@ -32,12 +32,13 @@ app.use(webpackMiddleware(compiler, {
 }));
 
 app.use(webpackHotMiddleware(compiler));
-app.use(express.static(path.join(__dirname, '../client')));
+app.use('/client', express.static(path.join(__dirname, '../client')));
+app.use('/doc', express.static(path.join(__dirname, '../doc')));
 
 app.use('/api', router);
 
 app.get('/doc', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/doc/', 'index.html'));
+  res.sendFile(path.join(__dirname, '../doc', 'index.html'));
 });
 app.get('*', (req, res) => {
   res.status(404).sendFile(path.join(__dirname, '../client', 'index.html'));

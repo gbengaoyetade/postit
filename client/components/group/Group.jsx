@@ -5,23 +5,47 @@ import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import { getGroupMessages, getGroupMembers, leaveGroup, leaveGroupSuccess }
 from '../../actions/groupActions';
-import AppNav from '../navigation/AppNav';
+import AppNav from '../common/AppNav';
 import Messages from '../message/Messages';
 
+/**
+ * @class Group
+ * @extends {React.Component}
+ */
 class Group extends React.Component {
+  /**
+   * Creates an instance of Group.
+   * @param {object} props
+   * @memberof Group
+   */
   constructor(props) {
     super(props);
     this.leaveGroup = this.leaveGroup.bind(this);
   }
+  /**
+   *
+   * @returns {void}
+   * @memberof Group
+   */
   componentWillMount() {
     const groupId = this.props.match.params.groupId;
     this.props.getMessages(groupId, this.props.history);
     this.props.getGroupMembers(groupId);
   }
+/**
+ *
+ * @returns {void}
+ * @memberof Group
+ */
   componentWillUpdate() {
     $('.dropdown-button').dropdown();
     $('select').material_select();
   }
+  /**
+   *
+   * @returns {void}
+   * @memberof Group
+   */
   leaveGroup() {
     swal({
       title: 'Leave group warning',
@@ -37,8 +61,14 @@ class Group extends React.Component {
       }
     });
   }
+
+  /**
+   *
+   * @returns {object} -react element
+   * @memberof Group
+   */
   render() {
-    if (this.props.leftGroup.leftGroup) {
+    if (this.props.leftGroup) {
       swal('you left group')
       .then(() => {
         this.props.leaveGroupSuccess(false);
@@ -48,9 +78,9 @@ class Group extends React.Component {
     const groupId = this.props.match.params.groupId;
     let numberOfGroupMembers;
     let groupName;
-    if (this.props.groupMembers.members) {
-      groupName = this.props.groupMembers.members.group.groupName;
-      numberOfGroupMembers = this.props.groupMembers.members.users.length;
+    if (this.props.groupMembers) {
+      groupName = this.props.groupMembers.group.groupName;
+      numberOfGroupMembers = this.props.groupMembers.users.length;
     }
     return (
       <div className="row">
@@ -66,7 +96,7 @@ class Group extends React.Component {
                 <Link to={`/group/${groupId}/addmembers`}>
                 Add Members</Link>
               </li>
-              <li><a href="#" onClick={this.leaveGroup}>Leave group</a></li>
+              <li><Link to="#" onClick={this.leaveGroup}>Leave group</Link></li>
             </ul>
           <div className="col s12 m6 component-container">
             <Messages groupId={this.props.match.params.groupId} />
@@ -83,16 +113,13 @@ Group.propTypes = {
   match: PropTypes.object,
   leaveGroup: PropTypes.func,
   history: PropTypes.object,
-  leftGroup: PropTypes.object,
+  leftGroup: PropTypes.bool,
   leaveGroupSuccess: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => (
   {
-    leftGroup: state.userGroupReducer,
-    messages: state.getUserGroupMessages,
-    groupMembers: state.getGroupMembers,
-    message: state.postMessageReducer,
-    messageSuccess: state.sendMessageSuccess,
+    leftGroup: state.groupReducer.leftGroup,
+    groupMembers: state.groupReducer.members,
   }
 );
 

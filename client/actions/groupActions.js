@@ -43,10 +43,10 @@ export const getGroupMembersAction = members => (
     members,
   }
 );
-export const getUserGroupsError = payload => (
+export const getUserGroupsError = error => (
   {
     type: 'GET_USER_GROUPS_ERROR',
-    payload,
+    error,
   }
 );
 export const addMemberSuccess = memberAdded => (
@@ -67,16 +67,26 @@ export const leaveGroupSuccess = leftGroup => (
     leftGroup,
   }
 );
+export const createGroupError = groupError => (
+  {
+    type: 'CREATE_GROUP_ERROR',
+    groupError,
+  }
+);
 export const createGroup = (groupDetails, history) => (
-  () => {
+  (dispatch) => {
     axios.post('/api/group',
     groupDetails)
-    .then((response) => {
-      const groupId = response.data.groupId;
+    .then(({ data }) => {
       // redirect user to the group he created
-      history.push(`/group/${groupId}`);
+      history.push(`/group/${data.groupId}`);
     })
-    .catch(() => {
+    .catch((error) => {
+      if (
+        error.response.data.error.groupName
+        || error.response.data.error.groupDescription) {
+        dispatch(createGroupError('Maximum character exceeded'));
+      }
     });
   }
 );

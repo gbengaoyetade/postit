@@ -3,7 +3,9 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import db from '../models/index';
 import transporter from '../config/mail.config';
-import { checkParams, getId, generateToken } from '../includes/functions';
+import validateSignUpInput from '../shared/validateSignUpInput';
+import { checkParams, getId, generateToken, encryptPassword }
+from '../includes/functions';
 
 dotenv.load();
 const APP_URL = process.env.APP_URL;
@@ -11,64 +13,85 @@ const User = db.users;
 const groupMembers = db.groupMembers;
 const secret = process.env.TOKEN_SECRET;
 
-const encryptPassword = (password) => {
-  const salt = bcrypt.genSaltSync(5);
-  const hash = bcrypt.hashSync(password, salt);
-  return hash;
-};
+/**
+ * @function
+ * @name signUp
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const signUp = (req, res) => {
   const requiredFields = [
     'username', 'email', 'password', 'fullName', 'phoneNumber'];
+    // Check if req.body contains required fields
+
   const validateInputResponse = checkParams(req.body, requiredFields);
   if (validateInputResponse === 'ok') {
-    User.create({
-      username: req.body.username,
-      password: req.body.password,
-      email: req.body.email,
-      fullName: req.body.fullName,
-      phoneNumber: req.body.phoneNumber,
-    })
-    .then((user) => {
-      groupMembers.create({
-        userId: user.id,
-        groupId: 1,
-        addedBy: 1,
+    // Validate input if it contains required fields
+
+    const { errors, isValid } = validateSignUpInput(req.body);
+    if (isValid) {
+      // if input is valid, create user
+      User.create({
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        fullName: req.body.fullName,
+        phoneNumber: req.body.phoneNumber,
       })
-      .then(() => {
-        const userToken = generateToken(user);
-        const userDetails = {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          token: userToken,
-        };
-        const userCreateResponse = {
-          user: userDetails,
-          message: `User ${req.body.username} was created successfully`,
-        };
-        res.status(201).send(userCreateResponse);
+      .then((user) => {
+        groupMembers.create({
+          userId: user.id,
+          groupId: 1,
+          addedBy: 1,
+        })
+        .then(() => {
+          const userToken = generateToken(user);
+          const userDetails = {
+            id: user.id,
+            fullName: user.fullName,
+            username: user.username,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            token: userToken,
+          };
+          const userCreateResponse = {
+            user: userDetails,
+            message: `User ${req.body.username} was created successfully`,
+          };
+          res.status(201).send(userCreateResponse);
+        })
+        .catch((serverError) => {
+          res.status(500).send({ error: serverError.message });
+        });
       })
       .catch((error) => {
-        res.status(500).send({ error: error.message });
+        if (error.errors[0].message === 'username must be unique') {
+          res.status(409).send({ error: 'Username not available' });
+        } else if (error.errors[0].message === 'email must be unique') {
+          res.status(409).send({ error: 'Email address already in use' });
+        } else if (error.errors[0].message === 'phoneNumber must be unique') {
+          res.status(409).send({ error: 'Phone Number already in use' });
+        } else {
+          const errorMessage = error.errors[0].message;
+          res.status(400).send({ error: errorMessage });
+        }
       });
-    })
-    .catch((error) => {
-      if (error.errors[0].message === 'username must be unique') {
-        res.status(409).send({ error: 'Username not available' });
-      } else if (error.errors[0].message === 'email must be unique') {
-        res.status(409).send({ error: 'Email address already in use' });
-      } else if (error.errors[0].message === 'phoneNumber must be unique') {
-        res.status(409).send({ error: 'Phone Number already in use' });
-      } else {
-        const errorMessage = error.errors[0].message;
-        res.status(400).send({ error: errorMessage });
-      }
-    });
+    } else {
+      res.status(400).json({ error: errors });
+    }
   } else {
     res.status(400).send({ error: validateInputResponse });
   }
 }; // end of signup
 
+/**
+ * @function
+ * @name signIn
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const signIn = (req, res) => {
   const requiredFields = ['username', 'password'];
   const validateInputResponse = checkParams(req.body, requiredFields);
@@ -88,15 +111,16 @@ export const signIn = (req, res) => {
           const userDetails = {
             user: {
               id: user.id,
+              fullName: user.fullName,
               username: user.username,
               email: user.email,
-              fullName: user.fullName,
+              phoneNumber: user.phoneNumber,
               token: userToken,
             },
           };
           res.status(200).send(userDetails);
         } else {
-          res.status(401).send({ error: 'Username or password incorect' });
+          res.status(401).send({ error: 'Username or password incorrect' });
         }
       });
     }
@@ -108,6 +132,13 @@ export const signIn = (req, res) => {
     res.status(400).send({ error: validateInputResponse });
   }
 }; // end of signIn
+/**
+ * @function
+ * @name resetPassword
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const resetPassword = (req, res) => {
   const requiredFields = ['email'];
   const validateInputResponse = checkParams(req.body, requiredFields);
@@ -155,8 +186,8 @@ export const resetPassword = (req, res) => {
   }
 };
 /**
- *
- *
+ * @function
+ * @name updatePassword
  * @param {object} req -request
  * @param {object} res -response
  * @returns {void} -returns nothing
@@ -213,7 +244,8 @@ export const updatePassword = (req, res) => {
   }
 };
 /**
- *
+ * @function
+ * @name userSearch
  * @param {object} req -request
  * @param {object} res -response
  * @returns {void} - returns nothing

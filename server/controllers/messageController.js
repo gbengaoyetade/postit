@@ -3,6 +3,13 @@ import { checkParams, getId } from '../includes/functions';
 import transporter from '../config/mail.config';
 
 const Messages = db.messages;
+/**
+ * @function
+ * @name createMessage
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const createMessage = (req, res) => {
   const requieredFields = ['messageBody', 'messagePriority'];
   const validateReturn = checkParams(req.body, requieredFields);
@@ -53,7 +60,8 @@ export const createMessage = (req, res) => {
           });
         })
         .catch((error) => {
-          res.status(400).send({ error: error.message, bad: 'bad request' });
+          return res.status(500)
+          .send({ error: error.message, bad: 'bad request' });
         });
       }
     })
@@ -65,32 +73,33 @@ export const createMessage = (req, res) => {
   }
 };
 
+/**
+ * @function
+ * @name getMessages
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} -returns nothing
+ */
 export const getMessages = (req, res) => {
-  const userId = getId(req.headers['x-access-token']);
   const groupId = req.params.groupId;
-  db.groupMembers.find({
-    where: { userId, groupId },
-  })
-  .then(() => {
-    db.messages.findAll({
-      where: { groupId },
-      attributes: {
-        exclude: ['password', 'createdAt', 'updatedAt'],
-      },
-      include: [
-        {
-          model: db.users,
-          attributes: {
-            exclude: ['password', 'createdAt', 'updatedAt'],
-          },
+  db.messages.findAll({
+    where: { groupId },
+    attributes: {
+      exclude: ['password', 'createdAt', 'updatedAt'],
+    },
+    include: [
+      {
+        model: db.users,
+        attributes: {
+          exclude: ['password', 'createdAt', 'updatedAt'],
         },
-      ],
-    })
-    .then((messages) => {
-      res.status(200).send({ messages });
-    })
-    .catch(() => {
-      res.status(500).send({ error: 'Could not get messages' });
-    });
+      },
+    ],
+  })
+  .then((messages) => {
+    res.status(200).send({ messages });
+  })
+  .catch(() => {
+    res.status(500).send({ error: 'Could not get messages' });
   });
 };

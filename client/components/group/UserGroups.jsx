@@ -4,26 +4,50 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { getGroups, getGroupMembers, getGroupMessages }
 from '../../actions/groupActions';
-
+/**
+ *
+ *
+ * @class UserGroups
+ * @extends {React.Component}
+ */
 class UserGroups extends React.Component {
-  constructor() {
-    super();
+  /**
+   * Creates an instance of UserGroups.
+   * @param {object} props
+   * @memberof UserGroups
+   */
+  constructor(props) {
+    super(props);
     this.getGroupData = this.getGroupData.bind(this);
   }
+  /**
+   *
+   *  @returns {void}
+   * @memberof UserGroups
+   */
   componentDidMount() {
     this.props.getGroups();
   }
+  /**
+   * @param {number} groupId
+   * @returns {void}
+   * @memberof UserGroups
+   */
   getGroupData(groupId) {
     this.props.getMessages(groupId);
     this.props.getGroupMembers(groupId);
   }
+  /**
+   * @returns {object} -returns react element
+   * @memberof UserGroups
+   */
   render() {
     let groups;
     let userGroups;
-    if (this.props.groups.groups) {
-      groups = this.props.groups.groups;
+    if (this.props.groups) {
+      groups = this.props.groups;
       userGroups = (
-        <ul className="collection scrollable-ul">
+        <ul className="collection">
           {groups.map(group => (
             <li key={group.id} className="collection-item"><Link
               to={`/group/${group.id}`}
@@ -33,7 +57,7 @@ class UserGroups extends React.Component {
         </ul>);
     }
     return (
-        <div className="scrollable-component">
+        <div className="">
           {userGroups}
         </div>
     );
@@ -41,11 +65,14 @@ class UserGroups extends React.Component {
 }
 UserGroups.propTypes = {
   getGroups: PropTypes.func.isRequired,
+  groups: PropTypes.array,
+  getMessages: PropTypes.func,
+  getGroupMembers: PropTypes.func,
 };
 
 const mapStateToProps = state => (
   {
-    groups: state.userGroupReducer,
+    groups: state.groupReducer.groups,
   }
 );
 const mapDispatchToProps = dispatch => (

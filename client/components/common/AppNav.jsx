@@ -16,7 +16,7 @@ const AppNav = (props) => {
       <i className="material-icons">person</i>
       <span className="group-members"> {props.numberOfGroupMembers}</span>
       </span>
-      <span className="bold">{props.groupName}</span>
+      <span className="bold bold-text">{props.groupName}</span>
     </div>
     );
   }

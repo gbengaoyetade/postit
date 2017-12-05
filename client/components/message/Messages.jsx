@@ -5,12 +5,19 @@ import PropTypes from 'prop-types';
 import { sendUserMessage, getGroupMessages, sendMessageSuccess }
 from '../../actions/groupActions';
 import MessageForm from './MessageForm';
+
 /**
  * -Messages class
  * @class Messages
  * @extends {React.Component}
  */
 class Messages extends React.Component {
+
+  /**
+   * Creates an instance of Messages.
+   * @param {object} props
+   * @memberof Messages
+   */
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -20,40 +27,66 @@ class Messages extends React.Component {
       messagePriority: 'Normal',
     };
   }
+  /**
+   *
+   * @returns {void}
+   * @memberof Messages
+   */
   componentWillReceiveProps() {
     document.getElementById('scrollTo').scrollIntoView();
   }
+  /**
+   *
+   * @param {objet} event
+   * @returns {void}
+   * @memberof Messages
+   */
   handleChange(event) {
     const value = event.target.value;
     const name = event.target.name;
     this.setState({ [name]: value });
   }
+  /**
+   * @param {object} event
+   * @returns {void}
+   * @memberof Messages
+   */
   handleSubmit(event) {
     event.preventDefault();
     const groupId = this.props.groupId;
     this.props.sendUserMessage(groupId, this.state);
     this.setState({ messageBody: '' });
   }
+  /**
+   *
+   * @returns {object} -returns react element
+   * @memberof Messages
+   */
   render() {
     let groupMessages = '';
     if (this.props.sendMessageSuccess) {
       this.props.getMessages(this.props.groupId);
       this.props.setSendMessageSuccess(false);
     }
-    if (this.props.messages.messages) {
-      if (this.props.messages.messages.length > 0) {
+    if (this.props.messages) {
+      if (this.props.messages.length > 0) {
         groupMessages = (
           <ul>
             {
-              this.props.messages.messages.map(message => (
+              this.props.messages.map(message => (
                 <div className="single-message col s12" key={message.id}>
-                  <p><Link to="#">{message.user.username}</Link></p>
-                <p className="message-priority">
-                  <span>Message priority: </span>
-                  <small> {message.messagePriority}</small>
+                  <p>
+                    <Link to="#">
+                    {message.user.username}
+                    </Link>
                   </p>
-                  <p>{message.messageBody}</p>
-                  {/* <hr /> */}
+                  <p className="message-priority">
+                    <span>Message priority: </span>
+                    <small> {message.messagePriority}</small>
+                  </p>
+                  <p className="message-body" >
+                    {message.messageBody}
+                  </p>
                   <div className="clearfix" />
                 </div>
             ))
@@ -83,7 +116,6 @@ class Messages extends React.Component {
     }
     return (
       <div>
-        <h5 className="center"> Messages </h5>
         <div className="group-messages" >
           {groupMessages}
           <p>&nbsp; </p>
@@ -108,9 +140,8 @@ Messages.propTypes = {
 };
 const mapStateToProps = state => (
   {
-    message: state.postMessageReducer,
-    messages: state.getUserGroupMessages,
-    sendMessageSuccess: state.sendMessageSuccess,
+    messages: state.messageReducer.messages,
+    sendMessageSuccess: state.messageReducer.messageSent,
   }
 );
 

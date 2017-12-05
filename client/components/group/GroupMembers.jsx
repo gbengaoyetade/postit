@@ -1,24 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getGroupMembers, leaveGroup } from '../../actions/groupActions';
 
+/**
+ *
+ * @class GroupMembers
+ * @extends {React.Component}
+ */
 class GroupMembers extends React.Component {
-  constructor() {
-    super();
-  }
+/**
+ *
+ * @returns {void}
+ * @memberof GroupMembers
+ */
   componentDidMount() {
     const groupId = this.props.groupId;
     this.props.getGroupMembers(groupId);
   }
+/**
+ *
+ * @returns {object} -returns react element
+ * @memberof GroupMembers
+ */
   render() {
     let groupMembersList;
-    if (this.props.groupMembers.members) {
-      const members = this.props.groupMembers.members;
+    if (this.props.groupMembers) {
+      const members = this.props.groupMembers;
       groupMembersList = (<ul className="collection">
         {members.map(member => (
           <li key={member.id} className="collection-item center">
-            <a> {member.fullName} </a></li>
+            <Link to="#"> {member.fullName} </Link></li>
       ))
       }
       </ul>);
@@ -34,31 +47,19 @@ class GroupMembers extends React.Component {
         </div>
         <p className="center"> Group Members </p>
         {groupMembersList}
-        <div id="modal1" className="modal">
-          <div className="modal-content">
-            <p>Are you sure you want to leave Group?</p>
-          </div>
-          <div className="modal-footer">
-            <a
-              href="#"
-              className="modal-action modal-close waves-effect waves-green btn"
-              onClick={this.leaveGroup}
-            >Yes</a>
-            <a href="#" className=
-            "modal-action modal-close waves-effect waves-green btn red">No</a>
-          </div>
-        </div>
       </div>
     );
   }
-}
+  }
 GroupMembers.propTypes = {
-  leaveGroup: React.PropTypes.func.isRequired,
-  getGroupMembers: React.PropTypes.func.isRequired,
+  leaveGroup: PropTypes.func.isRequired,
+  getGroupMembers: PropTypes.func.isRequired,
+  groupId: PropTypes.number,
+  groupMembers: PropTypes.object,
 };
 const mapStateToProps = state => (
   {
-    groupMembers: state.getGroupMembers,
+    groupMembers: state.groupReducer.members,
   }
 );
 

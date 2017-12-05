@@ -1,11 +1,14 @@
 import React from 'react';
 import PropType from 'prop-types';
-
+/**
+ * @param {any} props
+ * @returns {object} -returns react element
+ */
 const MessageForm = props => (
   (
     <div>
         <div className="message-form" >
-        <form method="Post" className="" onSubmit={props.handleSubmit}>
+        <form method="Post" onSubmit={props.handleSubmit}>
             <div className="">
               <textarea
               placeholder="Enter message here"
@@ -35,7 +38,8 @@ const MessageForm = props => (
   )
 );
 MessageForm.propTypes = {
-  handleChange: PropType.func.isRequired,
-  handleSubmit: PropType.func.isRequired,
+  handleChange: PropType.func,
+  handleSubmit: PropType.func,
+  messageBody: PropType.string,
 };
 export default MessageForm;

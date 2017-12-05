@@ -19,6 +19,7 @@ class Login extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.state = {};
   }
 /**
  *
@@ -28,7 +29,7 @@ class Login extends React.Component {
   handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
-    this.props.user[name] = value;
+    this.setState({ [name]: value });
   }
   /**
    * @param {object} event - The event object
@@ -39,7 +40,7 @@ class Login extends React.Component {
     event.preventDefault();
     this.props.setLoginError('');
     this.props.setLoading(true);
-    this.props.loginUser(this.props.user, this.props.history);
+    this.props.loginUser(this.state, this.props.history);
   }
 
   /**
@@ -58,19 +59,19 @@ class Login extends React.Component {
   }
 }
 Login.propTypes = {
-  isLoading: Proptypes.bool.isRequired,
+  isLoading: Proptypes.bool,
   loginError: Proptypes.string,
   loginUser: Proptypes.func.isRequired,
   setLoginError: Proptypes.func.isRequired,
   setLoading: Proptypes.func.isRequired,
   history: Proptypes.object.isRequired,
-  user: Proptypes.object.isRequired,
+  user: Proptypes.object,
 };
 const mapStateToProps = state => (
   {
-    user: state.userAuth,
-    isLoading: state.loginLoading,
-    loginError: state.loginError,
+    user: state.authReducer.user,
+    isLoading: state.itemLoadingReducer.loginLoading,
+    loginError: state.authReducer.loginError,
   }
 );
 const mapDispatchToProps = dispatch => (

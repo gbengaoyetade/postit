@@ -14,6 +14,9 @@ import NewGroup from './group/CreateGroup';
 import Addmembers from './group/AddMembers';
 import ErrorPage from './errors/Error';
 
+/**
+ * @returns {object} -returns react element
+ */
 const Routes = () => (
   <BrowserRouter>
     <Switch>
@@ -25,7 +28,7 @@ const Routes = () => (
       <Route path="/email/sent" component={MailSent} />
       <Route path="/dashboard" component={AuthHoc(Dashboard)} />
       <Route exact path="/group/:groupId/addmembers"
-      component={AuthHoc(Addmembers)} />
+        component={AuthHoc(Addmembers)} />
       <Route exact path="/group/create" component={AuthHoc(NewGroup)} />
       <Route exact path="/group/:groupId" component={AuthHoc(Group)} />
       <Route exact path="/error" component={AuthHoc(ErrorPage)} />

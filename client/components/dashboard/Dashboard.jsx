@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import moment from 'moment';
 import { getGroups } from '../../actions/groupActions';
-import AppNav from '../navigation/AppNav';
+import AppNav from '../common/AppNav';
+
 /**
  * -Dashboard class
  * @class Dashboard
@@ -25,7 +26,9 @@ class Dashboard extends React.Component {
         groups.map(group => (
           <div className="postit-card col m3 s5" key={group.id}>
           <p className="header">
-            <Link to={`/group/${group.id}`}> {group.groupName}</Link>
+            <Link className="" to={`/group/${group.id}`}>
+            {group.groupName}
+            </Link>
           </p>
           <p>{group.groupDescription} </p>
           <p className="bottom-element">
@@ -59,10 +62,7 @@ Dashboard.propTypes = {
 
 const mapStateToProps = state => (
   {
-    groups: state.userGroupReducer,
-    userGroupSuccess: state.getUserGroupSuccess,
-    user: state.userAuth,
-    error: state.loginError,
+    groups: state.groupReducer,
   }
 );
 const mapDispatchToProps = dispatch => (
