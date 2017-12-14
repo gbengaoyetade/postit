@@ -58,7 +58,10 @@ const Login = (props) => {
           </Link>
         </p>
         <p className="center">
-          <Link to="/password/reset" className="waves-effect">
+          <Link
+          to="/password/reset"
+          id="password-reset"
+          className="waves-effect">
             Forgot password
           </Link>
         </p>

@@ -36,7 +36,7 @@ const AppNav = (props) => {
 
         <li className="big collapsible-header">
         <i className="material-icons">group_add</i>
-          <Link to="/group/create">
+          <Link to="/group/create" id="group-create">
            &nbsp;&nbsp;Create group
           </Link>
         </li>

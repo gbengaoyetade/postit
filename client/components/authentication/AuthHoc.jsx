@@ -29,6 +29,7 @@ export default (Component) => {
           <Link
           className='dropdown-button'
           to='#'
+          id="username"
           data-activates='userDropdown'
           >
             {user.username}

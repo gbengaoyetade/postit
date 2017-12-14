@@ -6,3 +6,4 @@ coverage/lcov-report/
 coverage/
 .DS_Store
 template/fonts
+reports/

@@ -57,7 +57,11 @@ class Home extends React.Component {
               ones and send prioritized
               messages to group members.
               </p>
-            <Link to="signup" className= "center btn light-blue darken-4">
+            <Link
+            to="signup"
+            id="get-started"
+            className= "center btn light-blue darken-4"
+            >
               Get Started
             </Link>
             <p className="clearfix" />

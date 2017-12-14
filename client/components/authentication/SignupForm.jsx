@@ -76,7 +76,7 @@ const SignupForm = (props) => {
               disabled={disabled}
               />
               <p className="center"> Already have and acount?
-                <Link to="login"> Login </Link>
+                <Link to="login" id="login"> Login </Link>
               </p>
               <p />
             </form>
