@@ -3,6 +3,7 @@ import validator from 'validator';
 /**
  *
  * @param {object} userInput -each the input field
+ *
  * @returns {object} -errors and isValid
  */
 const validateSignUpInput = (userInput) => {

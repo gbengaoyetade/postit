@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import axios from 'axios';
 import { Provider } from 'react-redux';
@@ -16,7 +15,5 @@ if (localStorage.getItem('postitToken')) {
 }
 render(
   <Provider store={store} history={history}>
-    <BrowserRouter >
       <Routes />
-    </BrowserRouter>
   </Provider>, document.getElementById('app'));

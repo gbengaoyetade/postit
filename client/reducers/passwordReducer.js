@@ -1,4 +1,4 @@
-const recoverPassword = (state = { passwordUpdated: false }, action) => {
+const passwordReducer = (state = { passwordUpdated: false }, action) => {
   switch (action.type) {
     case 'EMAIL_ERROR':
       return { ...state, emailError: action.emailError };
@@ -10,4 +10,4 @@ const recoverPassword = (state = { passwordUpdated: false }, action) => {
       return state;
   }
 };
-export default recoverPassword;
+export default passwordReducer;

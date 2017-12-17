@@ -7,13 +7,14 @@ import InputField from '../common/InputField';
 import SubmitButton from '../common/SubmitButton';
 import Nav from '../common/Nav';
 import { updatePassword } from '../../actions/passwordActions';
+
 /**
  *
  *
  * @class ChangePassword
  * @extends {React.Component}
  */
-class ChangePassword extends React.Component {
+export class ChangePassword extends React.Component {
 /**
  * Creates an instance of ChangePassword.
  * @memberof ChangePassword
@@ -62,7 +63,7 @@ class ChangePassword extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const search = new URLSearchParams(this.props.location.search);
-    const validate = this.validateForm(event);
+    const validate = this.validateForm();
     const token = search.get('token');
     if (validate) {
       this.props.updatePassword({ password: this.state.password }, token);
@@ -124,8 +125,8 @@ ChangePassword.propTypes = {
 };
 const mapStateToProps = state => (
   {
-    updatePasswordSuccess: state.recoverPassword.passwordUpdated,
-    error: state.recoverPassword,
+    updatePasswordSuccess: state.passwordReducer.passwordUpdated,
+    error: state.passwordReducer,
   }
 );
 const mapDispatchToProps = dispatch => (

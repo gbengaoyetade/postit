@@ -40,4 +40,12 @@ describe('Group reducer', () => {
     expect(groupReducer(undefined, action))
     .toEqual({ ...initialState, leftGroup: true });
   });
+  it('should handle CREATE_GROUP_ERROR action', () => {
+    const action = {
+      type: 'CREATE_GROUP_ERROR',
+      groupError: 'error'
+    };
+    expect(groupReducer(undefined, action))
+    .toEqual({ ...initialState, groupError: 'error' });
+  });
 });

@@ -9,7 +9,7 @@ import RecoverPasswordPage from './RecoverPasswordPage';
  * @class RecoverPassword
  * @extends {React.Component}
  */
-class RecoverPassword extends React.Component {
+export class RecoverPassword extends React.Component {
   /**
    * -Creates an instance of RecoverPassword.
    * @param {object} props - react props
@@ -71,8 +71,8 @@ RecoverPassword.propTypes = {
 
 const mapStateToProps = state => (
   {
-    email: state.recoverPassword,
-    error: state.recoverPassword,
+    email: state.passworReducer,
+    error: state.passworReducer,
     sending: state.itemLoadingReducer.sendingMail,
   }
 );
