@@ -1,34 +1,37 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import db from '../models/index';
+import database from '../models/index';
 import transporter from '../config/mail.config';
 import validateSignUpInput from '../shared/validateSignUpInput';
-import { checkParams, getId, generateToken, encryptPassword }
-from '../includes/functions';
+import {
+  checkParams,
+  getId,
+  generateToken,
+  encryptPassword } from '../includes/helperFunctions';
 
 dotenv.load();
 const APP_URL = process.env.APP_URL;
-const User = db.users;
-const groupMembers = db.groupMembers;
+const User = database.users;
+const groupMembers = database.groupMembers;
 const secret = process.env.TOKEN_SECRET;
 
 /**
  * @function
  * @name signUp
- * @param {object} req
- * @param {object} res
+ * @param {object} req -request object
+ * @param {object} res -response object
  * @returns {void} -returns nothing
  */
 export const signUp = (req, res) => {
   const requiredFields = [
     'username', 'email', 'password', 'fullName', 'phoneNumber'];
     // Check if req.body contains required fields
-
   const validateInputResponse = checkParams(req.body, requiredFields);
-  if (validateInputResponse === 'ok') {
+  if (validateInputResponse !== 'ok') {
+    res.status(400).send({ error: validateInputResponse });
+  } else {
     // Validate input if it contains required fields
-
     const { errors, isValid } = validateSignUpInput(req.body);
     if (isValid) {
       // if input is valid, create user
@@ -80,22 +83,22 @@ export const signUp = (req, res) => {
     } else {
       res.status(400).json({ error: errors });
     }
-  } else {
-    res.status(400).send({ error: validateInputResponse });
   }
 }; // end of signup
 
 /**
  * @function
  * @name signIn
- * @param {object} req
- * @param {object} res
+ * @param {object} req -request object
+ * @param {object} res -response object
  * @returns {void} -returns nothing
  */
 export const signIn = (req, res) => {
   const requiredFields = ['username', 'password'];
   const validateInputResponse = checkParams(req.body, requiredFields);
-  if (validateInputResponse === 'ok') {
+  if (validateInputResponse !== 'ok') {
+    res.status(400).send({ error: validateInputResponse });
+  } else {
     User.findOne({
       where: {
         $or: [{ username: req.body.username }, { email: req.body.username }]
@@ -128,22 +131,23 @@ export const signIn = (req, res) => {
   .catch((error) => {
     res.status(500).send(error.message);
   });
-  } else {
-    res.status(400).send({ error: validateInputResponse });
   }
 }; // end of signIn
 /**
  * @function
  * @name resetPassword
- * @param {object} req
- * @param {object} res
+ * @param {object} req -request object
+ * @param {object} res -response object
  * @returns {void} -returns nothing
  */
 export const resetPassword = (req, res) => {
   const requiredFields = ['email'];
   const validateInputResponse = checkParams(req.body, requiredFields);
   const email = req.body.email;
-  if (validateInputResponse === 'ok') {
+  if (validateInputResponse !== 'ok') {
+    res.status(400).send({
+      error: validateInputResponse, message: 'Parameter not well structured' });
+  } else {
     User.findOne({
       where: { email },
     })
@@ -176,30 +180,31 @@ export const resetPassword = (req, res) => {
           error: 'Email address does not exist on Postit' });
       }
     })
-    .catch(() => {
-      res.status(500).send({
-        error: 'Cannot process your request at the moment' });
+    .catch((error) => {
+      res.status(500).send(error.message);
     });
-  } else {
-    res.status(400).send({
-      error: validateInputResponse, message: 'Parameter not well structured' });
   }
 };
 /**
  * @function
  * @name updatePassword
- * @param {object} req -request
- * @param {object} res -response
+ * @param {object} req -request object
+ * @param {object} res -response object
  * @returns {void} -returns nothing
  */
 export const updatePassword = (req, res) => {
   // Check if password field was provided
   const requiredFields = ['password'];
   const validateInputResponse = checkParams(req.body, requiredFields);
-  if (validateInputResponse === 'ok') {
+  if (validateInputResponse !== 'ok') {
+    res.status(400).send({ error: validateInputResponse });
+  } else {
     // Check if URL contians parameter token
     const userToken = req.query.token;
-    if (userToken) {
+    if (!userToken) {
+      // Token not provided response
+      res.status(400).send({ error: 'No token provided' });
+    } else {
       let userId;
       // Verify user token
       jwt.verify(userToken, secret, (error) => {
@@ -214,7 +219,7 @@ export const updatePassword = (req, res) => {
             { where: { id: userId } },
           )
           .then((updateValue) => {
-            if (updateValue[0] === 1) {
+            if (updateValue[0]) {
               User.findOne(({
                 where: { id: userId },
                 attributes: {
@@ -230,31 +235,26 @@ export const updatePassword = (req, res) => {
                 error: 'Password not updated. Try again' });
             }
           })
-          .catch(() => {
-            res.status(500).send({
-              error: 'Could not update password at the moment' });
+          .catch((updateError) => {
+            res.status(500).send({ error: updateError.message });
           });
         }
       });
-    } else { // Token not provided response
-      res.status(400).send({ error: 'No token provided' });
     }
-  } else { // Password field not provided response
-    res.status(400).send({ error: validateInputResponse });
   }
 };
 /**
  * @function
  * @name userSearch
- * @param {object} req -request
- * @param {object} res -response
+ * @param {object} req -request object
+ * @param {object} res -response object
  * @returns {void} - returns nothing
  */
 export const userSearch = (req, res) => {
   const query = req.query.query.toLowerCase();
   const offset = req.query.offset;
   const limit = req.query.limit || 10;
-  db.users.findAndCountAll({
+  database.users.findAndCountAll({
     where: {
       $or: [{
         username: { like: `%${query}%` },
@@ -274,5 +274,8 @@ export const userSearch = (req, res) => {
       users: result.rows,
     };
     res.send(pagination);
+  })
+  .catch((error) => {
+    res.status(500).send({ error: error.message });
   });
 };

@@ -22,6 +22,7 @@ export const checkParams = (request, requiredFields) => {
   return 'ok';
 };
 
+// export const checkDataTypes = ()
 /**
  * -decodes user id from token
  *
@@ -47,7 +48,7 @@ export const generateToken = (userDetails) => {
     phoneNumber: userDetails.phoneNumber,
   },
     secret,
-    { expiresIn: 60 * 60 * 24 * 365 },
+    { expiresIn: 60 * 60 * 24 },
     );
   return userToken;
 };
