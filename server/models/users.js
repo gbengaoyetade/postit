@@ -34,9 +34,6 @@ export default (sequelize, DataTypes) => {
       validate: {
         notEmpty: { value: true, msg: 'Phonenumber is required' },
       },
-      // validate: {
-      //   isMobilePhone: { value: true, msg: 'Invalid phone number supplied' },
-      // },
     },
     password: {
       type: DataTypes.STRING,

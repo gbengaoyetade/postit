@@ -7,11 +7,6 @@ import PropTypes from 'prop-types';
  * @returns {object} -returns react element
  */
 const Nav = (props) => {
-  const logout = () => {
-    localStorage.removeItem('postitUser');
-    localStorage.removeItem('postitToken');
-    props.history.push('/login');
-  };
   // Check where postit logo links to.
   // It should link to dashboard if user is signed in, otherwise, landing page.
   let postitLink;
@@ -23,11 +18,6 @@ const Nav = (props) => {
   return (
   <div className="row">
       <nav className="transparent col-s12">
-        <ul id='userDropdown' className='dropdown-content'>
-          <li>
-            <a href="#" onClick={logout}>Logout</a>
-          </li>
-        </ul>
         <div className="nav-wrapper">
         <div>
           <div className="col s2 offset-s1">

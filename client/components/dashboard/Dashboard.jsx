@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { getGroups } from '../../actions/groupActions';
 import AppNav from '../common/AppNav';
 
 /**
@@ -11,7 +10,7 @@ import AppNav from '../common/AppNav';
  * @class Dashboard
  * @extends {React.Component}
  */
-class Dashboard extends React.Component {
+export class Dashboard extends React.Component {
   /**
    * -render fucntion
    * @returns {object} -jsx
@@ -65,12 +64,5 @@ const mapStateToProps = state => (
     groups: state.groupReducer,
   }
 );
-const mapDispatchToProps = dispatch => (
-  {
-    getGroups: () => {
-      dispatch(getGroups());
-    },
-  }
-);
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Dashboard));
+
+export default connect(mapStateToProps, null)(Dashboard);

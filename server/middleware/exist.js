@@ -1,15 +1,15 @@
-import db from '../models/index';
-import { checkParams, getId } from '../includes/functions';
+import database from '../models/index';
+import { checkParams, getId } from '../includes/helperFunctions';
 
-const Users = db.users;
-const Groups = db.groups;
+const Users = database.users;
+const Groups = database.groups;
 
 /**
  *
  *
- * @param {object} req
- * @param {object} res
- * @param {function} next
+ * @param {object} req -request object
+ * @param {object} res -response object
+ * @param {function} next -function to call next route
  * @returns {void} -returns nothing
  */
 export const groupAndUserExist = (req, res, next) => {
@@ -55,8 +55,8 @@ export const groupAndUserExist = (req, res, next) => {
 /**
  *
  *
- * @param {object} req
- * @param {object} res
+ * @param {object} req -request object
+ * @param {object} res -response object
  * @param {function} next
  * @returns {void} -returns nothing
  */
@@ -66,11 +66,10 @@ export const groupExist = (req, res, next) => {
     Groups.findOne({
       where: { id: groupId },
     })
-
   .then((group) => {
     if (group) {
       const userId = getId(req.headers['x-access-token']);
-      db.groupMembers.findOne({
+      database.groupMembers.findOne({
         where: { userId, groupId },
       })
       .then((member) => {
@@ -86,8 +85,8 @@ export const groupExist = (req, res, next) => {
       res.status(400).json({ error: 'Group does not exist' });
     }
   })
-  .catch(() => {
-    res.status(500).json({ error: 'Could not find group' });
+  .catch((error) => {
+    res.status(500).json(error.message);
   });
   } else {
     res.status(400).json({ error: 'groupId is not a number' });

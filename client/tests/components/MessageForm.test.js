@@ -8,6 +8,6 @@ describe('MessageForm component ', () => {
     messageBody: 'this is a message',
   };
   it('should render correctly', () => {
-    expect(shallow(<MessageForm />)).toMatchSnapshot();
+    expect(shallow(<MessageForm { ...props}/>)).toMatchSnapshot();
   });
 });

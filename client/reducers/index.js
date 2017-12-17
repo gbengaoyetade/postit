@@ -3,7 +3,7 @@ import itemLoadingReducer from './itemLoadingReducer';
 import authReducer from './authReducer';
 import groupReducer from './groupReducer';
 import messageReducer from './messageReducer';
-import recoverPassword from './passwordReducer';
+import passwordReducer from './passwordReducer';
 import searchReducer from './searchReducer';
 
 export default combineReducers({
@@ -12,5 +12,5 @@ export default combineReducers({
   authReducer,
   messageReducer,
   groupReducer,
-  recoverPassword,
+  passwordReducer,
 });

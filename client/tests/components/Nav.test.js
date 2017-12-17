@@ -3,8 +3,8 @@ import 'mock-local-storage';
 import Nav from '../../components/common/Nav';
 
 describe('Nav component', () => {
-  it('should render correctly', () => {
+  it('should contain one nav tag', () => {
     const NavWrapper = shallow(<Nav />);
-    expect(NavWrapper).toMatchSnapshot();
+    expect(NavWrapper.find('nav').length).toBe(1);
   });
 });

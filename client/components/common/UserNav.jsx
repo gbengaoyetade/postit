@@ -23,17 +23,18 @@ const UserNav = (props) => {
         <div className="nav-wrapper">
         <div>
           {/* Mobile links */}
-            <ul id="user-slide-out" className="side-nav">
-              <p />
-              <li><Link to="/dashboard">Dashboard</Link></li>
-              <li><Link to="/group/create">Create Group</Link></li>
-            </ul>
-            <Link
-              to="#"
-              data-activates="user-slide-out"
-              className="left button-collapse hide-on-med-and-up ">
-              <i className="material-icons">menu</i>
-            </Link>
+          <ul id="slide-out" className="side-nav grey">
+          <p />
+          <li><Link to="/dashboard">Dashboard</Link></li>
+          <li><Link to="/group/create">Create Group</Link></li>
+        </ul>
+      <Link
+        to="#"
+        data-activates="slide-out"
+        className="button-collapse"
+      >
+        <i className="material-icons">menu</i>
+      </Link>
           <div className="col s2 ">
             <span className="left brand-logo hide-on-med-and-down">
               Postit

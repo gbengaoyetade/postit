@@ -1,7 +1,9 @@
 import React from 'react';
 import 'mock-local-storage';
+import { StaticRouter } from 'react-router-dom';
 
 import SignupForm from '../../components/authentication/SignupForm';
+import SubmitButton from '../../components/common/SubmitButton';
 
 describe('SignupForm component ', () => {
   it('should render correctly', () => {
@@ -13,15 +15,21 @@ describe('SignupForm component ', () => {
     expect(shallow(
     <SignupForm {...props} />)).toMatchSnapshot();
   });
-  it('should accept isLoading props', () => {
+  it('should render differently when props loading is true', () => {
     const props = {
       errors: {},
       handleChange: () => {},
       handleSubmit: () => {},
-      isLoading: true
+      loading: true
     };
-    const wrapper = mount(<SignupForm {...props} />);
-    console.log(wrapper.prop('isLoading'), '------------------');
-    expect(wrapper.prop('isLoading')).toEqual(true);
+    const wrapper = mount(
+      <StaticRouter>
+        <SignupForm {...props} />
+      </StaticRouter>
+    );
+    expect(wrapper.find('input[type="submit"]').props().disabled)
+    .toEqual('disabled');
+    expect(wrapper.find('input[type="submit"]').props().value)
+    .toEqual('Signing up...');
   });
 });

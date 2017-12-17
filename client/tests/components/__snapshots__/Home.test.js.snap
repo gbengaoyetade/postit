@@ -1,0 +1,667 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Home />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <Nav
+          rightLink={
+            <div>
+              <ul
+                className="hide-on-med-and-down"
+              >
+                <li>
+                  <Link
+                    className=""
+                    replace={false}
+                    to="/login"
+                  >
+                     Login 
+                  </Link>
+                   
+                </li>
+                <li>
+                  <Link
+                    className=""
+                    replace={false}
+                    to="/signup"
+                  >
+                     Signup 
+                  </Link>
+                   
+                </li>
+              </ul>
+              <div
+                className="hide-on-med-and-up"
+              >
+                <ul
+                  className="dropdown-content"
+                  id="authDropdown"
+                >
+                  <li>
+                    <a
+                      href="/login"
+                    >
+                      Login
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/Signup"
+                    >
+                      Signup
+                    </a>
+                  </li>
+                </ul>
+                <Link
+                  className="dropdown-button"
+                  data-activates="authDropdown"
+                  replace={false}
+                  to="#"
+                >
+                  <i
+                    className="material-icons"
+                  >
+                    menu
+                  </i>
+                </Link>
+              </div>
+            </div>
+          }
+        />,
+        <div
+          className="centralized-div row"
+        >
+          <div
+            className="col m4 offset-m3 s10 offset-s1"
+          >
+            <h1
+              className="bold-font"
+            >
+               Built for
+            </h1>
+            <h2
+              className="bold-font"
+            >
+              Group messaging
+            </h2>
+            <p
+              className="postit-text"
+            >
+              Postit allows you communicate within the scope of a group. You get to create groups, join existing ones and send prioritized messages to group members.
+            </p>
+            <Link
+              className="center btn light-blue darken-4"
+              replace={false}
+              to="signup"
+            >
+              Get Started
+            </Link>
+            <p
+              className="clearfix"
+            />
+          </div>
+        </div>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "rightLink": <div>
+            <ul
+              className="hide-on-med-and-down"
+            >
+              <li>
+                <Link
+                  className=""
+                  replace={false}
+                  to="/login"
+                >
+                   Login 
+                </Link>
+                 
+              </li>
+              <li>
+                <Link
+                  className=""
+                  replace={false}
+                  to="/signup"
+                >
+                   Signup 
+                </Link>
+                 
+              </li>
+            </ul>
+            <div
+              className="hide-on-med-and-up"
+            >
+              <ul
+                className="dropdown-content"
+                id="authDropdown"
+              >
+                <li>
+                  <a
+                    href="/login"
+                  >
+                    Login
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/Signup"
+                  >
+                    Signup
+                  </a>
+                </li>
+              </ul>
+              <Link
+                className="dropdown-button"
+                data-activates="authDropdown"
+                replace={false}
+                to="#"
+              >
+                <i
+                  className="material-icons"
+                >
+                  menu
+                </i>
+              </Link>
+            </div>
+          </div>,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="col m4 offset-m3 s10 offset-s1"
+          >
+            <h1
+              className="bold-font"
+            >
+               Built for
+            </h1>
+            <h2
+              className="bold-font"
+            >
+              Group messaging
+            </h2>
+            <p
+              className="postit-text"
+            >
+              Postit allows you communicate within the scope of a group. You get to create groups, join existing ones and send prioritized messages to group members.
+            </p>
+            <Link
+              className="center btn light-blue darken-4"
+              replace={false}
+              to="signup"
+            >
+              Get Started
+            </Link>
+            <p
+              className="clearfix"
+            />
+          </div>,
+          "className": "centralized-div row",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <h1
+                className="bold-font"
+              >
+                 Built for
+              </h1>,
+              <h2
+                className="bold-font"
+              >
+                Group messaging
+              </h2>,
+              <p
+                className="postit-text"
+              >
+                Postit allows you communicate within the scope of a group. You get to create groups, join existing ones and send prioritized messages to group members.
+              </p>,
+              <Link
+                className="center btn light-blue darken-4"
+                replace={false}
+                to="signup"
+              >
+                Get Started
+              </Link>,
+              <p
+                className="clearfix"
+              />,
+            ],
+            "className": "col m4 offset-m3 s10 offset-s1",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": " Built for",
+                "className": "bold-font",
+              },
+              "ref": null,
+              "rendered": " Built for",
+              "type": "h1",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Group messaging",
+                "className": "bold-font",
+              },
+              "ref": null,
+              "rendered": "Group messaging",
+              "type": "h2",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Postit allows you communicate within the scope of a group. You get to create groups, join existing ones and send prioritized messages to group members.",
+                "className": "postit-text",
+              },
+              "ref": null,
+              "rendered": "Postit allows you communicate within the scope of a group. You get to create groups, join existing ones and send prioritized messages to group members.",
+              "type": "p",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "Get Started",
+                "className": "center btn light-blue darken-4",
+                "replace": false,
+                "to": "signup",
+              },
+              "ref": null,
+              "rendered": "Get Started",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "clearfix",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "p",
+            },
+          ],
+          "type": "div",
+        },
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <Nav
+            rightLink={
+              <div>
+                <ul
+                  className="hide-on-med-and-down"
+                >
+                  <li>
+                    <Link
+                      className=""
+                      replace={false}
+                      to="/login"
+                    >
+                       Login 
+                    </Link>
+                     
+                  </li>
+                  <li>
+                    <Link
+                      className=""
+                      replace={false}
+                      to="/signup"
+                    >
+                       Signup 
+                    </Link>
+                     
+                  </li>
+                </ul>
+                <div
+                  className="hide-on-med-and-up"
+                >
+                  <ul
+                    className="dropdown-content"
+                    id="authDropdown"
+                  >
+                    <li>
+                      <a
+                        href="/login"
+                      >
+                        Login
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/Signup"
+                      >
+                        Signup
+                      </a>
+                    </li>
+                  </ul>
+                  <Link
+                    className="dropdown-button"
+                    data-activates="authDropdown"
+                    replace={false}
+                    to="#"
+                  >
+                    <i
+                      className="material-icons"
+                    >
+                      menu
+                    </i>
+                  </Link>
+                </div>
+              </div>
+            }
+          />,
+          <div
+            className="centralized-div row"
+          >
+            <div
+              className="col m4 offset-m3 s10 offset-s1"
+            >
+              <h1
+                className="bold-font"
+              >
+                 Built for
+              </h1>
+              <h2
+                className="bold-font"
+              >
+                Group messaging
+              </h2>
+              <p
+                className="postit-text"
+              >
+                Postit allows you communicate within the scope of a group. You get to create groups, join existing ones and send prioritized messages to group members.
+              </p>
+              <Link
+                className="center btn light-blue darken-4"
+                replace={false}
+                to="signup"
+              >
+                Get Started
+              </Link>
+              <p
+                className="clearfix"
+              />
+            </div>
+          </div>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "rightLink": <div>
+              <ul
+                className="hide-on-med-and-down"
+              >
+                <li>
+                  <Link
+                    className=""
+                    replace={false}
+                    to="/login"
+                  >
+                     Login 
+                  </Link>
+                   
+                </li>
+                <li>
+                  <Link
+                    className=""
+                    replace={false}
+                    to="/signup"
+                  >
+                     Signup 
+                  </Link>
+                   
+                </li>
+              </ul>
+              <div
+                className="hide-on-med-and-up"
+              >
+                <ul
+                  className="dropdown-content"
+                  id="authDropdown"
+                >
+                  <li>
+                    <a
+                      href="/login"
+                    >
+                      Login
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/Signup"
+                    >
+                      Signup
+                    </a>
+                  </li>
+                </ul>
+                <Link
+                  className="dropdown-button"
+                  data-activates="authDropdown"
+                  replace={false}
+                  to="#"
+                >
+                  <i
+                    className="material-icons"
+                  >
+                    menu
+                  </i>
+                </Link>
+              </div>
+            </div>,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="col m4 offset-m3 s10 offset-s1"
+            >
+              <h1
+                className="bold-font"
+              >
+                 Built for
+              </h1>
+              <h2
+                className="bold-font"
+              >
+                Group messaging
+              </h2>
+              <p
+                className="postit-text"
+              >
+                Postit allows you communicate within the scope of a group. You get to create groups, join existing ones and send prioritized messages to group members.
+              </p>
+              <Link
+                className="center btn light-blue darken-4"
+                replace={false}
+                to="signup"
+              >
+                Get Started
+              </Link>
+              <p
+                className="clearfix"
+              />
+            </div>,
+            "className": "centralized-div row",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <h1
+                  className="bold-font"
+                >
+                   Built for
+                </h1>,
+                <h2
+                  className="bold-font"
+                >
+                  Group messaging
+                </h2>,
+                <p
+                  className="postit-text"
+                >
+                  Postit allows you communicate within the scope of a group. You get to create groups, join existing ones and send prioritized messages to group members.
+                </p>,
+                <Link
+                  className="center btn light-blue darken-4"
+                  replace={false}
+                  to="signup"
+                >
+                  Get Started
+                </Link>,
+                <p
+                  className="clearfix"
+                />,
+              ],
+              "className": "col m4 offset-m3 s10 offset-s1",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": " Built for",
+                  "className": "bold-font",
+                },
+                "ref": null,
+                "rendered": " Built for",
+                "type": "h1",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Group messaging",
+                  "className": "bold-font",
+                },
+                "ref": null,
+                "rendered": "Group messaging",
+                "type": "h2",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Postit allows you communicate within the scope of a group. You get to create groups, join existing ones and send prioritized messages to group members.",
+                  "className": "postit-text",
+                },
+                "ref": null,
+                "rendered": "Postit allows you communicate within the scope of a group. You get to create groups, join existing ones and send prioritized messages to group members.",
+                "type": "p",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "Get Started",
+                  "className": "center btn light-blue darken-4",
+                  "replace": false,
+                  "to": "signup",
+                },
+                "ref": null,
+                "rendered": "Get Started",
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "clearfix",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "p",
+              },
+            ],
+            "type": "div",
+          },
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactFifteenAdapter {
+      "options": Object {
+        "supportPrevContextArgumentOfComponentDidUpdate": true,
+      },
+    },
+  },
+}
+`;
