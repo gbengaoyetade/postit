@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import AppNav from '../common/AppNav';
 
 /**
- * @param {object} props
- * @returns {object} -returns react element
+ * @description create group form component
+ *
+ * @param { object } props -prop object
+ *
+ * @returns { object } -returns react element
  */
 const CreateGroupForm = props => (
   (

@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import Nav from '../common/Nav';
 
 /**
+ * @description MailSent object
  *
- * @returns {object} -returns react element
+ * @returns { object } -returns react element
  */
 const MailSent = () => (
   <div className="row">

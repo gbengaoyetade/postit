@@ -14,6 +14,6 @@ if (localStorage.getItem('postitToken')) {
   localStorage.getItem('postitToken');
 }
 render(
-  <Provider store={store} history={history}>
+  <Provider store={store}>
       <Routes />
   </Provider>, document.getElementById('app'));

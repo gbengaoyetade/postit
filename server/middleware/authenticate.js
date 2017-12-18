@@ -5,12 +5,13 @@ dotenv.load();
 const secret = process.env.TOKEN_SECRET;
 
 /**
+ * @description Does token verification
  *
+ * @param { object } req -request object
+ * @param { object } res -response object
+ * @param { function } next -next
  *
- * @param {object} req
- * @param {object} res
- * @param {function} next
- * @returns {void} -returns nothing
+ * @returns { void } -returns nothing
  */
 const authenticate = (req, res, next) => {
   const userToken = req.query.token || req.headers['x-access-token'];

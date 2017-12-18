@@ -27,7 +27,6 @@ describe('Group component', () => {
     wrapper.setProps({ leftGroup: true });
     wrapper.instance().componentWillUpdate();
     wrapper.setState({ name: 'gbenga' });
-    console.log(wrapper.state());
     expect(spy).toBeDefined();
   });
 });

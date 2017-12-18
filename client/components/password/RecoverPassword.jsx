@@ -5,16 +5,18 @@ import { recoverPassword } from '../../actions/passwordActions';
 import RecoverPasswordPage from './RecoverPasswordPage';
 
 /**
- * -Recover password class
  * @class RecoverPassword
- * @extends {React.Component}
+ *
+ * @extends { React.Component }
  */
 export class RecoverPassword extends React.Component {
+
   /**
-   * -Creates an instance of RecoverPassword.
-   * @param {object} props - react props
-   * @returns {void} - return nothing
-   * @memberof RecoverPassword
+   * @description Creates an instance of RecoverPassword.
+   *
+   * @param { object } props - react props
+   *
+   * @returns { void } - return nothing
    */
   constructor(props) {
     super(props);
@@ -25,30 +27,33 @@ export class RecoverPassword extends React.Component {
     };
   }
   /**
-   * Handles form submiting
-   * @param {object} event - event object
-   * @returns {void} - return nothing
-   * @memberof RecoverPassword
+   * @description Handles form submission
+   *
+   * @param { object } event -event object
+   *
+   * @returns { void } -return nothing
    */
   handleSubmit(event) {
     event.preventDefault();
     this.props.sendEmail(this.state);
   }
   /**
-   * Handles change in form input
-   * @param {object} event -event object
-   * @returns {void} - return nothing
-   * @memberof RecoverPassword
+   * @description Handles onChange event
+   *
+   * @param { object } event -event object
+   *
+   * @returns { void } - return nothing
    */
   handleChange(event) {
     const value = event.target.value;
     const name = event.target.name;
     this.setState({ [name]: value });
   }
+
   /**
-   * -React render function
-   * @returns {object} -jsx
-   * @memberof RecoverPassword
+   * @description render function
+   *
+   * @returns { object } -returns react element
    */
   render() {
     return (

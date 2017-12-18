@@ -1,6 +1,7 @@
 import validator from 'validator';
 
 /**
+ * Validates user input to the signup form
  *
  * @param {object} userInput -each the input field
  *

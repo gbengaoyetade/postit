@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import UserGroups from '../group/UserGroups';
 
+/**
+ * @description AppNav component. It contains links
+ * to app functionalities
+ *
+ * @param { object } props
+ *
+ * @returns { object } react element
+ */
 const AppNav = (props) => {
   let appHeader;
   if (props.useHeader) {

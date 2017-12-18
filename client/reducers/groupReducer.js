@@ -1,4 +1,11 @@
-
+/**
+ * @description reducer for group actions
+ *
+ * @param { object } state
+ * @param { object } action
+ *
+ * @returns { object } returns state object
+ */
 const groupReducer = (state =
   { leftGroup: false, memberAdded: false },
   action) => {

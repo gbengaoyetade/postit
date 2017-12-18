@@ -6,14 +6,17 @@ import { loginUser, loginLoading, loginError }
 from '../../actions/userAuthActions';
 
 /**
- * @description -Login Class
+ *
+ * @class Signup
+ * @extends { React.Component }
  */
 class Login extends React.Component {
   /**
-   * Creates an instance of Login.
-   * @param {object} props -react props
-   * @memberof Login
-   * @returns {void}
+   * @description Creates an instance of Login.
+   *
+   * @param { object } props -prop object
+   *
+   * @returns { void }
    */
   constructor(props) {
     super(props);
@@ -23,8 +26,8 @@ class Login extends React.Component {
   }
 /**
  *
- * @param {object} event -event element
- * @returns {void} -return nothing
+ * @param { object } event -event element
+ * @returns { void } -return nothing
  */
   handleChange(event) {
     const name = event.target.name;
@@ -32,8 +35,8 @@ class Login extends React.Component {
     this.setState({ [name]: value });
   }
   /**
-   * @param {object} event - The event object
-   * @returns {void}
+   * @param { object } event - The event object
+   * @returns { void }
    * @memberof Login
    */
   handleSubmit(event) {
@@ -44,7 +47,7 @@ class Login extends React.Component {
   }
 
   /**
-   * @returns {object} -returns a react element
+   * @returns { object } -returns a react element
    * @memberof Login
    */
   render() {

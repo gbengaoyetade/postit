@@ -6,17 +6,17 @@ import UserNav from '../common/UserNav';
 
 export default (Component) => {
   let user, rightLinkObject;
+
   /**
    *
-   *
    * @class AuthHoc
-   * @extends {React.Component}
+   *
+   * @extends { React.Component }
    */
   class AuthHoc extends React.Component {
     /**
      *
-     * @returns {void}
-     * @memberof AuthHoc
+     * @returns { void } -returns nothing
      */
     componentWillMount() {
       if (!localStorage.getItem('postitToken')) {
@@ -38,7 +38,8 @@ export default (Component) => {
     }
     /**
      *
-     * @return {void}
+     * @return { void }
+     *
      * @memberof AuthHoc
      */
     componentWillUpdate() {
@@ -47,10 +48,9 @@ export default (Component) => {
       $('.collapsible').collapsible();
     }
     /**
+     * @description render function
      *
-     *
-     * @returns {object} -returns react element
-     * @memberof AuthHoc
+     * @returns { object } -returns react element
      */
     render() {
       return (

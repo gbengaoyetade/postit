@@ -1,7 +1,12 @@
 import React from 'react';
 import PropType from 'prop-types';
+
+
 /**
- * @param {any} props
+ * @description MessageForm component
+ *
+ * @param { object } props -prop object
+ *
  * @returns {object} -returns react element
  */
 const MessageForm = props => (

@@ -7,23 +7,25 @@ import { getGroupMembers, leaveGroup } from '../../actions/groupActions';
 /**
  *
  * @class GroupMembers
+ *
  * @extends {React.Component}
  */
 class GroupMembers extends React.Component {
+
 /**
  *
- * @returns {void}
- * @memberof GroupMembers
+ * @returns { void }
  */
   componentDidMount() {
     const groupId = this.props.groupId;
     this.props.getGroupMembers(groupId);
   }
-/**
- *
- * @returns {object} -returns react element
- * @memberof GroupMembers
- */
+
+  /**
+   * @description render function
+   * 
+   * @returns { object } -returns react element
+   */
   render() {
     let groupMembersList;
     if (this.props.groupMembers) {

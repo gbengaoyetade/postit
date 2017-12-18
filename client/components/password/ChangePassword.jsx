@@ -10,15 +10,17 @@ import { updatePassword } from '../../actions/passwordActions';
 
 /**
  *
- *
  * @class ChangePassword
- * @extends {React.Component}
+ *
+ * @extends { React.Component }
  */
-export class ChangePassword extends React.Component {
-/**
- * Creates an instance of ChangePassword.
- * @memberof ChangePassword
- */
+class ChangePassword extends React.Component {
+
+  /**
+   * @description Creates an instance of ChangePassword.
+   *
+   * @returns { void } -returns nothing
+   */
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,10 +31,11 @@ export class ChangePassword extends React.Component {
       confirmPassword: '',
     };
   }
+
   /**
+   * @description form validation function
    *
-   * @returns {boolean} -
-   * @memberof ChangePassword
+   * @returns { boolean } returns boolean
    */
   validateForm() {
     if (this.state.password.length < 6) {
@@ -46,9 +49,11 @@ export class ChangePassword extends React.Component {
     }
   }
   /**
-   * @param {object} event
-   * @returns {void}
-   * @memberof ChangePassword
+   * @description handles onChange event
+   *
+   * @param { object } event -event object
+   *
+   * @returns { void }
    */
   handleChange(event) {
     const name = event.target.name;
@@ -56,9 +61,11 @@ export class ChangePassword extends React.Component {
     this.setState({ [name]: value });
   }
   /**
-   * @param {object} event
-   * @returns {void}
-   * @memberof ChangePassword
+   * @description handles form submission
+   *
+   * @param { object } event -event object
+   *
+   * @returns { void }
    */
   handleSubmit(event) {
     event.preventDefault();
@@ -71,8 +78,9 @@ export class ChangePassword extends React.Component {
   }
 
   /**
-   * @returns {object} -returns react element
-   * @memberof ChangePassword
+   * @description render function
+   *
+   * @returns { object } -returns react element
    */
   render() {
     if (this.props.updatePasswordSuccess) {

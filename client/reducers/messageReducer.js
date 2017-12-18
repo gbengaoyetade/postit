@@ -1,3 +1,11 @@
+/**
+ * @description reducer for message actions
+ *
+ * @param { object } state
+ * @param { object } action
+ *
+ * @returns { object } returns state object
+ */
 const messageReducer = (state = {}, action) => {
   switch (action.type) {
     case 'GET_USER_GROUP_MESSAGES':

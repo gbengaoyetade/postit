@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /**
+ * @description Nav component
+ *
  * @param {object} props
+ *
  * @returns {object} -returns react element
  */
 const Nav = (props) => {

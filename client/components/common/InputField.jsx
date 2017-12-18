@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- *
+ * @description InputField component
  *
  * @param {object} props
+ *
  * @returns {object} -returns react element
  */
 const InputField = props => (

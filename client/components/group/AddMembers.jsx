@@ -10,16 +10,18 @@ from '../../actions/groupActions';
 
 /**
  *
- *
  * @class AddMembers
- * @extends {React.Component}
+ *
+ * @extends { React.Component }
  */
 class AddMembers extends React.Component {
 
   /**
-   * Creates an instance of AddMembers.
-   * @param {object} props - react props
-   * @returns {void}
+   * @description Creates an instance of AddMembers.
+   *
+   * @param { object } props -react props
+   *
+   * @returns { void } -returns nothing
    */
   constructor(props) {
     super(props);
@@ -28,20 +30,21 @@ class AddMembers extends React.Component {
     this.handlePageClick = this.handlePageClick.bind(this);
     this.state = { userInput: '', limit: 3 };
   }
+
   /**
    *
-   * @returns {void}
-   * @memberof AddMembers
+   * @returns { void }
    */
   componentWillMount() {
     this.props.getGroupMembers(this.props.match.params.groupId);
   }
+
   /**
+   * @description handles user search
    *
+   * @param { object } event -javascript event
    *
-   * @param {object} event -javascript event
-   * @returns {void}
-   * @memberof AddMembers
+   * @returns { void }
    */
   handleSearch(event) {
     this.setState({ userInput: event.target.value });
@@ -49,34 +52,36 @@ class AddMembers extends React.Component {
       this.props.searchUsers(this.state.userInput, 0, this.state.limit);
     }
   }
+
   /**
+   * @description handles page clicks
    *
+   * @param { object } page -the current selected page
    *
-   * @param {object} page -the current selected page
-   * @returns {void}
-   * @memberof AddMembers
+   * @returns { void }
    *
    */
   handlePageClick(page) {
     const offset = page.selected * 3;
     this.props.searchUsers(this.state.userInput, offset, this.state.limit);
   }
+
   /**
+   * @description handles add user to group
    *
+   * @param { number } userId -user Id
    *
-   * @param {number} userId -user Id
-   * @returns {void}
-   * @memberof AddMembers
+   * @returns { void }
    */
   addMember(userId) {
     const groupId = this.props.match.params.groupId;
     this.props.addMember(userId, groupId);
   }
+
   /**
+   * @description render function
    *
-   *
-   * @returns {object} -React element
-   * @memberof AddMembers
+   * @returns { object } -returns react element
    */
   render() {
     let searchResult;
@@ -127,10 +132,10 @@ class AddMembers extends React.Component {
           pageRangeDisplayed={5}
           pageCount= {pageCount}
           containerClassName={'pagination'}
-          subContainerClassName={'pages pagination'}
+          subContainerClassName={'pages-pagination'}
           activeClassName={'active'}
           onPageChange={this.handlePageClick}
-          className="center col"
+          className="center-col"
           /> </div> : null}
         </div>
       );

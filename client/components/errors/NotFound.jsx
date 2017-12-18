@@ -2,8 +2,9 @@ import React from 'react';
 import Nav from '../common/Nav';
 
 /**
- * @function
- * @name NotFound
+ * @description Notfound component. It is
+ * render for routes not belonging to the app
+ *
  * @returns {object} -returns react element
  */
 const NotFound = () => (
