@@ -15,8 +15,8 @@ const secret = process.env.TOKEN_SECRET;
 const authenticate = (req, res, next) => {
   const userToken = req.query.token || req.headers['x-access-token'];
   if (userToken) {
-    jwt.verify(userToken, secret, (err) => {
-      if (err) {
+    jwt.verify(userToken, secret, (error) => {
+      if (error) {
         res.status(401).send({ error: 'Token authentication failure' });
       } else {
         next();

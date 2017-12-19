@@ -29,7 +29,7 @@ const Login = (props) => {
       <h3 className="header center grey-text" >
         Login
       </h3>
-      <p className="red-text"> {props.error} </p>
+      <p className="red-text"> {props.error} &nbsp; </p>
       <form method="POST" onSubmit={props.handleSubmit} >
         <InputField
           type="text"

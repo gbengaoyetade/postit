@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="5">
+
+  <testsuite name="authentication.test"
+    errors="0" failures="1" hostname="" id="" package="authentication.test" skipped="4"
+    tests="5" time="8.132" timestamp="Thu, 14 Dec 2017 14:56:19 GMT">
+  
+    <testcase name="sign up user" classname="authentication.test" time="8.132" assertions="4">
+
+    
+
+    
+
+      <failure message="Timed out while waiting for element &lt;#userDropdown&gt; to be visible for 1000 milliseconds.">    at Object.sign up user (/Users/andeladeveloper/Desktop/PostIT-Gbenga/client/e2e/authentication.test.js:19:8)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)</failure>
+
+    
+    </testcase>
+  
+
+  
+
+  
+    
+    <testcase
+      name="get to login page" classname="authentication.test">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="login a user" classname="authentication.test">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="user should be able to create group" classname="authentication.test">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="get forgot password page" classname="authentication.test">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

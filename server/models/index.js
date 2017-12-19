@@ -9,7 +9,7 @@ dotenv.load();
 const basename = path.basename(module.filename);
 const env = process.env.NODE_ENV || 'development';
 const config = configs[env];
-const db = {};
+const database = {};
 
 let sequelize;
 
@@ -33,17 +33,17 @@ fs
     (file.slice(-3) === '.js'))
   .forEach((file) => {
     const model = sequelize.import(path.join(__dirname, file));
-    db[model.name] = model;
+    database[model.name] = model;
   });
 
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
+Object.keys(database).forEach((modelName) => {
+  if (database[modelName].associate) {
+    database[modelName].associate(database);
   }
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+database.sequelize = sequelize;
+database.Sequelize = Sequelize;
 
-module.exports = db;
+export default database;
 

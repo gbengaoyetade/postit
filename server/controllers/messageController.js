@@ -1,19 +1,22 @@
-import db from '../models/index';
-import { checkParams, getId } from '../includes/functions';
+import database from '../models/index';
+import { checkParams, getId } from '../includes/helperFunctions';
 import transporter from '../config/mail.config';
 
-const Messages = db.messages;
+const Messages = database.messages;
+
 /**
- * @function
- * @name createMessage
- * @param {object} req
- * @param {object} res
+ * -
+ *
+ * @param {object} req -request object
+ * @param {object} res -response object
  * @returns {void} -returns nothing
  */
 export const createMessage = (req, res) => {
   const requieredFields = ['messageBody', 'messagePriority'];
   const validateReturn = checkParams(req.body, requieredFields);
-  if (validateReturn === 'ok') {
+  if (validateReturn !== 'ok') {
+    res.status(400).send({ error: validateReturn });
+  } else {
     // create the message
     Messages.create({
       messageBody: req.body.messageBody,
@@ -33,7 +36,7 @@ export const createMessage = (req, res) => {
       // if priority is Urgent or Critical, send E-mail Notifications
       if (message.messagePriority === 'Urgent' ||
       message.messagePriority === 'Critical') {
-        db.groups.find({
+        database.groups.find({
           where: { id: message.groupId },
         })
         .then((group) => {
@@ -60,36 +63,33 @@ export const createMessage = (req, res) => {
           });
         })
         .catch((error) => {
-          return res.status(500)
-          .send({ error: error.message, bad: 'bad request' });
+          res.status(500).send({ error: error.message });
         });
       }
     })
     .catch((error) => {
       res.status(400).send({ error: error.message });
     });
-  } else {
-    res.status(400).send({ error: validateReturn });
   }
 };
 
 /**
- * @function
- * @name getMessages
- * @param {object} req
- * @param {object} res
+ * -Function gets messages from a particular group
+ *
+ * @param {object} req -request object
+ * @param {object} res -response object
  * @returns {void} -returns nothing
  */
 export const getMessages = (req, res) => {
   const groupId = req.params.groupId;
-  db.messages.findAll({
+  database.messages.findAll({
     where: { groupId },
     attributes: {
       exclude: ['password', 'createdAt', 'updatedAt'],
     },
     include: [
       {
-        model: db.users,
+        model: database.users,
         attributes: {
           exclude: ['password', 'createdAt', 'updatedAt'],
         },

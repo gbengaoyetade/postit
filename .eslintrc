@@ -17,7 +17,8 @@
     "expect": true,
     "shallow": true,
     "mount": true,
-    "Materialize": true
+    "Materialize": true,
+    "jest": true
   },
   "plugins": [
     "react"

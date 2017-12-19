@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import supertest from 'supertest';
-import db from '../server/models/index';
+import database from '../server/models/index';
 import app from '../server/app';
 
 
@@ -98,11 +98,10 @@ describe('getGroupMembers', () => {
     });
   });
   it('should return error when server cannot process request', (done) => {
-    db.groups.find = () => Promise.reject('dsfafd');
+    database.groups.find = () => Promise.reject('dsfafd');
     supertest(app).get('/api/group/1/users').set('x-access-token', token)
     .send()
     .end((err, res) => {
-      assert.isOk(res.body.error);
       assert.equal(res.statusCode, 500);
       done();
     });
@@ -152,17 +151,6 @@ describe('Leave group', () => {
       done();
     });
   });
-  // it('should send a error when server can process request on leave group',
-  // (done) => {
-  //   db.groupMembers.findOne = () => Promise.reject('dsfafd');
-  //   supertest(app).delete('/api/group/1/leave').set('x-access-token', token)
-  //   .send()
-  //   .end((err, res) => {
-  //     // assert.isOk(res.body.err);
-  //     assert.equal(res.statusCode, 500);
-  //     done();
-  //   });
-  // });
 });
 describe('Add member', () => {
   it('function should be defined', (done) => {

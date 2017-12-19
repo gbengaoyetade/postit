@@ -1,7 +1,10 @@
 import { assert } from 'chai';
 import './tests.includes';
-import { checkParams, getId, checkInputLength, encryptPassword }
-from '../server/includes/functions';
+import {
+  checkParams,
+  getId,
+  checkInputLength,
+  encryptPassword } from '../server/includes/helperFunctions';
 
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZnVsbE5hbWUiOiJnYmVuZ2EgT3lldGFkZSIsImVtYWlsIjoiZ2JlbmdhLm95ZXRhZGVAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwODA2NDE0MDY5NSIsImlhdCI6MTUwODcyOTExMSwiZXhwIjoxNTQwMjY1MTExfQ.jEyMrWd4FjnKsPM-3yIL9w1o6YdzP2MbOZ2b3nd9LDM';
 describe('checkParams function', () => {
