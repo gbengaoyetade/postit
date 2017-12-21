@@ -30,8 +30,6 @@ describe('AddMembers component', () => {
       target: { value: 'jack' },
     };
     // wrapper.children().instance().handleSearch(event);
-    console.log(wrapper.dive().instance().state);
-    console.log(wrapper.dive().instance().props);
     expect(wrapper.find(AddMembers).children().state().userInput)
     .toEqual(event.target.value);
   });

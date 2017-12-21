@@ -86,6 +86,8 @@ export const createGroup = (groupDetails, history) => (
         error.response.data.error.groupName
         || error.response.data.error.groupDescription) {
         dispatch(createGroupError('Maximum character exceeded'));
+      } else if (error.response.status === 409) {
+        dispatch(createGroupError('Group already exist'));
       }
     });
   }

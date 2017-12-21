@@ -1,4 +1,7 @@
-const passwordReducer = (state = { passwordUpdated: false }, action) => {
+const passwordReducer = (state =
+{ passwordUpdated: false,
+  emailError: ''
+}, action) => {
   switch (action.type) {
     case 'EMAIL_ERROR':
       return { ...state, emailError: action.emailError };

@@ -43,9 +43,6 @@ export const recoverPassword = email => (
 
 export const updatePassword = (password, token) => (
   (dispatch) => {
-    // // set error and success to default values
-    // dispatch(passwordResetError(''));
-    // dispatch(updatePasswordSuccess(false));
     axios.post(`/api/user/password/update?token=${token}`,
     password)
     .then((response) => {

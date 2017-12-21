@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import AppNav from '../common/AppNav';
 
 /**
  * -Dashboard class
@@ -42,8 +41,7 @@ export class Dashboard extends React.Component {
       );
     }
     return (
-      <div className="row">
-        <AppNav />
+      <div>
         <div className="col m6 s12 component-container">
           <p className="center header">My Groups</p>
           <div className="divider"/>
@@ -55,7 +53,6 @@ export class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  getGroups: PropTypes.func.isRequired,
   groups: PropTypes.object.isRequired,
 };
 

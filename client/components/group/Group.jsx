@@ -83,20 +83,46 @@ class Group extends React.Component {
       numberOfGroupMembers = this.props.groupMembers.users.length;
     }
     return (
-      <div className="row">
+      <div>
         <div>
-          <AppNav
-            groupId={groupId}
-            useHeader='true'
-            numberOfGroupMembers={numberOfGroupMembers}
-            groupName={groupName}
-          />
+        <div className="col s12 m6 component-container">
+          <div className="dashboard-header">
+          <Link
+          to=""
+          id="more-vert"
+          className="right dropdown-button"
+          data-activates="group-more"
+          >
+          <i className="material-icons">more_vert</i>
+          </Link>
+          <span className="right">
+          <i className="material-icons">person</i>
+          <span className="group-members">
+            {numberOfGroupMembers}
+          </span>
+          </span>
+          <span className="bold bold-text">
+            {groupName}
+          </span>
+          </div>
+        </div>
             <ul id="group-more" className="dropdown-content">
               <li>
-                <Link to={`/group/${groupId}/addmembers`}>
-                Add Members</Link>
+                <Link
+                to={`/group/${groupId}/addmembers`}
+                >
+                Add Members
+                </Link>
               </li>
-              <li><Link to="#" onClick={this.leaveGroup}>Leave group</Link></li>
+              <li>
+                <Link
+                to="#"
+                id="leave-group"
+                onClick={this.leaveGroup}
+                >
+                Leave group
+                </Link>
+              </li>
             </ul>
           <div className="col s12 m6 component-container">
             <Messages groupId={this.props.match.params.groupId} />

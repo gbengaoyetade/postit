@@ -14,10 +14,10 @@ const UserNav = (props) => {
   };
   return (
   <div className="row">
-      <nav className="transparent col-s12 navbar-fixed">
+      <nav className="transparent col-s12">
         <ul id='userDropdown' className='dropdown-content'>
           <li>
-            <a href="#" onClick={logout}>Logout</a>
+            <a href="#" id="logout" onClick={logout}>Logout</a>
           </li>
         </ul>
         <div className="nav-wrapper">

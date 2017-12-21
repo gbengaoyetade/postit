@@ -1,26 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import UserGroups from '../group/UserGroups';
 
-const AppNav = (props) => {
-  let appHeader;
-  if (props.useHeader) {
-    appHeader = (
-      <div className="dashboard-header">
-      <Link to="" className="right dropdown-button"
-      data-activates="group-more">
-      <i className="material-icons">more_vert</i>
-      </Link>
-      <span className="right">
-      <i className="material-icons">person</i>
-      <span className="group-members"> {props.numberOfGroupMembers}</span>
-      </span>
-      <span className="bold bold-text">{props.groupName}</span>
-    </div>
-    );
-  }
-  return (
+const AppNav = () => (
+  (
     <div>
     <div
       className="col m3 component-container hide-on-med-and-down user-side-nav">
@@ -52,17 +35,8 @@ const AppNav = (props) => {
         </li>
       </ul>
     </div>
-      <div className="col s10 offset-s1 m6 component-container">
-        {appHeader}
-      </div>
     </div>
-  );
-};
-
-AppNav.propTypes = {
-  numberOfGroupMembers: PropTypes.number,
-  groupName: PropTypes.string,
-  useHeader: PropTypes.string,
-};
+  )
+);
 
 export default AppNav;
