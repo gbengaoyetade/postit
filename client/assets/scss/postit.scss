@@ -157,7 +157,7 @@ footer{
 	position: absolute;
 	bottom: 0px;
 }
-.messageButton {
+.message-button {
 	background: transparent;
 	color: $blue;
 	border: none;
@@ -174,7 +174,7 @@ footer{
 	width: 15% !important;
 }
 #sidenav-overlay {
-	background-color: transparent;
+	display: none !important;
 }
 .bold-font {
 	font-family: 'Oswald',sans-serif;

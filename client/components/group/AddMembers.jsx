@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import AppNav from '../common/AppNav';
 import { searchUser } from '../../actions/searchActions';
 import { addMember, getGroupMembers, addMemberSuccess }
 from '../../actions/groupActions';
@@ -97,9 +96,9 @@ class AddMembers extends React.Component {
         const pageCount = this.props.searchResult.searchResult.pageCount;
         searchResult = (
           <div>
-          <ul className="collection" >
+          <ul className="collection" id="search-results">
             {searchResultArray.map(user => (
-              <li className="collection-item" key={user.id}>
+              <li className="collection-item search-item" key={user.id}>
                 {groupMemberIds.includes(user.id) ?
                 <span className="right"> Group member </span>
                  :
@@ -110,7 +109,9 @@ class AddMembers extends React.Component {
                 > Add
                 </Link>
                 }
-                {user.fullName}
+                <span className="search-username">
+                  {user.fullName}
+                </span>
                 <div className="clearfix" />
               </li>
           ))
@@ -139,8 +140,7 @@ class AddMembers extends React.Component {
       }
     }
     return (
-      <div className="row">
-        <AppNav />
+      <div>
         <div className="col m6 component-container" >
           <h5 className="center">Search users</h5>
           <form>

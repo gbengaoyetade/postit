@@ -29,7 +29,7 @@ const Login = (props) => {
       <h3 className="header center grey-text" >
         Login
       </h3>
-      <p className="red-text"> {props.error} &nbsp; </p>
+      <p className="red-text center"> {props.error} &nbsp; </p>
       <form method="POST" onSubmit={props.handleSubmit} >
         <InputField
           type="text"
@@ -58,7 +58,10 @@ const Login = (props) => {
           </Link>
         </p>
         <p className="center">
-          <Link to="/password/reset" className="waves-effect">
+          <Link
+          to="/password/reset"
+          id="password-reset"
+          className="waves-effect">
             Forgot password
           </Link>
         </p>

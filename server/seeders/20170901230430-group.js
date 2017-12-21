@@ -1,3 +1,10 @@
+const bcrypt = require('bcrypt');
+
+const encryptPassword = (password) => {
+  const salt = bcrypt.genSaltSync(5);
+  const hashedPassword = bcrypt.hashSync(password, salt);
+  return hashedPassword;
+};
 module.exports = {
   up: (queryInterface, Sequelize) => {
     /*
@@ -10,47 +17,12 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    return queryInterface.bulkInsert('users', [{
-      username: 'martins',
-      email: 'martins@gmail.com',
-      phoneNumber: '08066152234',
-      fullName: 'martins etim',
-      password: 'password',
-    },
-    {
-      username: 'mark',
-      email: 'mark@gmail.com',
-      phoneNumber: '08066152233',
-      fullName: 'mark',
-      password: 'password',
-    },
-    {
-      username: 'george',
-      email: 'george@gmail.com',
-      phoneNumber: '08066152235',
-      fullName: 'george benson',
-      password: 'password',
-    },
-    {
-      username: 'segun',
-      email: 'segun@gmail.com',
-      phoneNumber: '08066152237',
-      fullName: 'segun ola',
-      password: 'password',
-    },
-    {
-      username: 'Michael',
-      email: 'mic@gmail.com',
-      phoneNumber: '08066152244',
-      fullName: 'Michael bolton',
-      password: 'password',
-    },
-    {
-      username: 'etim',
-      email: 'etim@gmail.com',
-      phoneNumber: '08066152233',
-      fullName: 'Raphael',
-      password: 'password',
+
+    return queryInterface.bulkInsert('groups', [{
+      groupName: 'Postit',
+      groupDescription: 'Postit default group',
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {});
   },
 
