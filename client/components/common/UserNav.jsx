@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
  * @description UserNav component. It is the navigation
  * used when user is logged in
  *
- * @param {object} props
+ * @param {object} props -prop object
  *
  * @returns {object} -returns react element
  */
@@ -18,10 +18,10 @@ const UserNav = (props) => {
   };
   return (
   <div className="row">
-      <nav className="transparent col-s12 navbar-fixed">
+      <nav className="transparent col-s12">
         <ul id='userDropdown' className='dropdown-content'>
           <li>
-            <a href="#" onClick={logout}>Logout</a>
+            <a href="#" id="logout" onClick={logout}>Logout</a>
           </li>
         </ul>
         <div className="nav-wrapper">

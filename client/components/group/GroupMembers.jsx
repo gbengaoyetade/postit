@@ -23,7 +23,7 @@ class GroupMembers extends React.Component {
 
   /**
    * @description render function
-   * 
+   *
    * @returns { object } -returns react element
    */
   render() {

@@ -262,8 +262,9 @@ export const userSearch = (req, res) => {
   database.users.findAndCountAll({
     where: {
       $or: [{
-        username: { like: `%${query}%` },
-        fullName: { like: `%${query}%` },
+        username: { $iLike: `%${query}%` },
+      }, {
+        fullName: { $iLike: `%${query}%` },
       }],
     },
     offset,

@@ -27,7 +27,7 @@ class UserGroups extends React.Component {
 
   /**
    *
-   *  @returns { void }
+   *  @returns { void } -returns nothing
    */
   componentDidMount() {
     this.props.getGroups();
@@ -38,7 +38,7 @@ class UserGroups extends React.Component {
    *
    * @param { number } groupId -id of the group
    *
-   * @returns { void }
+   * @returns { void } -returns nothing
    */
   getGroupData(groupId) {
     this.props.getMessages(groupId);
@@ -47,7 +47,7 @@ class UserGroups extends React.Component {
 
   /**
    * @description render function
-   * 
+   *
    * @returns {object} -returns react element
    */
   render() {

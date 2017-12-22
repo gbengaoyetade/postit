@@ -22,11 +22,12 @@ class Login extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.state = {};
+    this.state = { password: '', username: '' };
   }
 /**
  *
  * @param { object } event -event element
+ *
  * @returns { void } -return nothing
  */
   handleChange(event) {
@@ -36,8 +37,8 @@ class Login extends React.Component {
   }
   /**
    * @param { object } event - The event object
-   * @returns { void }
-   * @memberof Login
+   *
+   * @returns { void } -returns nothing
    */
   handleSubmit(event) {
     event.preventDefault();
@@ -48,7 +49,6 @@ class Login extends React.Component {
 
   /**
    * @returns { object } -returns a react element
-   * @memberof Login
    */
   render() {
     return (

@@ -1,8 +1,8 @@
 /**
  * @description reducer for group actions
  *
- * @param { object } state
- * @param { object } action
+ * @param { object } state -state object
+ * @param { object } action -action object
  *
  * @returns { object } returns state object
  */

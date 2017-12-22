@@ -65,7 +65,7 @@ class ChangePassword extends React.Component {
    *
    * @param { object } event -event object
    *
-   * @returns { void }
+   * @returns { void } -returns nothing
    */
   handleSubmit(event) {
     event.preventDefault();

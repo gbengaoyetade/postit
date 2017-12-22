@@ -17,7 +17,7 @@ const unauthorisedRedirect = (response) => {
 
 /**
  *
- * @param { object } groups
+ * @param { object } groups -groups object
  *
  * @returns { object } -return action object
  */
@@ -30,7 +30,7 @@ const getUserGroups = groups => (
 
 /**
  *
- * @param { object } message
+ * @param { object } message -message object
  *
  * @returns { object } -return action object
  */
@@ -43,7 +43,7 @@ export const postMessage = message => (
 
 /**
  *
- * @param { object } messages
+ * @param { object } messages -message object
  *
  * @returns { object } -return action object
  */
@@ -56,7 +56,7 @@ export const getUserGroupMessages = messages => (
 
 /**
  *
- * @param { boolean } payload
+ * @param { boolean } payload -payload
  *
  * @returns { object } -return action object
  */
@@ -69,7 +69,7 @@ export const getUserGroupsSuccess = payload => (
 
 /**
  *
- * @param { object } members
+ * @param { object } members -members object
  *
  * @returns { object } -return action object
  */
@@ -81,7 +81,7 @@ export const getGroupMembersAction = members => (
 );
 /**
  *
- * @param { object } error
+ * @param { object } error -error message
  *
  * @returns { object } -return action object
  */
@@ -94,7 +94,7 @@ export const getUserGroupsError = error => (
 
 /**
  *
- * @param { boolean } memberAdded
+ * @param { boolean } memberAdded -memberAdded boolean input
  *
  * @returns { object } -return action object
  */
@@ -107,7 +107,7 @@ export const addMemberSuccess = memberAdded => (
 
 /**
  *
- * @param { boolean } messageSent
+ * @param { boolean } messageSent -messageSent boolean input
  *
  * @returns { object } -return action object
  */
@@ -120,7 +120,7 @@ export const sendMessageSuccess = messageSent => (
 
 /**
  *
- * @param { boolean } leftGroup
+ * @param { boolean } leftGroup -leftGroup boolean input
  *
  * @returns { object } -return action object
  */
@@ -166,6 +166,8 @@ export const createGroup = (groupDetails, history) => (
         error.response.data.error.groupName
         || error.response.data.error.groupDescription) {
         dispatch(createGroupError('Maximum character exceeded'));
+      } else if (error.response.status === 409) {
+        dispatch(createGroupError('Group already exist'));
       }
     });
   }
@@ -270,6 +272,7 @@ export const leaveGroup = groupId => (
  *
  * @param { number } groupId -group id
  * @param { object } message -message object
+ *
  * @returns { function } -returns a function
  */
 export const sendUserMessage = (groupId, message) => (

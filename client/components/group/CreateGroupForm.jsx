@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AppNav from '../common/AppNav';
 
 /**
  * @description create group form component
@@ -11,12 +10,11 @@ import AppNav from '../common/AppNav';
  */
 const CreateGroupForm = props => (
   (
-    <div className="row">
-      <AppNav />
+    <div>
       <div className="col s12 m6 component-container">
         <div className="modal-content">
           <form onSubmit={props.handleSubmit}>
-          <p className="postit-text red-text center"> &nbsp; {props.error} </p>
+          <p className="red-text center"> &nbsp; {props.error} </p>
           <div className="input-field">
             <input type="text" name="groupName" id="groupName"
             onChange={props.handleChange} required/>

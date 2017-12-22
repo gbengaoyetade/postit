@@ -76,8 +76,8 @@ RecoverPassword.propTypes = {
 
 const mapStateToProps = state => (
   {
-    email: state.passworReducer,
-    error: state.passworReducer,
+    email: state.passwordReducer,
+    error: state.passwordReducer,
     sending: state.itemLoadingReducer.sendingMail,
   }
 );

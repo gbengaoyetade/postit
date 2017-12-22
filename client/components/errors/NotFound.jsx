@@ -5,7 +5,7 @@ import Nav from '../common/Nav';
  * @description Notfound component. It is
  * render for routes not belonging to the app
  *
- * @returns {object} -returns react element
+ * @returns { object } -returns react element
  */
 const NotFound = () => (
   <div className="black-text">

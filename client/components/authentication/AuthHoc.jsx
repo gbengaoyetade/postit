@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import UserNav from '../common/UserNav';
+import AppNav from '../common/AppNav';
 
 export default (Component) => {
   let user, rightLinkObject;
@@ -21,31 +22,19 @@ export default (Component) => {
     componentWillMount() {
       if (!localStorage.getItem('postitToken')) {
         this.props.history.push('/login');
-      } else {
-        $('.dropdown-button').dropdown();
-        $('.collapsible').collapsible();
-        user = JSON.parse(localStorage.getItem('postitUser'));
-        rightLinkObject = (
-          <Link
-          className='dropdown-button'
-          to='#'
-          data-activates='userDropdown'
-          >
-            {user.username}
-          </Link>
-        );
       }
     }
+
     /**
      *
      * @return { void }
      *
      * @memberof AuthHoc
      */
-    componentWillUpdate() {
-      $('.button-collapse').sideNav();
+    componentDidMount() {
       $('.dropdown-button').dropdown();
       $('.collapsible').collapsible();
+      $('.button-collapse').sideNav();
     }
     /**
      * @description render function
@@ -53,13 +42,25 @@ export default (Component) => {
      * @returns { object } -returns react element
      */
     render() {
+      user = JSON.parse(localStorage.getItem('postitUser'));
+      rightLinkObject = (
+        <Link
+        className='dropdown-button'
+        to='#'
+        id="username"
+        data-activates='userDropdown'
+        >
+          {user.username}
+        </Link>
+      );
       return (
         <div>
           <UserNav
           rightLink={rightLinkObject}
           history={this.props.history}
           />
-          <div className="component-container">
+          <div className="component-container row">
+          <AppNav />
           <Component {...this.props} />
           </div>
         </div>

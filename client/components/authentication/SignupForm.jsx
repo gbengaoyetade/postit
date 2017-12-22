@@ -8,7 +8,7 @@ import SubmitButton from '../common/SubmitButton';
 
 /**
  *
- * @param { object } props
+ * @param { object } props -prop object
  *
  * @returns { object } -returns react element
  */
@@ -37,7 +37,11 @@ const SignupForm = (props) => {
               handleChange={props.handleChange}
               classnames={classnames('', { invalid: props.errors.fullName })}
               />
-              <span className="red-text">&nbsp;{props.errors.fullName}</span>
+              <span
+              className="red-text"
+              id="fullname-error">
+              &nbsp;{props.errors.fullName}
+              </span>
               <InputField
               type="text"
               name="username"
@@ -45,7 +49,11 @@ const SignupForm = (props) => {
               handleChange={props.handleChange}
               classnames={classnames('', { invalid: props.errors.username })}
               />
-              <span className="red-text">&nbsp;{props.errors.username}</span>
+              <span
+              className="red-text"
+              id="username-error">
+              &nbsp;{props.errors.username}
+              </span>
               <InputField
               type="email"
               name="email"
@@ -53,16 +61,23 @@ const SignupForm = (props) => {
               handleChange={props.handleChange}
               classnames={classnames('', { invalid: props.errors.email })}
               />
-              <span className="red-text">&nbsp;{props.errors.email}</span>
+              <span
+              className="red-text"
+              id="email-error">
+              &nbsp;{props.errors.email}
+              </span>
               <InputField
-              type="number"
+              type="text"
               name="phoneNumber"
               labelValue="Phone Number"
               handleChange={props.handleChange}
               errorClass="valid"
               classnames={classnames('', { invalid: props.errors.phoneNumber })}
               />
-              <span className="red-text">&nbsp;{props.errors.phoneNumber}</span>
+              <span
+              className="red-text"
+              id="phoneNumber-error">
+              &nbsp;{props.errors.phoneNumber}</span>
               <InputField
               type="password"
               name="password"
@@ -71,13 +86,17 @@ const SignupForm = (props) => {
               errorClass="valid"
               classnames={classnames('', { invalid: props.errors.phoneNumber })}
               />
-              <span className="red-text" >&nbsp;{props.errors.password}</span>
+              <span
+              className="red-text"
+              id="password-error">
+              &nbsp;{props.errors.password}
+              </span>
               <SubmitButton
               submitValue={submitValue}
               disabled={disabled}
               />
               <p className="center"> Already have and acount?
-                <Link to="login"> Login </Link>
+                <Link to="login" id="login"> Login </Link>
               </p>
               <p />
             </form>

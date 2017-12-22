@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 /**
  * @description Error component
  *
- * @returns {object} -returns react element
+ * @returns { object } -returns react element
  */
 const Error = () => (
   <div className="grey-text">

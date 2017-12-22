@@ -13,7 +13,7 @@ import SignupForm from './SignupForm';
  * @extends { React.Component }
  */
 class Signup extends React.Component {
-  
+
   /**
    * @description Creates an instance of Signup
    *
@@ -28,9 +28,9 @@ class Signup extends React.Component {
     this.state = { errors: {} };
   }
   /**
-   * @param { object } event
+   * @param { object } event -event object
    *
-   * @returns { void }
+   * @returns { void } -returns nothing
    */
   handleChange(event) {
     const value = event.target.value.trim();
@@ -38,9 +38,9 @@ class Signup extends React.Component {
     this.setState({ [name]: value });
   }
    /**
-   * @param { object } event
+   * @param { object } event -event objet
    *
-   * @returns { void }
+   * @returns { void } -returns nothing
    */
   handleSubmit(event) {
     event.preventDefault();
@@ -56,8 +56,6 @@ class Signup extends React.Component {
   /**
    *
    * @returns { void } -returns react element
-   *
-   * @memberof Signup
    */
   render() {
     return (

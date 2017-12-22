@@ -1,12 +1,15 @@
 /**
  * @description reducer for password actions
  *
- * @param { object } state
- * @param { object } action
+ * @param { object } state -state object
+ * @param { object } action -action object
  *
  * @returns { object } returns state object
  */
-const passwordReducer = (state = { passwordUpdated: false }, action) => {
+const passwordReducer = (state =
+{ passwordUpdated: false,
+  emailError: ''
+}, action) => {
   switch (action.type) {
     case 'EMAIL_ERROR':
       return { ...state, emailError: action.emailError };

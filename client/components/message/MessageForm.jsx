@@ -33,7 +33,7 @@ const MessageForm = props => (
               </select>
             </div>
             <div className="col s1">
-              <button className="messageButton">
+              <button className="message-button">
                 <i className="material-icons">send</i>
               </button>
             </div>

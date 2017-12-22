@@ -5,5 +5,5 @@ coverage/lcov-report/
 .nyc_output/
 coverage/
 .DS_Store
-template/
+template/fonts
 reports/

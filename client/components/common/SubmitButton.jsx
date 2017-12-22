@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 /**
  * @description SubmitButton component
  *
- * @param {object} props
+ * @param { object } props -prop object
  *
- * @returns {object} -returns react element
+ * @returns { object } -returns react element
  */
 const SubmitButton = props => (
   <div className="row">
