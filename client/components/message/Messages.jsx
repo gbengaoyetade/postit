@@ -7,15 +7,17 @@ from '../../actions/groupActions';
 import MessageForm from './MessageForm';
 
 /**
- * -Messages class
  * @class Messages
- * @extends {React.Component}
+ *
+ * @extends { React.Component }
  */
 class Messages extends React.Component {
 
   /**
-   * Creates an instance of Messages.
-   * @param {object} props
+   * @description Creates an instance of Messages.
+   *
+   * @param { object } props -prop object
+   *
    * @memberof Messages
    */
   constructor(props) {
@@ -27,19 +29,20 @@ class Messages extends React.Component {
       messagePriority: 'Normal',
     };
   }
+
   /**
    *
-   * @returns {void}
-   * @memberof Messages
+   * @returns { void }
    */
   componentWillReceiveProps() {
     document.getElementById('scrollTo').scrollIntoView();
   }
   /**
+   * @description handles onChnage event
    *
-   * @param {objet} event
-   * @returns {void}
-   * @memberof Messages
+   * @param { objet } event -event object
+   *
+   * @returns { void }
    */
   handleChange(event) {
     const value = event.target.value;
@@ -47,9 +50,11 @@ class Messages extends React.Component {
     this.setState({ [name]: value });
   }
   /**
-   * @param {object} event
-   * @returns {void}
-   * @memberof Messages
+   * @description handles form submission
+   *
+   * @param { object } event -event object
+   *
+   * @returns { void } -returns nothing
    */
   handleSubmit(event) {
     event.preventDefault();
@@ -57,10 +62,11 @@ class Messages extends React.Component {
     this.props.sendUserMessage(groupId, this.state);
     this.setState({ messageBody: '' });
   }
+
   /**
+   * @description render function
    *
-   * @returns {object} -returns react element
-   * @memberof Messages
+   * @returns { object } -returns react element
    */
   render() {
     let groupMessages = '';

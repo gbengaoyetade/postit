@@ -6,10 +6,11 @@ import InputField from '../common/InputField';
 import SubmitButton from '../common/SubmitButton';
 
 /**
+ * @description Login component
  *
+ * @param { object } props -prop object
  *
- * @param {object} props
- * @returns {object} -returns react element
+ * @returns { object } -returns react element
  */
 const Login = (props) => {
   let submitValue = '';

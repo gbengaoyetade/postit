@@ -5,11 +5,12 @@ import transporter from '../config/mail.config';
 const Messages = database.messages;
 
 /**
- * -
+ * @description Create message
  *
- * @param {object} req -request object
- * @param {object} res -response object
- * @returns {void} -returns nothing
+ * @param { object } req -request object
+ * @param { object } res -response object
+ *
+ * @returns { void } -returns nothing
  */
 export const createMessage = (req, res) => {
   const requieredFields = ['messageBody', 'messagePriority'];
@@ -74,11 +75,12 @@ export const createMessage = (req, res) => {
 };
 
 /**
- * -Function gets messages from a particular group
+ * @description Gets messages from a particular group
  *
- * @param {object} req -request object
- * @param {object} res -response object
- * @returns {void} -returns nothing
+ * @param { object } req -request object
+ * @param { object } res -response object
+ *
+ * @returns { void } -returns nothing
  */
 export const getMessages = (req, res) => {
   const groupId = req.params.groupId;

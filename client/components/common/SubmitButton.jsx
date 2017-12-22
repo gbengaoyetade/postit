@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * @function
- * @name SubmitButton
- * @param {object} props
- * @returns {object} -returns react object
+ * @description SubmitButton component
+ *
+ * @param { object } props -prop object
+ *
+ * @returns { object } -returns react element
  */
 const SubmitButton = props => (
   <div className="row">

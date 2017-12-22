@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /**
- * @param {object} props
+ * @description UserNav component. It is the navigation
+ * used when user is logged in
+ *
+ * @param {object} props -prop object
+ *
  * @returns {object} -returns react element
  */
 const UserNav = (props) => {

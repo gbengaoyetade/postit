@@ -1,3 +1,11 @@
+/**
+ * @description reducer for items loading in the app
+ *
+ * @param { object } state -state object
+ * @param { object } action -action object
+ *
+ * @returns { object } returns state object
+ */
 const itemLoadingReducer = (state =
   { loginLoading: false, signupLoading: false, sendingMail: false },
   action) => {

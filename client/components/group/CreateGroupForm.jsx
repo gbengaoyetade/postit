@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * @param {object} props
- * @returns {object} -returns react element
+ * @description create group form component
+ *
+ * @param { object } props -prop object
+ *
+ * @returns { object } -returns react element
  */
 const CreateGroupForm = props => (
   (

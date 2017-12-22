@@ -2,6 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import UserGroups from '../group/UserGroups';
 
+/**
+ * @description AppNav component. It contains navigation links
+ * to app functionalities
+ *
+ * @param { object } props -prop object
+ *
+ * @returns { object } react element
+ */
 const AppNav = () => (
   (
     <div>

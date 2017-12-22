@@ -7,17 +7,17 @@ import AppNav from '../common/AppNav';
 
 export default (Component) => {
   let user, rightLinkObject;
+
   /**
    *
-   *
    * @class AuthHoc
-   * @extends {React.Component}
+   *
+   * @extends { React.Component }
    */
   class AuthHoc extends React.Component {
     /**
      *
-     * @returns {void}
-     * @memberof AuthHoc
+     * @returns { void } -returns nothing
      */
     componentWillMount() {
       if (!localStorage.getItem('postitToken')) {
@@ -27,8 +27,9 @@ export default (Component) => {
 
     /**
      *
+     * @return { void }
      *
-     * @returns { void } -returns nothing
+     * @memberof AuthHoc
      */
     componentDidMount() {
       $('.dropdown-button').dropdown();
@@ -36,10 +37,9 @@ export default (Component) => {
       $('.button-collapse').sideNav();
     }
     /**
+     * @description render function
      *
-     *
-     * @returns {object} -returns react element
-     * @memberof AuthHoc
+     * @returns { object } -returns react element
      */
     render() {
       user = JSON.parse(localStorage.getItem('postitUser'));

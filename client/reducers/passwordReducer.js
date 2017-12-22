@@ -1,3 +1,11 @@
+/**
+ * @description reducer for password actions
+ *
+ * @param { object } state -state object
+ * @param { object } action -action object
+ *
+ * @returns { object } returns state object
+ */
 const passwordReducer = (state =
 { passwordUpdated: false,
   emailError: ''
