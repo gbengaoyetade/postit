@@ -3,7 +3,7 @@ import axios from 'axios';
 
 /**
  *
- * @param { bool } isLoading
+ * @param { bool } isLoading -isLoading boolean
  *
  * @returns { object } -returns object
  */
@@ -16,7 +16,7 @@ export const loginLoading = isLoading => (
 
 /**
  *
- * @param { object } user
+ * @param { object } user -user object
  *
  * @returns { object } -returns object
  */
@@ -29,7 +29,7 @@ export const userAuthSuccess = user => (
 
 /**
  *
- * @param { bool } isLoading
+ * @param { bool } isLoading -loading boolean
  *
  * @returns { object } -returns object
  */
@@ -42,7 +42,7 @@ export const signupLoading = isLoading => (
 
 /**
  *
- * @param { object }  error
+ * @param { object }  error -error object
  *
  * @returns { object } -returns object
  */
@@ -55,7 +55,7 @@ export const loginError = error => (
 
 /**
  *
- * @param { string } error
+ * @param { string } error -error string
  *
  * @returns { object } -returns object
  */
@@ -83,8 +83,8 @@ const storeUserDetails = (response) => {
 /**
  * @description login user
  *
- * @param { object } user
- * @param { object } history
+ * @param { object } user -user object
+ * @param { object } history -history object
  *
  * @returns { function } returns a function
  */
@@ -110,8 +110,8 @@ export const loginUser = (user, history) => (
 /**
  * @description signs up user
  *
- * @param { object } user
- * @param { object } history
+ * @param { object } user -user object
+ * @param { object } history -history object
  *
  * @returns { function } returns a function
  */

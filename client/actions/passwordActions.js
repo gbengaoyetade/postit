@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 /**
- * @param { string } emailError
+ * @param { string } emailError -emailError string
  *
  * @returns { object } -action object
  */
@@ -13,7 +13,7 @@ export const userEmailError = emailError => (
 );
 
 /**
- * @param { boolean } sendingMail
+ * @param { boolean } sendingMail -sendingMail boolean
  *
  * @returns { object } -action object
  */
@@ -25,7 +25,7 @@ export const emailSending = sendingMail => (
 );
 
 /**
- * @param { string } error
+ * @param { string } error -password update error
  *
  * @returns { object } -action object
  */
@@ -37,7 +37,7 @@ export const passwordResetError = error => (
 );
 
 /**
- * @param { boolean } passwordUpdated
+ * @param { boolean } passwordUpdated -passwordUpdated boolean
  *
  * @returns { object } -action object
  */
@@ -51,7 +51,7 @@ export const updatePasswordSuccess = passwordUpdated => (
 /**
  * @description recover user password
  *
- * @param { string } email
+ * @param { string } email -user email
  *
  * @returns { function } -action object
  */
