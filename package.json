@@ -26,6 +26,7 @@
     "client:coverage": "jest --coverage client",
     "start": "./node_modules/.bin/nodemon --watch server --exec ./node_modules/.bin/babel-node server/bin/www",
     "start:selenium": "./node_modules/.bin/selenium-standalone start",
+    "e2e:setup": "selenium-standalone install",
     "e2e:test": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all && nightwatch"
   },
   "repository": {
