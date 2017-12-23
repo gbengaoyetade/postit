@@ -3,48 +3,54 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
-import { getGroupMessages, getGroupMembers, leaveGroup, leaveGroupSuccess }
-from '../../actions/groupActions';
-import AppNav from '../common/AppNav';
+import {
+  getGroupMessages,
+  getGroupMembers,
+  leaveGroup,
+  leaveGroupSuccess } from '../../actions/groupActions';
 import Messages from '../message/Messages';
 
 /**
  * @class Group
+ *
  * @extends {React.Component}
  */
 class Group extends React.Component {
+
   /**
-   * Creates an instance of Group.
-   * @param {object} props
+   * @description Creates an instance of Group.
+   *
+   * @param { object } props -prop object
+   *
    * @memberof Group
    */
   constructor(props) {
     super(props);
     this.leaveGroup = this.leaveGroup.bind(this);
   }
+
   /**
    *
-   * @returns {void}
-   * @memberof Group
+   * @returns { void }
    */
   componentWillMount() {
     const groupId = this.props.match.params.groupId;
     this.props.getMessages(groupId, this.props.history);
     this.props.getGroupMembers(groupId);
   }
-/**
- *
- * @returns {void}
- * @memberof Group
- */
+
+  /**
+   *
+   * @returns { void }
+   */
   componentWillUpdate() {
     $('.dropdown-button').dropdown();
     $('select').material_select();
   }
   /**
+   * @description leave group function
    *
-   * @returns {void}
-   * @memberof Group
+   * @returns { void }
    */
   leaveGroup() {
     swal({
@@ -63,9 +69,9 @@ class Group extends React.Component {
   }
 
   /**
+   * @description render function
    *
-   * @returns {object} -react element
-   * @memberof Group
+   * @returns { object } -returns react element
    */
   render() {
     if (this.props.leftGroup) {

@@ -17,11 +17,12 @@ const groupMembers = database.groupMembers;
 const secret = process.env.TOKEN_SECRET;
 
 /**
- * @function
- * @name signUp
- * @param {object} req -request object
- * @param {object} res -response object
- * @returns {void} -returns nothing
+ * @description Signup new user
+ *
+ * @param { object } req -request object
+ * @param { object } res -response object
+ *
+ * @returns { void } -returns nothing
  */
 export const signUp = (req, res) => {
   const requiredFields = [
@@ -87,11 +88,12 @@ export const signUp = (req, res) => {
 }; // end of signup
 
 /**
- * @function
- * @name signIn
- * @param {object} req -request object
- * @param {object} res -response object
- * @returns {void} -returns nothing
+ * @description Signs user in
+ *
+ * @param { object } req -request object
+ * @param { object } res -response object
+ *
+ * @returns {  void } -returns nothing
  */
 export const signIn = (req, res) => {
   const requiredFields = ['username', 'password'];
@@ -134,11 +136,12 @@ export const signIn = (req, res) => {
   }
 }; // end of signIn
 /**
- * @function
- * @name resetPassword
- * @param {object} req -request object
- * @param {object} res -response object
- * @returns {void} -returns nothing
+ * @description Sends user a reset password link
+ *
+ * @param { object } req -request object
+ * @param { object } res -response object
+ *
+ * @returns { void } -returns nothing
  */
 export const resetPassword = (req, res) => {
   const requiredFields = ['email'];
@@ -186,11 +189,12 @@ export const resetPassword = (req, res) => {
   }
 };
 /**
- * @function
- * @name updatePassword
- * @param {object} req -request object
- * @param {object} res -response object
- * @returns {void} -returns nothing
+ * @description Updates user password
+ *
+ * @param { object } req -request object
+ * @param { object } res -response object
+ *
+ * @returns { void } -returns nothing
  */
 export const updatePassword = (req, res) => {
   // Check if password field was provided
@@ -244,11 +248,12 @@ export const updatePassword = (req, res) => {
   }
 };
 /**
- * @function
- * @name userSearch
- * @param {object} req -request object
- * @param {object} res -response object
- * @returns {void} - returns nothing
+ * @description search user
+ *
+ * @param { object } req -request object
+ * @param { object } res -response object
+ *
+ * @returns { void } - returns nothing
  */
 export const userSearch = (req, res) => {
   const query = req.query.query.toLowerCase();

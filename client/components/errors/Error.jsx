@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 /**
- * @function
- * @name Error
- * @returns {object} -returns react element
+ * @description Error component
+ *
+ * @returns { object } -returns react element
  */
 const Error = () => (
   <div className="grey-text">

@@ -1,3 +1,11 @@
+/**
+ * @description reducer for auth actions
+ *
+ * @param { object } state -state object
+ * @param { object } action -action object
+ *
+ * @returns { object } returs state
+ */
 const authReducer = (state = {}, action) => {
   switch (action.type) {
     case 'AUTHENTICATE_USER':

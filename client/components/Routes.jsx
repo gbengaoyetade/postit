@@ -15,7 +15,9 @@ import Addmembers from './group/AddMembers';
 import ErrorPage from './errors/Error';
 
 /**
- * @returns {object} -returns react element
+ * @description Routes component
+ *
+ * @returns { object } -returns react element
  */
 const Routes = () => (
   <BrowserRouter>

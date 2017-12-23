@@ -10,11 +10,12 @@ const Messages = database.messages;
 const Members = database.groupMembers;
 
 /**
- * -Create group function
+ * @description create new group
  *
- * @param {object} req -request object
- * @param {object} res -response object
- * @returns {void} -returns nothing
+ * @param { object } req -request object
+ * @param { object } res -response object
+ *
+ * @returns { void } -returns nothing
  */
 export const create = (req, res) => {
   const requiredFields = ['groupName', 'groupDescription'];
@@ -72,11 +73,12 @@ export const create = (req, res) => {
 
 
 /**
- * -Add member function
+ * @description Adds new member to group
  *
- * @param {object} req -request object
- * @param {object} res -response object
- * @returns {void} -returns nothing
+ * @param { object } req -request object
+ * @param { object } res -response object
+ *
+ * @returns { void } -returns nothing
  */
 export const addMembers = (req, res) => {
   const requiredFields = ['userId'];
@@ -111,11 +113,12 @@ export const addMembers = (req, res) => {
 }; // end of addMembers
 
 /**
- * -Function to get a particular user groups
+ * @description Get groups a particular user belongs to
  *
- * @param {object} req -request object
- * @param {object} res -response object
- * @returns {void} -returns nothing
+ * @param { object } req -request object
+ * @param { object } res -response object
+ *
+ * @returns { void } -returns nothing
  */
 export const getGroups = (req, res) => {
   const userId = getId(req.headers['x-access-token']);
@@ -153,11 +156,12 @@ export const getGroups = (req, res) => {
 };
 
 /**
- * -Leave group function
+ * @description Removes user from group
  *
- * @param {object} req -request object
- * @param {object} res -response object
- * @returns {void} -returns nothing
+ * @param { object } req -request object
+ * @param { object } res -response object
+ *
+ * @returns { void } -returns nothing
  */
 export const leaveGroup = (req, res) => {
   const userId = getId(req.headers['x-access-token']);
@@ -184,11 +188,12 @@ export const leaveGroup = (req, res) => {
 };
 
 /**
- * -Function to get member of a particular group
+ * @description gets members of a particular group
  *
- * @param {object} req -request object
- * @param {object} res -response object
- * @returns {void} -returns nothing
+ * @param { object } req -request object
+ * @param { object } res -response object
+ *
+ * @returns { void } -returns nothing
  */
 export const getGroupMembers = (req, res) => {
   Groups.find({

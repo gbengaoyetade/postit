@@ -4,42 +4,51 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getGroups, getGroupMembers, getGroupMessages }
 from '../../actions/groupActions';
+
 /**
  *
- *
  * @class UserGroups
+ *
  * @extends {React.Component}
  */
 class UserGroups extends React.Component {
+
   /**
-   * Creates an instance of UserGroups.
-   * @param {object} props
-   * @memberof UserGroups
+   * @description Creates an instance of UserGroups.
+   *
+   * @param { object } props -prop object
+   *
+   * @returns { void } -return nothing
    */
   constructor(props) {
     super(props);
     this.getGroupData = this.getGroupData.bind(this);
   }
+
   /**
    *
-   *  @returns {void}
-   * @memberof UserGroups
+   *  @returns { void } -returns nothing
    */
   componentDidMount() {
     this.props.getGroups();
   }
+
   /**
-   * @param {number} groupId
-   * @returns {void}
-   * @memberof UserGroups
+   * @description gets group details
+   *
+   * @param { number } groupId -id of the group
+   *
+   * @returns { void } -returns nothing
    */
   getGroupData(groupId) {
     this.props.getMessages(groupId);
     this.props.getGroupMembers(groupId);
   }
+
   /**
+   * @description render function
+   *
    * @returns {object} -returns react element
-   * @memberof UserGroups
    */
   render() {
     let groups;

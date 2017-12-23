@@ -5,15 +5,16 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 /**
- * -Dashboard class
+ * @description Dashboard class
  * @class Dashboard
  * @extends {React.Component}
  */
-export class Dashboard extends React.Component {
+class Dashboard extends React.Component {
+
   /**
-   * -render fucntion
-   * @returns {object} -jsx
-   * @memberof Dashboard
+   * @description render fucntion
+   *
+   * @returns {object} -returns react element
    */
   render() {
     let groups;

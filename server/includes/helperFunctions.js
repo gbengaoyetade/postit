@@ -6,11 +6,13 @@ dotenv.load();
 const secret = process.env.TOKEN_SECRET;
 
 /**
- * -checks to see if requests contains required
- * -fields as defined by the end point
- * @param {object} request
- * @param {array} requiredFields
- * @returns {string} -returns a string
+ * @description Checks to see if requests contains required
+ * fields as defined by the end point
+ *
+ * @param { object } request -request object
+ * @param { array } requiredFields -array of required fields
+ *
+ * @returns { string } -returns a string
  */
 export const checkParams = (request, requiredFields) => {
   for (let counter = 0; counter < requiredFields.length; counter += 1) {
@@ -22,12 +24,12 @@ export const checkParams = (request, requiredFields) => {
   return 'ok';
 };
 
-// export const checkDataTypes = ()
 /**
- * -decodes user id from token
+ * @description Decodes user id from token
  *
- * @param {string} token
- * @returns {number} -returns a number
+ * @param { string } token -user token
+ *
+ * @returns { number } -returns a number
  */
 export const getId = (token) => {
   const decoded = jwt.decode(token);
@@ -35,10 +37,11 @@ export const getId = (token) => {
 };
 
 /**
+ * @description Generates token
  *
+ * @param { object } userDetails -user information
  *
- * @param {object} userDetails
- * @returns {string} -returns string
+ * @returns { string } -returns string
  */
 export const generateToken = (userDetails) => {
   const userToken = jwt.sign({
@@ -54,10 +57,12 @@ export const generateToken = (userDetails) => {
 };
 
 /**
+ * @description checks input length is not greater than 255
  *
- * @param {object} requestObject -the request object
- * @param {array} inputField -array of input fields
- * @returns {object} -error
+ * @param { object } requestObject -the request object
+ * @param { array } inputField -array of input fields
+ *
+ * @returns { object } -error
  */
 export const checkInputLength = (requestObject, inputField) => {
   let counter;
@@ -78,9 +83,11 @@ export const checkInputLength = (requestObject, inputField) => {
 
 /**
  *
+ * @description creates an encrypted string
  *
- * @param {string} password
- * @returns {string} -returns hashed password
+ * @param { string } password -password string
+ *
+ * @returns { string } -returns hashed password
  */
 export const encryptPassword = (password) => {
   let hashedPassword;

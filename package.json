@@ -13,13 +13,9 @@
     ]
   },
   "scripts": {
-    "watch-css": "./node_modules/.bin/nodemon -e scss -x \"npm run build-css\"",
-    "watch": "./node_modules/.bin/babel-node ./node_modules/.bin/webpack --watch ",
-    "build-css": "node-sass  template/scss/main.scss   template/css/main.css",
     "test": "NODE_ENV=test mocha --timeout 15000 --require babel-polyfill --compilers js:babel-register",
     "local-test": "mocha --require babel-polyfill --compilers js:babel-register",
     "postinstall": "webpack --config ./webpack.production.config.js --progress",
-    "babel": "babel-node server/app.js",
     "cover": "nyc npm run test",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "client:test": "jest client",

@@ -5,11 +5,12 @@ import Proptypes from 'prop-types';
 import Nav from '../common/Nav';
 import InputField from '../common/InputField';
 import SubmitButton from '../common/SubmitButton';
+
 /**
  *
+ * @param { object } props -prop object
  *
- * @param {object} props
- * @returns {object} -returns react element
+ * @returns { object } -returns react element
  */
 const SignupForm = (props) => {
   let submitValue = '';

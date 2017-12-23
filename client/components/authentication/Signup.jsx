@@ -8,15 +8,18 @@ import SignupForm from './SignupForm';
 
 /**
  *
- *
  * @class Signup
- * @extends {React.Component}
+ *
+ * @extends { React.Component }
  */
-export class Signup extends React.Component {
+class Signup extends React.Component {
+
   /**
-   * Creates an instance of Signup.
-   * @param {object} props -react props object
-   * @returns {void} -return void
+   * @description Creates an instance of Signup
+   *
+   * @param { object } props -react props object
+   *
+   * @returns { void } -return void
    */
   constructor(props) {
     super(props);
@@ -25,8 +28,9 @@ export class Signup extends React.Component {
     this.state = { errors: {} };
   }
   /**
-   * @param {object} event
-   * @returns {void}
+   * @param { object } event -event object
+   *
+   * @returns { void } -returns nothing
    */
   handleChange(event) {
     const value = event.target.value.trim();
@@ -34,8 +38,9 @@ export class Signup extends React.Component {
     this.setState({ [name]: value });
   }
    /**
-   * @param {object} event
-   * @returns {void}
+   * @param { object } event -event objet
+   *
+   * @returns { void } -returns nothing
    */
   handleSubmit(event) {
     event.preventDefault();
@@ -50,9 +55,7 @@ export class Signup extends React.Component {
   }
   /**
    *
-   *
-   * @returns {void} -returns react element
-   * @memberof Signup
+   * @returns { void } -returns react element
    */
   render() {
     return (

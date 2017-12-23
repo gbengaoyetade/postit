@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /**
- * @param {object} props
- * @returns {object} -returns react element
+ * @description Nav component
+ *
+ * @param { object } props -prop object
+ *
+ * @returns { object } -returns react element
  */
 const Nav = (props) => {
   // Check where postit logo links to.

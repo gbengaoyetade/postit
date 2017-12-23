@@ -6,12 +6,15 @@ import { createGroup, createGroupError } from '../../actions/groupActions';
 
 /**
  * @class CreateGroup
+ *
  * @extends {React.Component}
  */
 class CreateGroup extends React.Component {
+
   /**
-   * Creates an instance of CreateGroup.
-   * @memberof CreateGroup
+   * @description Creates an instance of CreateGroup.
+   *
+   * @returns { void }
    */
   constructor() {
     super();
@@ -22,36 +25,45 @@ class CreateGroup extends React.Component {
       groupDescription: '',
     };
   }
+
   /**
    *
-   * @return {void}
-   * @memberof CreateGroup
+   * @return { void }
    */
   componentWillMount() {
     this.props.createGroupError('');
   }
+
   /**
-   * @param {object} event
-   * @returns {void} -returns nothing
-   * @memberof CreateGroup
+   * @description handles the onChange event
+   *
+   * @param { object } event - event object
+   *
+   * @returns { void } -returns nothing
    */
   handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
     this.setState({ [name]: value });
   }
+
   /**
-   * @param {object} event
-   * @returns {void} -returns nothing
-   * @memberof CreateGroup
+   * @description handles form submission
+   *
+   * @param { object } event -event object
+   *
+   * @returns { void } -returns nothing
+   *
    */
   handleSubmit(event) {
     event.preventDefault();
     this.props.createGroup(this.state, this.props.history);
   }
+
   /**
-   * @returns {object} -react element
-   * @memberof CreateGroup
+   * @description render function
+   *
+   * @returns { object } -react element
    */
   render() {
     return (
