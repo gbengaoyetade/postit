@@ -1,14 +1,9 @@
 import {
-  checkParams,
   getId,
-  checkInputLength } from '../includes/helperFunctions';
+  sendValidationErrors } from '../includes/helperFunctions';
 import database from '../models/index';
 
-const Groups = database.groups;
-const Users = database.users;
-const Messages = database.messages;
-const Members = database.groupMembers;
-
+const { groupMembers, groups, messages, users } = database;
 /**
  * @description create new group
  *
@@ -18,56 +13,48 @@ const Members = database.groupMembers;
  * @returns { void } -returns nothing
  */
 export const create = (req, res) => {
-  const requiredFields = ['groupName', 'groupDescription'];
-  const requiredFieldsResponse = checkParams(req.body, requiredFields);
-  if (requiredFieldsResponse !== 'ok') {
-    res.status(400).json({ error: requiredFieldsResponse });
-  } else {
-    const inputError = checkInputLength(req.body, requiredFields);
-    if (Object.keys(inputError).length > 0) {
-      res.status(400).json({ error: inputError });
-    } else {
-      Groups.find({
-        where: {
+  if (!sendValidationErrors(req, res)) {
+    groups.find({
+      where: {
+        groupName: req.body.groupName.toLowerCase().trim(),
+      },
+    })
+    .then((groupExist) => {
+      const userId = getId(req.headers['x-access-token']);
+      if (groupExist) {
+        res.status(409).json({ error: 'group name already exist.' });
+      } else {
+        groups.create({
           groupName: req.body.groupName.toLowerCase(),
-        },
-      })
-      .then((groupExist) => {
-        if (groupExist) {
-          res.status(409).json({ error: 'group name already exist.' });
-        } else {
-          Groups.create({
-            groupName: req.body.groupName.toLowerCase(),
-            groupDescription: req.body.groupDescription,
-            createdBy: getId(req.headers['x-access-token']),
+          groupDescription: req.body.groupDescription,
+          createdBy: userId,
+        })
+        .then((group) => {
+          groupMembers.create({
+            groupId: group.id,
+            userId,
+            addedBy: userId,
           })
-          .then((group) => {
-            Members.create({
+          .then(() => {
+            const groupDetails = {
               groupId: group.id,
-              userId: getId(req.headers['x-access-token']),
-              addedBy: getId(req.headers['x-access-token']),
-            })
-            .then(() => {
-              const groupDetails = {
-                groupId: group.id,
-                groupName: group.groupName,
-                groupDescription: group.groupDescription,
-              };
-              res.status(201).json(groupDetails);
-            })
-            .catch((error) => {
-              res.status(500).send({ error: error.message });
-            });
+              groupName: group.groupName,
+              groupDescription: group.groupDescription,
+            };
+            res.status(201).json(groupDetails);
           })
-          .catch((error) => {
-            res.status(500).send({ error: error.message });
+          .catch(() => {
+            res.status(500).send({ error: 'Internal server error' });
           });
-        }
-      })
-      .catch((error) => {
-        res.status(500).send({ error: error.message });
-      });
-    }
+        })
+        .catch(() => {
+          res.status(500).send({ error: 'Internal server error' });
+        });
+      }
+    })
+    .catch(() => {
+      res.status(500).send({ error: 'Internal server error' });
+    });
   }
 }; // end of Create
 
@@ -81,10 +68,8 @@ export const create = (req, res) => {
  * @returns { void } -returns nothing
  */
 export const addMembers = (req, res) => {
-  const requiredFields = ['userId'];
-  const inputValidation = checkParams(req.body, requiredFields);
-  if (inputValidation === 'ok') {
-    Members.findOne({
+  if (!sendValidationErrors()) {
+    groupMembers.findOne({
       where: { userId: req.body.userId, groupId: req.params.groupId },
     })
     .then((member) => {
@@ -92,7 +77,7 @@ export const addMembers = (req, res) => {
         res.status(409).send({
           error: 'User already a member of this group', member });
       } else {
-        Members.create({
+        groupMembers.create({
           groupId: req.params.groupId,
           userId: req.body.userId,
           addedBy: getId(req.headers['x-access-token']),
@@ -101,13 +86,13 @@ export const addMembers = (req, res) => {
           res.status(201).send({
             member: groupMember, message: 'User successfully added to group' });
         })
-        .catch((error) => {
-          res.status(500).send({ error: error.message });
+        .catch(() => {
+          res.status(500).send({ error: 'Internal server error' });
         });
       }
     })
-    .catch((error) => {
-      res.status(500).send({ error: error.message });
+    .catch(() => {
+      res.status(500).send({ error: 'Internal server error' });
     });
   }
 }; // end of addMembers
@@ -122,18 +107,18 @@ export const addMembers = (req, res) => {
  */
 export const getGroups = (req, res) => {
   const userId = getId(req.headers['x-access-token']);
-  Users.find({
+  users.find({
     where: { id: userId },
     attributes: {
       exclude: ['password', 'createdAt', 'updatedAt'],
     },
     include: [
       {
-        model: Groups,
+        model: groups,
         // send group last message with it
         include: [
           {
-            model: Messages,
+            model: messages,
             limit: 1,
             order: [
               ['id', 'DESC'],
@@ -144,14 +129,14 @@ export const getGroups = (req, res) => {
       },
     ],
     order: [
-      [Groups, 'id', 'DESC'],
+      [groups, 'id', 'DESC'],
     ],
   })
-  .then((groups) => {
-    res.send(groups);
+  .then((userGroups) => {
+    res.send(userGroups);
   })
-  .catch((error) => {
-    res.status(500).send({ error: error.message });
+  .catch(() => {
+    res.status(500).send({ error: 'Internal server error' });
   });
 };
 
@@ -165,25 +150,25 @@ export const getGroups = (req, res) => {
  */
 export const leaveGroup = (req, res) => {
   const userId = getId(req.headers['x-access-token']);
-  const groupId = req.params.groupId;
-  Members.findOne({
+  const { groupId } = req.params;
+  groupMembers.findOne({
     where: { userId, groupId },
   })
   .then((member) => {
     if (member) {
-      Members.destroy({
+      groupMembers.destroy({
         where: { userId, groupId },
       })
       .then(() => {
         res.send({ message: 'User left group' });
       })
-      .catch((error) => {
-        res.status(500).send({ error: error.message });
+      .catch(() => {
+        res.status(500).send({ error: 'Internal server error' });
       });
     }
   })
-  .catch((error) => {
-    res.status(500).send({ error: error.messagee });
+  .catch(() => {
+    res.status(500).send({ error: 'Internal server error' });
   });
 };
 
@@ -196,22 +181,14 @@ export const leaveGroup = (req, res) => {
  * @returns { void } -returns nothing
  */
 export const getGroupMembers = (req, res) => {
-  Groups.find({
-    where: { id: req.params.groupId },
+  req.group.getUsers({ attributes: {
+    exclude: ['password', 'createdAt', 'updatedAt'],
+  },
   })
-  .then((foundGroup) => {
-    foundGroup.getUsers({ attributes: {
-      exclude: ['password', 'createdAt', 'updatedAt'],
-    },
-    })
-    .then((users) => {
-      res.send({ users, group: foundGroup });
-    })
-    .catch((error) => {
-      res.status(500).send({ error: error.message });
-    });
+  .then((members) => {
+    res.send({ groupMembers: members, group: req.group });
   })
-  .catch((error) => {
-    res.status(500).send({ error: error.message });
+  .catch(() => {
+    res.status(500).send({ error: 'Internal server error' });
   });
 };

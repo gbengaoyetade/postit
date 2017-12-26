@@ -1,9 +1,8 @@
 import database from '../models/index';
 import { checkParams, getId } from '../includes/helperFunctions';
 
-const Users = database.users;
-const Groups = database.groups;
 
+const { users, groups, groupMembers } = database;
 /**
  * @description Check to see if user and group exists
  *
@@ -14,7 +13,7 @@ const Groups = database.groups;
  * @returns { void } -returns nothing
  */
 export const groupAndUserExist = (req, res, next) => {
-  const groupId = req.params.groupId;
+  const { groupId } = req.params;
   const userId = req.body.userId || req.params.userId;
   const requiredFields = ['userId'];
   const validateInputResponse = checkParams(req.body, requiredFields);
@@ -23,12 +22,12 @@ export const groupAndUserExist = (req, res, next) => {
   } else if (isNaN(groupId) || isNaN(userId)) {
     res.status(400).json({ error: 'groupId or userId not a number' });
   } else {
-    Groups.findOne({
+    groups.findOne({
       where: { id: groupId },
     })
     .then((group) => {
       if (group) {
-        Users.findOne({
+        users.findOne({
           where: { id: userId },
         })
         .then((user) => {
@@ -61,19 +60,20 @@ export const groupAndUserExist = (req, res, next) => {
  * @returns { void } -returns nothing
  */
 export const groupExist = (req, res, next) => {
-  const groupId = req.params.groupId;
+  const { groupId } = req.params;
   if (!isNaN(groupId)) {
-    Groups.findOne({
+    groups.findOne({
       where: { id: groupId },
     })
   .then((group) => {
     if (group) {
       const userId = getId(req.headers['x-access-token']);
-      database.groupMembers.findOne({
+      groupMembers.findOne({
         where: { userId, groupId },
       })
       .then((member) => {
         if (member) {
+          req.group = group;
           next();
         } else {
           res.status(401).json({ error: 'User not a member of the group' });

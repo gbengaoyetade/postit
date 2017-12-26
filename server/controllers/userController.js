@@ -2,18 +2,17 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import database from '../models/index';
-import transporter from '../config/mail.config';
+import transporter from '../config/transporter';
 import validateSignUpInput from '../shared/validateSignUpInput';
 import {
-  checkParams,
   getId,
   generateToken,
-  encryptPassword } from '../includes/helperFunctions';
+  encryptPassword,
+  sendValidationErrors } from '../includes/helperFunctions';
 
 dotenv.load();
-const APP_URL = process.env.APP_URL;
-const User = database.users;
-const groupMembers = database.groupMembers;
+const { APP_URL } = process.env;
+const { groupMembers, users } = database;
 const secret = process.env.TOKEN_SECRET;
 
 /**
@@ -25,18 +24,12 @@ const secret = process.env.TOKEN_SECRET;
  * @returns { void } -returns nothing
  */
 export const signUp = (req, res) => {
-  const requiredFields = [
-    'username', 'email', 'password', 'fullName', 'phoneNumber'];
-    // Check if req.body contains required fields
-  const validateInputResponse = checkParams(req.body, requiredFields);
-  if (validateInputResponse !== 'ok') {
-    res.status(400).send({ error: validateInputResponse });
-  } else {
+  if (!sendValidationErrors(req, res)) {
     // Validate input if it contains required fields
     const { errors, isValid } = validateSignUpInput(req.body);
     if (isValid) {
       // if input is valid, create user
-      User.create({
+      users.create({
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
@@ -96,12 +89,8 @@ export const signUp = (req, res) => {
  * @returns {  void } -returns nothing
  */
 export const signIn = (req, res) => {
-  const requiredFields = ['username', 'password'];
-  const validateInputResponse = checkParams(req.body, requiredFields);
-  if (validateInputResponse !== 'ok') {
-    res.status(400).send({ error: validateInputResponse });
-  } else {
-    User.findOne({
+  if (!sendValidationErrors(req, res)) {
+    users.findOne({
       where: {
         $or: [{ username: req.body.username }, { email: req.body.username }]
       }
@@ -144,14 +133,9 @@ export const signIn = (req, res) => {
  * @returns { void } -returns nothing
  */
 export const resetPassword = (req, res) => {
-  const requiredFields = ['email'];
-  const validateInputResponse = checkParams(req.body, requiredFields);
-  const email = req.body.email;
-  if (validateInputResponse !== 'ok') {
-    res.status(400).send({
-      error: validateInputResponse, message: 'Parameter not well structured' });
-  } else {
-    User.findOne({
+  const { email } = req.body;
+  if (!sendValidationErrors(req, res)) {
+    users.findOne({
       where: { email },
     })
     .then((user) => {
@@ -197,12 +181,7 @@ export const resetPassword = (req, res) => {
  * @returns { void } -returns nothing
  */
 export const updatePassword = (req, res) => {
-  // Check if password field was provided
-  const requiredFields = ['password'];
-  const validateInputResponse = checkParams(req.body, requiredFields);
-  if (validateInputResponse !== 'ok') {
-    res.status(400).send({ error: validateInputResponse });
-  } else {
+  if (!sendValidationErrors(req, res)) {
     // Check if URL contians parameter token
     const userToken = req.query.token;
     if (!userToken) {
@@ -218,13 +197,13 @@ export const updatePassword = (req, res) => {
           // Update user password if token was verified successfully
           const hash = encryptPassword(req.body.password);
           userId = getId(userToken);
-          User.update(
+          users.update(
             { password: hash },
             { where: { id: userId } },
           )
           .then((updateValue) => {
             if (updateValue[0]) {
-              User.findOne(({
+              users.findOne(({
                 where: { id: userId },
                 attributes: {
                   exclude: ['createdAt', 'updatedAt', 'password'],
@@ -256,32 +235,33 @@ export const updatePassword = (req, res) => {
  * @returns { void } - returns nothing
  */
 export const userSearch = (req, res) => {
-  const query = req.query.query.toLowerCase();
-  const offset = req.query.offset;
-  const limit = req.query.limit || 10;
-  database.users.findAndCountAll({
-    where: {
-      $or: [{
-        username: { $iLike: `%${query}%` },
-      }, {
-        fullName: { $iLike: `%${query}%` },
-      }],
-    },
-    offset,
-    limit,
-    attributes: {
-      exclude: ['createdAt', 'updatedAt', 'password'],
-    }
-  })
-  .then((result) => {
-    const pagination = {
-      pageCount: Math.floor(result.count / limit),
-      count: result.count,
-      users: result.rows,
-    };
-    res.send(pagination);
-  })
-  .catch((error) => {
-    res.status(500).send({ error: error.message });
-  });
+  if (!sendValidationErrors(req, res)) {
+    const { query, offset } = req.query;
+    const limit = req.query.limit || 10;
+    database.users.findAndCountAll({
+      where: {
+        $or: [{
+          username: { $iLike: `%${query.toLowerCase()}%` },
+        }, {
+          fullName: { $iLike: `%${query.toLowerCase()}%` },
+        }],
+      },
+      offset,
+      limit,
+      attributes: {
+        exclude: ['createdAt', 'updatedAt', 'password'],
+      }
+    })
+    .then((result) => {
+      const pagination = {
+        pageCount: Math.floor(result.count / limit),
+        count: result.count,
+        users: result.rows,
+      };
+      res.send(pagination);
+    })
+    .catch((error) => {
+      res.status(500).send({ error: error.message });
+    });
+  }
 };

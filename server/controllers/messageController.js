@@ -1,8 +1,11 @@
 import database from '../models/index';
-import { checkParams, getId } from '../includes/helperFunctions';
-import transporter from '../config/mail.config';
+import {
+  checkParams,
+  getId,
+  sendValidationErrors } from '../includes/helperFunctions';
+import transporter from '../config/transporter';
 
-const Messages = database.messages;
+const { messages } = database;
 
 /**
  * @description Create message
@@ -13,13 +16,8 @@ const Messages = database.messages;
  * @returns { void } -returns nothing
  */
 export const createMessage = (req, res) => {
-  const requieredFields = ['messageBody', 'messagePriority'];
-  const validateReturn = checkParams(req.body, requieredFields);
-  if (validateReturn !== 'ok') {
-    res.status(400).send({ error: validateReturn });
-  } else {
-    // create the message
-    Messages.create({
+  if (!sendValidationErrors(req, res)) {
+    messages.create({
       messageBody: req.body.messageBody,
       messagePriority: req.body.messagePriority,
       userId: getId(req.headers['x-access-token']),
@@ -83,11 +81,11 @@ export const createMessage = (req, res) => {
  * @returns { void } -returns nothing
  */
 export const getMessages = (req, res) => {
-  const groupId = req.params.groupId;
-  database.messages.findAll({
+  const { groupId } = req.params;
+  messages.findAll({
     where: { groupId },
     attributes: {
-      exclude: ['password', 'createdAt', 'updatedAt'],
+      exclude: ['password', 'updatedAt'],
     },
     include: [
       {
@@ -98,8 +96,8 @@ export const getMessages = (req, res) => {
       },
     ],
   })
-  .then((messages) => {
-    res.status(200).send({ messages });
+  .then((groupMessages) => {
+    res.status(200).send({ messages: groupMessages });
   })
   .catch(() => {
     res.status(500).send({ error: 'Could not get messages' });

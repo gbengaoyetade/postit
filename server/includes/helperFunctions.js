@@ -1,28 +1,11 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
+import { validationResult } from 'express-validator/check/';
 
 dotenv.load();
 const secret = process.env.TOKEN_SECRET;
 
-/**
- * @description Checks to see if requests contains required
- * fields as defined by the end point
- *
- * @param { object } request -request object
- * @param { array } requiredFields -array of required fields
- *
- * @returns { string } -returns a string
- */
-export const checkParams = (request, requiredFields) => {
-  for (let counter = 0; counter < requiredFields.length; counter += 1) {
-    if (!Object.prototype.hasOwnProperty.call(
-      request, requiredFields[counter])) {
-      return `${requiredFields[counter]} field not provided`;
-    }
-  }
-  return 'ok';
-};
 
 /**
  * @description Decodes user id from token
@@ -57,31 +40,6 @@ export const generateToken = (userDetails) => {
 };
 
 /**
- * @description checks input length is not greater than 255
- *
- * @param { object } requestObject -the request object
- * @param { array } inputField -array of input fields
- *
- * @returns { object } -error
- */
-export const checkInputLength = (requestObject, inputField) => {
-  let counter;
-  const error = {};
-  if (typeof requestObject === 'object' && Array.isArray(inputField)) {
-    for (counter = 0; counter < inputField.length; counter += 1) {
-      if (requestObject[inputField[counter]].trim().length > 255) {
-        error[inputField[counter]] = 'Maximum character length exceeded';
-      } else if (requestObject[inputField[counter]].trim().length < 1) {
-        error[inputField[counter]] = 'Field cannot be empty';
-      }
-    }
-  } else {
-    return 'bad input to function';
-  }
-  return error;
-};
-
-/**
  *
  * @description creates an encrypted string
  *
@@ -99,4 +57,19 @@ export const encryptPassword = (password) => {
   }
 
   return hashedPassword;
+};
+/**
+ * @description Send validation errors if they are available
+ *
+ * @param { object } req -express request object
+ * @param { object } res -express response object
+ *
+ * @returns { boolean } returns a boolean
+ */
+export const sendValidationErrors = (req, res) => {
+  const errors = validationResult(req).formatWith(error => (error.msg));
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.mapped() });
+  }
+  return false;
 };
