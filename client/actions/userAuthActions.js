@@ -1,6 +1,20 @@
 import axios from 'axios';
 
-
+/**
+ * @description redirect user when token fails
+ *
+ * @param { string } error -error message
+ *
+ * @returns { boolean } -returns boolean
+ */
+export const tokenRedirect = (error) => {
+  if (error === 'Token authentication failure') {
+    localStorage.removeItem('postitUser');
+    localStorage.removeItem('postitToken');
+    location.replace('/login?redirect=token');
+  }
+  return false;
+};
 /**
  *
  * @param { bool } isLoading -isLoading boolean
@@ -126,8 +140,8 @@ export const signupUser = (user, history) => (
         history.push('/dashboard');
       }
     })
-    .catch((error) => {
-      dispatch(signupError(error.response.data.error));
+    .catch(({ response }) => {
+      dispatch(signupError(response.data.error));
       dispatch(signupLoading(false));
     });
   }

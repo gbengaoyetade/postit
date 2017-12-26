@@ -66,7 +66,7 @@ class UserGroups extends React.Component {
         </ul>);
     }
     return (
-        <div className="">
+        <div>
           {userGroups}
         </div>
     );

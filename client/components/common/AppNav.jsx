@@ -14,28 +14,30 @@ const AppNav = () => (
   (
     <div>
     <div
-      className="col m3 component-container hide-on-med-and-down user-side-nav">
+      className="col m2 component-container hide-on-med-and-down user-side-nav">
       <ul className="text-center collapsible" data-collapsible="accordion">
       <li className="big">
         <div className="collapsible-header">
-        <i className="material-icons">home</i>
         <Link to="/dashboard">
+        <i className="material-icons">home</i>
            &nbsp;&nbsp;Dashboard
         </Link>
         </div>
         </li>
 
         <li className="big collapsible-header">
-        <i className="material-icons">group_add</i>
           <Link to="/group/create" id="group-create">
+          <i className="material-icons">group_add</i>
            &nbsp;&nbsp;Create group
           </Link>
         </li>
 
         <li className="big">
           <div className="collapsible-header">
-          <i className="material-icons">group</i>
-          <Link to="#">&nbsp;&nbsp;My Groups</Link>
+          <Link to="#">
+            <i className="material-icons">group</i>
+            &nbsp;&nbsp;My Groups
+          </Link>
           </div>
         <div className="collapsible-body">
           <UserGroups />

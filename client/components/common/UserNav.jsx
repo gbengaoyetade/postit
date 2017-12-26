@@ -27,10 +27,20 @@ const UserNav = (props) => {
         <div className="nav-wrapper">
         <div>
           {/* Mobile links */}
-          <ul id="slide-out" className="side-nav grey">
+          <ul id="slide-out" className="side-nav">
           <p />
-          <li><Link to="/dashboard">Dashboard</Link></li>
-          <li><Link to="/group/create">Create Group</Link></li>
+          <li>
+            <Link to="/dashboard">
+            <i className="fa fa-home" ></i>
+            Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link to="/group/create">
+            <i className="fa fa-users " ></i>
+            Create Group
+            </Link>
+          </li>
         </ul>
       <Link
         to="#"

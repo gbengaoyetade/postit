@@ -44,14 +44,13 @@ nav{
 	height: 50px;
 	width: 100%;
 	padding-top: 15px;
-
 }
 .dashboard-header a {
 	color: $grey;
-
 }
 .bold {
-	font-weight: bold;
+	font-weight: bolder;
+	color: #444;
 }
  // Customize materialize input field styles
 .input-field input:focus + label{
@@ -70,9 +69,10 @@ input[type=search]:not(.browser-default):focus:not([readonly]){
 .message-form button {
 	border: none;
 	background-color:none;
+	margin-top: 9px;
 }
 .message-input-field {
-	width: 60%;
+	width: 50%;
 	border: 1px solid #eee;
 }
 .message-priority-field {
@@ -89,7 +89,7 @@ input[type=search]:not(.browser-default):focus:not([readonly]){
 .group-messages {
 	height: 600px;
 	overflow: scroll;
-	padding: 20px;
+	padding: 2px;
 }
 footer{
    position:fixed;
@@ -101,23 +101,22 @@ footer{
    border-top: 1px solid $grey;
 }
 .single-message {
-	padding: 8px 12px;
 	border: 1px solid #ccc;
 	border-radius: 15px;
-	margin: 20px auto;
+	margin: 5px auto;
 	text-align: justify;
 	position: relative;
 }
 .message-priority {
-	font-weight: bold;
+	font-weight: bolder;
+	color: #444;
 	padding: 15px 5px;
-	margin: 40px 0 0 0;
+	margin: 0;
 	position: absolute;
 	bottom: 0;
 	right: 0;
 }
 .message-body {
-	padding: 25px 0;
 	font-family: 'Source Serif Pro', sans-serif;
 	font-size: 1.3em;
 }
@@ -131,7 +130,7 @@ footer{
 	margin-right: 10px;
 }
 .big {
-	font-size: 1.8em;
+	font-size: 1.3em;
 }
 .centralized-div {
 	position: absolute;
@@ -162,7 +161,24 @@ footer{
 	color: $blue;
 	border: none;
 	position: relative;
-	top: 7px;
+	top: 2px;
+	width: 100%;
+}
+.group-members-list {
+	padding: 2px 10px;
+	margin: 35px 1px;
+}
+.username-avatar{
+	color: #000;
+	background-color: $grey;
+	border-radius: 50%;
+	@extend .bold;
+	text-align: center;
+	height: 50px;
+	width: 50px;
+	float: left;
+	padding: 0.8%;
+	text-transform: uppercase;
 }
 .pagination li.active {
 	background-color: $blue;

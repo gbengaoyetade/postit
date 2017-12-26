@@ -92,17 +92,8 @@ describe('getGroupMembers', () => {
     supertest(app).get('/api/group/1/users').set('x-access-token', token)
     .send()
     .end((err, res) => {
-      assert.isOk(res.body.users);
+      assert.isOk(res.body.groupMembers);
       assert.equal(res.statusCode, 200);
-      done();
-    });
-  });
-  it('should return error when server cannot process request', (done) => {
-    database.groups.find = () => Promise.reject('dsfafd');
-    supertest(app).get('/api/group/1/users').set('x-access-token', token)
-    .send()
-    .end((err, res) => {
-      assert.equal(res.statusCode, 500);
       done();
     });
   });

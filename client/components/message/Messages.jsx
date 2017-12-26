@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { sendUserMessage, getGroupMessages, sendMessageSuccess }
 from '../../actions/groupActions';
 import MessageForm from './MessageForm';
@@ -45,8 +46,7 @@ class Messages extends React.Component {
    * @returns { void }
    */
   handleChange(event) {
-    const value = event.target.value;
-    const name = event.target.name;
+    const { value, name } = event.target;
     this.setState({ [name]: value });
   }
   /**
@@ -58,7 +58,7 @@ class Messages extends React.Component {
    */
   handleSubmit(event) {
     event.preventDefault();
-    const groupId = this.props.groupId;
+    const { groupId } = this.props;
     this.props.sendUserMessage(groupId, this.state);
     this.setState({ messageBody: '' });
   }
@@ -85,6 +85,9 @@ class Messages extends React.Component {
                     <Link to="#">
                     {message.user.username}
                     </Link>
+                    <small className="right">
+                  {moment(message.createdAt).fromNow()}
+                  </small>
                   </p>
                   <p className="message-priority">
                     <span>Message priority: </span>
@@ -129,9 +132,9 @@ class Messages extends React.Component {
           <span id="scrollTo">&nbsp; </span>
         </div>
         <MessageForm
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        messageBody={this.state.messageBody}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          messageBody={this.state.messageBody}
         />
       </div>
     );

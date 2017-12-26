@@ -30,7 +30,7 @@ class CreateGroup extends React.Component {
    *
    * @return { void }
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.createGroupError('');
   }
 
@@ -42,8 +42,7 @@ class CreateGroup extends React.Component {
    * @returns { void } -returns nothing
    */
   handleChange(event) {
-    const name = event.target.name;
-    const value = event.target.value;
+    const { name, value } = event.target;
     this.setState({ [name]: value });
   }
 

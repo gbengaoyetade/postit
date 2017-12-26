@@ -45,12 +45,13 @@ export default (Component) => {
       user = JSON.parse(localStorage.getItem('postitUser'));
       rightLinkObject = (
         <Link
-        className='dropdown-button'
+        className='dropdown-button big'
         to='#'
         id="username"
         data-activates='userDropdown'
         >
-          {user.username}
+          {user.username}&nbsp;
+          <i className="fa fa-caret-down" ></i>
         </Link>
       );
       return (

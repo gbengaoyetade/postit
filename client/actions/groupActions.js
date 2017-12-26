@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { tokenRedirect } from './userAuthActions';
 
 
 /**
@@ -161,12 +162,9 @@ export const createGroup = (groupDetails, history) => (
       // redirect user to the group he created
       history.push(`/group/${data.groupId}`);
     })
-    .catch((error) => {
-      if (
-        error.response.data.error.groupName
-        || error.response.data.error.groupDescription) {
-        dispatch(createGroupError('Maximum character exceeded'));
-      } else if (error.response.status === 409) {
+    .catch(({ response }) => {
+      tokenRedirect(response.data.error);
+      if (response.status === 409) {
         dispatch(createGroupError('Group already exist'));
       }
     });
@@ -184,7 +182,8 @@ export const getGroups = () => (
     .then((groups) => {
       dispatch(getUserGroups(groups.data.groups));
     })
-    .catch(() => {
+    .catch(({ response }) => {
+      tokenRedirect(response.data.error);
       dispatch(getUserGroupsError(true));
     });
   }

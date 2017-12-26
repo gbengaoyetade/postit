@@ -9,6 +9,7 @@ import {
   leaveGroup,
   leaveGroupSuccess } from '../../actions/groupActions';
 import Messages from '../message/Messages';
+import GroupMembers from './GroupMembers';
 
 /**
  * @class Group
@@ -33,8 +34,8 @@ class Group extends React.Component {
    *
    * @returns { void }
    */
-  componentWillMount() {
-    const groupId = this.props.match.params.groupId;
+  componentDidMount() {
+    const { groupId } = this.props.match.params;
     this.props.getMessages(groupId, this.props.history);
     this.props.getGroupMembers(groupId);
   }
@@ -62,7 +63,7 @@ class Group extends React.Component {
     })
     .then((leave) => {
       if (leave) {
-        const groupId = this.props.match.params.groupId;
+        const { groupId } = this.props.match.params;
         this.props.leaveGroup(groupId);
       }
     });
@@ -81,17 +82,17 @@ class Group extends React.Component {
         this.props.history.push('/dashboard');
       });
     }
-    const groupId = this.props.match.params.groupId;
+    const { groupId } = this.props.match.params;
     let numberOfGroupMembers;
     let groupName;
     if (this.props.groupMembers) {
       groupName = this.props.groupMembers.group.groupName;
-      numberOfGroupMembers = this.props.groupMembers.users.length;
+      numberOfGroupMembers = this.props.groupMembers.groupMembers.length;
     }
     return (
       <div>
         <div>
-        <div className="col s12 m6 component-container">
+        <div className="col s12 m7 component-container">
           <div className="dashboard-header">
           <Link
           to=""
@@ -130,9 +131,10 @@ class Group extends React.Component {
                 </Link>
               </li>
             </ul>
-          <div className="col s12 m6 component-container">
+          <div className="col s12 m7 component-container">
             <Messages groupId={this.props.match.params.groupId} />
           </div>
+          <GroupMembers />
         </div>
       </div>
     );

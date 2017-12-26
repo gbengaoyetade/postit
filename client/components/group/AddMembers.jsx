@@ -34,7 +34,7 @@ class AddMembers extends React.Component {
    *
    * @returns { void }
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getGroupMembers(this.props.match.params.groupId);
   }
 
