@@ -1,5 +1,5 @@
 import database from '../models/index';
-import { checkParams, getId } from '../includes/helperFunctions';
+import { sendValidationErrors, getId } from '../includes/helperFunctions';
 
 
 const { users, groups, groupMembers } = database;
@@ -15,38 +15,32 @@ const { users, groups, groupMembers } = database;
 export const groupAndUserExist = (req, res, next) => {
   const { groupId } = req.params;
   const userId = req.body.userId || req.params.userId;
-  const requiredFields = ['userId'];
-  const validateInputResponse = checkParams(req.body, requiredFields);
-  if (validateInputResponse !== 'ok') {
-    res.status(400).json({ error: validateInputResponse });
-  } else if (isNaN(groupId) || isNaN(userId)) {
-    res.status(400).json({ error: 'groupId or userId not a number' });
-  } else {
+  if (!sendValidationErrors(req, res)) {
     groups.findOne({
       where: { id: groupId },
     })
-    .then((group) => {
-      if (group) {
-        users.findOne({
-          where: { id: userId },
-        })
-        .then((user) => {
-          if (user) {
-            next();
-          } else {
-            res.status(400).json({ error: 'User does not exist' });
-          }
-        })
-        .catch((error) => {
-          res.status(400).json({ error, message: 'user error' });
-        });
-      } else {
-        res.status(400).json({ error: 'Group does not exist' });
-      }
-    })
-    .catch((error) => {
-      res.status(400).json({ error: error.message });
-    });
+      .then((group) => {
+        if (group) {
+          users.findOne({
+            where: { id: userId },
+          })
+          .then((user) => {
+            if (user) {
+              next();
+            } else {
+              res.status(400).json({ error: 'User does not exist' });
+            }
+          })
+          .catch((error) => {
+            res.status(400).json({ error, message: 'user error' });
+          });
+        } else {
+          res.status(400).json({ error: 'Group does not exist' });
+        }
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
   }
 };
 
@@ -74,6 +68,7 @@ export const groupExist = (req, res, next) => {
       .then((member) => {
         if (member) {
           req.group = group;
+          req.groupMember = member;
           next();
         } else {
           res.status(401).json({ error: 'User not a member of the group' });
@@ -82,7 +77,7 @@ export const groupExist = (req, res, next) => {
       .catch(() => {
       });
     } else {
-      res.status(400).json({ error: 'Group does not exist' });
+      res.status(404).json({ error: 'Group does not exist' });
     }
   })
   .catch((error) => {

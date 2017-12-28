@@ -26,15 +26,17 @@ const secret = process.env.TOKEN_SECRET;
 export const signUp = (req, res) => {
   if (!sendValidationErrors(req, res)) {
     // Validate input if it contains required fields
+    const { username, password, email, fullName, phoneNumber } = req.body;
     const { errors, isValid } = validateSignUpInput(req.body);
-    if (isValid) {
-      // if input is valid, create user
+    if (!isValid) {
+      res.status(400).json({ error: errors });
+    } else {
       users.create({
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
-        fullName: req.body.fullName,
-        phoneNumber: req.body.phoneNumber,
+        username,
+        password,
+        email,
+        fullName,
+        phoneNumber,
       })
       .then((user) => {
         groupMembers.create({
@@ -46,10 +48,10 @@ export const signUp = (req, res) => {
           const userToken = generateToken(user);
           const userDetails = {
             id: user.id,
-            fullName: user.fullName,
-            username: user.username,
-            email: user.email,
-            phoneNumber: user.phoneNumber,
+            fullName,
+            username,
+            email,
+            phoneNumber,
             token: userToken,
           };
           const userCreateResponse = {
@@ -70,12 +72,9 @@ export const signUp = (req, res) => {
         } else if (error.errors[0].message === 'phoneNumber must be unique') {
           res.status(409).send({ error: 'Phone Number already in use' });
         } else {
-          const errorMessage = error.errors[0].message;
-          res.status(400).send({ error: errorMessage });
+          res.status(500).send({ error: 'Internal server error' });
         }
       });
-    } else {
-      res.status(400).json({ error: errors });
     }
   }
 }; // end of signup
@@ -101,15 +100,16 @@ export const signIn = (req, res) => {
     } else {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (result) {
-          const userToken = generateToken(user);
+          const token = generateToken(user);
+          const { username, id, fullName, email, phoneNumber } = user;
           const userDetails = {
             user: {
-              id: user.id,
-              fullName: user.fullName,
-              username: user.username,
-              email: user.email,
-              phoneNumber: user.phoneNumber,
-              token: userToken,
+              id,
+              fullName,
+              username,
+              email,
+              phoneNumber,
+              token,
             },
           };
           res.status(200).send(userDetails);
@@ -143,7 +143,7 @@ export const resetPassword = (req, res) => {
         // structure email
         const token = jwt.sign({ id: user.id },
           secret,
-          { expiresIn: 60 * 30 },
+          { expiresIn: 60 * 60 * 24 },
           );
         const resetPasswordMail =
         `<p> Click the link to change your password.</p>

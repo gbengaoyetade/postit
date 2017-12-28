@@ -1,6 +1,8 @@
 import mockery from 'mockery';
 import nodemailerMock from 'nodemailer-mock';
 import database from '../server/models/';
+import { generateToken } from '../server/includes/helperFunctions';
+
 
 mockery.enable({
   warnOnUnregistered: false,
@@ -28,17 +30,17 @@ export default () => {
     truncate: true,
     restartIdentity: true,
   });
-  const data = {
+  const userDetails1 = {
     fullName: 'gbenga Oyetade',
     username: 'apptest',
     password: 'some password',
     email: 'apptest@gmail.com',
     phoneNumber: '+2348064140695' };
-  const data2 = {
+  const userDetails2 = {
     fullName: 'gbenga Oyetade',
-    username: 'apptest22',
+    username: 'apptest2',
     password: 'some password',
-    email: 'apptest22@gmail.com',
+    email: 'apptest2@gmail.com',
     phoneNumber: '+223480641406925' };
   const group = {
     groupName: 'test',
@@ -53,8 +55,8 @@ export default () => {
     userId: 1,
     messageBody: 'message body',
     messagePriority: 'Normal' };
-  database.users.create(data);
-  database.users.create(data2);
+  database.users.create(userDetails1);
+  database.users.create(userDetails2);
   database.groups.create(group);
   database.groups.create(group2)
   .then((groupData) => {
@@ -62,4 +64,22 @@ export default () => {
     database.groupMembers.create(groupMember);
   });
   database.messages.create(message);
+  const userDetailsWithId = {
+    fullName: 'gbenga Oyetade',
+    username: 'apptest',
+    password: 'some password',
+    email: 'apptest@gmail.com',
+    phoneNumber: '+2348064140695',
+    id: 1 };
+  const userDetailsWithId2 = {
+    fullName: 'gbenga Oyetade',
+    username: 'apptest',
+    password: 'some password',
+    email: 'apptest@gmail.com',
+    phoneNumber: '+2348064140695',
+    id: 2 };
+  const token1 = generateToken(userDetailsWithId);
+  const token2 = generateToken(userDetailsWithId2);
+  return { token1, token2 };
 };
+

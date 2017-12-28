@@ -14,19 +14,20 @@ const { groupMembers, groups, messages, users } = database;
  */
 export const create = (req, res) => {
   if (!sendValidationErrors(req, res)) {
+    const { groupName, groupDescription } = req.body;
     groups.find({
       where: {
-        groupName: req.body.groupName.toLowerCase().trim(),
+        groupName: groupName.toLowerCase().trim(),
       },
     })
     .then((groupExist) => {
-      const userId = getId(req.headers['x-access-token']);
       if (groupExist) {
-        res.status(409).json({ error: 'group name already exist.' });
+        res.status(409).json({ error: 'group name already exist' });
       } else {
+        const userId = getId(req.headers['x-access-token']);
         groups.create({
-          groupName: req.body.groupName.toLowerCase(),
-          groupDescription: req.body.groupDescription,
+          groupName: groupName.trim().toLowerCase(),
+          groupDescription,
           createdBy: userId,
         })
         .then((group) => {
@@ -38,10 +39,10 @@ export const create = (req, res) => {
           .then(() => {
             const groupDetails = {
               groupId: group.id,
-              groupName: group.groupName,
-              groupDescription: group.groupDescription,
+              groupName,
+              groupDescription,
             };
-            res.status(201).json(groupDetails);
+            res.status(201).json({ group: groupDetails });
           })
           .catch(() => {
             res.status(500).send({ error: 'Internal server error' });
@@ -68,33 +69,33 @@ export const create = (req, res) => {
  * @returns { void } -returns nothing
  */
 export const addMembers = (req, res) => {
-  if (!sendValidationErrors()) {
-    groupMembers.findOne({
-      where: { userId: req.body.userId, groupId: req.params.groupId },
-    })
-    .then((member) => {
-      if (member) {
-        res.status(409).send({
-          error: 'User already a member of this group', member });
-      } else {
-        groupMembers.create({
-          groupId: req.params.groupId,
-          userId: req.body.userId,
-          addedBy: getId(req.headers['x-access-token']),
-        })
-        .then((groupMember) => {
-          res.status(201).send({
-            member: groupMember, message: 'User successfully added to group' });
-        })
-        .catch(() => {
-          res.status(500).send({ error: 'Internal server error' });
-        });
-      }
-    })
-    .catch(() => {
-      res.status(500).send({ error: 'Internal server error' });
-    });
-  }
+  const { userId } = req.body;
+  const { groupId } = req.params;
+  groupMembers.findOne({
+    where: { userId, groupId },
+  })
+  .then((member) => {
+    if (member) {
+      res.status(409).send({
+        error: 'User already a member of this group', member });
+    } else {
+      groupMembers.create({
+        groupId,
+        userId,
+        addedBy: getId(req.headers['x-access-token']),
+      })
+      .then((groupMember) => {
+        res.status(201).send({
+          member: groupMember, message: 'User successfully added to group' });
+      })
+      .catch(() => {
+        res.status(500).send({ error: 'Internal server error' });
+      });
+    }
+  })
+  .catch(() => {
+    res.status(500).send({ error: 'Internal server error' });
+  });
 }; // end of addMembers
 
 /**
@@ -151,21 +152,11 @@ export const getGroups = (req, res) => {
 export const leaveGroup = (req, res) => {
   const userId = getId(req.headers['x-access-token']);
   const { groupId } = req.params;
-  groupMembers.findOne({
+  groupMembers.destroy({
     where: { userId, groupId },
   })
-  .then((member) => {
-    if (member) {
-      groupMembers.destroy({
-        where: { userId, groupId },
-      })
-      .then(() => {
-        res.send({ message: 'User left group' });
-      })
-      .catch(() => {
-        res.status(500).send({ error: 'Internal server error' });
-      });
-    }
+  .then(() => {
+    res.send({ message: 'User left group' });
   })
   .catch(() => {
     res.status(500).send({ error: 'Internal server error' });

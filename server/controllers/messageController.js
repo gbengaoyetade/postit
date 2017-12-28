@@ -1,11 +1,10 @@
 import database from '../models/index';
 import {
-  checkParams,
   getId,
   sendValidationErrors } from '../includes/helperFunctions';
 import transporter from '../config/transporter';
 
-const { messages } = database;
+const { messages, groups, users } = database;
 
 /**
  * @description Create message
@@ -17,25 +16,27 @@ const { messages } = database;
  */
 export const createMessage = (req, res) => {
   if (!sendValidationErrors(req, res)) {
+    const { messageBody, messagePriority } = req.body;
+    const userId = getId(req.headers['x-access-token']);
+    const { groupId } = req.params;
     messages.create({
-      messageBody: req.body.messageBody,
-      messagePriority: req.body.messagePriority,
-      userId: getId(req.headers['x-access-token']),
-      groupId: req.params.groupId,
+      messageBody,
+      messagePriority,
+      userId,
+      groupId,
     })
     .then((message) => {
       const messageData = {
         messageId: message.id,
-        userId: message.userId,
-        groupId: message.groupId,
-        messageBody: message.messageBody,
-        messagePriority: message.messagePriority,
+        userId,
+        groupId,
+        messageBody,
+        messagePriority,
       };
       res.status(201).send({ message: messageData });
       // if priority is Urgent or Critical, send E-mail Notifications
-      if (message.messagePriority === 'Urgent' ||
-      message.messagePriority === 'Critical') {
-        database.groups.find({
+      if (messagePriority === 'Urgent' || messagePriority === 'Critical') {
+        groups.find({
           where: { id: message.groupId },
         })
         .then((group) => {
@@ -61,13 +62,13 @@ export const createMessage = (req, res) => {
             });
           });
         })
-        .catch((error) => {
-          res.status(500).send({ error: error.message });
+        .catch(() => {
+          res.status(500).send({ error: 'Internal server error' });
         });
       }
     })
-    .catch((error) => {
-      res.status(400).send({ error: error.message });
+    .catch(() => {
+      res.status(500).send({ error: 'Internal server error' });
     });
   }
 };
@@ -89,7 +90,7 @@ export const getMessages = (req, res) => {
     },
     include: [
       {
-        model: database.users,
+        model: users,
         attributes: {
           exclude: ['password', 'createdAt', 'updatedAt'],
         },
@@ -100,6 +101,6 @@ export const getMessages = (req, res) => {
     res.status(200).send({ messages: groupMessages });
   })
   .catch(() => {
-    res.status(500).send({ error: 'Could not get messages' });
+    res.status(500).send({ error: 'Internal server error' });
   });
 };

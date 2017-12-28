@@ -1,0 +1,185 @@
+import { assert } from 'chai';
+import supertest from 'supertest';
+import app from '../server/app';
+import seedDatabase from './tests.includes';
+
+
+// Test for the group controller
+let token1, token2;
+describe('Create group', () => {
+  before(() => {
+    const returnedToken = seedDatabase();
+    token1 = returnedToken.token1;
+    token2 = returnedToken.token2;
+  });
+  it('should send error message when required fields are missing',
+  (done) => {
+    supertest(app).post('/api/group').set('x-access-token', token1).send()
+    .end((err, res) => {
+      assert.equal(res.statusCode, 400);
+      assert.equal(res.body.error.groupName, 'groupName field is required');
+      assert.equal(res.body.error.groupDescription,
+      'groupDescription field is required');
+      done();
+    });
+  });
+  it('should send error message when groupName field is empty', (done) => {
+    const groupData = {
+      groupName: '  ',
+      groupDescription: 'description',
+      createdBy: 1 };
+    supertest(app).post('/api/group').set('x-access-token', token1)
+    .send(groupData)
+    .end((err, res) => {
+      assert.equal(res.body.error.groupName, 'Expects a string of alphabets');
+      assert.equal(res.statusCode, 400);
+      done();
+    });
+  });
+  it('Should send error message when group description field is not provided',
+  (done) => {
+    const groupData = { groupName: 'react leaders' };
+    supertest(app).post('/api/group').set('x-access-token', token1)
+    .send(groupData)
+    .end((err, res) => {
+      assert.equal(res.body.error.groupDescription,
+      'groupDescription field is required');
+      done();
+    });
+  });
+  it('Should not create group if group description is empty', (done) => {
+    const groupData = {
+      groupName: 'group name',
+      groupDescription: ' ' };
+    supertest(app).post('/api/group').set('x-access-token', token1)
+    .send(groupData)
+    .end((err, res) => {
+      assert.equal(res.statusCode, 400);
+      assert.equal(res.body.error.groupDescription,
+        'Expects a string of alphabets');
+      done();
+    });
+  });
+  it('should create group when valid details are supplied', (done) => {
+    const groupData = {
+      groupName: 'test group 2',
+      groupDescription: 'test group description' };
+    supertest(app).post('/api/group').set('x-access-token', token1)
+    .send(groupData)
+    .end((err, res) => {
+      assert.equal(res.statusCode, 201);
+      assert.equal(res.body.group.groupName, groupData.groupName);
+      assert.equal(res.body.group.groupDescription, groupData.groupDescription);
+      done();
+    });
+  });
+  it('should return error when group name already exist', (done) => {
+    const groupData = {
+      groupName: 'test group 2',
+      groupDescription: 'description' };
+    supertest(app).post('/api/group').set('x-access-token', token1)
+    .send(groupData)
+    .end((err, res) => {
+      assert.equal(res.statusCode, 409);
+      assert.equal(res.body.error, 'group name already exist');
+      done();
+    });
+  });
+});
+describe('getGroupMembers', () => {
+  it('should send error when groupId is not a number', (done) => {
+    supertest(app).get('/api/group/k/users').set('x-access-token', token1)
+    .send()
+    .end((err, res) => {
+      assert.equal(res.statusCode, 400);
+      assert.equal(res.body.error, 'groupId is not a number');
+      done();
+    });
+  });
+  it('should return group members when inputs are valid', (done) => {
+    supertest(app).get('/api/group/2/users').set('x-access-token', token2)
+    .send()
+    .end((err, res) => {
+      assert.equal(res.statusCode, 200);
+      assert.equal(res.body.groupMembers[0].id, 2);
+      assert.equal(res.body.groupMembers[0].fullName, 'gbenga Oyetade');
+      done();
+    });
+  });
+});
+describe('Add member', () => {
+  it('should add user to a group when inputs are valid',
+  (done) => {
+    const groupData = { userId: 2 };
+    supertest(app).post('/api/group/1/user').set('x-access-token', token1)
+    .send(groupData)
+    .end((err, res) => {
+      assert.equal(res.body.message, 'User successfully added to group');
+      assert.equal(res.body.member.groupId, 1);
+      assert.equal(res.body.member.userId, 2);
+      assert.equal(res.body.member.addedBy, 1);
+      done();
+    });
+  });
+  it('should send error message when user is already a member of the group',
+  (done) => {
+    const groupData = { userId: 2 };
+    supertest(app).post('/api/group/1/user').set('x-access-token', token1)
+    .send(groupData)
+    .end((err, res) => {
+      assert.equal(res.statusCode, 409);
+      assert.equal(res.body.error, 'User already a member of this group');
+      done();
+    });
+  });
+  it('should send error message when groupId not a number', (done) => {
+    supertest(app).get('/api/group/3ttt/users').set('x-access-token', token1)
+    .send()
+    .end((err, res) => {
+      assert.isOk(res.body.error);
+      assert.equal(res.statusCode, 400);
+      assert.equal(res.body.error, 'groupId is not a number');
+      done();
+    });
+  });
+});
+describe('Leave group', () => {
+  it('should send error message when group does not exist', (done) => {
+    supertest(app).delete('/api/group/10789/leave')
+    .set('x-access-token', token1).send()
+    .end((err, res) => {
+      assert.equal(res.statusCode, 404);
+      assert.equal(res.body.error, 'Group does not exist');
+      done();
+    });
+  });
+  it('should send error message when user does not belong to group', (done) => {
+    supertest(app).delete('/api/group/2/leave')
+    .set('x-access-token', token1).send()
+    .end((err, res) => {
+      assert.equal(res.statusCode, 401);
+      assert.equal(res.body.error, 'User not a member of the group');
+      done();
+    });
+  });
+  it('should remove user from group if he belongs to the group',
+  (done) => {
+    supertest(app).delete('/api/group/2/leave').set('x-access-token', token2)
+    .send()
+    .end((err, res) => {
+      assert.equal(res.body.message, 'User left group');
+      assert.equal(res.statusCode, 200);
+      done();
+    });
+  });
+  it('should send error message when user is not a group member',
+  (done) => {
+    supertest(app).delete('/api/group/2/leave').set('x-access-token', token1)
+    .send()
+    .end((err, res) => {
+      assert.equal(res.body.error, 'User not a member of the group');
+      assert.equal(res.statusCode, 401);
+      done();
+    });
+  });
+});
