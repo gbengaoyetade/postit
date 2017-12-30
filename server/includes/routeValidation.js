@@ -93,6 +93,9 @@ const routeValidation = () => (
       .withMessage('password field is required')
       .matches(/^[a-zA-Z]+/)
       .withMessage('Expects a string of alphabets'),
+      query('token')
+      .exists()
+      .withMessage('No token provided')
     ],
     userSearch: [
       query('query')

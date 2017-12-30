@@ -102,12 +102,22 @@ describe('getGroupMembers', () => {
     .end((err, res) => {
       assert.equal(res.statusCode, 200);
       assert.equal(res.body.groupMembers[0].id, 2);
-      assert.equal(res.body.groupMembers[0].fullName, 'gbenga Oyetade');
+      assert.equal(res.body.groupMembers[0].fullName, 'Gbenga Oyetade');
       done();
     });
   });
 });
 describe('Add member', () => {
+  it('should send error message when user does not exist', (done) => {
+    const groupData = { userId: 56 };
+    supertest(app).post('/api/group/1/user').set('x-access-token', token1)
+    .send(groupData)
+    .end((err, res) => {
+      assert.equal(res.statusCode, 400);
+      assert.equal(res.body.error, 'User does not exist');
+      done();
+    });
+  });
   it('should add user to a group when inputs are valid',
   (done) => {
     const groupData = { userId: 2 };

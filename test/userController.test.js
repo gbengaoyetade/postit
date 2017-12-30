@@ -4,7 +4,7 @@ import app from '../server/app';
 import database from '../server/models/';
 import seedDatabase from './tests.includes';
 
-const { groups, groupMembers, users } = database;
+const { groups, groupMembers } = database;
 let token1;
 describe('Signup', () => {
   before(() => {
@@ -13,7 +13,7 @@ describe('Signup', () => {
   });
   it('should send error message when email is invalid', (done) => {
     const wrongEmail = {
-      fullName: 'gbenga Oyetade',
+      fullName: 'Gbenga Oyetade',
       username: 'apptest',
       password: 'some password',
       email: 'apptestgmail.com',
@@ -126,7 +126,7 @@ describe('Signup', () => {
   });
   it('should create user when inputs are valid', (done) => {
     const user = {
-      fullName: 'gbenga Oyetade',
+      fullName: 'Gbenga Oyetade',
       username: 'test_signup',
       password: 'password',
       email: 'signup@gmail.com',
@@ -185,7 +185,7 @@ describe('Login', () => {
     supertest(app).post('/api/user/signin')
     .send(userDetails).end((err, res) => {
       assert.equal(res.statusCode, 200);
-      assert.equal(res.body.user.fullName, 'gbenga Oyetade');
+      assert.equal(res.body.user.fullName, 'Gbenga Oyetade');
       assert.equal(res.body.user.phoneNumber, '+2348064140695');
       assert.equal(res.body.user.email, 'apptest@gmail.com');
       assert.equal(res.body.user.username, userDetails.username);
@@ -202,7 +202,7 @@ describe('Login', () => {
     supertest(app).post('/api/user/signin')
     .send(userDetails).end((err, res) => {
       assert.equal(res.statusCode, 200);
-      assert.equal(res.body.user.fullName, 'gbenga Oyetade');
+      assert.equal(res.body.user.fullName, 'Gbenga Oyetade');
       assert.equal(res.body.user.phoneNumber, '+2348064140695');
       assert.equal(res.body.user.email, 'apptest@gmail.com');
       assert.equal(res.body.user.username, 'apptest');
@@ -268,7 +268,7 @@ describe('Update password', () => {
     const password = { password: 'password' };
     supertest(app).post('/api/user/password/update').send(password)
     .end((err, res) => {
-      assert.equal(res.body.error, 'No token provided');
+      assert.equal(res.body.error.token, 'No token provided');
       assert.equal(res.statusCode, 400);
     });
     done();
@@ -296,13 +296,15 @@ describe('User search', () => {
     });
   });
   it('should return an array of users when params are valid', (done) => {
-    supertest(app).get('/api/user/search?query=app&offset=0')
+    supertest(app).get('/api/user/search?query=test2&offset=0')
     .set('x-access-token', token1)
     .send()
     .end((err, res) => {
       assert.equal(res.statusCode, 200);
       assert.isOk(Array.isArray(res.body.users));
-      assert.equal(res.body.users[0].username, 'apptest');
+      assert.equal(res.body.users[0].username, 'apptest2');
+      assert.equal(res.body.users[0].email, 'apptest2@gmail.com');
+      assert.equal(res.body.users[0].fullName, 'Gbenga Oyetade');
       done();
     });
   });

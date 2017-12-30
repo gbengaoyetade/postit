@@ -62,8 +62,6 @@ describe('Get Messages', () => {
       assert.equal(res.statusCode, 200);
       assert.equal(res.body.messages[0].messageBody, 'this is a message');
       assert.equal(res.body.messages[0].messagePriority, 'Normal');
-      assert.equal(res.body.messages[0].groupId, 1);
-      assert.equal(res.body.messages[0].user.id, 2);
       done();
     });
   });

@@ -31,17 +31,17 @@ export default () => {
     restartIdentity: true,
   });
   const userDetails1 = {
-    fullName: 'gbenga Oyetade',
+    fullName: 'Gbenga Oyetade',
     username: 'apptest',
     password: 'some password',
     email: 'apptest@gmail.com',
     phoneNumber: '+2348064140695' };
   const userDetails2 = {
-    fullName: 'gbenga Oyetade',
+    fullName: 'Gbenga Oyetade',
     username: 'apptest2',
     password: 'some password',
     email: 'apptest2@gmail.com',
-    phoneNumber: '+223480641406925' };
+    phoneNumber: '+23480641406995' };
   const group = {
     groupName: 'test',
     groupDescription: 'test',
@@ -65,14 +65,14 @@ export default () => {
   });
   database.messages.create(message);
   const userDetailsWithId = {
-    fullName: 'gbenga Oyetade',
+    fullName: 'Gbenga Oyetade',
     username: 'apptest',
     password: 'some password',
     email: 'apptest@gmail.com',
     phoneNumber: '+2348064140695',
     id: 1 };
   const userDetailsWithId2 = {
-    fullName: 'gbenga Oyetade',
+    fullName: 'Gbenga Oyetade',
     username: 'apptest',
     password: 'some password',
     email: 'apptest@gmail.com',

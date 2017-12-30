@@ -60,8 +60,8 @@ export const signUp = (req, res) => {
           };
           res.status(201).send(userCreateResponse);
         })
-        .catch((serverError) => {
-          res.status(500).send({ error: serverError.message });
+        .catch(() => {
+          res.status(500).send({ error: 'Internal server error' });
         });
       })
       .catch((error) => {
@@ -119,8 +119,8 @@ export const signIn = (req, res) => {
       });
     }
   })
-  .catch((error) => {
-    res.status(500).send(error.message);
+  .catch(() => {
+    res.status(500).send({ error: 'Internal server error' });
   });
   }
 }; // end of signIn
@@ -167,8 +167,8 @@ export const resetPassword = (req, res) => {
           error: 'Email address does not exist on Postit' });
       }
     })
-    .catch((error) => {
-      res.status(500).send(error.message);
+    .catch(() => {
+      res.status(500).send({ error: 'Internal server error' });
     });
   }
 };
@@ -183,47 +183,42 @@ export const resetPassword = (req, res) => {
 export const updatePassword = (req, res) => {
   if (!sendValidationErrors(req, res)) {
     // Check if URL contians parameter token
-    const userToken = req.query.token;
-    if (!userToken) {
-      // Token not provided response
-      res.status(400).send({ error: 'No token provided' });
-    } else {
-      let userId;
-      // Verify user token
-      jwt.verify(userToken, secret, (error) => {
-        if (error) {
-          res.status(401).send({ error: 'Token authentication failure' });
-        } else {
-          // Update user password if token was verified successfully
-          const hash = encryptPassword(req.body.password);
-          userId = getId(userToken);
-          users.update(
-            { password: hash },
-            { where: { id: userId } },
-          )
-          .then((updateValue) => {
-            if (updateValue[0]) {
-              users.findOne(({
-                where: { id: userId },
-                attributes: {
-                  exclude: ['createdAt', 'updatedAt', 'password'],
-                },
-              }))
-              .then((user) => {
-                const token = generateToken(user);
-                res.send({ token });
-              });
-            } else {
-              res.status(500).send({
-                error: 'Password not updated. Try again' });
-            }
-          })
-          .catch((updateError) => {
-            res.status(500).send({ error: updateError.message });
-          });
-        }
-      });
-    }
+    const { token } = req.query;
+    let userId;
+    // Verify user token
+    jwt.verify(token, secret, (error) => {
+      if (error) {
+        res.status(401).send({ error: 'Token authentication failure' });
+      } else {
+        // Update user password if token was verified successfully
+        const hash = encryptPassword(req.body.password);
+        userId = getId(token);
+        users.update(
+          { password: hash },
+          { where: { id: userId } },
+        )
+        .then((updateValue) => {
+          if (updateValue[0]) {
+            users.findOne(({
+              where: { id: userId },
+              attributes: {
+                exclude: ['createdAt', 'updatedAt', 'password'],
+              },
+            }))
+            .then((user) => {
+              const userToken = generateToken(user);
+              res.send({ token: userToken });
+            });
+          } else {
+            res.status(500).send({
+              error: 'Password not updated. Try again' });
+          }
+        })
+        .catch(() => {
+          res.status(500).send({ error: 'Internal server error' });
+        });
+      }
+    });
   }
 };
 /**
@@ -260,8 +255,8 @@ export const userSearch = (req, res) => {
       };
       res.send(pagination);
     })
-    .catch((error) => {
-      res.status(500).send({ error: error.message });
+    .catch(() => {
+      res.status(500).send({ error: 'Internal server error' });
     });
   }
 };

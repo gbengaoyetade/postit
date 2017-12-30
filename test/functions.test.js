@@ -9,19 +9,19 @@ describe('getId function', () => {
   it('should be defined', () => {
     assert.equal(typeof getId, 'function');
   });
-  it('should return a number if token is passed', () => {
+  it('should return a number when token is passed', () => {
     assert.equal(typeof getId(token), 'number');
   });
 });
 describe('encryptPassword', () => {
-  it('should accept a string only', () => {
+  it('should send error message when string is not passed', () => {
     const returnValue = encryptPassword(['arrayIndex0']);
     assert.equal(returnValue, 'Wrong input type');
   });
-  it('should return an encrypted string if string is provided', () => {
+  it('should return an encrypted string when provided with valid input', () => {
     const password = 'password';
-    const returnValue = encryptPassword(password);
-    assert.equal(typeof returnValue, 'string');
-    assert.notEqual(returnValue, password);
+    const encryptedPassword = encryptPassword(password);
+    assert.equal(typeof encryptedPassword, 'string');
+    assert.notEqual(encryptedPassword, password);
   });
 });
