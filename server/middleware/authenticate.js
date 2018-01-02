@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+import { getId } from '../includes/helperFunctions';
 
-dotenv.load();
 const secret = process.env.TOKEN_SECRET;
 
 /**
@@ -14,12 +13,13 @@ const secret = process.env.TOKEN_SECRET;
  * @returns { void } -returns nothing
  */
 const authenticate = (req, res, next) => {
-  const userToken = req.query.token || req.headers['x-access-token'];
+  const userToken = req.headers['x-access-token'];
   if (userToken) {
     jwt.verify(userToken, secret, (error) => {
       if (error) {
         res.status(401).send({ error: 'Token authentication failure' });
       } else {
+        req.id = getId(userToken);
         next();
       }
     });

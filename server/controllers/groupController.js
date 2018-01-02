@@ -1,9 +1,6 @@
-import {
-  getId,
-  sendValidationErrors } from '../includes/helperFunctions';
-import database from '../models/index';
+import models from '../models';
 
-const { groupMembers, groups, messages, users } = database;
+const { groupMembers, groups, messages, users } = models;
 /**
  * @description create new group
  *
@@ -13,50 +10,48 @@ const { groupMembers, groups, messages, users } = database;
  * @returns { void } -returns nothing
  */
 export const create = (req, res) => {
-  if (!sendValidationErrors(req, res)) {
-    const { groupName, groupDescription } = req.body;
-    groups.find({
-      where: {
-        groupName: groupName.toLowerCase().trim(),
-      },
-    })
-    .then((groupExist) => {
-      if (groupExist) {
-        res.status(409).json({ error: 'group name already exist' });
-      } else {
-        const userId = getId(req.headers['x-access-token']);
-        groups.create({
-          groupName: groupName.trim().toLowerCase(),
-          groupDescription,
-          createdBy: userId,
+  const { groupName, groupDescription } = req.body;
+  groups.find({
+    where: {
+      groupName: groupName.toLowerCase().trim(),
+    },
+  })
+  .then((groupExist) => {
+    if (groupExist) {
+      res.status(409).json({ error: 'group name already exist' });
+    } else {
+      const userId = req.id;
+      groups.create({
+        groupName: groupName.trim().toLowerCase(),
+        groupDescription,
+        createdBy: userId,
+      })
+      .then((group) => {
+        groupMembers.create({
+          groupId: group.id,
+          userId,
+          addedBy: userId,
         })
-        .then((group) => {
-          groupMembers.create({
+        .then(() => {
+          const groupDetails = {
             groupId: group.id,
-            userId,
-            addedBy: userId,
-          })
-          .then(() => {
-            const groupDetails = {
-              groupId: group.id,
-              groupName,
-              groupDescription,
-            };
-            res.status(201).json({ group: groupDetails });
-          })
-          .catch(() => {
-            res.status(500).send({ error: 'Internal server error' });
-          });
+            groupName,
+            groupDescription,
+          };
+          res.status(201).json({ group: groupDetails });
         })
         .catch(() => {
           res.status(500).send({ error: 'Internal server error' });
         });
-      }
-    })
-    .catch(() => {
-      res.status(500).send({ error: 'Internal server error' });
-    });
-  }
+      })
+      .catch(() => {
+        res.status(500).send({ error: 'Internal server error' });
+      });
+    }
+  })
+  .catch(() => {
+    res.status(500).send({ error: 'Internal server error' });
+  });
 }; // end of Create
 
 
@@ -82,7 +77,7 @@ export const addMembers = (req, res) => {
       groupMembers.create({
         groupId,
         userId,
-        addedBy: getId(req.headers['x-access-token']),
+        addedBy: req.id,
       })
       .then((groupMember) => {
         res.status(201).send({
@@ -107,7 +102,7 @@ export const addMembers = (req, res) => {
  * @returns { void } -returns nothing
  */
 export const getGroups = (req, res) => {
-  const userId = getId(req.headers['x-access-token']);
+  const userId = req.id;
   users.find({
     where: { id: userId },
     attributes: {
@@ -116,10 +111,16 @@ export const getGroups = (req, res) => {
     include: [
       {
         model: groups,
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
         // send group last message with it
         include: [
           {
             model: messages,
+            attributes: {
+              exclude: ['updatedAt'],
+            },
             limit: 1,
             order: [
               ['id', 'DESC'],
@@ -150,7 +151,7 @@ export const getGroups = (req, res) => {
  * @returns { void } -returns nothing
  */
 export const leaveGroup = (req, res) => {
-  const userId = getId(req.headers['x-access-token']);
+  const userId = req.id;
   const { groupId } = req.params;
   groupMembers.destroy({
     where: { userId, groupId },
@@ -177,7 +178,7 @@ export const getGroupMembers = (req, res) => {
   },
   })
   .then((members) => {
-    res.send({ groupMembers: members, group: req.group });
+    res.send({ members, group: req.group });
   })
   .catch(() => {
     res.status(500).send({ error: 'Internal server error' });

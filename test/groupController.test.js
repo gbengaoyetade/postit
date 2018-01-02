@@ -1,16 +1,15 @@
 import { assert } from 'chai';
 import supertest from 'supertest';
 import app from '../server/app';
-import seedDatabase from './tests.includes';
+import { tokens, seedDatabase } from './tests.includes';
 
 
 // Test for the group controller
-let token1, token2;
+const { token1, token2 } = tokens();
 describe('Create group', () => {
-  before(() => {
-    const returnedToken = seedDatabase();
-    token1 = returnedToken.token1;
-    token2 = returnedToken.token2;
+  before((done) => {
+    seedDatabase();
+    done();
   });
   it('should send error message when required fields are missing',
   (done) => {
@@ -101,8 +100,8 @@ describe('getGroupMembers', () => {
     .send()
     .end((err, res) => {
       assert.equal(res.statusCode, 200);
-      assert.equal(res.body.groupMembers[0].id, 2);
-      assert.equal(res.body.groupMembers[0].fullName, 'Gbenga Oyetade');
+      assert.equal(res.body.members[0].id, 2);
+      assert.equal(res.body.members[0].fullName, 'Gbenga Oyetade');
       done();
     });
   });
@@ -121,11 +120,11 @@ describe('Add member', () => {
   it('should add user to a group when inputs are valid',
   (done) => {
     const groupData = { userId: 2 };
-    supertest(app).post('/api/group/1/user').set('x-access-token', token1)
+    supertest(app).post('/api/group/3/user').set('x-access-token', token1)
     .send(groupData)
     .end((err, res) => {
       assert.equal(res.body.message, 'User successfully added to group');
-      assert.equal(res.body.member.groupId, 1);
+      assert.equal(res.body.member.groupId, 3);
       assert.equal(res.body.member.userId, 2);
       assert.equal(res.body.member.addedBy, 1);
       done();
@@ -134,7 +133,7 @@ describe('Add member', () => {
   it('should send error message when user is already a member of the group',
   (done) => {
     const groupData = { userId: 2 };
-    supertest(app).post('/api/group/1/user').set('x-access-token', token1)
+    supertest(app).post('/api/group/3/user').set('x-access-token', token1)
     .send(groupData)
     .end((err, res) => {
       assert.equal(res.statusCode, 409);

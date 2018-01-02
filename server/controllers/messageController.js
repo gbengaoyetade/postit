@@ -1,10 +1,7 @@
-import database from '../models/index';
-import {
-  getId,
-  sendValidationErrors } from '../includes/helperFunctions';
+import models from '../models';
 import transporter from '../config/transporter';
 
-const { messages, groups, users } = database;
+const { messages, groups, users } = models;
 
 /**
  * @description Create message
@@ -15,62 +12,60 @@ const { messages, groups, users } = database;
  * @returns { void } -returns nothing
  */
 export const createMessage = (req, res) => {
-  if (!sendValidationErrors(req, res)) {
-    const { messageBody, messagePriority } = req.body;
-    const userId = getId(req.headers['x-access-token']);
-    const { groupId } = req.params;
-    messages.create({
-      messageBody,
-      messagePriority,
+  const { messageBody, messagePriority } = req.body;
+  const userId = req.id;
+  const { groupId } = req.params;
+  messages.create({
+    messageBody,
+    messagePriority,
+    userId,
+    groupId,
+  })
+  .then((message) => {
+    const messageData = {
+      messageId: message.id,
       userId,
       groupId,
-    })
-    .then((message) => {
-      const messageData = {
-        messageId: message.id,
-        userId,
-        groupId,
-        messageBody,
-        messagePriority,
-      };
-      res.status(201).send({ message: messageData });
-      // if priority is Urgent or Critical, send E-mail Notifications
-      if (messagePriority === 'Urgent' || messagePriority === 'Critical') {
-        groups.find({
-          where: { id: message.groupId },
+      messageBody,
+      messagePriority,
+    };
+    res.status(201).send({ message: messageData });
+    // if priority is Urgent or Critical, send E-mail Notifications
+    if (messagePriority === 'Urgent' || messagePriority === 'Critical') {
+      groups.find({
+        where: { id: message.groupId },
+      })
+      .then((group) => {
+        group.getUsers({
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'password'],
+          },
         })
-        .then((group) => {
-          group.getUsers({
-            attributes: {
-              exclude: ['createdAt', 'updatedAt', 'password'],
-            },
-          })
-          .then((groupMembers) => {
-            const membersEmail = groupMembers.map(member => (
-              member.email
-            ));
-            const email = `<h3>Group: ${group.groupName}</h3>
-            <p>Message: ${message.messageBody}</p>
-            <p>Priority: <small>${message.messagePriority}</small><p>`;
-            const mailOptions = {
-              from: 'ioyetade@gmail.com',
-              to: membersEmail,
-              subject: 'Postit Message Notification',
-              html: email,
-            };
-            transporter.sendMail(mailOptions, () => {
-            });
+        .then((groupMembers) => {
+          const membersEmail = groupMembers.map(member => (
+            member.email
+          ));
+          const email = `<h3>Group: ${group.groupName}</h3>
+          <p>Message: ${message.messageBody}</p>
+          <p>Priority: <small>${message.messagePriority}</small><p>`;
+          const mailOptions = {
+            from: 'ioyetade@gmail.com',
+            to: membersEmail,
+            subject: 'Postit Message Notification',
+            html: email,
+          };
+          transporter.sendMail(mailOptions, () => {
           });
-        })
-        .catch(() => {
-          res.status(500).send({ error: 'Internal server error' });
         });
-      }
-    })
-    .catch(() => {
-      res.status(500).send({ error: 'Internal server error' });
-    });
-  }
+      })
+      .catch(() => {
+        res.status(500).send({ error: 'Internal server error' });
+      });
+    }
+  })
+  .catch(() => {
+    res.status(500).send({ error: 'Internal server error' });
+  });
 };
 
 /**

@@ -2,15 +2,11 @@ import { assert } from 'chai';
 import supertest from 'supertest';
 import app from '../server/app';
 import database from '../server/models/';
-import seedDatabase from './tests.includes';
+import { tokens } from './tests.includes';
 
 const { groups, groupMembers } = database;
-let token1;
+const { token1 } = tokens();
 describe('Signup', () => {
-  before(() => {
-    const token = seedDatabase();
-    token1 = token.token1;
-  });
   it('should send error message when email is invalid', (done) => {
     const wrongEmail = {
       fullName: 'Gbenga Oyetade',
@@ -49,7 +45,7 @@ describe('Signup', () => {
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
       assert.equal(res.statusCode, 400);
       assert.equal(res.body.error.username,
-        'Expects a string of alphabets');
+        'Username cannot contain special characters aside from _');
       done();
     });
   });
@@ -106,7 +102,7 @@ describe('Signup', () => {
     supertest(app).post('/api/user/signup').send(user).end((err, res) => {
       assert.equal(res.statusCode, 400);
       assert.equal(res.body.error.fullName,
-        'Expects a string of alphabets');
+        'Name can only be alphabets');
       done();
     });
   });
@@ -240,7 +236,7 @@ describe('Reset password', () => {
     supertest(app).post('/api/user/password/reset').send(email)
     .end((err, res) => {
       assert.equal(res.body.error, 'Email address does not exist on Postit');
-      assert.equal(res.statusCode, 400);
+      assert.equal(res.statusCode, 404);
       done();
     });
   });

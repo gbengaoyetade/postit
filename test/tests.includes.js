@@ -1,31 +1,37 @@
 import mockery from 'mockery';
 import nodemailerMock from 'nodemailer-mock';
-import database from '../server/models/';
+import models from '../server/models';
 import { generateToken } from '../server/includes/helperFunctions';
 
-
+const { users, groups, groupMembers, messages } = models;
 mockery.enable({
   warnOnUnregistered: false,
 });
 mockery.registerMock('nodemailer', nodemailerMock);
 
-export default () => {
-  database.groups.destroy({
+
+/**
+ * @description creates seed data for test cases
+ *
+ * @returns { void } -returns nothing
+ */
+export const seedDatabase = () => {
+  groups.destroy({
     cascade: true,
     truncate: true,
     restartIdentity: true,
   });
-  database.groups.destroy({
+  groups.destroy({
     cascade: true,
     truncate: true,
     restartIdentity: true,
   });
-  database.groupMembers.destroy({
+  groupMembers.destroy({
     cascade: true,
     truncate: true,
     restartIdentity: true,
   });
-  database.users.destroy({
+  users.destroy({
     cascade: true,
     truncate: true,
     restartIdentity: true,
@@ -55,15 +61,23 @@ export default () => {
     userId: 1,
     messageBody: 'message body',
     messagePriority: 'Normal' };
-  database.users.create(userDetails1);
-  database.users.create(userDetails2);
-  database.groups.create(group);
-  database.groups.create(group2)
+  users.create(userDetails1);
+  users.create(userDetails2);
+  groups.create(group);
+  groups.create(group2)
   .then((groupData) => {
     const groupMember = { userId: 2, groupId: groupData.id, addedBy: 1 };
-    database.groupMembers.create(groupMember);
+    groupMembers.create(groupMember);
   });
-  database.messages.create(message);
+  messages.create(message);
+};
+
+/**
+ * @description creates tokens for tests cases
+ *
+ * @returns { object } -returns tokens
+ */
+export const tokens = () => {
   const userDetailsWithId = {
     fullName: 'Gbenga Oyetade',
     username: 'apptest',
@@ -73,7 +87,7 @@ export default () => {
     id: 1 };
   const userDetailsWithId2 = {
     fullName: 'Gbenga Oyetade',
-    username: 'apptest',
+    username: 'apptest2',
     password: 'some password',
     email: 'apptest@gmail.com',
     phoneNumber: '+2348064140695',

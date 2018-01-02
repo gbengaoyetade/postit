@@ -1,9 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
-import { validationResult } from 'express-validator/check/';
 
-dotenv.load();
 const secret = process.env.TOKEN_SECRET;
 
 
@@ -58,18 +55,4 @@ export const encryptPassword = (password) => {
 
   return hashedPassword;
 };
-/**
- * @description Send validation errors if they are available
- *
- * @param { object } req -express request object
- * @param { object } res -express response object
- *
- * @returns { boolean } returns a boolean
- */
-export const sendValidationErrors = (req, res) => {
-  const errors = validationResult(req).formatWith(error => (error.msg));
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ error: errors.mapped() });
-  }
-  return false;
-};
+

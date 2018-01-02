@@ -53,14 +53,10 @@ const routeValidation = () => (
       .withMessage('Expects a string of alphabets'),
       body('username')
       .exists()
-      .withMessage('username field is required')
-      .matches(/^[a-zA-Z]+/)
-      .withMessage('Expects a string of alphabets'),
+      .withMessage('username field is required'),
       body('fullName')
       .exists()
-      .withMessage('fullName field is required')
-      .matches(/^[a-zA-Z ]*$/)
-      .withMessage('Expects a string of alphabets'),
+      .withMessage('fullName field is required'),
       body('email')
       .exists()
       .withMessage('email field is required'),
