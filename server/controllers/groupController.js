@@ -38,7 +38,10 @@ export const create = (req, res) => {
             groupName,
             groupDescription,
           };
-          res.status(201).json({ group: groupDetails });
+          res.status(201).json({
+            group: groupDetails,
+            message: 'Group created successfully'
+          });
         })
         .catch(() => {
           res.status(500).send({ error: 'Internal server error' });

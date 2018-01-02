@@ -195,7 +195,10 @@ export const updatePassword = (req, res) => {
           }))
           .then((user) => {
             const userToken = generateToken(user);
-            res.send({ token: userToken });
+            res.send({
+              token: userToken,
+              message: 'Password updated successfully'
+            });
           });
         } else {
           res.status(500).send({

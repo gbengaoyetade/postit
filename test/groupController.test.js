@@ -69,6 +69,7 @@ describe('Create group', () => {
       assert.equal(res.statusCode, 201);
       assert.equal(res.body.group.groupName, groupData.groupName);
       assert.equal(res.body.group.groupDescription, groupData.groupDescription);
+      assert.equal(res.body.message, 'Group created successfully');
       done();
     });
   });
