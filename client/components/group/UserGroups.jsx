@@ -53,13 +53,13 @@ class UserGroups extends React.Component {
   render() {
     let groups;
     let userGroups;
-    if (this.props.groups) {
+    if (this.props.groups.length > 1) {
       groups = this.props.groups;
       userGroups = (
         <ul className="collection">
           {groups.map(group => (
-            <li key={group.id} className="collection-item"><Link
-              to={`/group/${group.id}`}
+            <li key={group.id} className="collection-item">
+            <Link to={`/group/${group.id}`}
               onClick={() => this.getGroupData(group.id)}
             > {group.groupName} </Link> </li>
             ))}

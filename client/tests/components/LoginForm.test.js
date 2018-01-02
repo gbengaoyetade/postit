@@ -22,6 +22,5 @@ describe('LoginForm component ', () => {
       loading: true,
     };
     const wrapper = shallow(<LoginForm {...props} />);
-    // expect(wrapper.find(SubmitButton).text()).toBe('');
   });
 });

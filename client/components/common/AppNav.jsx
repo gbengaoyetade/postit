@@ -39,7 +39,7 @@ const AppNav = () => (
             &nbsp;&nbsp;My Groups
           </Link>
           </div>
-        <div className="collapsible-body">
+        <div className="collapsible-body scrollable-component">
           <UserGroups />
         </div>
         </li>

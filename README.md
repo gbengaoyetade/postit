@@ -9,7 +9,7 @@ with one another. Messages are prioritized in the following order:
 
 ## Installation
 To get Postit up and running on your local machine, you'll need to have the following installed:
-* [Node](https://nodejs.org/) : This is powers the backend of the application
+* [Node](https://nodejs.org/) : This powers the backend of the application
 * [Postgres](https://www.postgresql.org/) : This is the database used
 * [Git](https://expressjs.com/) (optional but highly recommended): Version control system <br /><br />
 Once you have all of these installed, run this command
@@ -46,14 +46,6 @@ Currently,
 * Users cannot add themselves to a group
 * Users cannot deactivate account
 
-## Want to Contribute ?
-  * Fork the repository
-  * Make your contributions
-  * Ensure your codes follow the [AirBnB Javascript Styles Guide](https://www.gitbook.com/book/duk/airbnb-javascript-guidelines/details)
-  * Create Pull request against the develop branch.
-Visit the [wiki](https://github.com/gbengaPS/postit/wiki) to see pull request,
-commit message and branch naming conventions
-
 ## API Documentation
 Details on how the API works can be found [here](https://postit-gbenga.herokuapp.com/doc)
 
@@ -64,6 +56,14 @@ Details on how the API works can be found [here](https://postit-gbenga.herokuapp
 * [React](https://reactjs.org/) frontend framework
 * [Postgres Databse](https://www.postgresql.org/) Database engine
 
+## Want to Contribute ?
+  * Fork the repository
+  * Make your contributions
+  * Ensure your codes follow the [AirBnB Javascript Styles Guide](https://www.gitbook.com/book/duk/airbnb-javascript-guidelines/details)
+  * Create Pull request against the develop branch.
+Visit the [wiki](https://github.com/gbengaPS/postit/wiki) to see pull request,
+commit message and branch naming conventions
+
 ## Frequently asked questions
 
 #### Who can contribute?
@@ -73,7 +73,7 @@ Anyone can contribute to this project! To contribute, simply raise a PR with you
 This project was built using Javascript, HTML and CSS
 
 #### Am I permitted to clone this project for personal use?
-See [The MIT License](./LICENCE.md) for the more details.
+See [The MIT License](./LICENSE.md) for the more details.
 
 ## Author
 

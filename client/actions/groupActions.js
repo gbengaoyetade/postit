@@ -95,27 +95,27 @@ export const getUserGroupsError = error => (
 
 /**
  *
- * @param { boolean } memberAdded -memberAdded boolean input
+ * @param { object } memberDetails -memberAdded boolean input
  *
  * @returns { object } -return action object
  */
-export const addMemberSuccess = memberAdded => (
+export const addMemberSuccess = memberDetails => (
   {
     type: 'ADD_MEMBER_SUCCESS',
-    memberAdded,
+    memberDetails,
   }
 );
 
 /**
  *
- * @param { boolean } messageSent -messageSent boolean input
+ * @param { object } messageDetails -messageSent boolean input
  *
  * @returns { object } -return action object
  */
-export const sendMessageSuccess = messageSent => (
+export const sendMessageSuccess = messageDetails => (
   {
     type: 'SEND_MESSAGE_SUCCESS',
-    messageSent,
+    messageDetails,
   }
 );
 
@@ -144,7 +144,31 @@ export const createGroupError = groupError => (
     groupError,
   }
 );
+/**
+ *
+ * @param { array } groupDetails -group details array
+ *
+ * @returns { object } -returns action
+ */
+export const createNewGroup = groupDetails => (
+  {
+    type: 'CREATE_NEW_GROUP',
+    groupDetails
+  }
+);
 
+/**
+ *
+ * @param { number } groupId -id of the group
+ *
+ * @returns { object } -returns action
+ */
+export const groupLeft = groupId => (
+  {
+    type: 'GROUP_LEFT',
+    groupId,
+  }
+);
 
 /**
  * @description create group action
@@ -155,20 +179,21 @@ export const createGroupError = groupError => (
  * @returns { function } -returns a function
  */
 export const createGroup = (groupDetails, history) => (
-  (dispatch) => {
-    axios.post('/api/group',
+  dispatch => (
+   axios.post('/api/group',
     groupDetails)
     .then(({ data }) => {
       // redirect user to the group he created
-      history.push(`/group/${data.groupId}`);
+      dispatch(createNewGroup(data.group));
+      history.push(`/group/${data.group.groupId}`);
     })
     .catch(({ response }) => {
       tokenRedirect(response.data.error);
       if (response.status === 409) {
         dispatch(createGroupError('Group already exist'));
       }
-    });
-  }
+    })
+  )
 );
 
 /**
@@ -179,8 +204,8 @@ export const createGroup = (groupDetails, history) => (
 export const getGroups = () => (
   (dispatch) => {
     axios.get('/api/group/user')
-    .then((groups) => {
-      dispatch(getUserGroups(groups.data.groups));
+    .then(({ data }) => {
+      dispatch(getUserGroups(data.groups));
     })
     .catch(({ response }) => {
       tokenRedirect(response.data.error);
@@ -218,8 +243,8 @@ export const getGroupMessages = groupId => (
 export const getGroupMembers = groupId => (
   (dispatch) => {
     axios.get(`/api/group/${groupId}/users`)
-    .then((members) => {
-      dispatch(getGroupMembersAction(members.data));
+    .then(({ data }) => {
+      dispatch(getGroupMembersAction(data.members));
     })
     .catch(() => {
     });
@@ -237,10 +262,8 @@ export const getGroupMembers = groupId => (
 export const addMember = (userId, groupId) => (
   (dispatch) => {
     axios.post(`/api/group/${groupId}/user`, { userId })
-    .then(() => {
-      // this is used to control automatic member
-      // appearance on the groupMembers section of the page
-      dispatch(addMemberSuccess(true));
+    .then(({ data }) => {
+      dispatch(addMemberSuccess(data.user));
     })
     .catch(() => {
     });
@@ -258,8 +281,9 @@ export const leaveGroup = groupId => (
   (dispatch) => {
     dispatch(leaveGroupSuccess(false));
     axios.delete(`/api/group/${groupId}/leave`)
-    .then(() => {
+    .then(({ data }) => {
       dispatch(leaveGroupSuccess(true));
+      dispatch(groupLeft(data.groupId));
     })
     .catch(() => {
     });
@@ -278,8 +302,8 @@ export const sendUserMessage = (groupId, message) => (
   (dispatch) => {
     const URL = `/api/group/${groupId}/message`;
     axios.post(URL, message)
-    .then(() => {
-      dispatch(sendMessageSuccess(true));
+    .then(({ data }) => {
+      dispatch(sendMessageSuccess(data.message));
     })
     .catch(() => {
       dispatch(sendMessageSuccess(false));

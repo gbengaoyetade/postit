@@ -79,7 +79,7 @@ input[type=search]:not(.browser-default):focus:not([readonly]){
 	width:30%;
 }
 .scrollable-component{
-	height:300px;
+	height: 300px;
 	overflow-y: scroll;
 }
 .user-side-nav{
@@ -111,14 +111,18 @@ footer{
 	font-weight: bolder;
 	color: #444;
 	padding: 15px 5px;
-	margin: 0;
+	margin: 5px 0;
 	position: absolute;
-	bottom: 0;
+	bottom: -12px;
 	right: 0;
+}
+.group-members-div {
+	height: 600px;
+	overflow: scroll;
 }
 .message-body {
 	font-family: 'Source Serif Pro', sans-serif;
-	font-size: 1.3em;
+	font-size: 1.1em;
 }
 .group-members{
 	float: right;
@@ -165,8 +169,8 @@ footer{
 	width: 100%;
 }
 .group-members-list {
-	padding: 2px 10px;
-	margin: 35px 1px;
+	padding-left: 20%;
+	margin: 15px 1px;
 }
 .username-avatar{
 	color: #000;
@@ -198,4 +202,8 @@ footer{
 .postit-text {
 	font-family: 'Raleway', sans-serif;
 	text-shadow: 1px 1px 1px #555;
+}
+.groups-display {
+	height: 600px;
+	overflow: scroll;
 }

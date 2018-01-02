@@ -12,8 +12,9 @@ import SubmitButton from '../common/SubmitButton';
 const CreateGroupForm = props => (
   (
     <div>
-      <div className="col s12 m4 offset-m2 component-container">
-        <div className="modal-content">
+      <div className="col s12 m4 offset-m1 component-container">
+        <div className="">
+          <h3 className="center big-text"> Create Group </h3>
           <form onSubmit={props.handleSubmit}>
           <p className="red-text center"> &nbsp; {props.error} </p>
           <div className="input-field">

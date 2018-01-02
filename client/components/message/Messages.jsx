@@ -70,10 +70,6 @@ class Messages extends React.Component {
    */
   render() {
     let groupMessages = '';
-    if (this.props.sendMessageSuccess) {
-      this.props.getMessages(this.props.groupId);
-      this.props.setSendMessageSuccess(false);
-    }
     if (this.props.messages) {
       if (this.props.messages.length > 0) {
         groupMessages = (

@@ -23,11 +23,12 @@ export const createMessage = (req, res) => {
   })
   .then((message) => {
     const messageData = {
-      messageId: message.id,
+      id: message.id,
       userId,
       groupId,
       messageBody,
       messagePriority,
+      user: req.currentUser
     };
     res.status(201).send({ message: messageData });
     // if priority is Urgent or Critical, send E-mail Notifications

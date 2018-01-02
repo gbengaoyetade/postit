@@ -85,9 +85,9 @@ class Group extends React.Component {
     const { groupId } = this.props.match.params;
     let numberOfGroupMembers;
     let groupName;
-    if (this.props.groupMembers) {
-      groupName = this.props.groupMembers.group.groupName;
-      numberOfGroupMembers = this.props.groupMembers.groupMembers.length;
+    if (this.props.groupMembers.length > 0) {
+      // groupName = this.props.groupMembers.group.groupName;
+      numberOfGroupMembers = this.props.groupMembers.length;
     }
     return (
       <div>
@@ -143,7 +143,7 @@ class Group extends React.Component {
 Group.propTypes = {
   getGroupMembers: PropTypes.func.isRequired,
   getMessages: PropTypes.func.isRequired,
-  groupMembers: PropTypes.object,
+  groupMembers: PropTypes.array,
   match: PropTypes.object,
   leaveGroup: PropTypes.func,
   history: PropTypes.object,

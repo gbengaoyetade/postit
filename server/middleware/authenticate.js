@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { getId } from '../includes/helperFunctions';
+import models from '../models';
 
+const { users } = models;
 const secret = process.env.TOKEN_SECRET;
 
 /**
@@ -20,7 +22,16 @@ const authenticate = (req, res, next) => {
         res.status(401).send({ error: 'Token authentication failure' });
       } else {
         req.id = getId(userToken);
-        next();
+        users.findOne({
+          where: { id: req.id },
+          attributes: {
+            exclude: ['password', 'createdAt', 'updatedAt'],
+          },
+        })
+        .then((user) => {
+          req.currentUser = user;
+          next();
+        });
       }
     });
   } else {

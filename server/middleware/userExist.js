@@ -14,9 +14,13 @@ const userExist = (req, res, next) => {
   const { userId } = req.body;
   users.findOne({
     where: { id: userId },
+    attributes: {
+      exclude: ['password', 'createdAt', 'updatedAt'],
+    },
   })
   .then((user) => {
     if (user) {
+      req.user = user;
       next();
     } else {
       res.status(400).json({ error: 'User does not exist' });

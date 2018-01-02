@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { searchUser } from '../../actions/searchActions';
+import GroupMembers from './GroupMembers';
 import { addMember, getGroupMembers, addMemberSuccess }
 from '../../actions/groupActions';
 
@@ -84,15 +85,9 @@ class AddMembers extends React.Component {
    */
   render() {
     let searchResult;
-    // if member was added successfull, fetch group members again
-    if (this.props.addMemberSuccess) {
-      this.props.getGroupMembers(this.props.match.params.groupId);
-      Materialize.toast('User added successfully', 2000);
-      this.props.setAddMembersSucces(false);
-    }
     if (this.props.searchResult.searchResult) {
       const searchResultArray = this.props.searchResult.searchResult.users;
-      const groupMemberIds = this.props.groupMembers.users.map(member =>
+      const groupMemberIds = this.props.groupMembers.map(member =>
         member.id
     );
     // show search result only when input length is greater than 1 and
@@ -146,7 +141,8 @@ class AddMembers extends React.Component {
     }
     return (
       <div>
-        <div className="col m6 component-container" >
+        <div className="col m7 s10 offset-s1 component-container" >
+          <div className="col m8 offset-m2">
           <h5 className="center">Search users</h5>
           <form>
             <div className="input-field">
@@ -160,6 +156,8 @@ class AddMembers extends React.Component {
           <p className="big center"> Search result appears here</p>
           {searchResult}
         </div>
+        </div>
+        <GroupMembers />
       </div>
     );
   }
@@ -169,10 +167,10 @@ AddMembers.propTypes = {
   addMember: PropTypes.func.isRequired,
   getGroupMembers: PropTypes.func.isRequired,
   setAddMembersSucces: PropTypes.func.isRequired,
-  addMemberSuccess: PropTypes.bool.isRequired,
+  addMemberSuccess: PropTypes.array.isRequired,
   match: PropTypes.object.isRequired,
   searchResult: PropTypes.object,
-  groupMembers: PropTypes.object,
+  groupMembers: PropTypes.array,
 };
 const mapStateToProps = state => (
   {

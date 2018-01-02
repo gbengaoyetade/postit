@@ -12,15 +12,6 @@ import { getGroupMembers } from '../../actions/groupActions';
  */
 class GroupMembers extends React.Component {
 
-/**
- *
- * @returns { void }
- */
-  componentDidMount() {
-    const { groupId } = this.props;
-    this.props.getGroupMembers(groupId);
-  }
-
   /**
    * @description render function
    *
@@ -28,23 +19,24 @@ class GroupMembers extends React.Component {
    */
   render() {
     let groupMembersList;
-    if (this.props.groupMembers) {
-      const members = this.props.groupMembers.groupMembers;
+    if (this.props.groupMembers.length > 0) {
+      const members = this.props.groupMembers;
       groupMembersList = (<ul>
         {members.map(member => (
           <li key={member.id} className="group-members-list">
-          <span to="#" className="big"> {member.fullName} </span>
-          <div className="username-avatar">
-            {member.fullName[0]}
-          </div>
+          <Link to="#" className="big"> {member.fullName} </Link>
           </li>
       ))
       }
       </ul>);
     }
     return (
-      <div className="hide-on-med-and-down component-container">
-        <h2 className="center big"> Group Members </h2>
+      <div
+      className="hide-on-med-and-down group-members-div component-container"
+      >
+        <div className="center">
+          <span className="center big"> Group Members </span>
+        </div>
         <div className="divider" />
         {groupMembersList}
       </div>
@@ -52,10 +44,9 @@ class GroupMembers extends React.Component {
   }
   }
 GroupMembers.propTypes = {
-  leaveGroup: PropTypes.func.isRequired,
   getGroupMembers: PropTypes.func.isRequired,
   groupId: PropTypes.number,
-  groupMembers: PropTypes.object,
+  groupMembers: PropTypes.array,
 };
 const mapStateToProps = state => (
   {

@@ -19,9 +19,480 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": Array [
-        <div
-          className="col m3 component-container hide-on-med-and-down user-side-nav"
+      "children": <div
+        className="col m2 component-container hide-on-med-and-down user-side-nav"
+      >
+        <ul
+          className="text-center collapsible"
+          data-collapsible="accordion"
+        >
+          <li
+            className="big"
+          >
+            <div
+              className="collapsible-header"
+            >
+              <Link
+                replace={false}
+                to="/dashboard"
+              >
+                <i
+                  className="material-icons"
+                >
+                  home
+                </i>
+                  Dashboard
+              </Link>
+            </div>
+          </li>
+          <li
+            className="big collapsible-header"
+          >
+            <Link
+              id="group-create"
+              replace={false}
+              to="/group/create"
+            >
+              <i
+                className="material-icons"
+              >
+                group_add
+              </i>
+                Create group
+            </Link>
+          </li>
+          <li
+            className="big"
+          >
+            <div
+              className="collapsible-header"
+            >
+              <Link
+                replace={false}
+                to="#"
+              >
+                <i
+                  className="material-icons"
+                >
+                  group
+                </i>
+                  My Groups
+              </Link>
+            </div>
+            <div
+              className="collapsible-body scrollable-component"
+            >
+              <Connect(UserGroups) />
+            </div>
+          </li>
+        </ul>
+      </div>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <ul
+          className="text-center collapsible"
+          data-collapsible="accordion"
+        >
+          <li
+            className="big"
+          >
+            <div
+              className="collapsible-header"
+            >
+              <Link
+                replace={false}
+                to="/dashboard"
+              >
+                <i
+                  className="material-icons"
+                >
+                  home
+                </i>
+                  Dashboard
+              </Link>
+            </div>
+          </li>
+          <li
+            className="big collapsible-header"
+          >
+            <Link
+              id="group-create"
+              replace={false}
+              to="/group/create"
+            >
+              <i
+                className="material-icons"
+              >
+                group_add
+              </i>
+                Create group
+            </Link>
+          </li>
+          <li
+            className="big"
+          >
+            <div
+              className="collapsible-header"
+            >
+              <Link
+                replace={false}
+                to="#"
+              >
+                <i
+                  className="material-icons"
+                >
+                  group
+                </i>
+                  My Groups
+              </Link>
+            </div>
+            <div
+              className="collapsible-body scrollable-component"
+            >
+              <Connect(UserGroups) />
+            </div>
+          </li>
+        </ul>,
+        "className": "col m2 component-container hide-on-med-and-down user-side-nav",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <li
+              className="big"
+            >
+              <div
+                className="collapsible-header"
+              >
+                <Link
+                  replace={false}
+                  to="/dashboard"
+                >
+                  <i
+                    className="material-icons"
+                  >
+                    home
+                  </i>
+                    Dashboard
+                </Link>
+              </div>
+            </li>,
+            <li
+              className="big collapsible-header"
+            >
+              <Link
+                id="group-create"
+                replace={false}
+                to="/group/create"
+              >
+                <i
+                  className="material-icons"
+                >
+                  group_add
+                </i>
+                  Create group
+              </Link>
+            </li>,
+            <li
+              className="big"
+            >
+              <div
+                className="collapsible-header"
+              >
+                <Link
+                  replace={false}
+                  to="#"
+                >
+                  <i
+                    className="material-icons"
+                  >
+                    group
+                  </i>
+                    My Groups
+                </Link>
+              </div>
+              <div
+                className="collapsible-body scrollable-component"
+              >
+                <Connect(UserGroups) />
+              </div>
+            </li>,
+          ],
+          "className": "text-center collapsible",
+          "data-collapsible": "accordion",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <div
+                className="collapsible-header"
+              >
+                <Link
+                  replace={false}
+                  to="/dashboard"
+                >
+                  <i
+                    className="material-icons"
+                  >
+                    home
+                  </i>
+                    Dashboard
+                </Link>
+              </div>,
+              "className": "big",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <Link
+                  replace={false}
+                  to="/dashboard"
+                >
+                  <i
+                    className="material-icons"
+                  >
+                    home
+                  </i>
+                    Dashboard
+                </Link>,
+                "className": "collapsible-header",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": Array [
+                    <i
+                      className="material-icons"
+                    >
+                      home
+                    </i>,
+                    "  Dashboard",
+                  ],
+                  "replace": false,
+                  "to": "/dashboard",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "home",
+                      "className": "material-icons",
+                    },
+                    "ref": null,
+                    "rendered": "home",
+                    "type": "i",
+                  },
+                  "  Dashboard",
+                ],
+                "type": [Function],
+              },
+              "type": "div",
+            },
+            "type": "li",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <Link
+                id="group-create"
+                replace={false}
+                to="/group/create"
+              >
+                <i
+                  className="material-icons"
+                >
+                  group_add
+                </i>
+                  Create group
+              </Link>,
+              "className": "big collapsible-header",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <i
+                    className="material-icons"
+                  >
+                    group_add
+                  </i>,
+                  "  Create group",
+                ],
+                "id": "group-create",
+                "replace": false,
+                "to": "/group/create",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "group_add",
+                    "className": "material-icons",
+                  },
+                  "ref": null,
+                  "rendered": "group_add",
+                  "type": "i",
+                },
+                "  Create group",
+              ],
+              "type": [Function],
+            },
+            "type": "li",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <div
+                  className="collapsible-header"
+                >
+                  <Link
+                    replace={false}
+                    to="#"
+                  >
+                    <i
+                      className="material-icons"
+                    >
+                      group
+                    </i>
+                      My Groups
+                  </Link>
+                </div>,
+                <div
+                  className="collapsible-body scrollable-component"
+                >
+                  <Connect(UserGroups) />
+                </div>,
+              ],
+              "className": "big",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <Link
+                    replace={false}
+                    to="#"
+                  >
+                    <i
+                      className="material-icons"
+                    >
+                      group
+                    </i>
+                      My Groups
+                  </Link>,
+                  "className": "collapsible-header",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": Array [
+                      <i
+                        className="material-icons"
+                      >
+                        group
+                      </i>,
+                      "  My Groups",
+                    ],
+                    "replace": false,
+                    "to": "#",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "group",
+                        "className": "material-icons",
+                      },
+                      "ref": null,
+                      "rendered": "group",
+                      "type": "i",
+                    },
+                    "  My Groups",
+                  ],
+                  "type": [Function],
+                },
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <Connect(UserGroups) />,
+                  "className": "collapsible-body scrollable-component",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "div",
+              },
+            ],
+            "type": "li",
+          },
+        ],
+        "type": "ul",
+      },
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="col m2 component-container hide-on-med-and-down user-side-nav"
         >
           <ul
             className="text-center collapsible"
@@ -33,15 +504,15 @@ ShallowWrapper {
               <div
                 className="collapsible-header"
               >
-                <i
-                  className="material-icons"
-                >
-                  home
-                </i>
                 <Link
                   replace={false}
                   to="/dashboard"
                 >
+                  <i
+                    className="material-icons"
+                  >
+                    home
+                  </i>
                     Dashboard
                 </Link>
               </div>
@@ -49,15 +520,16 @@ ShallowWrapper {
             <li
               className="big collapsible-header"
             >
-              <i
-                className="material-icons"
-              >
-                group_add
-              </i>
               <Link
+                id="group-create"
                 replace={false}
                 to="/group/create"
               >
+                <i
+                  className="material-icons"
+                >
+                  group_add
+                </i>
                   Create group
               </Link>
             </li>
@@ -67,68 +539,29 @@ ShallowWrapper {
               <div
                 className="collapsible-header"
               >
-                <i
-                  className="material-icons"
-                >
-                  group
-                </i>
                 <Link
                   replace={false}
                   to="#"
                 >
+                  <i
+                    className="material-icons"
+                  >
+                    group
+                  </i>
                     My Groups
                 </Link>
               </div>
               <div
-                className="collapsible-body"
+                className="collapsible-body scrollable-component"
               >
                 <Connect(UserGroups) />
               </div>
             </li>
           </ul>
         </div>,
-        <div
-          className="col s10 offset-s1 m6 component-container"
-        >
-          <div
-            className="dashboard-header"
-          >
-            <Link
-              className="right dropdown-button"
-              data-activates="group-more"
-              replace={false}
-              to=""
-            >
-              <i
-                className="material-icons"
-              >
-                more_vert
-              </i>
-            </Link>
-            <span
-              className="right"
-            >
-              <i
-                className="material-icons"
-              >
-                person
-              </i>
-              <span
-                className="group-members"
-              >
-                 
-              </span>
-            </span>
-            <span
-              className="bold bold-text"
-            />
-          </div>
-        </div>,
-      ],
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
+      },
+      "ref": null,
+      "rendered": Object {
         "instance": null,
         "key": undefined,
         "nodeType": "host",
@@ -143,15 +576,15 @@ ShallowWrapper {
               <div
                 className="collapsible-header"
               >
-                <i
-                  className="material-icons"
-                >
-                  home
-                </i>
                 <Link
                   replace={false}
                   to="/dashboard"
                 >
+                  <i
+                    className="material-icons"
+                  >
+                    home
+                  </i>
                     Dashboard
                 </Link>
               </div>
@@ -159,15 +592,16 @@ ShallowWrapper {
             <li
               className="big collapsible-header"
             >
-              <i
-                className="material-icons"
-              >
-                group_add
-              </i>
               <Link
+                id="group-create"
                 replace={false}
                 to="/group/create"
               >
+                <i
+                  className="material-icons"
+                >
+                  group_add
+                </i>
                   Create group
               </Link>
             </li>
@@ -177,26 +611,26 @@ ShallowWrapper {
               <div
                 className="collapsible-header"
               >
-                <i
-                  className="material-icons"
-                >
-                  group
-                </i>
                 <Link
                   replace={false}
                   to="#"
                 >
+                  <i
+                    className="material-icons"
+                  >
+                    group
+                  </i>
                     My Groups
                 </Link>
               </div>
               <div
-                className="collapsible-body"
+                className="collapsible-body scrollable-component"
               >
                 <Connect(UserGroups) />
               </div>
             </li>
           </ul>,
-          "className": "col m3 component-container hide-on-med-and-down user-side-nav",
+          "className": "col m2 component-container hide-on-med-and-down user-side-nav",
         },
         "ref": null,
         "rendered": Object {
@@ -211,15 +645,15 @@ ShallowWrapper {
                 <div
                   className="collapsible-header"
                 >
-                  <i
-                    className="material-icons"
-                  >
-                    home
-                  </i>
                   <Link
                     replace={false}
                     to="/dashboard"
                   >
+                    <i
+                      className="material-icons"
+                    >
+                      home
+                    </i>
                       Dashboard
                   </Link>
                 </div>
@@ -227,15 +661,16 @@ ShallowWrapper {
               <li
                 className="big collapsible-header"
               >
-                <i
-                  className="material-icons"
-                >
-                  group_add
-                </i>
                 <Link
+                  id="group-create"
                   replace={false}
                   to="/group/create"
                 >
+                  <i
+                    className="material-icons"
+                  >
+                    group_add
+                  </i>
                     Create group
                 </Link>
               </li>,
@@ -245,20 +680,20 @@ ShallowWrapper {
                 <div
                   className="collapsible-header"
                 >
-                  <i
-                    className="material-icons"
-                  >
-                    group
-                  </i>
                   <Link
                     replace={false}
                     to="#"
                   >
+                    <i
+                      className="material-icons"
+                    >
+                      group
+                    </i>
                       My Groups
                   </Link>
                 </div>
                 <div
-                  className="collapsible-body"
+                  className="collapsible-body scrollable-component"
                 >
                   <Connect(UserGroups) />
                 </div>
@@ -277,15 +712,15 @@ ShallowWrapper {
                 "children": <div
                   className="collapsible-header"
                 >
-                  <i
-                    className="material-icons"
-                  >
-                    home
-                  </i>
                   <Link
                     replace={false}
                     to="/dashboard"
                   >
+                    <i
+                      className="material-icons"
+                    >
+                      home
+                    </i>
                       Dashboard
                   </Link>
                 </div>,
@@ -297,49 +732,54 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": Array [
+                  "children": <Link
+                    replace={false}
+                    to="/dashboard"
+                  >
                     <i
                       className="material-icons"
                     >
                       home
-                    </i>,
-                    <Link
-                      replace={false}
-                      to="/dashboard"
-                    >
-                        Dashboard
-                    </Link>,
-                  ],
+                    </i>
+                      Dashboard
+                  </Link>,
                   "className": "collapsible-header",
                 },
                 "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": "home",
-                      "className": "material-icons",
-                    },
-                    "ref": null,
-                    "rendered": "home",
-                    "type": "i",
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": Array [
+                      <i
+                        className="material-icons"
+                      >
+                        home
+                      </i>,
+                      "  Dashboard",
+                    ],
+                    "replace": false,
+                    "to": "/dashboard",
                   },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "children": "  Dashboard",
-                      "replace": false,
-                      "to": "/dashboard",
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "home",
+                        "className": "material-icons",
+                      },
+                      "ref": null,
+                      "rendered": "home",
+                      "type": "i",
                     },
-                    "ref": null,
-                    "rendered": "  Dashboard",
-                    "type": [Function],
-                  },
-                ],
+                    "  Dashboard",
+                  ],
+                  "type": [Function],
+                },
                 "type": "div",
               },
               "type": "li",
@@ -349,49 +789,56 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": Array [
+                "children": <Link
+                  id="group-create"
+                  replace={false}
+                  to="/group/create"
+                >
                   <i
                     className="material-icons"
                   >
                     group_add
-                  </i>,
-                  <Link
-                    replace={false}
-                    to="/group/create"
-                  >
-                      Create group
-                  </Link>,
-                ],
+                  </i>
+                    Create group
+                </Link>,
                 "className": "big collapsible-header",
               },
               "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": "group_add",
-                    "className": "material-icons",
-                  },
-                  "ref": null,
-                  "rendered": "group_add",
-                  "type": "i",
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": Array [
+                    <i
+                      className="material-icons"
+                    >
+                      group_add
+                    </i>,
+                    "  Create group",
+                  ],
+                  "id": "group-create",
+                  "replace": false,
+                  "to": "/group/create",
                 },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": "  Create group",
-                    "replace": false,
-                    "to": "/group/create",
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "group_add",
+                      "className": "material-icons",
+                    },
+                    "ref": null,
+                    "rendered": "group_add",
+                    "type": "i",
                   },
-                  "ref": null,
-                  "rendered": "  Create group",
-                  "type": [Function],
-                },
-              ],
+                  "  Create group",
+                ],
+                "type": [Function],
+              },
               "type": "li",
             },
             Object {
@@ -403,20 +850,20 @@ ShallowWrapper {
                   <div
                     className="collapsible-header"
                   >
-                    <i
-                      className="material-icons"
-                    >
-                      group
-                    </i>
                     <Link
                       replace={false}
                       to="#"
                     >
+                      <i
+                        className="material-icons"
+                      >
+                        group
+                      </i>
                         My Groups
                     </Link>
                   </div>,
                   <div
-                    className="collapsible-body"
+                    className="collapsible-body scrollable-component"
                   >
                     <Connect(UserGroups) />
                   </div>,
@@ -430,49 +877,54 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": Array [
+                    "children": <Link
+                      replace={false}
+                      to="#"
+                    >
                       <i
                         className="material-icons"
                       >
                         group
-                      </i>,
-                      <Link
-                        replace={false}
-                        to="#"
-                      >
-                          My Groups
-                      </Link>,
-                    ],
+                      </i>
+                        My Groups
+                    </Link>,
                     "className": "collapsible-header",
                   },
                   "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": "group",
-                        "className": "material-icons",
-                      },
-                      "ref": null,
-                      "rendered": "group",
-                      "type": "i",
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": Array [
+                        <i
+                          className="material-icons"
+                        >
+                          group
+                        </i>,
+                        "  My Groups",
+                      ],
+                      "replace": false,
+                      "to": "#",
                     },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": "  My Groups",
-                        "replace": false,
-                        "to": "#",
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "group",
+                          "className": "material-icons",
+                        },
+                        "ref": null,
+                        "rendered": "group",
+                        "type": "i",
                       },
-                      "ref": null,
-                      "rendered": "  My Groups",
-                      "type": [Function],
-                    },
-                  ],
+                      "  My Groups",
+                    ],
+                    "type": [Function],
+                  },
                   "type": "div",
                 },
                 Object {
@@ -481,7 +933,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": <Connect(UserGroups) />,
-                    "className": "collapsible-body",
+                    "className": "collapsible-body scrollable-component",
                   },
                   "ref": null,
                   "rendered": Object {
@@ -503,864 +955,6 @@ ShallowWrapper {
         },
         "type": "div",
       },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": <div
-            className="dashboard-header"
-          >
-            <Link
-              className="right dropdown-button"
-              data-activates="group-more"
-              replace={false}
-              to=""
-            >
-              <i
-                className="material-icons"
-              >
-                more_vert
-              </i>
-            </Link>
-            <span
-              className="right"
-            >
-              <i
-                className="material-icons"
-              >
-                person
-              </i>
-              <span
-                className="group-members"
-              >
-                 
-              </span>
-            </span>
-            <span
-              className="bold bold-text"
-            />
-          </div>,
-          "className": "col s10 offset-s1 m6 component-container",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": Array [
-              <Link
-                className="right dropdown-button"
-                data-activates="group-more"
-                replace={false}
-                to=""
-              >
-                <i
-                  className="material-icons"
-                >
-                  more_vert
-                </i>
-              </Link>,
-              <span
-                className="right"
-              >
-                <i
-                  className="material-icons"
-                >
-                  person
-                </i>
-                <span
-                  className="group-members"
-                >
-                   
-                </span>
-              </span>,
-              <span
-                className="bold bold-text"
-              />,
-            ],
-            "className": "dashboard-header",
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "children": <i
-                  className="material-icons"
-                >
-                  more_vert
-                </i>,
-                "className": "right dropdown-button",
-                "data-activates": "group-more",
-                "replace": false,
-                "to": "",
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": "more_vert",
-                  "className": "material-icons",
-                },
-                "ref": null,
-                "rendered": "more_vert",
-                "type": "i",
-              },
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": Array [
-                  <i
-                    className="material-icons"
-                  >
-                    person
-                  </i>,
-                  <span
-                    className="group-members"
-                  >
-                     
-                  </span>,
-                ],
-                "className": "right",
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": "person",
-                    "className": "material-icons",
-                  },
-                  "ref": null,
-                  "rendered": "person",
-                  "type": "i",
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": Array [
-                      " ",
-                      undefined,
-                    ],
-                    "className": "group-members",
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    " ",
-                    undefined,
-                  ],
-                  "type": "span",
-                },
-              ],
-              "type": "span",
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": undefined,
-                "className": "bold bold-text",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": "span",
-            },
-          ],
-          "type": "div",
-        },
-        "type": "div",
-      },
-    ],
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <div
-            className="col m3 component-container hide-on-med-and-down user-side-nav"
-          >
-            <ul
-              className="text-center collapsible"
-              data-collapsible="accordion"
-            >
-              <li
-                className="big"
-              >
-                <div
-                  className="collapsible-header"
-                >
-                  <i
-                    className="material-icons"
-                  >
-                    home
-                  </i>
-                  <Link
-                    replace={false}
-                    to="/dashboard"
-                  >
-                      Dashboard
-                  </Link>
-                </div>
-              </li>
-              <li
-                className="big collapsible-header"
-              >
-                <i
-                  className="material-icons"
-                >
-                  group_add
-                </i>
-                <Link
-                  replace={false}
-                  to="/group/create"
-                >
-                    Create group
-                </Link>
-              </li>
-              <li
-                className="big"
-              >
-                <div
-                  className="collapsible-header"
-                >
-                  <i
-                    className="material-icons"
-                  >
-                    group
-                  </i>
-                  <Link
-                    replace={false}
-                    to="#"
-                  >
-                      My Groups
-                  </Link>
-                </div>
-                <div
-                  className="collapsible-body"
-                >
-                  <Connect(UserGroups) />
-                </div>
-              </li>
-            </ul>
-          </div>,
-          <div
-            className="col s10 offset-s1 m6 component-container"
-          >
-            <div
-              className="dashboard-header"
-            >
-              <Link
-                className="right dropdown-button"
-                data-activates="group-more"
-                replace={false}
-                to=""
-              >
-                <i
-                  className="material-icons"
-                >
-                  more_vert
-                </i>
-              </Link>
-              <span
-                className="right"
-              >
-                <i
-                  className="material-icons"
-                >
-                  person
-                </i>
-                <span
-                  className="group-members"
-                >
-                   
-                </span>
-              </span>
-              <span
-                className="bold bold-text"
-              />
-            </div>
-          </div>,
-        ],
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": <ul
-              className="text-center collapsible"
-              data-collapsible="accordion"
-            >
-              <li
-                className="big"
-              >
-                <div
-                  className="collapsible-header"
-                >
-                  <i
-                    className="material-icons"
-                  >
-                    home
-                  </i>
-                  <Link
-                    replace={false}
-                    to="/dashboard"
-                  >
-                      Dashboard
-                  </Link>
-                </div>
-              </li>
-              <li
-                className="big collapsible-header"
-              >
-                <i
-                  className="material-icons"
-                >
-                  group_add
-                </i>
-                <Link
-                  replace={false}
-                  to="/group/create"
-                >
-                    Create group
-                </Link>
-              </li>
-              <li
-                className="big"
-              >
-                <div
-                  className="collapsible-header"
-                >
-                  <i
-                    className="material-icons"
-                  >
-                    group
-                  </i>
-                  <Link
-                    replace={false}
-                    to="#"
-                  >
-                      My Groups
-                  </Link>
-                </div>
-                <div
-                  className="collapsible-body"
-                >
-                  <Connect(UserGroups) />
-                </div>
-              </li>
-            </ul>,
-            "className": "col m3 component-container hide-on-med-and-down user-side-nav",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": Array [
-                <li
-                  className="big"
-                >
-                  <div
-                    className="collapsible-header"
-                  >
-                    <i
-                      className="material-icons"
-                    >
-                      home
-                    </i>
-                    <Link
-                      replace={false}
-                      to="/dashboard"
-                    >
-                        Dashboard
-                    </Link>
-                  </div>
-                </li>,
-                <li
-                  className="big collapsible-header"
-                >
-                  <i
-                    className="material-icons"
-                  >
-                    group_add
-                  </i>
-                  <Link
-                    replace={false}
-                    to="/group/create"
-                  >
-                      Create group
-                  </Link>
-                </li>,
-                <li
-                  className="big"
-                >
-                  <div
-                    className="collapsible-header"
-                  >
-                    <i
-                      className="material-icons"
-                    >
-                      group
-                    </i>
-                    <Link
-                      replace={false}
-                      to="#"
-                    >
-                        My Groups
-                    </Link>
-                  </div>
-                  <div
-                    className="collapsible-body"
-                  >
-                    <Connect(UserGroups) />
-                  </div>
-                </li>,
-              ],
-              "className": "text-center collapsible",
-              "data-collapsible": "accordion",
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": <div
-                    className="collapsible-header"
-                  >
-                    <i
-                      className="material-icons"
-                    >
-                      home
-                    </i>
-                    <Link
-                      replace={false}
-                      to="/dashboard"
-                    >
-                        Dashboard
-                    </Link>
-                  </div>,
-                  "className": "big",
-                },
-                "ref": null,
-                "rendered": Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": Array [
-                      <i
-                        className="material-icons"
-                      >
-                        home
-                      </i>,
-                      <Link
-                        replace={false}
-                        to="/dashboard"
-                      >
-                          Dashboard
-                      </Link>,
-                    ],
-                    "className": "collapsible-header",
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": "home",
-                        "className": "material-icons",
-                      },
-                      "ref": null,
-                      "rendered": "home",
-                      "type": "i",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": "  Dashboard",
-                        "replace": false,
-                        "to": "/dashboard",
-                      },
-                      "ref": null,
-                      "rendered": "  Dashboard",
-                      "type": [Function],
-                    },
-                  ],
-                  "type": "div",
-                },
-                "type": "li",
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": Array [
-                    <i
-                      className="material-icons"
-                    >
-                      group_add
-                    </i>,
-                    <Link
-                      replace={false}
-                      to="/group/create"
-                    >
-                        Create group
-                    </Link>,
-                  ],
-                  "className": "big collapsible-header",
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": "group_add",
-                      "className": "material-icons",
-                    },
-                    "ref": null,
-                    "rendered": "group_add",
-                    "type": "i",
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "children": "  Create group",
-                      "replace": false,
-                      "to": "/group/create",
-                    },
-                    "ref": null,
-                    "rendered": "  Create group",
-                    "type": [Function],
-                  },
-                ],
-                "type": "li",
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": Array [
-                    <div
-                      className="collapsible-header"
-                    >
-                      <i
-                        className="material-icons"
-                      >
-                        group
-                      </i>
-                      <Link
-                        replace={false}
-                        to="#"
-                      >
-                          My Groups
-                      </Link>
-                    </div>,
-                    <div
-                      className="collapsible-body"
-                    >
-                      <Connect(UserGroups) />
-                    </div>,
-                  ],
-                  "className": "big",
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": Array [
-                        <i
-                          className="material-icons"
-                        >
-                          group
-                        </i>,
-                        <Link
-                          replace={false}
-                          to="#"
-                        >
-                            My Groups
-                        </Link>,
-                      ],
-                      "className": "collapsible-header",
-                    },
-                    "ref": null,
-                    "rendered": Array [
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": "group",
-                          "className": "material-icons",
-                        },
-                        "ref": null,
-                        "rendered": "group",
-                        "type": "i",
-                      },
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {
-                          "children": "  My Groups",
-                          "replace": false,
-                          "to": "#",
-                        },
-                        "ref": null,
-                        "rendered": "  My Groups",
-                        "type": [Function],
-                      },
-                    ],
-                    "type": "div",
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": <Connect(UserGroups) />,
-                      "className": "collapsible-body",
-                    },
-                    "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {},
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
-                    "type": "div",
-                  },
-                ],
-                "type": "li",
-              },
-            ],
-            "type": "ul",
-          },
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": <div
-              className="dashboard-header"
-            >
-              <Link
-                className="right dropdown-button"
-                data-activates="group-more"
-                replace={false}
-                to=""
-              >
-                <i
-                  className="material-icons"
-                >
-                  more_vert
-                </i>
-              </Link>
-              <span
-                className="right"
-              >
-                <i
-                  className="material-icons"
-                >
-                  person
-                </i>
-                <span
-                  className="group-members"
-                >
-                   
-                </span>
-              </span>
-              <span
-                className="bold bold-text"
-              />
-            </div>,
-            "className": "col s10 offset-s1 m6 component-container",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": Array [
-                <Link
-                  className="right dropdown-button"
-                  data-activates="group-more"
-                  replace={false}
-                  to=""
-                >
-                  <i
-                    className="material-icons"
-                  >
-                    more_vert
-                  </i>
-                </Link>,
-                <span
-                  className="right"
-                >
-                  <i
-                    className="material-icons"
-                  >
-                    person
-                  </i>
-                  <span
-                    className="group-members"
-                  >
-                     
-                  </span>
-                </span>,
-                <span
-                  className="bold bold-text"
-                />,
-              ],
-              "className": "dashboard-header",
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "children": <i
-                    className="material-icons"
-                  >
-                    more_vert
-                  </i>,
-                  "className": "right dropdown-button",
-                  "data-activates": "group-more",
-                  "replace": false,
-                  "to": "",
-                },
-                "ref": null,
-                "rendered": Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": "more_vert",
-                    "className": "material-icons",
-                  },
-                  "ref": null,
-                  "rendered": "more_vert",
-                  "type": "i",
-                },
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": Array [
-                    <i
-                      className="material-icons"
-                    >
-                      person
-                    </i>,
-                    <span
-                      className="group-members"
-                    >
-                       
-                    </span>,
-                  ],
-                  "className": "right",
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": "person",
-                      "className": "material-icons",
-                    },
-                    "ref": null,
-                    "rendered": "person",
-                    "type": "i",
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": Array [
-                        " ",
-                        undefined,
-                      ],
-                      "className": "group-members",
-                    },
-                    "ref": null,
-                    "rendered": Array [
-                      " ",
-                      undefined,
-                    ],
-                    "type": "span",
-                  },
-                ],
-                "type": "span",
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": undefined,
-                  "className": "bold bold-text",
-                },
-                "ref": null,
-                "rendered": null,
-                "type": "span",
-              },
-            ],
-            "type": "div",
-          },
-          "type": "div",
-        },
-      ],
       "type": "div",
     },
   ],

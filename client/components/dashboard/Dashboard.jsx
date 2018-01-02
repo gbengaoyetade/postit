@@ -19,8 +19,8 @@ class Dashboard extends React.Component {
   render() {
     let groups;
     let userGroups;
-    if (this.props.groups.groups) {
-      groups = this.props.groups.groups;
+    if (this.props.groups.length > 0) {
+      groups = this.props.groups;
       userGroups = (
         groups.map(group => (
           <div className="postit-card col m3 s5" key={group.id}>
@@ -43,7 +43,7 @@ class Dashboard extends React.Component {
     }
     return (
       <div>
-        <div className="col m6 s12 component-container">
+        <div className="col m7 s12 component-container groups-display">
           <p className="center header">My Groups</p>
           <div className="divider"/>
           {userGroups}
@@ -54,12 +54,12 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  groups: PropTypes.object.isRequired,
+  groups: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => (
   {
-    groups: state.groupReducer,
+    groups: state.groupReducer.groups,
   }
 );
 

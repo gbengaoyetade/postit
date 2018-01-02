@@ -11,7 +11,7 @@ const messageReducer = (state = {}, action) => {
     case 'GET_USER_GROUP_MESSAGES':
       return { ...state, messages: action.messages };
     case 'SEND_MESSAGE_SUCCESS':
-      return { ...state, messageSent: action.messageSent };
+      return { ...state, messages: [...state.messages, action.messageDetails] };
     default:
       return state;
   }

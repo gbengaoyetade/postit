@@ -22,7 +22,7 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": <div
-        className="message-form"
+        className="message-form col s12 "
       >
         <form
           method="Post"
@@ -32,7 +32,7 @@ ShallowWrapper {
             className=""
           >
             <textarea
-              className="message-input-field col s7"
+              className="message-input-field col s7 m7"
               name="messageBody"
               onChange={[Function]}
               placeholder="Enter message here"
@@ -69,7 +69,7 @@ ShallowWrapper {
             className="col s1"
           >
             <button
-              className="messageButton"
+              className="message-button"
             >
               <i
                 className="material-icons"
@@ -95,7 +95,7 @@ ShallowWrapper {
             className=""
           >
             <textarea
-              className="message-input-field col s7"
+              className="message-input-field col s7 m7"
               name="messageBody"
               onChange={[Function]}
               placeholder="Enter message here"
@@ -132,7 +132,7 @@ ShallowWrapper {
             className="col s1"
           >
             <button
-              className="messageButton"
+              className="message-button"
             >
               <i
                 className="material-icons"
@@ -142,7 +142,7 @@ ShallowWrapper {
             </button>
           </div>
         </form>,
-        "className": "message-form",
+        "className": "message-form col s12 ",
       },
       "ref": null,
       "rendered": Object {
@@ -155,7 +155,7 @@ ShallowWrapper {
               className=""
             >
               <textarea
-                className="message-input-field col s7"
+                className="message-input-field col s7 m7"
                 name="messageBody"
                 onChange={[Function]}
                 placeholder="Enter message here"
@@ -192,7 +192,7 @@ ShallowWrapper {
               className="col s1"
             >
               <button
-                className="messageButton"
+                className="message-button"
               >
                 <i
                   className="material-icons"
@@ -213,7 +213,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": <textarea
-                className="message-input-field col s7"
+                className="message-input-field col s7 m7"
                 name="messageBody"
                 onChange={[Function]}
                 placeholder="Enter message here"
@@ -228,7 +228,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "className": "message-input-field col s7",
+                "className": "message-input-field col s7 m7",
                 "name": "messageBody",
                 "onChange": [Function],
                 "placeholder": "Enter message here",
@@ -345,7 +345,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": <button
-                className="messageButton"
+                className="message-button"
               >
                 <i
                   className="material-icons"
@@ -366,7 +366,7 @@ ShallowWrapper {
                 >
                   send
                 </i>,
-                "className": "messageButton",
+                "className": "message-button",
               },
               "ref": null,
               "rendered": Object {
@@ -399,7 +399,7 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": <div
-          className="message-form"
+          className="message-form col s12 "
         >
           <form
             method="Post"
@@ -409,7 +409,7 @@ ShallowWrapper {
               className=""
             >
               <textarea
-                className="message-input-field col s7"
+                className="message-input-field col s7 m7"
                 name="messageBody"
                 onChange={[Function]}
                 placeholder="Enter message here"
@@ -446,7 +446,7 @@ ShallowWrapper {
               className="col s1"
             >
               <button
-                className="messageButton"
+                className="message-button"
               >
                 <i
                   className="material-icons"
@@ -472,7 +472,7 @@ ShallowWrapper {
               className=""
             >
               <textarea
-                className="message-input-field col s7"
+                className="message-input-field col s7 m7"
                 name="messageBody"
                 onChange={[Function]}
                 placeholder="Enter message here"
@@ -509,7 +509,7 @@ ShallowWrapper {
               className="col s1"
             >
               <button
-                className="messageButton"
+                className="message-button"
               >
                 <i
                   className="material-icons"
@@ -519,7 +519,7 @@ ShallowWrapper {
               </button>
             </div>
           </form>,
-          "className": "message-form",
+          "className": "message-form col s12 ",
         },
         "ref": null,
         "rendered": Object {
@@ -532,7 +532,7 @@ ShallowWrapper {
                 className=""
               >
                 <textarea
-                  className="message-input-field col s7"
+                  className="message-input-field col s7 m7"
                   name="messageBody"
                   onChange={[Function]}
                   placeholder="Enter message here"
@@ -569,7 +569,7 @@ ShallowWrapper {
                 className="col s1"
               >
                 <button
-                  className="messageButton"
+                  className="message-button"
                 >
                   <i
                     className="material-icons"
@@ -590,7 +590,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": <textarea
-                  className="message-input-field col s7"
+                  className="message-input-field col s7 m7"
                   name="messageBody"
                   onChange={[Function]}
                   placeholder="Enter message here"
@@ -605,7 +605,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "className": "message-input-field col s7",
+                  "className": "message-input-field col s7 m7",
                   "name": "messageBody",
                   "onChange": [Function],
                   "placeholder": "Enter message here",
@@ -722,7 +722,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": <button
-                  className="messageButton"
+                  className="message-button"
                 >
                   <i
                     className="material-icons"
@@ -743,7 +743,7 @@ ShallowWrapper {
                   >
                     send
                   </i>,
-                  "className": "messageButton",
+                  "className": "message-button",
                 },
                 "ref": null,
                 "rendered": Object {

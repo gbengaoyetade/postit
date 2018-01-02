@@ -28,7 +28,7 @@ export const searchUser = (userInput, offset) => (
       'x-access-token': localStorage.postitToken,
     };
     axios.get(
-      `/api/user/search?query=${userInput}&offset=${offset}&limit=${3}`,
+      `/api/user/search?query=${userInput}&offset=${offset}&limit=${5}`,
     { headers })
     .then((response) => {
       dispatch(searchResultSuccess(

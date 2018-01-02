@@ -17,7 +17,7 @@ const UserNav = (props) => {
     props.history.push('/login');
   };
   return (
-  <div className="row">
+  <div className="">
       <nav className="transparent col-s12">
         <ul id='userDropdown' className='dropdown-content'>
           <li>
@@ -31,13 +31,13 @@ const UserNav = (props) => {
           <p />
           <li>
             <Link to="/dashboard">
-            <i className="fa fa-home" ></i>
+            <i className="material-icons">home</i>
             Dashboard
             </Link>
           </li>
           <li>
             <Link to="/group/create">
-            <i className="fa fa-users " ></i>
+            <i className="material-icons">group_add</i>
             Create Group
             </Link>
           </li>

@@ -81,7 +81,9 @@ export const addMembers = (req, res) => {
       })
       .then((groupMember) => {
         res.status(201).send({
-          member: groupMember, message: 'User successfully added to group' });
+          member: groupMember,
+          user: req.user,
+          message: 'User successfully added to group' });
       })
       .catch(() => {
         res.status(500).send({ error: 'Internal server error' });
@@ -157,7 +159,7 @@ export const leaveGroup = (req, res) => {
     where: { userId, groupId },
   })
   .then(() => {
-    res.send({ message: 'User left group' });
+    res.send({ message: 'User left group', groupId });
   })
   .catch(() => {
     res.status(500).send({ error: 'Internal server error' });
