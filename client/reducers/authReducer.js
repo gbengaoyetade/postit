@@ -6,7 +6,12 @@
  *
  * @returns { object } returs state
  */
-const authReducer = (state = {}, action) => {
+const initialState = {
+  user: {},
+  signupError: '',
+  loginError: '',
+};
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'AUTHENTICATE_USER':
       return { ...state, user: action.user };

@@ -6,9 +6,12 @@
  *
  * @returns { object } returns state object
  */
-const itemLoadingReducer = (state =
-  { loginLoading: false, signupLoading: false, sendingMail: false },
-  action) => {
+const initialState = {
+  oginLoading: false,
+  signupLoading: false,
+  sendingMail: false
+};
+const itemLoadingReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN_LOADING':
       return { ...state, loginLoading: action.isLoading };

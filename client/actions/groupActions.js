@@ -159,6 +159,18 @@ export const createNewGroup = groupDetails => (
 
 /**
  *
+ * @param { object } groupDetails -details of the group
+ *
+ * @returns { object } -returns action
+ */
+const currentGroup = groupDetails => (
+  {
+    type: 'CURRENT_GROUP',
+    groupDetails
+  }
+);
+/**
+ *
  * @param { number } groupId -id of the group
  *
  * @returns { object } -returns action
@@ -227,8 +239,8 @@ export const getGroupMessages = groupId => (
     .then((groups) => {
       dispatch(getUserGroupMessages(groups.data.messages));
     })
-    .catch((error) => {
-      unauthorisedRedirect(error.response);
+    .catch(({ response }) => {
+      unauthorisedRedirect(response);
     });
   }
 );
@@ -245,8 +257,10 @@ export const getGroupMembers = groupId => (
     axios.get(`/api/group/${groupId}/users`)
     .then(({ data }) => {
       dispatch(getGroupMembersAction(data.members));
+      dispatch(currentGroup(data.group));
     })
-    .catch(() => {
+    .catch(({ response }) => {
+      unauthorisedRedirect(response);
     });
   }
 );

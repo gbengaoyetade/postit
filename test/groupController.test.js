@@ -113,7 +113,7 @@ describe('Add member', () => {
     supertest(app).post('/api/group/1/user').set('x-access-token', token1)
     .send(groupData)
     .end((err, res) => {
-      assert.equal(res.statusCode, 400);
+      assert.equal(res.statusCode, 404);
       assert.equal(res.body.error, 'User does not exist');
       done();
     });

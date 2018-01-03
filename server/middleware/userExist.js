@@ -23,7 +23,7 @@ const userExist = (req, res, next) => {
       req.user = user;
       next();
     } else {
-      res.status(400).json({ error: 'User does not exist' });
+      res.status(404).json({ error: 'User does not exist' });
     }
   })
   .catch(() => {

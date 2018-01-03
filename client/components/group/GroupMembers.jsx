@@ -32,7 +32,7 @@ class GroupMembers extends React.Component {
     }
     return (
       <div
-      className="hide-on-med-and-down group-members-div component-container"
+      className="hide-on-small-and-down group-members-div component-container"
       >
         <div className="center">
           <span className="center big"> Group Members </span>

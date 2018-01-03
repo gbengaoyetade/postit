@@ -85,15 +85,15 @@ class AddMembers extends React.Component {
    */
   render() {
     let searchResult;
-    if (this.props.searchResult.searchResult) {
-      const searchResultArray = this.props.searchResult.searchResult.users;
+    if (this.props.searchResult.users) {
+      const searchResultArray = this.props.searchResult.users;
       const groupMemberIds = this.props.groupMembers.map(member =>
         member.id
     );
     // show search result only when input length is greater than 1 and
     // there is some search result to show
       if (searchResultArray.length > 0 && this.state.userInput.length > 0) {
-        const pageCount = this.props.searchResult.searchResult.pageCount;
+        const pageCount = this.props.searchResult.pageCount;
         searchResult = (
           <div>
           <ul className="collection" id="search-results">
@@ -174,7 +174,7 @@ AddMembers.propTypes = {
 };
 const mapStateToProps = state => (
   {
-    searchResult: state.searchReducer,
+    searchResult: state.searchReducer.searchResult,
     addMemberSuccess: state.groupReducer.memberAdded,
     groupMembers: state.groupReducer.members,
   }

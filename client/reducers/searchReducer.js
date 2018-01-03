@@ -6,7 +6,7 @@
  *
  * @returns { object } returns state object
  */
-const searchReducer = (state = {}, action) => {
+const searchReducer = (state = { searchResult: {} }, action) => {
   switch (action.type) {
     case 'USER_SEARCH_SUCCESS':
       return { ...state, searchResult: action.searchResult };

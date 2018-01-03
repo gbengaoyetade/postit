@@ -86,7 +86,7 @@ class Group extends React.Component {
     let numberOfGroupMembers;
     let groupName;
     if (this.props.groupMembers.length > 0) {
-      // groupName = this.props.groupMembers.group.groupName;
+      groupName = this.props.currentGroup.groupName;
       numberOfGroupMembers = this.props.groupMembers.length;
     }
     return (
@@ -108,7 +108,7 @@ class Group extends React.Component {
             {numberOfGroupMembers}
           </span>
           </span>
-          <span className="bold bold-text">
+          <span className="bold big">
             {groupName}
           </span>
           </div>
@@ -149,11 +149,13 @@ Group.propTypes = {
   history: PropTypes.object,
   leftGroup: PropTypes.bool,
   leaveGroupSuccess: PropTypes.func.isRequired,
+  currentGroup: PropTypes.object,
 };
 const mapStateToProps = state => (
   {
     leftGroup: state.groupReducer.leftGroup,
     groupMembers: state.groupReducer.members,
+    currentGroup: state.groupReducer.currentGroup,
   }
 );
 

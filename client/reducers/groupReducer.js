@@ -3,7 +3,8 @@ const intialState = {
   memberAdded: [],
   members: [],
   groups: [],
-  groupError: '' };
+  groupError: '',
+  currentGroup: {} };
 /**
  * @description reducer for group actions
  *
@@ -27,6 +28,8 @@ const groupReducer = (state = intialState, action) => {
       return { ...state,
         groups: state.groups.filter(group => group.id === action.groupId)
       };
+    case 'CURRENT_GROUP':
+      return { ...state, currentGroup: action.groupDetails };
     case 'CREATE_GROUP_ERROR':
       return { ...state, groupError: action.groupError };
     case 'CREATE_NEW_GROUP':

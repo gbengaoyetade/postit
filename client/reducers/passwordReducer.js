@@ -6,10 +6,12 @@
  *
  * @returns { object } returns state object
  */
-const passwordReducer = (state =
-{ passwordUpdated: false,
-  emailError: ''
-}, action) => {
+const initialState = {
+  passwordUpdated: false,
+  emailError: '',
+  passwordUpdatedError: '',
+};
+const passwordReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'EMAIL_ERROR':
       return { ...state, emailError: action.emailError };
