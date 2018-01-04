@@ -10,6 +10,7 @@ global.shallow = shallow;
 global.render = render;
 global.mount = mount;
 global.jest = jest;
+global.location.replace = () => {};
 global.Materialize = { toast: () => {} };
 global.$ = $;
 $.prototype.dropdown = () => {};

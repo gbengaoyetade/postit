@@ -9,7 +9,7 @@ import { createGroup, createGroupError } from '../../actions/groupActions';
  *
  * @extends {React.Component}
  */
-class CreateGroup extends React.Component {
+export class CreateGroup extends React.Component {
 
   /**
    * @description Creates an instance of CreateGroup.
@@ -66,11 +66,13 @@ class CreateGroup extends React.Component {
    */
   render() {
     return (
-      <CreateGroupForm
-        handleSubmit={this.handleSubmit}
-        handleChange={this.handleChange}
-        error={this.props.groupError}
-      />
+      <div>
+        <CreateGroupForm
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          error={this.props.groupError}
+        />
+      </div>
     );
   }
 }

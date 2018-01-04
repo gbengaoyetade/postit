@@ -14,7 +14,7 @@ import { updatePassword } from '../../actions/passwordActions';
  *
  * @extends { React.Component }
  */
-class ChangePassword extends React.Component {
+export class ChangePassword extends React.Component {
 
   /**
    * @description Creates an instance of ChangePassword.

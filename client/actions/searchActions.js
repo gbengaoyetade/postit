@@ -6,12 +6,24 @@ window.localStorage.getItem('postitToken');
 /**
  * @param { object } searchResult -result from the search
  *
- * @returns { object } -return an object
+ * @returns { object } -returns action
  */
 export const searchResultSuccess = searchResult => (
   {
     type: 'USER_SEARCH_SUCCESS',
     searchResult,
+  }
+);
+
+/**
+ * @param { string } error -error message
+ *
+ * @returns { object } -returns action
+ */
+const searchError = error => (
+  {
+    type: 'SEARCH_ERROR',
+    error,
   }
 );
 /**
@@ -27,19 +39,20 @@ export const searchUser = (userInput, offset) => (
     const headers = {
       'x-access-token': localStorage.postitToken,
     };
-    axios.get(
+    return axios.get(
       `/api/user/search?query=${userInput}&offset=${offset}&limit=${5}`,
     { headers })
-    .then((response) => {
+    .then(({ data }) => {
       dispatch(searchResultSuccess(
         {
-          users: response.data.users,
-          count: response.data.count,
-          pageCount: response.data.pageCount,
+          users: data.users,
+          count: data.count,
+          pageCount: data.pageCount,
         }
       ));
     })
-    .catch(() => {
+    .catch(({ response }) => {
+      dispatch(searchError(response.data.error));
     });
   }
 );

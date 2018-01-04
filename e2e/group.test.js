@@ -56,8 +56,8 @@ module.exports = {
     .waitForElementVisible('#search-results', 5000)
     .assert.containsText('#search-results span.search-username', otherUser)
     .click('a.small.btn')
-    .waitForElementVisible('div.toast', 3000)
-    .assert.containsText('div.toast', 'User added successfully');
+    .waitForElementVisible('span.right', 3000)
+    .assert.containsText('span.right', 'Group member');
   },
   'user can leave group he belongs to':
   (browser) => {

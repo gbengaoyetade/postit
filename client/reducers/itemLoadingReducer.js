@@ -1,3 +1,5 @@
+import initialState from '../reducers/initialState';
+
 /**
  * @description reducer for items loading in the app
  *
@@ -6,12 +8,7 @@
  *
  * @returns { object } returns state object
  */
-const initialState = {
-  oginLoading: false,
-  signupLoading: false,
-  sendingMail: false
-};
-const itemLoadingReducer = (state = initialState, action) => {
+const itemLoadingReducer = (state = initialState.item, action) => {
   switch (action.type) {
     case 'LOGIN_LOADING':
       return { ...state, loginLoading: action.isLoading };

@@ -12,13 +12,16 @@ const routeValidation = () => (
       .exists()
       .withMessage('groupName field is required')
       .matches(/^[a-zA-Z]+/)
-      .withMessage('Expects a string of alphabets'),
+      .withMessage('Expects a string of alphabets')
+      .isLength({ max: 255 })
+      .withMessage('Maximum character lenght exceeded'),
       body('groupDescription')
       .exists()
       .withMessage('groupDescription field is required')
       .matches(/^[a-zA-Z]+/)
       .withMessage('Expects a string of alphabets')
       .isLength({ max: 255 })
+      .withMessage('Maximum character lenght exceeded')
     ],
     addMembers: [
       body('userId')

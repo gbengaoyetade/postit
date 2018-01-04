@@ -16,7 +16,7 @@ import GroupMembers from './GroupMembers';
  *
  * @extends {React.Component}
  */
-class Group extends React.Component {
+export class Group extends React.Component {
 
   /**
    * @description Creates an instance of Group.

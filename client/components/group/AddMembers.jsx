@@ -14,7 +14,7 @@ from '../../actions/groupActions';
  *
  * @extends { React.Component }
  */
-class AddMembers extends React.Component {
+export class AddMembers extends React.Component {
 
   /**
    * @description Creates an instance of AddMembers.
@@ -85,6 +85,10 @@ class AddMembers extends React.Component {
    */
   render() {
     let searchResult;
+    let searchError = '';
+    if (this.props.searchError.length > 0) {
+        searchError = this.props.searchError;
+    }
     if (this.props.searchResult.users) {
       const searchResultArray = this.props.searchResult.users;
       const groupMemberIds = this.props.groupMembers.map(member =>
@@ -144,6 +148,7 @@ class AddMembers extends React.Component {
         <div className="col m7 s10 offset-s1 component-container" >
           <div className="col m8 offset-m2">
           <h5 className="center">Search users</h5>
+          <p> {searchError}</p>
           <form>
             <div className="input-field">
               <input
@@ -171,10 +176,12 @@ AddMembers.propTypes = {
   match: PropTypes.object.isRequired,
   searchResult: PropTypes.object,
   groupMembers: PropTypes.array,
+  searchError: PropTypes.string,
 };
 const mapStateToProps = state => (
   {
     searchResult: state.searchReducer.searchResult,
+    searchError: state.searchReducer.searchError,
     addMemberSuccess: state.groupReducer.memberAdded,
     groupMembers: state.groupReducer.members,
   }

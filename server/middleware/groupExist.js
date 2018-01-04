@@ -29,7 +29,7 @@ const groupExist = (req, res, next) => {
           req.group = group;
           next();
         } else {
-          res.status(401).json({ error: 'User not a member of the group' });
+          res.status(403).json({ error: 'User not a member of the group' });
         }
       })
       .catch(() => {

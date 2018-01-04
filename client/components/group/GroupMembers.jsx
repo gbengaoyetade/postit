@@ -10,7 +10,7 @@ import { getGroupMembers } from '../../actions/groupActions';
  *
  * @extends {React.Component}
  */
-class GroupMembers extends React.Component {
+export class GroupMembers extends React.Component {
 
   /**
    * @description render function

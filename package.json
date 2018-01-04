@@ -6,7 +6,11 @@
   "jest": {
     "verbose": true,
     "collectCoverageFrom": [
-      "client/**/*.(js|jsx)"
+      "client/**/*.(js|jsx)",
+      "!client/index.js"
+    ],
+    "testPathIgnorePatterns": [
+      "client/e2e/*.(js|jsx)"
     ],
     "setupFiles": [
       "./client/tests/jestSetup.js"
@@ -104,6 +108,7 @@
     "style-loader": "^0.18.2",
     "supertest": "^3.0.0",
     "sweetalert": "^2.0.8",
+    "toastr": "^2.1.4",
     "url-loader": "^0.6.2",
     "url-search-params-polyfill": "^2.0.0",
     "validator": "^8.0.0",

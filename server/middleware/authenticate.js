@@ -35,7 +35,7 @@ const authenticate = (req, res, next) => {
       }
     });
   } else {
-    res.status(400).send({ error: 'No token provided' });
+    res.status(401).send({ error: 'No token provided' });
   }
 };
 

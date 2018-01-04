@@ -6,7 +6,10 @@ let storeValue;
 if (process.env.NODE_ENV) {
   storeValue = createStore(rootReducer, {}, applyMiddleware(thunk));
 } else {
-  storeValue = createStore(rootReducer, {}, compose(applyMiddleware(thunk), window.devToolsExtension()));
+  storeValue = createStore(rootReducer, {},
+    compose(applyMiddleware(thunk),
+    window.devToolsExtension ?
+    window.devToolsExtension() : f => f));
 }
 // storeValue variable was created because eslint flags and error when
 // a mutable value is being exported

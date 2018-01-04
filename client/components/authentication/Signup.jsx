@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import validateSignUpInput from '../../../server/shared/validateSignUpInput';
-
 import { signupLoading, signupUser } from '../../actions/userAuthActions';
 import SignupForm from './SignupForm';
 
@@ -12,7 +11,7 @@ import SignupForm from './SignupForm';
  *
  * @extends { React.Component }
  */
-class Signup extends React.Component {
+export class Signup extends React.Component {
 
   /**
    * @description Creates an instance of Signup

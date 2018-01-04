@@ -1,4 +1,5 @@
 import axios from 'axios';
+import toastr from 'toastr';
 import { tokenRedirect } from './userAuthActions';
 
 
@@ -191,8 +192,7 @@ export const groupLeft = groupId => (
  * @returns { function } -returns a function
  */
 export const createGroup = (groupDetails, history) => (
-  dispatch => (
-   axios.post('/api/group',
+  dispatch => axios.post('/api/group',
     groupDetails)
     .then(({ data }) => {
       // redirect user to the group he created
@@ -203,9 +203,14 @@ export const createGroup = (groupDetails, history) => (
       tokenRedirect(response.data.error);
       if (response.status === 409) {
         dispatch(createGroupError('Group already exist'));
+      } else if (response.data.error.groupDescription) {
+        toastr.error(response.data.error.groupDescription);
+      } else if (response.data.error.groupName) {
+        toastr.error(response.data.error.groupName);
+      } else {
+        toastr.error(response.data.error);
       }
     })
-  )
 );
 
 /**
@@ -214,7 +219,7 @@ export const createGroup = (groupDetails, history) => (
  * @returns { function } -return function
  */
 export const getGroups = () => (
-  (dispatch) => {
+  dispatch => (
     axios.get('/api/group/user')
     .then(({ data }) => {
       dispatch(getUserGroups(data.groups));
@@ -222,8 +227,8 @@ export const getGroups = () => (
     .catch(({ response }) => {
       tokenRedirect(response.data.error);
       dispatch(getUserGroupsError(true));
-    });
-  }
+    })
+  )
 );
 
 /**
@@ -234,15 +239,16 @@ export const getGroups = () => (
  * @returns { function } -returns a function
  */
 export const getGroupMessages = groupId => (
-  (dispatch) => {
+  dispatch => (
     axios.get(`/api/group/${groupId}/messages`)
     .then((groups) => {
       dispatch(getUserGroupMessages(groups.data.messages));
     })
     .catch(({ response }) => {
       unauthorisedRedirect(response);
-    });
-  }
+      toastr.error(response.data.error);
+    })
+  )
 );
 
 /**
@@ -253,7 +259,7 @@ export const getGroupMessages = groupId => (
  * @returns { function } -returns a function
  */
 export const getGroupMembers = groupId => (
-  (dispatch) => {
+  dispatch => (
     axios.get(`/api/group/${groupId}/users`)
     .then(({ data }) => {
       dispatch(getGroupMembersAction(data.members));
@@ -261,8 +267,9 @@ export const getGroupMembers = groupId => (
     })
     .catch(({ response }) => {
       unauthorisedRedirect(response);
-    });
-  }
+      toastr.error(response.data.error);
+    })
+  )
 );
 
 /**
@@ -274,14 +281,15 @@ export const getGroupMembers = groupId => (
  * @returns { function } -returns a function
  */
 export const addMember = (userId, groupId) => (
-  (dispatch) => {
+  dispatch => (
     axios.post(`/api/group/${groupId}/user`, { userId })
     .then(({ data }) => {
       dispatch(addMemberSuccess(data.user));
     })
-    .catch(() => {
-    });
-  }
+    .catch(({ response }) => {
+      toastr.error(response.data.error);
+    })
+  )
 );
 
 /**
@@ -294,12 +302,13 @@ export const addMember = (userId, groupId) => (
 export const leaveGroup = groupId => (
   (dispatch) => {
     dispatch(leaveGroupSuccess(false));
-    axios.delete(`/api/group/${groupId}/leave`)
+    return axios.delete(`/api/group/${groupId}/leave`)
     .then(({ data }) => {
       dispatch(leaveGroupSuccess(true));
       dispatch(groupLeft(data.groupId));
     })
-    .catch(() => {
+    .catch(({ response }) => {
+      toastr.error(response.data.error);
     });
   }
 );
@@ -315,12 +324,13 @@ export const leaveGroup = groupId => (
 export const sendUserMessage = (groupId, message) => (
   (dispatch) => {
     const URL = `/api/group/${groupId}/message`;
-    axios.post(URL, message)
+    return axios.post(URL, message)
     .then(({ data }) => {
       dispatch(sendMessageSuccess(data.message));
     })
-    .catch(() => {
+    .catch(({ response }) => {
       dispatch(sendMessageSuccess(false));
+      toastr.error(response.data.error);
     });
   }
 );

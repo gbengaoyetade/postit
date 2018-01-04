@@ -2,7 +2,8 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import 'mock-local-storage';
-import SignupWithStore, { Signup } from '../../components/authentication/Signup';
+import SignupWithStore, { Signup }
+from '../../components/authentication/Signup';
 
 
 const middlewares = [thunk];
@@ -28,7 +29,7 @@ describe('Signup component', () => {
   it('should render correctly', () => {
     expect(SignupWrapper).toMatchSnapshot();
   });
-  it('should render correctly when store is passed to it', () => {
+  it('should render correctly when connected to the store', () => {
     expect(SignupWithStoreWrapper).toMatchSnapshot();
   });
   it('should have signupUser function defined', () => {

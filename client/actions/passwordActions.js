@@ -60,14 +60,14 @@ export const recoverPassword = email => (
     dispatch(passwordResetError(''));
     dispatch(emailSending(true));
     dispatch(userEmailError(''));
-    axios.post('/api/user/password/reset',
+    return axios.post('/api/user/password/reset',
     email)
     .then(() => {
       location.replace('/email/sent');
     })
-    .catch((error) => {
+    .catch(({ response }) => {
       dispatch(emailSending(false));
-      dispatch(userEmailError(error.response.data.error));
+      dispatch(userEmailError(response.data.error));
     });
   }
 );
@@ -81,16 +81,15 @@ export const recoverPassword = email => (
  * @returns { function } -action object
  */
 export const updatePassword = (password, token) => (
-  (dispatch) => {
+  dispatch =>
     axios.post(`/api/user/password/update?token=${token}`,
     password)
-    .then((response) => {
-      if (response.data.token) {
+    .then(({ data }) => {
+      if (data.token) {
         dispatch(updatePasswordSuccess(true));
       }
     })
     .catch((error) => {
       dispatch(passwordResetError(error.response.data.error));
-    });
-  }
+    })
 );

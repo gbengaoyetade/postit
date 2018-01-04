@@ -9,7 +9,7 @@ import moment from 'moment';
  * @class Dashboard
  * @extends {React.Component}
  */
-class Dashboard extends React.Component {
+export class Dashboard extends React.Component {
 
   /**
    * @description render fucntion
@@ -43,7 +43,8 @@ class Dashboard extends React.Component {
     }
     return (
       <div>
-        <div className="col m7 s12 component-container groups-display">
+        <div
+          className="col m7 offset-m1 s12 component-container groups-display">
           <p className="center header">My Groups</p>
           <div className="divider"/>
           {userGroups}

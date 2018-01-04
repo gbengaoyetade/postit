@@ -1,10 +1,5 @@
-const intialState = {
-  leftGroup: false,
-  memberAdded: [],
-  members: [],
-  groups: [],
-  groupError: '',
-  currentGroup: {} };
+import initialState from '../reducers/initialState';
+
 /**
  * @description reducer for group actions
  *
@@ -13,7 +8,7 @@ const intialState = {
  *
  * @returns { object } returns state object
  */
-const groupReducer = (state = intialState, action) => {
+const groupReducer = (state = initialState.group, action) => {
   switch (action.type) {
     case 'GET_GROUP_MEMBERS':
       return { ...state, members: action.members };
@@ -33,7 +28,7 @@ const groupReducer = (state = intialState, action) => {
     case 'CREATE_GROUP_ERROR':
       return { ...state, groupError: action.groupError };
     case 'CREATE_NEW_GROUP':
-      return { ...state, groups: [...state.groups, ...action.groupDetails] };
+      return { ...state, groups: [...state.groups, action.groupDetails] };
     default:
       return state;
   }

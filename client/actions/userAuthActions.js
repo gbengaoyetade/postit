@@ -103,22 +103,18 @@ const storeUserDetails = (response) => {
  * @returns { function } returns a function
  */
 export const loginUser = (user, history) => (
-  (dispatch) => {
-    axios.post('/api/user/signin',
+  dispatch => axios.post('/api/user/signin',
      user)
     .then((response) => {
-      if (response.status === 200) {
-        dispatch(userAuthSuccess(response.data));
-        dispatch(loginLoading(false));
-        storeUserDetails(response);
-        history.push('/dashboard');
-      }
-    })
-    .catch((error) => {
+      dispatch(userAuthSuccess(response.data));
       dispatch(loginLoading(false));
-      dispatch(loginError(error.response.data.error));
-    });
-  }
+      storeUserDetails(response);
+      history.push('/dashboard');
+    })
+    .catch(({ response }) => {
+      dispatch(loginLoading(false));
+      dispatch(loginError(response.data.error));
+    })
 );
 
 /**
@@ -130,8 +126,7 @@ export const loginUser = (user, history) => (
  * @returns { function } returns a function
  */
 export const signupUser = (user, history) => (
-  (dispatch) => {
-    axios.post(
+  dispatch => axios.post(
     '/api/user/signup', user)
     .then((response) => {
       if (response.status === 201) {
@@ -141,8 +136,7 @@ export const signupUser = (user, history) => (
       }
     })
     .catch(({ response }) => {
-      dispatch(signupError(response.data.error));
       dispatch(signupLoading(false));
-    });
-  }
+      dispatch(signupError(response.data.error));
+    })
 );

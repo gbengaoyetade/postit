@@ -14,7 +14,7 @@ const UserNav = (props) => {
   const logout = () => {
     localStorage.removeItem('postitUser');
     localStorage.removeItem('postitToken');
-    props.history.push('/login');
+    location.replace('/login');
   };
   return (
   <div className="">

@@ -11,7 +11,7 @@ from '../../actions/groupActions';
  *
  * @extends {React.Component}
  */
-class UserGroups extends React.Component {
+export class UserGroups extends React.Component {
 
   /**
    * @description Creates an instance of UserGroups.
@@ -53,7 +53,7 @@ class UserGroups extends React.Component {
   render() {
     let groups;
     let userGroups;
-    if (this.props.groups.length > 1) {
+    if (this.props.groups.length > 0) {
       groups = this.props.groups;
       userGroups = (
         <ul className="collection">
