@@ -3,7 +3,7 @@ import { body, query, param } from 'express-validator/check';
 /**
  * @description function to validate each route input parameter
  *
- * @returns { object } -returns validation rules
+ * @returns {object} -returns validation rules
  */
 const routeValidation = () => (
   {

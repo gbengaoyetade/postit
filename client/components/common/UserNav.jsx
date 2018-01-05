@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
  *
  * @param {object} props -prop object
  *
- * @returns {object} -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const UserNav = (props) => {
   const logout = () => {

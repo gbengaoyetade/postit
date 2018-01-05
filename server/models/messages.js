@@ -1,5 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
-  const Messages = sequelize.define('messages', {
+export default (sequelize, DataTypes) => {
+  const messages = sequelize.define('messages', {
     messageBody: {
       type: DataTypes.TEXT,
       allowNull: { value: false, msg: 'Message body cannot be null' },
@@ -33,8 +33,8 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   });
-  Messages.associate = (models) => {
-    Messages.belongsTo(models.users);
+  messages.associate = (models) => {
+    messages.belongsTo(models.users);
   };
-  return Messages;
+  return messages;
 };

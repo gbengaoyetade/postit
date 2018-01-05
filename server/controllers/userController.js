@@ -15,10 +15,10 @@ const secret = process.env.TOKEN_SECRET;
 /**
  * @description Signup new user
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const signUp = (req, res) => {
   const { username, password, email, fullName, phoneNumber } = req.body;
@@ -76,8 +76,8 @@ export const signUp = (req, res) => {
 /**
  * @description Signs user in
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
  * @returns {  void } -returns nothing
  */
@@ -119,10 +119,10 @@ export const signIn = (req, res) => {
 /**
  * @description Sends user a reset password link
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const resetPassword = (req, res) => {
   const { email } = req.body;
@@ -165,10 +165,10 @@ export const resetPassword = (req, res) => {
 /**
  * @description Updates user password
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const updatePassword = (req, res) => {
   const { token } = req.query;
@@ -176,7 +176,8 @@ export const updatePassword = (req, res) => {
   // Verify user token
   jwt.verify(token, secret, (error) => {
     if (error) {
-      res.status(401).send({ error: 'Token authentication failure' });
+      res.status(400).send({
+        error: 'Request cannot be completed because the link cannot be verified' });
     } else {
       // Update user password if token was verified successfully
       const hash = encryptPassword(req.body.password);
@@ -214,10 +215,10 @@ export const updatePassword = (req, res) => {
 /**
  * @description search user
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } - returns nothing
+ * @returns {void} - returns nothing
  */
 export const userSearch = (req, res) => {
   const { query, offset } = req.query;

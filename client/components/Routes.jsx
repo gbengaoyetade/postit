@@ -17,7 +17,7 @@ import ErrorPage from './errors/Error';
 /**
  * @description Routes component
  *
- * @returns { object } -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const Routes = () => (
   <BrowserRouter>

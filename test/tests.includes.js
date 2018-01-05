@@ -13,7 +13,7 @@ mockery.registerMock('nodemailer', nodemailerMock);
 /**
  * @description creates seed data for test cases
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const seedDatabase = () => {
   groups.destroy({
@@ -75,7 +75,7 @@ export const seedDatabase = () => {
 /**
  * @description creates tokens for tests cases
  *
- * @returns { object } -returns tokens
+ * @returns {object} -returns tokens
  */
 export const tokens = () => {
   const userDetailsWithId = {

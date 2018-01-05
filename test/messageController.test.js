@@ -78,7 +78,7 @@ describe('Get Messages', () => {
       done();
     });
   });
-  it('should return a 500 error when server process .findAll request',
+  it('should return a 500 error when server cannot process .findAll request',
   (done) => {
     messages.findAll = () => Promise.reject('dsfafd');
     supertest(app).get('/api/group/3/messages').set('x-access-token', token2)
@@ -89,7 +89,7 @@ describe('Get Messages', () => {
       done();
     });
   });
-  it('should return a 500 error when server process .create() request',
+  it('should return a 500 error when server cannot process .create() request',
   (done) => {
     const message = {
       messageBody: 'this is a message',
@@ -104,7 +104,7 @@ describe('Get Messages', () => {
       done();
     });
   });
-  it('should return a 500 error when server process groups.find() request',
+  it('should return a 500 error when server cannot process groups.find() request',
   (done) => {
     const message = {
       messageBody: 'this is a message',

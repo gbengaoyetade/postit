@@ -3,10 +3,10 @@ import initialState from '../reducers/initialState';
 /**
  * @description reducer for auth actions
  *
- * @param { object } state -state object
- * @param { object } action -action object
+ * @param {object} state -state object
+ * @param {object} action -action object
  *
- * @returns { object } returs state
+ * @returns {object} returns state
  */
 const authReducer = (state = initialState.auth, action) => {
   switch (action.type) {

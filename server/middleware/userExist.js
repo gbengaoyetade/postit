@@ -4,11 +4,11 @@ const { users } = models;
 /**
  * @description Check to see if user and group exists
  *
- * @param { object } req -request object
- * @param { object } res -response object
- * @param { function } next -function to call next route
+ * @param {object} req -request object
+ * @param {object} res -response object
+ * @param {promise} next -function to call next route
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 const userExist = (req, res, next) => {
   const { userId } = req.body;

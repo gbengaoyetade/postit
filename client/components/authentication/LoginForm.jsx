@@ -8,9 +8,9 @@ import SubmitButton from '../common/SubmitButton';
 /**
  * @description Login component
  *
- * @param { object } props -prop object
+ * @param {object} props -prop object
  *
- * @returns { object } -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const Login = (props) => {
   let submitValue = '';

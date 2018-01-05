@@ -4,12 +4,12 @@ const { groupMembers, groups, messages, users } = models;
 /**
  * @description create new group
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
-export const create = (req, res) => {
+export const createGroup = (req, res) => {
   const { groupName, groupDescription } = req.body;
   groups.find({
     where: {
@@ -61,10 +61,10 @@ export const create = (req, res) => {
 /**
  * @description Adds new member to group
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const addMembers = (req, res) => {
   const { userId } = req.body;
@@ -101,10 +101,10 @@ export const addMembers = (req, res) => {
 /**
  * @description Get groups a particular user belongs to
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const getGroups = (req, res) => {
   const userId = req.id;
@@ -140,7 +140,7 @@ export const getGroups = (req, res) => {
     ],
   })
   .then((userGroups) => {
-    res.send(userGroups);
+    res.send({ groups: userGroups.groups });
   })
   .catch(() => {
     res.status(500).send({ error: 'Internal server error' });
@@ -150,10 +150,10 @@ export const getGroups = (req, res) => {
 /**
  * @description Removes user from group
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const leaveGroup = (req, res) => {
   const userId = req.id;
@@ -172,14 +172,14 @@ export const leaveGroup = (req, res) => {
 /**
  * @description gets members of a particular group
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const getGroupMembers = (req, res) => {
   req.group.getUsers({ attributes: {
-    exclude: ['password', 'createdAt', 'updatedAt'],
+    exclude: ['password', 'createdAt', 'updatedAt']
   },
   })
   .then((members) => {

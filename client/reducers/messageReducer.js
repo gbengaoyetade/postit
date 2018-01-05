@@ -3,10 +3,10 @@ import initialState from '../reducers/initialState';
 /**
  * @description reducer for message actions
  *
- * @param { object } state -state object
- * @param { object } action -action object
+ * @param {object} state -state object
+ * @param {object} action -action object
  *
- * @returns { object } returns state object
+ * @returns {object} returns state object
  */
 const messageReducer = (state = initialState.message, action) => {
   switch (action.type) {

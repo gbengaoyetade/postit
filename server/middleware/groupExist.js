@@ -1,3 +1,4 @@
+import validator from 'validator';
 import models from '../models';
 
 
@@ -6,15 +7,17 @@ const { groups, groupMembers } = models;
 /**
  * @description Checks to see if group exists
  *
- * @param { object } req -request object
- * @param { object } res -response object
- * @param { function } next -next
+ * @param {object} req -request object
+ * @param {object} res -response object
+ * @param {promise} next -next
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 const groupExist = (req, res, next) => {
   const { groupId } = req.params;
-  if (!isNaN(groupId)) {
+  if (!validator.isNumeric(groupId)) {
+    res.status(400).json({ error: 'groupId is not a number' });
+  } else {
     groups.findOne({
       where: { id: groupId },
     })
@@ -41,8 +44,6 @@ const groupExist = (req, res, next) => {
   .catch((error) => {
     res.status(500).json(error.message);
   });
-  } else {
-    res.status(400).json({ error: 'groupId is not a number' });
   }
 };
 export default groupExist;

@@ -19,7 +19,7 @@ export class ChangePassword extends React.Component {
   /**
    * @description Creates an instance of ChangePassword.
    *
-   * @returns { void } -returns nothing
+   * @returns {void} -returns nothing
    */
   constructor() {
     super();
@@ -35,7 +35,7 @@ export class ChangePassword extends React.Component {
   /**
    * @description form validation function
    *
-   * @returns { boolean } returns boolean
+   * @returns {boolean} returns boolean
    */
   validateForm() {
     if (this.state.password.length < 6) {
@@ -51,9 +51,9 @@ export class ChangePassword extends React.Component {
   /**
    * @description handles onChange event
    *
-   * @param { object } event -event object
+   * @param {object} event -event object
    *
-   * @returns { void }
+   * @returns {void}
    */
   handleChange(event) {
     const name = event.target.name;
@@ -63,9 +63,9 @@ export class ChangePassword extends React.Component {
   /**
    * @description handles form submission
    *
-   * @param { object } event -event object
+   * @param {object} event -event object
    *
-   * @returns { void } -returns nothing
+   * @returns {void} -returns nothing
    */
   handleSubmit(event) {
     event.preventDefault();
@@ -80,7 +80,7 @@ export class ChangePassword extends React.Component {
   /**
    * @description render function
    *
-   * @returns { object } -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     if (this.props.updatePasswordSuccess) {
@@ -131,12 +131,26 @@ ChangePassword.propTypes = {
   updatePasswordSuccess: PropTypes.bool.isRequired,
   history: PropTypes.object
 };
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+  */
 const mapStateToProps = state => (
   {
     updatePasswordSuccess: state.passwordReducer.passwordUpdated,
     error: state.passwordReducer,
   }
 );
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     updatePassword: (password, token) => {

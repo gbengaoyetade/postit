@@ -21,7 +21,7 @@ export class Group extends React.Component {
   /**
    * @description Creates an instance of Group.
    *
-   * @param { object } props -prop object
+   * @param {object} props -prop object
    *
    * @memberof Group
    */
@@ -32,7 +32,7 @@ export class Group extends React.Component {
 
   /**
    *
-   * @returns { void }
+   * @returns {void}
    */
   componentDidMount() {
     const { groupId } = this.props.match.params;
@@ -42,7 +42,7 @@ export class Group extends React.Component {
 
   /**
    *
-   * @returns { void }
+   * @returns {void}
    */
   componentWillUpdate() {
     $('.dropdown-button').dropdown();
@@ -51,7 +51,7 @@ export class Group extends React.Component {
   /**
    * @description leave group function
    *
-   * @returns { void }
+   * @returns {void}
    */
   leaveGroup() {
     swal({
@@ -72,7 +72,7 @@ export class Group extends React.Component {
   /**
    * @description render function
    *
-   * @returns { object } -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     if (this.props.leftGroup) {
@@ -151,6 +151,13 @@ Group.propTypes = {
   leaveGroupSuccess: PropTypes.func.isRequired,
   currentGroup: PropTypes.object,
 };
+/**
+ * @description Maps state to props
+ *
+ * @param {object} state -application state
+ *
+ * @returns {object} -returns part of the state
+*/
 const mapStateToProps = state => (
   {
     leftGroup: state.groupReducer.leftGroup,
@@ -159,6 +166,13 @@ const mapStateToProps = state => (
   }
 );
 
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     getMessages: (groupId, history) => {

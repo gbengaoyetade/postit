@@ -2,7 +2,7 @@ import express from 'express';
 import { signUp, signIn, resetPassword, updatePassword, userSearch }
 from './controllers/userController';
 import routeValidation from './includes/routeValidation';
-import { create, addMembers, getGroups, leaveGroup, getGroupMembers }
+import { createGroup, addMembers, getGroups, leaveGroup, getGroupMembers }
 from './controllers/groupController';
 import { createMessage, getMessages } from './controllers/messageController';
 import authenticate from './middleware/authenticate';
@@ -29,7 +29,7 @@ validations.updatePassword, sendValidationErrors, updatePassword);
 router.use(authenticate);
 
 router.post('/group',
-validations.createGroup, sendValidationErrors, create);
+validations.createGroup, sendValidationErrors, createGroup);
 
 router.post('/group/:groupId/user',
 validations.addMembers,

@@ -7,10 +7,11 @@ import InputField from '../common/InputField';
 import SubmitButton from '../common/SubmitButton';
 
 /**
+ * @description SignupForm component
  *
- * @param { object } props -prop object
+ * @param {object} props -prop object
  *
- * @returns { object } -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const SignupForm = (props) => {
   let submitValue = '';

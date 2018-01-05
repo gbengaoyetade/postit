@@ -6,9 +6,9 @@ import { tokenRedirect } from './userAuthActions';
 /**
  * @description unathorisedRedirect function
  *
- * @param { object } response -response object
+ * @param {object} response -response object
  *
- * @returns { boolean } -returns a boolean
+ * @returns {boolean} -returns a boolean
  */
 const unauthorisedRedirect = (response) => {
   if (response.status === 401) {
@@ -19,9 +19,9 @@ const unauthorisedRedirect = (response) => {
 
 /**
  *
- * @param { object } groups -groups object
+ * @param {object} groups -groups object
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 const getUserGroups = groups => (
   {
@@ -32,9 +32,9 @@ const getUserGroups = groups => (
 
 /**
  *
- * @param { object } message -message object
+ * @param {object} message -message object
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const postMessage = message => (
   {
@@ -45,9 +45,9 @@ export const postMessage = message => (
 
 /**
  *
- * @param { object } messages -message object
+ * @param {object} messages -message object
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const getUserGroupMessages = messages => (
   {
@@ -58,9 +58,9 @@ export const getUserGroupMessages = messages => (
 
 /**
  *
- * @param { boolean } payload -payload
+ * @param {boolean} payload -payload
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const getUserGroupsSuccess = payload => (
   {
@@ -71,9 +71,9 @@ export const getUserGroupsSuccess = payload => (
 
 /**
  *
- * @param { object } members -members object
+ * @param {object} members -members object
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const getGroupMembersAction = members => (
   {
@@ -83,9 +83,9 @@ export const getGroupMembersAction = members => (
 );
 /**
  *
- * @param { object } error -error message
+ * @param {object} error -error message
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const getUserGroupsError = error => (
   {
@@ -96,9 +96,9 @@ export const getUserGroupsError = error => (
 
 /**
  *
- * @param { object } memberDetails -memberAdded boolean input
+ * @param {object} memberDetails -memberAdded boolean input
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const addMemberSuccess = memberDetails => (
   {
@@ -109,9 +109,9 @@ export const addMemberSuccess = memberDetails => (
 
 /**
  *
- * @param { object } messageDetails -messageSent boolean input
+ * @param {object} messageDetails -messageSent boolean input
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const sendMessageSuccess = messageDetails => (
   {
@@ -122,9 +122,9 @@ export const sendMessageSuccess = messageDetails => (
 
 /**
  *
- * @param { boolean } leftGroup -leftGroup boolean input
+ * @param {boolean} leftGroup -leftGroup boolean input
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const leaveGroupSuccess = leftGroup => (
   {
@@ -135,9 +135,9 @@ export const leaveGroupSuccess = leftGroup => (
 
 /**
  *
- * @param { string } groupError - error message
+ * @param {string} groupError -error message
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const createGroupError = groupError => (
   {
@@ -149,7 +149,7 @@ export const createGroupError = groupError => (
  *
  * @param { array } groupDetails -group details array
  *
- * @returns { object } -returns action
+ * @returns {object} -returns action
  */
 export const createNewGroup = groupDetails => (
   {
@@ -160,9 +160,9 @@ export const createNewGroup = groupDetails => (
 
 /**
  *
- * @param { object } groupDetails -details of the group
+ * @param {object} groupDetails -details of the group
  *
- * @returns { object } -returns action
+ * @returns {object} -returns action
  */
 const currentGroup = groupDetails => (
   {
@@ -172,9 +172,9 @@ const currentGroup = groupDetails => (
 );
 /**
  *
- * @param { number } groupId -id of the group
+ * @param {number} groupId -id of the group
  *
- * @returns { object } -returns action
+ * @returns {object} -returns action
  */
 export const groupLeft = groupId => (
   {
@@ -186,10 +186,10 @@ export const groupLeft = groupId => (
 /**
  * @description create group action
  *
- * @param { object } groupDetails -information about the group
- * @param { object } history -history object
+ * @param {object} groupDetails -information about the group
+ * @param {object} history -history object
  *
- * @returns { function } -returns a function
+ * @returns {promise} -returns a promise
  */
 export const createGroup = (groupDetails, history) => (
   dispatch => axios.post('/api/group',
@@ -216,7 +216,7 @@ export const createGroup = (groupDetails, history) => (
 /**
  * @description get groups a user belongs to
  *
- * @returns { function } -return function
+ * @returns {promise} -return function
  */
 export const getGroups = () => (
   dispatch => (
@@ -234,9 +234,9 @@ export const getGroups = () => (
 /**
  * @description get group messages
  *
- * @param { number } groupId -group Id
+ * @param {number} groupId -group Id
  *
- * @returns { function } -returns a function
+ * @returns {promise} -returns a promise
  */
 export const getGroupMessages = groupId => (
   dispatch => (
@@ -254,9 +254,9 @@ export const getGroupMessages = groupId => (
 /**
  * @description get group members
  *
- * @param { number } groupId -group Id
+ * @param {number} groupId -group Id
  *
- * @returns { function } -returns a function
+ * @returns {promise} -returns a promise
  */
 export const getGroupMembers = groupId => (
   dispatch => (
@@ -275,10 +275,10 @@ export const getGroupMembers = groupId => (
 /**
  * @description get group messages
  *
- * @param { number } userId -user Id
- * @param { number } groupId -group Id
+ * @param {number} userId -user Id
+ * @param {number} groupId -group Id
  *
- * @returns { function } -returns a function
+ * @returns {promise} -returns a promise
  */
 export const addMember = (userId, groupId) => (
   dispatch => (
@@ -295,9 +295,9 @@ export const addMember = (userId, groupId) => (
 /**
  * @description leave group
  *
- * @param { number } groupId -groupId
+ * @param {number} groupId -groupId
  *
- * @returns { function } -returns a function
+ * @returns {promise} -returns a promise
  */
 export const leaveGroup = groupId => (
   (dispatch) => {
@@ -316,10 +316,10 @@ export const leaveGroup = groupId => (
 /**
  * @description get group messages
  *
- * @param { number } groupId -group id
- * @param { object } message -message object
+ * @param {number} groupId -group id
+ * @param {object} message -message object
  *
- * @returns { function } -returns a function
+ * @returns {promise} -returns a promise
  */
 export const sendUserMessage = (groupId, message) => (
   (dispatch) => {

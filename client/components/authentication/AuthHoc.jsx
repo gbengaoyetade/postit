@@ -5,6 +5,13 @@ import { Link } from 'react-router-dom';
 import UserNav from '../common/UserNav';
 import AppNav from '../common/AppNav';
 
+  /**
+   * @description Authentication HOC
+   *
+   * @param {jsx} Component -jsx component
+   *
+   * @returns {jsx} -return component
+  */
 export default (Component) => {
   let user, rightLinkObject;
 
@@ -12,12 +19,12 @@ export default (Component) => {
    *
    * @class AuthHoc
    *
-   * @extends { React.Component }
+   * @extends {React.Component}
    */
   class AuthHoc extends React.Component {
     /**
      *
-     * @returns { void } -returns nothing
+     * @returns {void} -returns nothing
      */
     componentWillMount() {
       if (!localStorage.getItem('postitToken')) {
@@ -27,7 +34,7 @@ export default (Component) => {
 
     /**
      *
-     * @return { void }
+     * @return {void} -returns nothing
      *
      * @memberof AuthHoc
      */
@@ -39,7 +46,7 @@ export default (Component) => {
     /**
      * @description render function
      *
-     * @returns { object } -returns react element
+     * @returns {jsx} -jsx representation of the component
      */
     render() {
       user = JSON.parse(localStorage.getItem('postitUser'));
@@ -71,6 +78,13 @@ export default (Component) => {
   AuthHoc.propTypes = {
     history: PropTypes.object.isRequired,
   };
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+   */
   const mapStateToProps = state => (
     {
       user: state.authReducer.user,

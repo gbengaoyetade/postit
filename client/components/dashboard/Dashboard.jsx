@@ -6,7 +6,9 @@ import moment from 'moment';
 
 /**
  * @description Dashboard class
+ *
  * @class Dashboard
+ *
  * @extends {React.Component}
  */
 export class Dashboard extends React.Component {
@@ -14,7 +16,7 @@ export class Dashboard extends React.Component {
   /**
    * @description render fucntion
    *
-   * @returns {object} -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     let groups;
@@ -58,6 +60,13 @@ Dashboard.propTypes = {
   groups: PropTypes.array.isRequired,
 };
 
+/**
+ * @description Maps state to props
+ *
+ * @param {object} state -application state
+ *
+ * @returns {object} -returns part of the state
+*/
 const mapStateToProps = state => (
   {
     groups: state.groupReducer.groups,

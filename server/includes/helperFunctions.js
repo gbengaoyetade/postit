@@ -7,9 +7,9 @@ const secret = process.env.TOKEN_SECRET;
 /**
  * @description Decodes user id from token
  *
- * @param { string } token -user token
+ * @param {string} token -user token
  *
- * @returns { number } -returns a number
+ * @returns {number} -returns a number
  */
 export const getId = (token) => {
   const decoded = jwt.decode(token);
@@ -19,9 +19,9 @@ export const getId = (token) => {
 /**
  * @description Generates token
  *
- * @param { object } userDetails -user information
+ * @param {object} userDetails -user information
  *
- * @returns { string } -returns string
+ * @returns {string} -returns string
  */
 export const generateToken = (userDetails) => {
   const userToken = jwt.sign({
@@ -40,9 +40,9 @@ export const generateToken = (userDetails) => {
  *
  * @description creates an encrypted string
  *
- * @param { string } password -password string
+ * @param {string} password -password string
  *
- * @returns { string } -returns hashed password
+ * @returns {string} -returns hashed password
  */
 export const encryptPassword = (password) => {
   let hashedPassword;

@@ -8,11 +8,11 @@ const secret = process.env.TOKEN_SECRET;
 /**
  * @description Does token verification
  *
- * @param { object } req -request object
- * @param { object } res -response object
- * @param { function } next -next
+ * @param {object} req -request object
+ * @param {object} res -response object
+ * @param {promise} next -next
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 const authenticate = (req, res, next) => {
   const userToken = req.headers['x-access-token'];

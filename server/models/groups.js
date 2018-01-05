@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const Groups = sequelize.define('groups', {
+  const groups = sequelize.define('groups', {
     groupName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -28,16 +28,16 @@ export default (sequelize, DataTypes) => {
       },
     },
   });
-  Groups.associate = (models) => {
-    Groups.belongsToMany(models.users, {
+  groups.associate = (models) => {
+    groups.belongsToMany(models.users, {
       through: models.groupMembers,
       foreignKey: 'groupId',
       onDelete: 'cascade',
     });
-    Groups.hasMany(models.messages, {
+    groups.hasMany(models.messages, {
       foreignKey: 'groupId',
     });
   };
-  return Groups;
+  return groups;
 };
 

@@ -17,7 +17,7 @@ class Messages extends React.Component {
   /**
    * @description Creates an instance of Messages.
    *
-   * @param { object } props -prop object
+   * @param {object} props -prop object
    *
    * @memberof Messages
    */
@@ -33,7 +33,7 @@ class Messages extends React.Component {
 
   /**
    *
-   * @returns { void }
+   * @returns {void}
    */
   componentWillReceiveProps() {
     document.getElementById('scrollTo').scrollIntoView();
@@ -43,7 +43,7 @@ class Messages extends React.Component {
    *
    * @param { objet } event -event object
    *
-   * @returns { void }
+   * @returns {void}
    */
   handleChange(event) {
     const { value, name } = event.target;
@@ -52,9 +52,9 @@ class Messages extends React.Component {
   /**
    * @description handles form submission
    *
-   * @param { object } event -event object
+   * @param {object} event -event object
    *
-   * @returns { void } -returns nothing
+   * @returns {void} -returns nothing
    */
   handleSubmit(event) {
     event.preventDefault();
@@ -66,7 +66,7 @@ class Messages extends React.Component {
   /**
    * @description render function
    *
-   * @returns { object } -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     let groupMessages = '';
@@ -143,6 +143,13 @@ Messages.propTypes = {
   getMessages: PropTypes.func,
   messages: PropTypes.object,
 };
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+  */
 const mapStateToProps = state => (
   {
     messages: state.messageReducer.messages,
@@ -150,6 +157,13 @@ const mapStateToProps = state => (
   }
 );
 
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     sendUserMessage: (message, groupId) => {

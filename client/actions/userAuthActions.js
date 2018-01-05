@@ -1,25 +1,27 @@
 import axios from 'axios';
+import toastr from 'toastr';
 
 /**
  * @description redirect user when token fails
  *
- * @param { string } error -error message
+ * @param {string} error -error message
  *
- * @returns { boolean } -returns boolean
+ * @returns {boolean} -returns boolean
  */
 export const tokenRedirect = (error) => {
   if (error === 'Token authentication failure') {
     localStorage.removeItem('postitUser');
     localStorage.removeItem('postitToken');
     location.replace('/login?redirect=token');
+    toastr.error('You need to login again');
   }
   return false;
 };
 /**
  *
- * @param { bool } isLoading -isLoading boolean
+ * @param {boolean} isLoading -isLoading boolean
  *
- * @returns { object } -returns object
+ * @returns {object} -returns object
  */
 export const loginLoading = isLoading => (
   {
@@ -30,9 +32,9 @@ export const loginLoading = isLoading => (
 
 /**
  *
- * @param { object } user -user object
+ * @param {object} user -user object
  *
- * @returns { object } -returns object
+ * @returns {object} -returns object
  */
 export const userAuthSuccess = user => (
   {
@@ -43,9 +45,9 @@ export const userAuthSuccess = user => (
 
 /**
  *
- * @param { bool } isLoading -loading boolean
+ * @param {boolean} isLoading -loading boolean
  *
- * @returns { object } -returns object
+ * @returns {object} -returns object
  */
 export const signupLoading = isLoading => (
   {
@@ -56,9 +58,9 @@ export const signupLoading = isLoading => (
 
 /**
  *
- * @param { object }  error -error object
+ * @param {object}  error -error object
  *
- * @returns { object } -returns object
+ * @returns {object} -returns object
  */
 export const loginError = error => (
   {
@@ -69,9 +71,9 @@ export const loginError = error => (
 
 /**
  *
- * @param { string } error -error string
+ * @param {string} error -error string
  *
- * @returns { object } -returns object
+ * @returns {object} -returns object
  */
 export const signupError = error => (
   {
@@ -83,9 +85,9 @@ export const signupError = error => (
 /**
  * @description stores user details
  *
- * @param { object } response -response object
+ * @param {object} response -response object
  *
- * @returns { void } returns undefined
+ * @returns {void} -returns nothing
  */
 const storeUserDetails = (response) => {
   localStorage.setItem('postitToken', response.data.user.token);
@@ -97,10 +99,10 @@ const storeUserDetails = (response) => {
 /**
  * @description login user
  *
- * @param { object } user -user object
- * @param { object } history -history object
+ * @param {object} user -user object
+ * @param {object} history -history object
  *
- * @returns { function } returns a function
+ * @returns {promise} -returns a promise
  */
 export const loginUser = (user, history) => (
   dispatch => axios.post('/api/user/signin',
@@ -120,10 +122,10 @@ export const loginUser = (user, history) => (
 /**
  * @description signs up user
  *
- * @param { object } user -user object
- * @param { object } history -history object
+ * @param {object} user -user object
+ * @param {object} history -history object
  *
- * @returns { function } returns a function
+ * @returns {promise} -returns a promise
  */
 export const signupUser = (user, history) => (
   dispatch => axios.post(

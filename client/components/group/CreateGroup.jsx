@@ -14,7 +14,7 @@ export class CreateGroup extends React.Component {
   /**
    * @description Creates an instance of CreateGroup.
    *
-   * @returns { void }
+   * @returns {void}
    */
   constructor() {
     super();
@@ -28,7 +28,7 @@ export class CreateGroup extends React.Component {
 
   /**
    *
-   * @return { void }
+   * @return {void}
    */
   componentDidMount() {
     this.props.createGroupError('');
@@ -37,9 +37,9 @@ export class CreateGroup extends React.Component {
   /**
    * @description handles the onChange event
    *
-   * @param { object } event - event object
+   * @param {object} event - event object
    *
-   * @returns { void } -returns nothing
+   * @returns {void} -returns nothing
    */
   handleChange(event) {
     const { name, value } = event.target;
@@ -49,10 +49,9 @@ export class CreateGroup extends React.Component {
   /**
    * @description handles form submission
    *
-   * @param { object } event -event object
+   * @param {object} event -event object
    *
-   * @returns { void } -returns nothing
-   *
+   * @returns {void} -returns nothing
    */
   handleSubmit(event) {
     event.preventDefault();
@@ -62,7 +61,7 @@ export class CreateGroup extends React.Component {
   /**
    * @description render function
    *
-   * @returns { object } -react element
+   * @returns {object} -react element
    */
   render() {
     return (
@@ -82,12 +81,26 @@ CreateGroup.propTypes = {
   groupError: PropTypes.string,
   history: PropTypes.object,
 };
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+  */
 const mapStateToProps = state => (
   {
     groupError: state.groupReducer.groupError,
   }
 );
 
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     createGroup: (group, history) => {

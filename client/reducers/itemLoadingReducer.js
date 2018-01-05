@@ -3,10 +3,10 @@ import initialState from '../reducers/initialState';
 /**
  * @description reducer for items loading in the app
  *
- * @param { object } state -state object
- * @param { object } action -action object
+ * @param {object} state -state object
+ * @param {object} action -action object
  *
- * @returns { object } returns state object
+ * @returns {object} returns state object
  */
 const itemLoadingReducer = (state = initialState.item, action) => {
   switch (action.type) {

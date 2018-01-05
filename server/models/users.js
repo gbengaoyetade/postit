@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 
 export default (sequelize, DataTypes) => {
-  const Users = sequelize.define('users', {
+  const users = sequelize.define('users', {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -45,18 +45,18 @@ export default (sequelize, DataTypes) => {
     },
   });
 
-  Users.beforeCreate((user) => {
+  users.beforeCreate((user) => {
     const salt = bcrypt.genSaltSync(5);
     const hash = bcrypt.hashSync(user.password, salt);
     user.password = hash;
   });
-  Users.associate = (models) => {
-    Users.belongsToMany(models.groups, {
+  users.associate = (models) => {
+    users.belongsToMany(models.groups, {
       through: models.groupMembers,
       foreingKey: 'userId',
       onDelete: 'cascade',
     });
-    Users.hasMany(models.messages);
+    users.hasMany(models.messages);
   };
-  return Users;
+  return users;
 };

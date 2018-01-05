@@ -6,9 +6,7 @@ import UserGroups from '../group/UserGroups';
  * @description AppNav component. It contains navigation links
  * to app functionalities
  *
- * @param { object } props -prop object
- *
- * @returns { object } react element
+ * @returns {jsx} -jsx representation of the component
  */
 const AppNav = () => (
   (

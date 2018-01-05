@@ -15,7 +15,7 @@ export class GroupMembers extends React.Component {
   /**
    * @description render function
    *
-   * @returns { object } -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     let groupMembersList;
@@ -48,12 +48,26 @@ GroupMembers.propTypes = {
   groupId: PropTypes.number,
   groupMembers: PropTypes.array,
 };
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+  */
 const mapStateToProps = state => (
   {
     groupMembers: state.groupReducer.members,
   }
 );
 
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     getGroupMembers: (groupId) => {

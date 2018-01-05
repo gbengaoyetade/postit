@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 axios.defaults.headers.common['x-access-token'] =
-window.localStorage.getItem('postitToken');
+localStorage.getItem('postitToken');
 
 /**
- * @param { object } searchResult -result from the search
+ * @param {object} searchResult -result from the search
  *
- * @returns { object } -returns action
+ * @returns {object} -returns action
  */
 export const searchResultSuccess = searchResult => (
   {
@@ -16,9 +16,9 @@ export const searchResultSuccess = searchResult => (
 );
 
 /**
- * @param { string } error -error message
+ * @param {string} error -error message
  *
- * @returns { object } -returns action
+ * @returns {object} -returns action
  */
 const searchError = error => (
   {
@@ -29,10 +29,10 @@ const searchError = error => (
 /**
  * @description search user
  *
- * @param { object } userInput - userInput object
- * @param { number } offset -offset integer
+ * @param {object} userInput - userInput object
+ * @param {number} offset -offset integer
  *
- * @returns { function } returns a function
+ * @returns {promise} -returns a promise
  */
 export const searchUser = (userInput, offset) => (
   (dispatch) => {

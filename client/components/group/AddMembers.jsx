@@ -19,9 +19,9 @@ export class AddMembers extends React.Component {
   /**
    * @description Creates an instance of AddMembers.
    *
-   * @param { object } props -react props
+   * @param {object} props -react props
    *
-   * @returns { void } -returns nothing
+   * @returns {void} -returns nothing
    */
   constructor(props) {
     super(props);
@@ -33,7 +33,7 @@ export class AddMembers extends React.Component {
 
   /**
    *
-   * @returns { void }
+   * @returns {void}
    */
   componentDidMount() {
     this.props.getGroupMembers(this.props.match.params.groupId);
@@ -42,9 +42,9 @@ export class AddMembers extends React.Component {
   /**
    * @description handles user search
    *
-   * @param { object } event -javascript event
+   * @param {object} event -javascript event
    *
-   * @returns { void }
+   * @returns {void}
    */
   handleSearch(event) {
     this.setState({ userInput: event.target.value });
@@ -56,9 +56,9 @@ export class AddMembers extends React.Component {
   /**
    * @description handles page clicks
    *
-   * @param { object } page -the current selected page
+   * @param {object} page -the current selected page
    *
-   * @returns { void }
+   * @returns {void}
    *
    */
   handlePageClick(page) {
@@ -69,9 +69,9 @@ export class AddMembers extends React.Component {
   /**
    * @description handles add user to group
    *
-   * @param { number } userId -user Id
+   * @param {number} userId -user Id
    *
-   * @returns { void }
+   * @returns {void}
    */
   addMember(userId) {
     const groupId = this.props.match.params.groupId;
@@ -81,7 +81,7 @@ export class AddMembers extends React.Component {
   /**
    * @description render function
    *
-   * @returns { object } -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     let searchResult;
@@ -178,6 +178,13 @@ AddMembers.propTypes = {
   groupMembers: PropTypes.array,
   searchError: PropTypes.string,
 };
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+  */
 const mapStateToProps = state => (
   {
     searchResult: state.searchReducer.searchResult,
@@ -186,6 +193,13 @@ const mapStateToProps = state => (
     groupMembers: state.groupReducer.members,
   }
 );
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     searchUsers: (userInput, groupId) => {

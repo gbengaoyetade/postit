@@ -5,9 +5,9 @@ import PropType from 'prop-types';
 /**
  * @description MessageForm component
  *
- * @param { object } props -prop object
+ * @param {object} props -prop object
  *
- * @returns {object} -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const MessageForm = props => (
   (

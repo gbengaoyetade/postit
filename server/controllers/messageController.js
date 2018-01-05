@@ -6,10 +6,10 @@ const { messages, groups, users } = models;
 /**
  * @description Create message
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const createMessage = (req, res) => {
   const { messageBody, messagePriority } = req.body;
@@ -72,10 +72,10 @@ export const createMessage = (req, res) => {
 /**
  * @description Gets messages from a particular group
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const getMessages = (req, res) => {
   const { groupId } = req.params;

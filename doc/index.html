@@ -405,7 +405,7 @@ add users, and send prioritzed messages to these groups.</p>
 </aside>
 
 <p><code>GET http://postit-gbenga.herokuapp.com/api/user/search</code></p>
-<h3 id='query-parameter'>Query Parameter</h3>
+<h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -483,10 +483,10 @@ add users, and send prioritzed messages to these groups.</p>
 <pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mail sent successfully"</span><span class="w">
  </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='url-parameters'>URL Parameters</h3>
+</span></code></pre><h3 id='url-parameter'>URL Parameter</h3>
 <table><thead>
 <tr>
-<th>Prameter</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -519,10 +519,10 @@ add users, and send prioritzed messages to these groups.</p>
     </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTUsImZ1bGxOYW1lIjoic2FtIGFkZXllbWkiLCJlbWFpbCI6ImlveWV0YWRlQGdtYWlsLmNvbSIsInBob25lTnVtYmVyIjoiOTExIiwiaWF0IjoxNTExMzUwNDMxLCJleHAiOjE1NDI4ODY0MzF9.vseweDoDgOMjL_PWA6oEf1rZTsIgrFYdyRFffd97Ul4"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password updated successfully"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='body-parameters-3'>Body Parameters</h3>
+</span></code></pre><h3 id='body-parameter'>Body Parameter</h3>
 <table><thead>
 <tr>
-<th>Prameter</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -531,10 +531,10 @@ add users, and send prioritzed messages to these groups.</p>
 <td>New user password</td>
 </tr>
 </tbody></table>
-<h3 id='query-parameters'>Query Parameters</h3>
+<h3 id='query-parameter'>Query Parameter</h3>
 <table><thead>
 <tr>
-<th>Prameter</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -613,11 +613,6 @@ add users, and send prioritzed messages to these groups.</p>
 <p>Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test user"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test.user@gmail.com"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09025615565"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">75</span><span class="p">,</span><span class="w">
@@ -813,7 +808,7 @@ current user belongs to the group</p>
   </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='post-message'>Post message</h2>
 <p>This endpoint sends a message to a group</p>
-<h3 id='body-parameter-2'>Body Parameter</h3>
+<h3 id='body-parameters-2'>Body Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -929,16 +924,8 @@ current user belongs to the group</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>200</td>
-<td>OK -- Request was successful.</td>
-</tr>
-<tr>
-<td>201</td>
-<td>Created -- A new entry has been created on the server.</td>
-</tr>
-<tr>
 <td>400</td>
-<td>Bad Request -- Your request sucks.</td>
+<td>Bad Request -- Your request is bad.</td>
 </tr>
 <tr>
 <td>401</td>
@@ -946,7 +933,7 @@ current user belongs to the group</p>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>Not Found -- The specified resource could not be found.</td>
 </tr>
 <tr>
 <td>409</td>

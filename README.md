@@ -83,9 +83,9 @@ See [The MIT License](./LICENSE.md) for the more details.
 
 * Andela Fellowship (https://andela.com/)
 
-## Lincense
+## License
 
-[MIT Lincense](./License.md)
+[MIT License](./LICENSE.md)
 
 
 
