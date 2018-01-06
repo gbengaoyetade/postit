@@ -58,6 +58,19 @@ export const getUserGroupMessages = messages => (
 
 /**
  *
+ * @param {boolean} gotMessages -gotMessages boolean
+ *
+ * @returns {object} -return action object
+ */
+export const getMessagesSuccess = gotMessages => (
+  {
+    type: 'GET_MESSAGES_SUCCESS',
+    gotMessages,
+  }
+);
+
+/**
+ *
  * @param {boolean} payload -payload
  *
  * @returns {object} -return action object
@@ -239,16 +252,18 @@ export const getGroups = () => (
  * @returns {promise} -returns a promise
  */
 export const getGroupMessages = groupId => (
-  dispatch => (
-    axios.get(`/api/group/${groupId}/messages`)
+  (dispatch) => {
+    dispatch(getMessagesSuccess(false));
+    return axios.get(`/api/group/${groupId}/messages`)
     .then((groups) => {
+      dispatch(getMessagesSuccess(true));
       dispatch(getUserGroupMessages(groups.data.messages));
     })
     .catch(({ response }) => {
       unauthorisedRedirect(response);
       toastr.error(response.data.error);
-    })
-  )
+    });
+  }
 );
 
 /**

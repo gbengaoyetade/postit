@@ -1,4 +1,4 @@
-import initialState from '../reducers/initialState';
+import InitialState from '../reducers/InitialState';
 
 /**
  * @description reducer for message actions
@@ -8,10 +8,12 @@ import initialState from '../reducers/initialState';
  *
  * @returns {object} returns state object
  */
-const messageReducer = (state = initialState.message, action) => {
+const messageReducer = (state = InitialState.message, action) => {
   switch (action.type) {
     case 'GET_USER_GROUP_MESSAGES':
       return { ...state, messages: action.messages };
+    case 'GET_MESSAGES_SUCCESS':
+      return { ...state, gotMessages: action.gotMessages };
     case 'SEND_MESSAGE_SUCCESS':
       return { ...state, messages: [...state.messages, action.messageDetails] };
     default:

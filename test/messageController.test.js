@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import supertest from 'supertest';
 import app from '../server/app';
-import { tokens } from './tests.includes';
+import { tokens } from './testIncludes';
 import database from '../server/models/';
 
 const { messages, groups } = database;

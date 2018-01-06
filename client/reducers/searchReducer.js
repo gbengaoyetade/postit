@@ -1,4 +1,4 @@
-import initialState from '../reducers/initialState';
+import InitialState from '../reducers/InitialState';
 /**
  * @description reducer for search actions
  *
@@ -8,7 +8,7 @@ import initialState from '../reducers/initialState';
  * @returns {object} returns state object
  */
 
-const searchReducer = (state = initialState.search, action) => {
+const searchReducer = (state = InitialState.search, action) => {
   switch (action.type) {
     case 'USER_SEARCH_SUCCESS':
       return { ...state, searchResult: action.searchResult };

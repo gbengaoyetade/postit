@@ -1,13 +1,13 @@
 import searchReducer from '../../reducers/searchReducer';
-import initialState from '../../reducers/initialState';
+import InitialState from '../../reducers/InitialState';
 
 describe('searchReducer', () => {
   it('should render initial state when action type is unknown', () => {
     const action = {
       type: 'adfdf'
     };
-    const newstate = searchReducer(initialState.search, action);
-    expect(newstate).toEqual(initialState.search);
+    const newstate = searchReducer(InitialState.search, action);
+    expect(newstate).toEqual(InitialState.search);
   });
   it('should handle USER_SEARCH_SUCCESS', () => {
     const action = {
@@ -26,9 +26,9 @@ describe('searchReducer', () => {
         pageCount: 1,
       }
     };
-    const newstate = searchReducer(initialState.search, action);
+    const newstate = searchReducer(InitialState.search, action);
     expect(newstate).toEqual({
-      ...initialState.search,
+      ...InitialState.search,
       searchResult: action.searchResult });
   });
   it('should handle SEARCH_ERROR', () => {
@@ -36,8 +36,8 @@ describe('searchReducer', () => {
       type: 'SEARCH_ERROR',
       error: 'search error'
     };
-    const newstate = searchReducer(initialState.search, action);
-    expect(newstate).toEqual({ ...initialState.search,
+    const newstate = searchReducer(InitialState.search, action);
+    expect(newstate).toEqual({ ...InitialState.search,
       searchError: action.error });
   });
 });

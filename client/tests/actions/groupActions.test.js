@@ -119,6 +119,8 @@ describe('Group Actions', () => {
       response: { messages: mockMessages }
     });
     const expectedActions = [
+      { type: 'GET_MESSAGES_SUCCESS', gotMessages: false },
+      { type: 'GET_MESSAGES_SUCCESS', gotMessages: true },
       { type: 'GET_USER_GROUP_MESSAGES', messages: mockMessages }
     ];
     const store = mockStore({});

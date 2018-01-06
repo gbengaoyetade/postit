@@ -1,13 +1,13 @@
 import groupReducer from '../../reducers/groupReducer';
-import initialState from '../../reducers/initialState';
+import InitialState from '../../reducers/InitialState';
 
 describe('Group reducer', () => {
   it('should render initial state when action type is unknown', () => {
     const action = {
       type: 'adfdf'
     };
-    const newstate = groupReducer(initialState.group, action);
-    expect(newstate).toEqual(initialState.group);
+    const newstate = groupReducer(InitialState.group, action);
+    expect(newstate).toEqual(InitialState.group);
   });
   it('should handle GET_GROUP_MEMBERS action', () => {
     const action = {
@@ -27,9 +27,9 @@ describe('Group reducer', () => {
         }
       }]
     };
-    const newstate = groupReducer(initialState.group, action);
+    const newstate = groupReducer(InitialState.group, action);
     expect(newstate).toEqual({
-      ...initialState.group,
+      ...InitialState.group,
       members: action.members });
   });
   it('should handle ADD_MEMBER_SUCCESS action', () => {
@@ -43,9 +43,9 @@ describe('Group reducer', () => {
         phoneNumber: '08088641124'
       }
     };
-    const newstate = groupReducer(initialState.group, action);
+    const newstate = groupReducer(InitialState.group, action);
     expect(newstate)
-    .toEqual({ ...initialState.group, members: [action.memberDetails] });
+    .toEqual({ ...InitialState.group, members: [action.memberDetails] });
   });
   it('should handle GET_USER_GROUPS action', () => {
     const action = {
@@ -57,26 +57,26 @@ describe('Group reducer', () => {
         createdBy: 1,
         messages: [] }]
     };
-    const newstate = groupReducer(initialState.group, action);
-    expect(newstate).toEqual({ ...initialState.group, groups: action.groups });
+    const newstate = groupReducer(InitialState.group, action);
+    expect(newstate).toEqual({ ...InitialState.group, groups: action.groups });
   });
   it('should handle LEAVE_GROUP_SUCCESS action', () => {
     const action = {
       type: 'LEAVE_GROUP_SUCCESS',
       leftGroup: true
     };
-    const newstate = groupReducer(initialState.group, action);
+    const newstate = groupReducer(InitialState.group, action);
     expect(newstate)
-    .toEqual({ ...initialState.group, leftGroup: action.leftGroup });
+    .toEqual({ ...InitialState.group, leftGroup: action.leftGroup });
   });
   it('should handle CREATE_GROUP_ERROR action', () => {
     const action = {
       type: 'CREATE_GROUP_ERROR',
       groupError: 'error'
     };
-    const newstate = groupReducer(initialState.group, action);
+    const newstate = groupReducer(InitialState.group, action);
     expect(newstate)
-    .toEqual({ ...initialState.group, groupError: action.groupError });
+    .toEqual({ ...InitialState.group, groupError: action.groupError });
   });
   it('should handle CURRENT_GROUP action type', () => {
     const action = {
@@ -88,9 +88,9 @@ describe('Group reducer', () => {
         createdBy: 1,
       }
     };
-    const newstate = groupReducer(initialState.group, action);
+    const newstate = groupReducer(InitialState.group, action);
     expect(newstate)
-    .toEqual({ ...initialState.group, currentGroup: action.groupDetails });
+    .toEqual({ ...InitialState.group, currentGroup: action.groupDetails });
   });
   it('should handle CREATE_NEW_GROUP action type', () => {
     const action = {
@@ -102,8 +102,8 @@ describe('Group reducer', () => {
         createdBy: 1,
       }
     };
-    const newstate = groupReducer(initialState.group, action);
+    const newstate = groupReducer(InitialState.group, action);
     expect(newstate)
-    .toEqual({ ...initialState.group, groups: [action.groupDetails] });
+    .toEqual({ ...InitialState.group, groups: [action.groupDetails] });
   });
 });

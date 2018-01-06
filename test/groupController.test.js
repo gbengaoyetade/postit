@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import supertest from 'supertest';
 import app from '../server/app';
-import { tokens, seedDatabase } from './tests.includes';
+import { tokens, seedDatabase } from './testIncludes';
 
 
 // Test for the group controller

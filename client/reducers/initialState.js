@@ -1,4 +1,4 @@
-const initialState = {
+const InitialState = {
   auth: {
     user: {},
     signupError: '',
@@ -18,7 +18,8 @@ const initialState = {
     sendingMail: false
   },
   message: {
-    messages: []
+    messages: [],
+    gotMessages: false
   },
   password: {
     passwordUpdated: false,
@@ -31,4 +32,4 @@ const initialState = {
   }
 };
 
-export default initialState;
+export default InitialState;

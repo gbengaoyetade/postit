@@ -1,4 +1,4 @@
-import initialState from '../reducers/initialState';
+import InitialState from '../reducers/InitialState';
 
 /**
  * @description reducer for items loading in the app
@@ -8,7 +8,7 @@ import initialState from '../reducers/initialState';
  *
  * @returns {object} returns state object
  */
-const itemLoadingReducer = (state = initialState.item, action) => {
+const itemLoadingReducer = (state = InitialState.item, action) => {
   switch (action.type) {
     case 'LOGIN_LOADING':
       return { ...state, loginLoading: action.isLoading };

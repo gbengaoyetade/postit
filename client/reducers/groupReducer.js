@@ -1,4 +1,4 @@
-import initialState from '../reducers/initialState';
+import InitialState from '../reducers/InitialState';
 
 /**
  * @description reducer for group actions
@@ -8,7 +8,7 @@ import initialState from '../reducers/initialState';
  *
  * @returns {object} returns state object
  */
-const groupReducer = (state = initialState.group, action) => {
+const groupReducer = (state = InitialState.group, action) => {
   switch (action.type) {
     case 'GET_GROUP_MEMBERS':
       return { ...state, members: action.members };

@@ -1,4 +1,4 @@
-import initialState from '../reducers/initialState';
+import InitialState from '../reducers/InitialState';
 
 /**
  * @description reducer for password actions
@@ -8,7 +8,7 @@ import initialState from '../reducers/initialState';
  *
  * @returns {object} returns state object
  */
-const passwordReducer = (state = initialState.password, action) => {
+const passwordReducer = (state = InitialState.password, action) => {
   switch (action.type) {
     case 'EMAIL_ERROR':
       return { ...state, emailError: action.emailError };

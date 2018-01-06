@@ -1,13 +1,13 @@
 import messageReducer from '../../reducers/messageReducer';
-import initialState from '../../reducers/initialState';
+import InitialState from '../../reducers/InitialState';
 
 describe('messageReducer', () => {
   it('should render initial state when action type is unknown', () => {
     const action = {
       type: 'adfdf'
     };
-    const newstate = messageReducer(initialState.message, action);
-    expect(newstate).toEqual(initialState.message);
+    const newstate = messageReducer(InitialState.message, action);
+    expect(newstate).toEqual(InitialState.message);
   });
   it('should handle SEND_MESSAGE_SUCCESS action type', () => {
     const action = {
@@ -21,9 +21,9 @@ describe('messageReducer', () => {
         createdAt: '2018-01-03T07:48:12.987Z',
       }
     };
-    const newstate = messageReducer(initialState.message, action);
+    const newstate = messageReducer(InitialState.message, action);
     expect(newstate)
-    .toEqual({ ...initialState.message, messages: [action.messageDetails] });
+    .toEqual({ ...InitialState.message, messages: [action.messageDetails] });
   });
   it('should handle GET_USER_GROUP_MESSAGES action type', () => {
     const action = {
@@ -37,8 +37,8 @@ describe('messageReducer', () => {
         createdAt: '2018-01-03T07:48:12.987Z',
       }]
     };
-    const newstate = messageReducer(initialState.message, action);
+    const newstate = messageReducer(InitialState.message, action);
     expect(newstate)
-    .toEqual({ ...initialState.message, messages: action.messages });
+    .toEqual({ ...InitialState.message, messages: action.messages });
   });
 });

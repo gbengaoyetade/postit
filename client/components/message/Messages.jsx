@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { sendUserMessage, getGroupMessages, sendMessageSuccess }
+import {
+  sendUserMessage,
+  getMessagesSuccess,
+  getGroupMessages,
+  sendMessageSuccess }
 from '../../actions/groupActions';
 import MessageForm from './MessageForm';
 
@@ -70,8 +74,8 @@ class Messages extends React.Component {
    */
   render() {
     let groupMessages = '';
-    if (this.props.messages) {
-      if (this.props.messages.length > 0) {
+    if (this.props.gotMessages) {
+      if (this.props.messages.length) {
         groupMessages = (
           <ul>
             {
@@ -142,6 +146,7 @@ Messages.propTypes = {
   sendMessageSuccess: PropTypes.bool,
   getMessages: PropTypes.func,
   messages: PropTypes.object,
+  gotMessages: PropTypes.bool
 };
   /**
    * @description Maps state to props
@@ -153,6 +158,7 @@ Messages.propTypes = {
 const mapStateToProps = state => (
   {
     messages: state.messageReducer.messages,
+    gotMessages: state.messageReducer.gotMessages,
     sendMessageSuccess: state.messageReducer.messageSent,
   }
 );
@@ -175,6 +181,9 @@ const mapDispatchToProps = dispatch => (
     getMessages: (groupId) => {
       dispatch(getGroupMessages(groupId));
     },
+    setGotMessages: () => {
+      dispatch(getMessagesSuccess());
+    }
   }
 );
 Messages.propTypes = {

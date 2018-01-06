@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import supertest from 'supertest';
 import app from '../server/app';
 import database from '../server/models/';
-import { tokens } from './tests.includes';
+import { tokens } from './testIncludes';
 
 const { groups, groupMembers } = database;
 const { token1 } = tokens();
