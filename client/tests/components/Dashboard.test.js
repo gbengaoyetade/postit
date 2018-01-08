@@ -25,7 +25,4 @@ describe('Dashboard component', () => {
     expect(wrapper).toBeDefined();
     expect(wrapper.getElement().type).toBe('div');
   });
-  it('should render groups if group props is passed to it', () => {
-
-  })
 });

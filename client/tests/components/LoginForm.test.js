@@ -15,12 +15,4 @@ describe('LoginForm component ', () => {
     expect(wrapper.getElement().type).toBe('div');
     expect(wrapper.find(Nav).length).toBe(1);
   });
-  it('should render differently when loading props is true', () => {
-    const props = {
-      handleChange: () => {},
-      handleSubmit: () => {},
-      loading: true,
-    };
-    const wrapper = shallow(<LoginForm {...props} />);
-  });
 });

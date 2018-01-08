@@ -26,7 +26,6 @@ describe('Group component', () => {
     const spy = jest.spyOn(wrapper.instance(), 'componentWillUpdate');
     wrapper.setProps({ leftGroup: true });
     wrapper.instance().componentWillUpdate();
-    wrapper.setState({ name: 'gbenga' });
     expect(spy).toBeDefined();
   });
   it('should have a leave group function', () => {
