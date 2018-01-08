@@ -31,9 +31,8 @@ class Login extends React.Component {
  *
  * @returns {void} -return nothing
  */
-  handleChange(event) {
-    const name = event.target.name;
-    const value = event.target.value;
+  handleChange({ target }) {
+    const { name, value } = target;
     this.setState({ [name]: value });
   }
   /**

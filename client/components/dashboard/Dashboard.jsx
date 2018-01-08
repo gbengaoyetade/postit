@@ -19,10 +19,9 @@ export class Dashboard extends React.Component {
    * @returns {jsx} -jsx representation of the component
    */
   render() {
-    let groups;
+    const { groups } = this.props;
     let userGroups;
     if (this.props.groups.length > 0) {
-      groups = this.props.groups;
       userGroups = (
         groups.map(group => (
           <div className="postit-card col m3 s5" key={group.id}>

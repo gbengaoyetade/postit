@@ -4,13 +4,13 @@ import {
   encryptPassword } from '../server/includes/helperFunctions';
 import { tokens } from './testIncludes';
 
-const { token1 } = tokens();
+const { firstUserToken } = tokens();
 describe('getId function', () => {
   it('should be defined', () => {
     assert.equal(typeof getId, 'function');
   });
   it('should return a number when token is passed', () => {
-    assert.equal(typeof getId(token1), 'number');
+    assert.equal(typeof getId(firstUserToken), 'number');
   });
 });
 describe('encryptPassword', () => {

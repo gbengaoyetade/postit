@@ -47,7 +47,7 @@ class Messages extends React.Component {
    *
    * @param { objet } event -event object
    *
-   * @returns {void}
+   * @returns {void} -returns nothing
    */
   handleChange(event) {
     const { value, name } = event.target;

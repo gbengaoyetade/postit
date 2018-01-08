@@ -32,7 +32,7 @@ export class Group extends React.Component {
 
   /**
    *
-   * @returns {void}
+   * @returns {void} -returns nothing
    */
   componentDidMount() {
     const { groupId } = this.props.match.params;
@@ -51,7 +51,7 @@ export class Group extends React.Component {
   /**
    * @description leave group function
    *
-   * @returns {void}
+   * @returns {void} -returns nothing
    */
   leaveGroup() {
     swal({

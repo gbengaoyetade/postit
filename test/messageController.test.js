@@ -5,11 +5,11 @@ import { tokens } from './testIncludes';
 import database from '../server/models/';
 
 const { messages, groups } = database;
-const { token1, token2 } = tokens();
+const { firstUserToken, secondUserToken } = tokens();
 describe('Message ', () => {
   it('should send error when required fields are missing', (done) => {
     supertest(app).post('/api/group/1/message')
-      .set('x-access-token', token1).send()
+      .set('x-access-token', firstUserToken).send()
       .end((err, res) => {
         assert.equal(res.statusCode, 400);
         assert.equal(res.body.error.messageBody,
@@ -26,7 +26,7 @@ describe('Message ', () => {
       messagePriority: 'something'
     };
     supertest(app).post('/api/group/3/message')
-    .set('x-access-token', token1)
+    .set('x-access-token', firstUserToken)
     .send(message)
     .end((err, res) => {
       assert.equal(res.statusCode, 400);
@@ -41,7 +41,7 @@ describe('Message ', () => {
       messagePriority: 'Normal',
     };
     supertest(app).post('/api/group/3/message')
-    .set('x-access-token', token1).send(message)
+    .set('x-access-token', firstUserToken).send(message)
     .end((err, res) => {
       assert.equal(res.statusCode, 201);
       assert.equal(res.body.message.messageBody, message.messageBody);
@@ -54,7 +54,7 @@ describe('Get Messages', () => {
   it('should return status 200 and message when provided the right information',
   (done) => {
     supertest(app).get('/api/group/3/messages')
-    .set('x-access-token', token1)
+    .set('x-access-token', firstUserToken)
     .send()
     .end((err, res) => {
       assert.equal(res.statusCode, 200);
@@ -70,7 +70,7 @@ describe('Get Messages', () => {
       messagePriority: 'Urgent',
     };
     supertest(app).post('/api/group/3/message')
-    .set('x-access-token', token2).send(message)
+    .set('x-access-token', secondUserToken).send(message)
     .end((err, res) => {
       assert.equal(res.statusCode, 201);
       assert.equal(res.body.message.messageBody, message.messageBody);
@@ -81,7 +81,7 @@ describe('Get Messages', () => {
   it('should return a 500 error when server cannot process .findAll request',
   (done) => {
     messages.findAll = () => Promise.reject('dsfafd');
-    supertest(app).get('/api/group/3/messages').set('x-access-token', token2)
+    supertest(app).get('/api/group/3/messages').set('x-access-token', secondUserToken)
     .send()
     .end((err, res) => {
       assert.equal(res.statusCode, 500);
@@ -96,7 +96,7 @@ describe('Get Messages', () => {
       messagePriority: 'Normal',
     };
     messages.create = () => Promise.reject('dsfafd');
-    supertest(app).post('/api/group/3/message').set('x-access-token', token1)
+    supertest(app).post('/api/group/3/message').set('x-access-token', firstUserToken)
     .send(message)
     .end((err, res) => {
       assert.equal(res.statusCode, 500);
@@ -111,7 +111,7 @@ describe('Get Messages', () => {
       messagePriority: 'Normal',
     };
     groups.find = () => Promise.reject('dsfafd');
-    supertest(app).post('/api/group/3/message').set('x-access-token', token1)
+    supertest(app).post('/api/group/3/message').set('x-access-token', firstUserToken)
     .send(message)
     .end((err, res) => {
       assert.equal(res.statusCode, 500);

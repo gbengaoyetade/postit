@@ -49,6 +49,7 @@ ShallowWrapper {
                 handleChange={[Function]}
                 labelValue="Full name"
                 name="fullName"
+                required="required"
                 type="text"
               />
               <span
@@ -62,6 +63,7 @@ ShallowWrapper {
                 handleChange={[Function]}
                 labelValue="Username"
                 name="username"
+                required="required"
                 type="text"
               />
               <span
@@ -75,6 +77,7 @@ ShallowWrapper {
                 handleChange={[Function]}
                 labelValue="Email"
                 name="email"
+                required="required"
                 type="email"
               />
               <span
@@ -89,6 +92,7 @@ ShallowWrapper {
                 handleChange={[Function]}
                 labelValue="Phone Number"
                 name="phoneNumber"
+                required="required"
                 type="text"
               />
               <span
@@ -103,6 +107,7 @@ ShallowWrapper {
                 handleChange={[Function]}
                 labelValue="Password"
                 name="password"
+                required="required"
                 type="password"
               />
               <span
@@ -173,6 +178,7 @@ ShallowWrapper {
                 handleChange={[Function]}
                 labelValue="Full name"
                 name="fullName"
+                required="required"
                 type="text"
               />
               <span
@@ -186,6 +192,7 @@ ShallowWrapper {
                 handleChange={[Function]}
                 labelValue="Username"
                 name="username"
+                required="required"
                 type="text"
               />
               <span
@@ -199,6 +206,7 @@ ShallowWrapper {
                 handleChange={[Function]}
                 labelValue="Email"
                 name="email"
+                required="required"
                 type="email"
               />
               <span
@@ -213,6 +221,7 @@ ShallowWrapper {
                 handleChange={[Function]}
                 labelValue="Phone Number"
                 name="phoneNumber"
+                required="required"
                 type="text"
               />
               <span
@@ -227,6 +236,7 @@ ShallowWrapper {
                 handleChange={[Function]}
                 labelValue="Password"
                 name="password"
+                required="required"
                 type="password"
               />
               <span
@@ -283,6 +293,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Full name"
                   name="fullName"
+                  required="required"
                   type="text"
                 />
                 <span
@@ -296,6 +307,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Username"
                   name="username"
+                  required="required"
                   type="text"
                 />
                 <span
@@ -309,6 +321,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Email"
                   name="email"
+                  required="required"
                   type="email"
                 />
                 <span
@@ -323,6 +336,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Phone Number"
                   name="phoneNumber"
+                  required="required"
                   type="text"
                 />
                 <span
@@ -337,6 +351,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Password"
                   name="password"
+                  required="required"
                   type="password"
                 />
                 <span
@@ -410,6 +425,7 @@ ShallowWrapper {
                     handleChange={[Function]}
                     labelValue="Full name"
                     name="fullName"
+                    required="required"
                     type="text"
                   />,
                   <span
@@ -423,6 +439,7 @@ ShallowWrapper {
                     handleChange={[Function]}
                     labelValue="Username"
                     name="username"
+                    required="required"
                     type="text"
                   />,
                   <span
@@ -436,6 +453,7 @@ ShallowWrapper {
                     handleChange={[Function]}
                     labelValue="Email"
                     name="email"
+                    required="required"
                     type="email"
                   />,
                   <span
@@ -450,6 +468,7 @@ ShallowWrapper {
                     handleChange={[Function]}
                     labelValue="Phone Number"
                     name="phoneNumber"
+                    required="required"
                     type="text"
                   />,
                   <span
@@ -464,6 +483,7 @@ ShallowWrapper {
                     handleChange={[Function]}
                     labelValue="Password"
                     name="password"
+                    required="required"
                     type="password"
                   />,
                   <span
@@ -504,6 +524,7 @@ ShallowWrapper {
                     "handleChange": [Function],
                     "labelValue": "Full name",
                     "name": "fullName",
+                    "required": "required",
                     "type": "text",
                   },
                   "ref": null,
@@ -538,6 +559,7 @@ ShallowWrapper {
                     "handleChange": [Function],
                     "labelValue": "Username",
                     "name": "username",
+                    "required": "required",
                     "type": "text",
                   },
                   "ref": null,
@@ -572,6 +594,7 @@ ShallowWrapper {
                     "handleChange": [Function],
                     "labelValue": "Email",
                     "name": "email",
+                    "required": "required",
                     "type": "email",
                   },
                   "ref": null,
@@ -607,6 +630,7 @@ ShallowWrapper {
                     "handleChange": [Function],
                     "labelValue": "Phone Number",
                     "name": "phoneNumber",
+                    "required": "required",
                     "type": "text",
                   },
                   "ref": null,
@@ -642,6 +666,7 @@ ShallowWrapper {
                     "handleChange": [Function],
                     "labelValue": "Password",
                     "name": "password",
+                    "required": "required",
                     "type": "password",
                   },
                   "ref": null,
@@ -770,6 +795,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Full name"
                   name="fullName"
+                  required="required"
                   type="text"
                 />
                 <span
@@ -783,6 +809,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Username"
                   name="username"
+                  required="required"
                   type="text"
                 />
                 <span
@@ -796,6 +823,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Email"
                   name="email"
+                  required="required"
                   type="email"
                 />
                 <span
@@ -810,6 +838,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Phone Number"
                   name="phoneNumber"
+                  required="required"
                   type="text"
                 />
                 <span
@@ -824,6 +853,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Password"
                   name="password"
+                  required="required"
                   type="password"
                 />
                 <span
@@ -894,6 +924,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Full name"
                   name="fullName"
+                  required="required"
                   type="text"
                 />
                 <span
@@ -907,6 +938,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Username"
                   name="username"
+                  required="required"
                   type="text"
                 />
                 <span
@@ -920,6 +952,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Email"
                   name="email"
+                  required="required"
                   type="email"
                 />
                 <span
@@ -934,6 +967,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Phone Number"
                   name="phoneNumber"
+                  required="required"
                   type="text"
                 />
                 <span
@@ -948,6 +982,7 @@ ShallowWrapper {
                   handleChange={[Function]}
                   labelValue="Password"
                   name="password"
+                  required="required"
                   type="password"
                 />
                 <span
@@ -1004,6 +1039,7 @@ ShallowWrapper {
                     handleChange={[Function]}
                     labelValue="Full name"
                     name="fullName"
+                    required="required"
                     type="text"
                   />
                   <span
@@ -1017,6 +1053,7 @@ ShallowWrapper {
                     handleChange={[Function]}
                     labelValue="Username"
                     name="username"
+                    required="required"
                     type="text"
                   />
                   <span
@@ -1030,6 +1067,7 @@ ShallowWrapper {
                     handleChange={[Function]}
                     labelValue="Email"
                     name="email"
+                    required="required"
                     type="email"
                   />
                   <span
@@ -1044,6 +1082,7 @@ ShallowWrapper {
                     handleChange={[Function]}
                     labelValue="Phone Number"
                     name="phoneNumber"
+                    required="required"
                     type="text"
                   />
                   <span
@@ -1058,6 +1097,7 @@ ShallowWrapper {
                     handleChange={[Function]}
                     labelValue="Password"
                     name="password"
+                    required="required"
                     type="password"
                   />
                   <span
@@ -1131,6 +1171,7 @@ ShallowWrapper {
                       handleChange={[Function]}
                       labelValue="Full name"
                       name="fullName"
+                      required="required"
                       type="text"
                     />,
                     <span
@@ -1144,6 +1185,7 @@ ShallowWrapper {
                       handleChange={[Function]}
                       labelValue="Username"
                       name="username"
+                      required="required"
                       type="text"
                     />,
                     <span
@@ -1157,6 +1199,7 @@ ShallowWrapper {
                       handleChange={[Function]}
                       labelValue="Email"
                       name="email"
+                      required="required"
                       type="email"
                     />,
                     <span
@@ -1171,6 +1214,7 @@ ShallowWrapper {
                       handleChange={[Function]}
                       labelValue="Phone Number"
                       name="phoneNumber"
+                      required="required"
                       type="text"
                     />,
                     <span
@@ -1185,6 +1229,7 @@ ShallowWrapper {
                       handleChange={[Function]}
                       labelValue="Password"
                       name="password"
+                      required="required"
                       type="password"
                     />,
                     <span
@@ -1225,6 +1270,7 @@ ShallowWrapper {
                       "handleChange": [Function],
                       "labelValue": "Full name",
                       "name": "fullName",
+                      "required": "required",
                       "type": "text",
                     },
                     "ref": null,
@@ -1259,6 +1305,7 @@ ShallowWrapper {
                       "handleChange": [Function],
                       "labelValue": "Username",
                       "name": "username",
+                      "required": "required",
                       "type": "text",
                     },
                     "ref": null,
@@ -1293,6 +1340,7 @@ ShallowWrapper {
                       "handleChange": [Function],
                       "labelValue": "Email",
                       "name": "email",
+                      "required": "required",
                       "type": "email",
                     },
                     "ref": null,
@@ -1328,6 +1376,7 @@ ShallowWrapper {
                       "handleChange": [Function],
                       "labelValue": "Phone Number",
                       "name": "phoneNumber",
+                      "required": "required",
                       "type": "text",
                     },
                     "ref": null,
@@ -1363,6 +1412,7 @@ ShallowWrapper {
                       "handleChange": [Function],
                       "labelValue": "Password",
                       "name": "password",
+                      "required": "required",
                       "type": "password",
                     },
                     "ref": null,
