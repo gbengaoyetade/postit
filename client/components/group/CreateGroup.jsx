@@ -9,12 +9,12 @@ import { createGroup, createGroupError } from '../../actions/groupActions';
  *
  * @extends {React.Component}
  */
-class CreateGroup extends React.Component {
+export class CreateGroup extends React.Component {
 
   /**
    * @description Creates an instance of CreateGroup.
    *
-   * @returns { void }
+   * @returns {void} -returns nothing
    */
   constructor() {
     super();
@@ -28,32 +28,30 @@ class CreateGroup extends React.Component {
 
   /**
    *
-   * @return { void }
+   * @return {void} -returns nothing
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.createGroupError('');
   }
 
   /**
    * @description handles the onChange event
    *
-   * @param { object } event - event object
+   * @param {object} event - event object
    *
-   * @returns { void } -returns nothing
+   * @returns {void} -returns nothing
    */
   handleChange(event) {
-    const name = event.target.name;
-    const value = event.target.value;
+    const { name, value } = event.target;
     this.setState({ [name]: value });
   }
 
   /**
    * @description handles form submission
    *
-   * @param { object } event -event object
+   * @param {object} event -event object
    *
-   * @returns { void } -returns nothing
-   *
+   * @returns {void} -returns nothing
    */
   handleSubmit(event) {
     event.preventDefault();
@@ -63,15 +61,17 @@ class CreateGroup extends React.Component {
   /**
    * @description render function
    *
-   * @returns { object } -react element
+   * @returns {object} -react element
    */
   render() {
     return (
-      <CreateGroupForm
-        handleSubmit={this.handleSubmit}
-        handleChange={this.handleChange}
-        error={this.props.groupError}
-      />
+      <div>
+        <CreateGroupForm
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          error={this.props.groupError}
+        />
+      </div>
     );
   }
 }
@@ -81,12 +81,26 @@ CreateGroup.propTypes = {
   groupError: PropTypes.string,
   history: PropTypes.object,
 };
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+  */
 const mapStateToProps = state => (
   {
     groupError: state.groupReducer.groupError,
   }
 );
 
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     createGroup: (group, history) => {

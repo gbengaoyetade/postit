@@ -8,11 +8,11 @@ import SubmitButton from '../common/SubmitButton';
 /**
  * @description Login component
  *
- * @param { object } props -prop object
+ * @param {object} props -prop object
  *
- * @returns { object } -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
-const Login = (props) => {
+const LoginForm = (props) => {
   let submitValue = '';
   let disabled = '';
   if (props.loading) {
@@ -73,10 +73,10 @@ const Login = (props) => {
     </div>
   );
 };
-Login.propTypes = {
+LoginForm.propTypes = {
   error: Proptypes.string,
   handleChange: Proptypes.func.isRequired,
   handleSubmit: Proptypes.func.isRequired,
   loading: Proptypes.bool.isRequired
 };
-export default Login;
+export default LoginForm;

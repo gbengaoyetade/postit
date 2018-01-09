@@ -1,270 +1,234 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-import database from '../models/index';
-import transporter from '../config/mail.config';
+import models from '../models';
+import transporter from '../config/transporter';
 import validateSignUpInput from '../shared/validateSignUpInput';
 import {
-  checkParams,
   getId,
   generateToken,
   encryptPassword } from '../includes/helperFunctions';
 
-dotenv.load();
-const APP_URL = process.env.APP_URL;
-const User = database.users;
-const groupMembers = database.groupMembers;
+const { APP_URL } = process.env;
+const { groupMembers, users } = models;
 const secret = process.env.TOKEN_SECRET;
 
 /**
  * @description Signup new user
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const signUp = (req, res) => {
-  const requiredFields = [
-    'username', 'email', 'password', 'fullName', 'phoneNumber'];
-    // Check if req.body contains required fields
-  const validateInputResponse = checkParams(req.body, requiredFields);
-  if (validateInputResponse !== 'ok') {
-    res.status(400).send({ error: validateInputResponse });
+  const { username, password, email, fullName, phoneNumber } = req.body;
+  const { errors, isValid } = validateSignUpInput(req.body);
+  if (!isValid) {
+    res.status(400).json({ error: errors });
   } else {
-    // Validate input if it contains required fields
-    const { errors, isValid } = validateSignUpInput(req.body);
-    if (isValid) {
-      // if input is valid, create user
-      User.create({
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
-        fullName: req.body.fullName,
-        phoneNumber: req.body.phoneNumber,
+    users.create({
+      username,
+      password,
+      email,
+      fullName,
+      phoneNumber,
+    })
+    .then((user) => {
+      groupMembers.create({
+        userId: user.id,
+        groupId: 1,
+        addedBy: 1,
       })
-      .then((user) => {
-        groupMembers.create({
-          userId: user.id,
-          groupId: 1,
-          addedBy: 1,
-        })
-        .then(() => {
-          const userToken = generateToken(user);
-          const userDetails = {
-            id: user.id,
-            fullName: user.fullName,
-            username: user.username,
-            email: user.email,
-            phoneNumber: user.phoneNumber,
-            token: userToken,
-          };
-          const userCreateResponse = {
-            user: userDetails,
-            message: `User ${req.body.username} was created successfully`,
-          };
-          res.status(201).send(userCreateResponse);
-        })
-        .catch((serverError) => {
-          res.status(500).send({ error: serverError.message });
-        });
+      .then(() => {
+        const userToken = generateToken(user);
+        const userDetails = {
+          id: user.id,
+          fullName,
+          username,
+          email,
+          phoneNumber,
+          token: userToken,
+        };
+        const userCreateResponse = {
+          user: userDetails,
+          message: `User ${req.body.username} was created successfully`,
+        };
+        res.status(201).send(userCreateResponse);
       })
-      .catch((error) => {
-        if (error.errors[0].message === 'username must be unique') {
-          res.status(409).send({ error: 'Username not available' });
-        } else if (error.errors[0].message === 'email must be unique') {
-          res.status(409).send({ error: 'Email address already in use' });
-        } else if (error.errors[0].message === 'phoneNumber must be unique') {
-          res.status(409).send({ error: 'Phone Number already in use' });
-        } else {
-          const errorMessage = error.errors[0].message;
-          res.status(400).send({ error: errorMessage });
-        }
+      .catch(() => {
+        res.status(500).send({ error: 'Internal server error' });
       });
-    } else {
-      res.status(400).json({ error: errors });
-    }
+    })
+    .catch((error) => {
+      if (error.errors[0].message === 'username must be unique') {
+        res.status(409).send({ error: 'Username not available' });
+      } else if (error.errors[0].message === 'email must be unique') {
+        res.status(409).send({ error: 'Email address already in use' });
+      } else if (error.errors[0].message === 'phoneNumber must be unique') {
+        res.status(409).send({ error: 'Phone Number already in use' });
+      } else {
+        res.status(500).send({ error: 'Internal server error' });
+      }
+    });
   }
 }; // end of signup
 
 /**
  * @description Signs user in
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
  * @returns {  void } -returns nothing
  */
 export const signIn = (req, res) => {
-  const requiredFields = ['username', 'password'];
-  const validateInputResponse = checkParams(req.body, requiredFields);
-  if (validateInputResponse !== 'ok') {
-    res.status(400).send({ error: validateInputResponse });
-  } else {
-    User.findOne({
-      where: {
-        $or: [{ username: req.body.username }, { email: req.body.username }]
-      }
-    })
-  .then((user) => {
-    if (user === null) {
-      res.status(401).send({ error: 'Username or password incorect' });
-    } else {
-      bcrypt.compare(req.body.password, user.password, (err, result) => {
-        if (result) {
-          const userToken = generateToken(user);
-          const userDetails = {
-            user: {
-              id: user.id,
-              fullName: user.fullName,
-              username: user.username,
-              email: user.email,
-              phoneNumber: user.phoneNumber,
-              token: userToken,
-            },
-          };
-          res.status(200).send(userDetails);
-        } else {
-          res.status(401).send({ error: 'Username or password incorrect' });
-        }
-      });
+  users.findOne({
+    where: {
+      $or: [{ username: req.body.username }, { email: req.body.username }]
     }
   })
-  .catch((error) => {
-    res.status(500).send(error.message);
-  });
+.then((user) => {
+  if (!user) {
+    res.status(401).send({ error: 'Username or password incorect' });
+  } else {
+    bcrypt.compare(req.body.password, user.password, (err, result) => {
+      if (result) {
+        const token = generateToken(user);
+        const { username, id, fullName, email, phoneNumber } = user;
+        const userDetails = {
+          user: {
+            id,
+            fullName,
+            username,
+            email,
+            phoneNumber,
+            token,
+          },
+        };
+        res.status(200).send(userDetails);
+      } else {
+        res.status(401).send({ error: 'Username or password incorrect' });
+      }
+    });
   }
+})
+.catch(() => {
+  res.status(500).send({ error: 'Internal server error' });
+});
 }; // end of signIn
 /**
  * @description Sends user a reset password link
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const resetPassword = (req, res) => {
-  const requiredFields = ['email'];
-  const validateInputResponse = checkParams(req.body, requiredFields);
-  const email = req.body.email;
-  if (validateInputResponse !== 'ok') {
-    res.status(400).send({
-      error: validateInputResponse, message: 'Parameter not well structured' });
-  } else {
-    User.findOne({
-      where: { email },
-    })
-    .then((user) => {
-      if (user) {
-        // structure email
-        const token = jwt.sign({ id: user.id },
-          secret,
-          { expiresIn: 60 * 30 },
-          );
-        const resetPasswordMail =
-        `<p> Click the link to change your password.</p>
-        <a href='${APP_URL}/password/update?token=${token}'>
-        Change password</a> `;
-        const mailOptions = {
-          from: 'ioyetade@gmail.com',
-          to: email,
-          subject: 'Reset Password',
-          html: resetPasswordMail,
-        };
-        transporter.sendMail(mailOptions, (error) => {
-          if (error) {
-            res.status(503).send({ error: 'Could not send mail' });
-          } else {
-            res.send({ message: 'Mail sent successfully' });
-          }
-        });
-      } else {
-        res.status(400).send({
-          error: 'Email address does not exist on Postit' });
-      }
-    })
-    .catch((error) => {
-      res.status(500).send(error.message);
-    });
-  }
+  const { email } = req.body;
+  users.findOne({
+    where: { email },
+  })
+  .then((user) => {
+    if (user) {
+      // structure email
+      const token = jwt.sign({ id: user.id },
+        secret,
+        { expiresIn: 60 * 60 * 24 },
+        );
+      const resetPasswordMail =
+      `<p> Click the link to change your password.</p>
+      <a href='${APP_URL}/password/update?token=${token}'>
+      Change password</a> `;
+      const mailOptions = {
+        from: 'ioyetade@gmail.com',
+        to: email,
+        subject: 'Reset Password',
+        html: resetPasswordMail,
+      };
+      transporter.sendMail(mailOptions, (error) => {
+        if (error) {
+          res.status(503).send({ error: 'Could not send mail' });
+        } else {
+          res.send({ message: 'Mail sent successfully' });
+        }
+      });
+    } else {
+      res.status(404).send({
+        error: 'Email address does not exist on Postit' });
+    }
+  })
+  .catch(() => {
+    res.status(500).send({ error: 'Internal server error' });
+  });
 };
 /**
  * @description Updates user password
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 export const updatePassword = (req, res) => {
-  // Check if password field was provided
-  const requiredFields = ['password'];
-  const validateInputResponse = checkParams(req.body, requiredFields);
-  if (validateInputResponse !== 'ok') {
-    res.status(400).send({ error: validateInputResponse });
-  } else {
-    // Check if URL contians parameter token
-    const userToken = req.query.token;
-    if (!userToken) {
-      // Token not provided response
-      res.status(400).send({ error: 'No token provided' });
+  const { token } = req.query;
+  let userId;
+  // Verify user token
+  jwt.verify(token, secret, (error) => {
+    if (error) {
+      res.status(400).send({
+        error: 'Request cannot be completed because the link cannot be verified' });
     } else {
-      let userId;
-      // Verify user token
-      jwt.verify(userToken, secret, (error) => {
-        if (error) {
-          res.status(401).send({ error: 'Token authentication failure' });
-        } else {
-          // Update user password if token was verified successfully
-          const hash = encryptPassword(req.body.password);
-          userId = getId(userToken);
-          User.update(
-            { password: hash },
-            { where: { id: userId } },
-          )
-          .then((updateValue) => {
-            if (updateValue[0]) {
-              User.findOne(({
-                where: { id: userId },
-                attributes: {
-                  exclude: ['createdAt', 'updatedAt', 'password'],
-                },
-              }))
-              .then((user) => {
-                const token = generateToken(user);
-                res.send({ token });
-              });
-            } else {
-              res.status(500).send({
-                error: 'Password not updated. Try again' });
-            }
-          })
-          .catch((updateError) => {
-            res.status(500).send({ error: updateError.message });
+      // Update user password if token was verified successfully
+      const hash = encryptPassword(req.body.password);
+      userId = getId(token);
+      users.update(
+        { password: hash },
+        { where: { id: userId } },
+      )
+      .then((updateValue) => {
+        if (updateValue[0]) {
+          users.findOne(({
+            where: { id: userId },
+            attributes: {
+              exclude: ['createdAt', 'updatedAt', 'password'],
+            },
+          }))
+          .then((user) => {
+            const userToken = generateToken(user);
+            res.send({
+              token: userToken,
+              message: 'Password updated successfully'
+            });
           });
+        } else {
+          res.status(500).send({
+            error: 'Password not updated. Try again' });
         }
+      })
+      .catch(() => {
+        res.status(500).send({ error: 'Internal server error' });
       });
     }
-  }
+  });
 };
 /**
  * @description search user
  *
- * @param { object } req -request object
- * @param { object } res -response object
+ * @param {object} req -request object
+ * @param {object} res -response object
  *
- * @returns { void } - returns nothing
+ * @returns {void} - returns nothing
  */
 export const userSearch = (req, res) => {
-  const query = req.query.query.toLowerCase();
-  const offset = req.query.offset;
+  const { query, offset } = req.query;
   const limit = req.query.limit || 10;
-  database.users.findAndCountAll({
+  users.findAndCountAll({
     where: {
       $or: [{
-        username: { $iLike: `%${query}%` },
+        username: { $iLike: `%${query.toLowerCase()}%` },
       }, {
-        fullName: { $iLike: `%${query}%` },
+        fullName: { $iLike: `%${query.toLowerCase()}%` },
       }],
     },
     offset,
@@ -281,7 +245,7 @@ export const userSearch = (req, res) => {
     };
     res.send(pagination);
   })
-  .catch((error) => {
-    res.status(500).send({ error: error.message });
+  .catch(() => {
+    res.status(500).send({ error: 'Internal server error' });
   });
 };

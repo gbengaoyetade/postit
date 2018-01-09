@@ -6,9 +6,9 @@ import Nav from '../common/Nav';
 /**
  * @description ResetPasswordPage component
  *
- * @param { object } props -prop object
+ * @param {object} props -prop object
  *
- * @returns { object } -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const ResetPasswordPage = (props) => {
   let disabled, sendValue, progressBar;

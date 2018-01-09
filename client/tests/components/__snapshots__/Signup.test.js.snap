@@ -60,7 +60,7 @@ ShallowWrapper {
 }
 `;
 
-exports[`Signup component should render correctly when store is passed to it 1`] = `
+exports[`Signup component should render correctly when connected to the store 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],

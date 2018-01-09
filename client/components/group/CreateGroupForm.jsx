@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import SubmitButton from '../common/SubmitButton';
 
 /**
  * @description create group form component
  *
- * @param { object } props -prop object
+ * @param {object} props -prop object
  *
- * @returns { object } -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const CreateGroupForm = props => (
   (
     <div>
-      <div className="col s12 m6 component-container">
-        <div className="modal-content">
+      <div className="col s12 m7 l5 offset-l2 offset-m2 component-container">
+        <div className="">
+          <h3 className="center big-text"> Create Group </h3>
           <form onSubmit={props.handleSubmit}>
           <p className="red-text center"> &nbsp; {props.error} </p>
           <div className="input-field">
@@ -25,9 +27,9 @@ const CreateGroupForm = props => (
             onChange={props.handleChange} required/>
             <label htmlFor="password">Group Description</label>
           </div>
-          <p className="row"> <input type="submit" value="Create Group"
-          className="btn light-blue darken-4 col s8 offset-s2" />
-          </p>
+          <SubmitButton
+          submitValue="Create Group"
+          />
           </form>
           <p> &nbsp; </p>
         </div>

@@ -268,6 +268,9 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+          </li>
       </div>
         <ul class="toc-footer">
             <li><p><a href='https://travis-ci.org/gbengaPS/postit'> <img src='https://travis-ci.org/gbengaPS/postit.svg?branch=develop'/> </a></p></li>
@@ -312,7 +315,7 @@ add users, and send prioritzed messages to these groups.</p>
 <p>This endpoint creates a new user account.</p>
 
 <p><code>POST http://postit-gbenga.herokuapp.com/api/user/signup</code></p>
-<h3 id='http-request'>HTTP Request</h3><h3 id='query-parameters'>Query Parameters</h3>
+<h3 id='http-request'>HTTP Request</h3><h3 id='body-parameters'>Body Parameters</h3>
 <aside class="warning">All fields are required </aside>
 
 <table><thead>
@@ -342,6 +345,11 @@ add users, and send prioritzed messages to these groups.</p>
 <td>User password (not less than 6 characters)</td>
 </tr>
 </tbody></table>
+<h3 id='response'>Response</h3>
+<ul>
+<li>Status code <code>201: Created</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
 <h2 id='user-signin'>User Signin</h2>
 <blockquote>
 <p>Sample registered user details:</p>
@@ -368,7 +376,7 @@ add users, and send prioritzed messages to these groups.</p>
 <p>This endpoint signs in a registered user.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>POST http://postit-gbenga.herokuapp.com/api/user/signin</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<h3 id='body-parameters-2'>Body Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -384,47 +392,81 @@ add users, and send prioritzed messages to these groups.</p>
 <td>User password</td>
 </tr>
 </tbody></table>
+<h3 id='response-2'>Response</h3>
+<ul>
+<li>Status code <code>200: OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
 <h2 id='search-users'>Search users</h2>
 <p>This endpoint returns users that match the search query</p>
 
-<p><code>GET http://postit-gbenga.herokuapp.com/api/user/search?query=query</code></p>
+<aside class="warning">
+  The `x-access-token` header is needed to access this endpoint
+</aside>
 
-<p>Sample query URL</p>
+<p><code>GET http://postit-gbenga.herokuapp.com/api/user/search</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>query</td>
+<td>The search query</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>Determines the result offset (integer value)</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>The number of results per page (default is 10)</td>
+</tr>
+</tbody></table>
 
-<p>http://postit-gbenga.herokuapp.com/api/user/search?query=s&amp;offset=0&amp;limit=3</p>
+<p>Sample query</p>
+
+<p><code>http://postit-gbenga.herokuapp.com/api/user/search?query=ade&amp;offset=0&amp;limit=3</code></p>
+<h3 id='response-3'>Response</h3>
+<ul>
+<li>Status code <code>200: OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
 
 <blockquote>
 <p>Response</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"pageCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"pageCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
     </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test23"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mr test"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test23@gmail.com"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23480641406954"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test user"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test.user@gmail.com"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09025615565"</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gbenga_ps"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gbenga Elijah Oyetade"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ioyetade@gmail.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09025615564"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jason"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jason Nelson"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jason@gmail.com"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"080641406954"</span><span class="w">
+            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ade Man"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ade@we.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08077567485"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adebisi"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adebisi Gbadebo"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gbadebo_adebisi@gmail.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2348064130196"</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='password-reset'>Password Reset</h2>
-<p>This endpoint allows a user request a password reset</p>
+<p>This endpoint helps a user update his password</p>
 
 <p><code>POST http://postit-gbenga.herokuapp.com/api/user/password/reset</code></p>
 
@@ -441,10 +483,10 @@ add users, and send prioritzed messages to these groups.</p>
 <pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mail sent successfully"</span><span class="w">
  </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='url-parameters-2'>URL Parameters</h3>
+</span></code></pre><h3 id='url-parameter'>URL Parameter</h3>
 <table><thead>
 <tr>
-<th>Prameter</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -453,6 +495,11 @@ add users, and send prioritzed messages to these groups.</p>
 <td>User email address</td>
 </tr>
 </tbody></table>
+<h3 id='response-4'>Response</h3>
+<ul>
+<li>Status code <code>200: OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
 <h2 id='password-update'>Password Update</h2>
 <p>This endpoint helps a user update his password</p>
 
@@ -469,12 +516,13 @@ add users, and send prioritzed messages to these groups.</p>
 <p>Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTUsImZ1bGxOYW1lIjoic2FtIGFkZXllbWkiLCJlbWFpbCI6ImlveWV0YWRlQGdtYWlsLmNvbSIsInBob25lTnVtYmVyIjoiOTExIiwiaWF0IjoxNTExMzUwNDMxLCJleHAiOjE1NDI4ODY0MzF9.vseweDoDgOMjL_PWA6oEf1rZTsIgrFYdyRFffd97Ul4"</span><span class="w">
+    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTUsImZ1bGxOYW1lIjoic2FtIGFkZXllbWkiLCJlbWFpbCI6ImlveWV0YWRlQGdtYWlsLmNvbSIsInBob25lTnVtYmVyIjoiOTExIiwiaWF0IjoxNTExMzUwNDMxLCJleHAiOjE1NDI4ODY0MzF9.vseweDoDgOMjL_PWA6oEf1rZTsIgrFYdyRFffd97Ul4"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password updated successfully"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='url-parameters-3'>URL Parameters</h3>
+</span></code></pre><h3 id='body-parameter'>Body Parameter</h3>
 <table><thead>
 <tr>
-<th>Prameter</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -483,6 +531,23 @@ add users, and send prioritzed messages to these groups.</p>
 <td>New user password</td>
 </tr>
 </tbody></table>
+<h3 id='query-parameter'>Query Parameter</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>token sent to the user&#39;s email</td>
+</tr>
+</tbody></table>
+<h3 id='response-5'>Response</h3>
+<ul>
+<li>Status code <code>200: OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
 <h1 id='groups'>Groups</h1>
 <aside class="warning">
   Every request needs the `x-access-token` header.
@@ -501,16 +566,19 @@ add users, and send prioritzed messages to these groups.</p>
 <p>The above returns</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"groupName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test group name"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"groupDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test group description"</span><span class="w">
+    </span><span class="s2">"group"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"groupName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test group name"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"groupDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test group description"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Group created successfully"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
 <p>This endpoint creates a new group</p>
 
 <p><code>POST http://postit-gbenga.herokuapp.com/api/group</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<h3 id='body-parameters'>Body Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -526,20 +594,25 @@ add users, and send prioritzed messages to these groups.</p>
 <td>The description of the group</td>
 </tr>
 </tbody></table>
+<h3 id='response'>Response</h3>
+<ul>
+<li>Status code <code>201: created</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
 <h2 id='get-user-groups'>Get user groups</h2>
 <p>This endpoint gets the group a user belongs to</p>
 
 <p><code>GET http://postit-gbenga.herokuapp.com/api/group/user</code></p>
+<h3 id='response-2'>Response</h3>
+<ul>
+<li>Status code <code>200: OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
 
 <blockquote>
 <p>Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test user"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test.user@gmail.com"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09025615565"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">75</span><span class="p">,</span><span class="w">
@@ -574,28 +647,73 @@ add users, and send prioritzed messages to these groups.</p>
 </span></code></pre><h2 id='get-group-members'>Get group members</h2>
 <p>This endpoint gets the group members from a group provider
 current user belongs to the group</p>
+<h3 id='path-parameter'>Path Parameter</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>groupId</td>
+<td>The id of the group to fetch from</td>
+</tr>
+</tbody></table>
 
 <p><code>GET http://postit-gbenga.herokuapp.com/api/group/:groupId/users</code></p>
+<h3 id='response-3'>Response</h3>
+<ul>
+<li>Status code <code>200: OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
 
 <blockquote>
 <p>Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"members"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test23"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mr test"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test23@gmail.com"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23480641406954"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ade Man"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ade@we.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08077567485"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"groupMembers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
                 </span><span class="s2">"addedBy"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
                 </span><span class="s2">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-06T16:35:02.731Z"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-06T16:35:02.731Z"</span><span class="w">
+                </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-11T23:44:42.686Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-11T23:44:42.686Z"</span><span class="w">
             </span><span class="p">}</span><span class="w">
         </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aliveli"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ali veli"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aliveli@gmail.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"905533558787"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"groupMembers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"addedBy"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-17T12:28:14.263Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-17T12:28:14.263Z"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topeooo"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temitope Joloko"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"temitope@gmail.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2348064140695"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"groupMembers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"addedBy"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-18T07:59:15.127Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-12-18T07:59:15.127Z"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='add-members'>Add members</h2>
@@ -618,13 +736,20 @@ current user belongs to the group</p>
         </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-22T12:23:03.328Z"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">172</span><span class="w">
     </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test user"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test.user@gmail.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09025615565"</span><span class="p">,</span><span class="w">
+    </span><span class="p">},</span><span class="w">
     </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User successfully added to group"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint adds a user to the group</p>
 
 <p><code>POST http://postit-gbenga.herokuapp.com/api/group/:groupId/user</code></p>
-<h3 id='url-parameter'>URL Parameter</h3>
+<h3 id='body-parameter'>Body Parameter</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -636,10 +761,44 @@ current user belongs to the group</p>
 <td>The id of the user to be added</td>
 </tr>
 </tbody></table>
+<h3 id='path-parameter-2'>Path Parameter</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>groupId</td>
+<td>The id of the group to add new user to</td>
+</tr>
+</tbody></table>
+<h3 id='response-4'>Response</h3>
+<ul>
+<li>Status code <code>201: created</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
 <h2 id='leave-group'>Leave group</h2>
 <p>This endpoint removes the user from the group</p>
 
 <p><code>DELETE http://postit-gbenga.herokuapp.com/api/group/:groupId/leave</code></p>
+<h3 id='path-parameter-3'>Path Parameter</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>groupId</td>
+<td>The id of the group user is to leave</td>
+</tr>
+</tbody></table>
+<h3 id='response-5'>Response</h3>
+<ul>
+<li>Status code <code>200: OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
 
 <blockquote>
 <p>Response</p>
@@ -649,8 +808,41 @@ current user belongs to the group</p>
   </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='post-message'>Post message</h2>
 <p>This endpoint sends a message to a group</p>
+<h3 id='body-parameters-2'>Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>messageBody</td>
+<td>The message to be sent</td>
+</tr>
+<tr>
+<td>messagePriority</td>
+<td>This could be Normal, Urgent or Critical</td>
+</tr>
+</tbody></table>
+<h3 id='path-parameter-4'>Path Parameter</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>groupId</td>
+<td>The id of the group to post message to</td>
+</tr>
+</tbody></table>
 
 <p><code>POST http://postit-gbenga.herokuapp.com/api/group/:groupId/message</code></p>
+<h3 id='response-6'>Response</h3>
+<ul>
+<li>Status code <code>201: created</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
 
 <blockquote>
 <p>Request</p>
@@ -669,13 +861,37 @@ current user belongs to the group</p>
         </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w">
         </span><span class="s2">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
         </span><span class="s2">"messageBody"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test message"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"messagePriority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Normal"</span><span class="w">
+        </span><span class="s2">"messagePriority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Normal"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test user"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test.user@gmail.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09025615565"</span><span class="p">,</span><span class="w">
+        </span><span class="p">},</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='get-messages'>Get messages</h2>
 <p>This endpoint gets all the messages sent to a group</p>
 
 <p><code>GET http://postit-gbenga.herokuapp.com/api/group/:groupId/messages</code></p>
+<h3 id='path-parameter-5'>Path Parameter</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>groupId</td>
+<td>The id of the group to get messages from</td>
+</tr>
+</tbody></table>
+<h3 id='response-7'>Response</h3>
+<ul>
+<li>Status code <code>200: OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
 
 <blockquote>
 <p>Response</p>
@@ -698,7 +914,41 @@ current user belongs to the group</p>
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
+</span></code></pre><h1 id='errors'>Errors</h1>
+<p>The Postit API uses the following error codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request -- Your request is bad.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized -- Your API key is wrong.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found -- The specified resource could not be found.</td>
+</tr>
+<tr>
+<td>409</td>
+<td>Conflict -- The entry has already created and cannot be created again.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+</tr>
+</tbody></table>
+
       </div>
       <div class="dark-box">
           <div class="lang-selector">

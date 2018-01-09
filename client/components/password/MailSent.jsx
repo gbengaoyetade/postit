@@ -5,7 +5,7 @@ import Nav from '../common/Nav';
 /**
  * @description MailSent object
  *
- * @returns { object } -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const MailSent = () => (
   <div className="row">

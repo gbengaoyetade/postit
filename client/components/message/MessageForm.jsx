@@ -5,20 +5,20 @@ import PropType from 'prop-types';
 /**
  * @description MessageForm component
  *
- * @param { object } props -prop object
+ * @param {object} props -prop object
  *
- * @returns {object} -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const MessageForm = props => (
   (
     <div>
-        <div className="message-form" >
+        <div className="message-form col s12 " >
         <form method="Post" onSubmit={props.handleSubmit}>
             <div className="">
               <textarea
               placeholder="Enter message here"
               name="messageBody" required="required"
-              className="message-input-field col s7"
+              className="message-input-field col s7 m7"
               onChange={props.handleChange}
               value={props.messageBody} />
             </div>

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { searchUser } from '../../actions/searchActions';
+import GroupMembers from './GroupMembers';
 import { addMember, getGroupMembers, addMemberSuccess }
 from '../../actions/groupActions';
 
@@ -13,14 +14,14 @@ from '../../actions/groupActions';
  *
  * @extends { React.Component }
  */
-class AddMembers extends React.Component {
+export class AddMembers extends React.Component {
 
   /**
    * @description Creates an instance of AddMembers.
    *
-   * @param { object } props -react props
+   * @param {object} props -react props
    *
-   * @returns { void } -returns nothing
+   * @returns {void} -returns nothing
    */
   constructor(props) {
     super(props);
@@ -32,18 +33,18 @@ class AddMembers extends React.Component {
 
   /**
    *
-   * @returns { void }
+   * @returns {void}
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getGroupMembers(this.props.match.params.groupId);
   }
 
   /**
    * @description handles user search
    *
-   * @param { object } event -javascript event
+   * @param {object} event -javascript event
    *
-   * @returns { void }
+   * @returns {void}
    */
   handleSearch(event) {
     this.setState({ userInput: event.target.value });
@@ -55,9 +56,9 @@ class AddMembers extends React.Component {
   /**
    * @description handles page clicks
    *
-   * @param { object } page -the current selected page
+   * @param {object} page -the current selected page
    *
-   * @returns { void }
+   * @returns {void}
    *
    */
   handlePageClick(page) {
@@ -68,37 +69,35 @@ class AddMembers extends React.Component {
   /**
    * @description handles add user to group
    *
-   * @param { number } userId -user Id
+   * @param {number} userId -user Id
    *
-   * @returns { void }
+   * @returns {void}
    */
   addMember(userId) {
-    const groupId = this.props.match.params.groupId;
+    const { groupId } = this.props.match.params;
     this.props.addMember(userId, groupId);
   }
 
   /**
    * @description render function
    *
-   * @returns { object } -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     let searchResult;
-    // if member was added successfull, fetch group members again
-    if (this.props.addMemberSuccess) {
-      this.props.getGroupMembers(this.props.match.params.groupId);
-      Materialize.toast('User added successfully', 2000);
-      this.props.setAddMembersSucces(false);
+    let searchError = '';
+    if (this.props.searchError.length > 0) {
+        searchError = this.props.searchError;
     }
-    if (this.props.searchResult.searchResult) {
-      const searchResultArray = this.props.searchResult.searchResult.users;
-      const groupMemberIds = this.props.groupMembers.users.map(member =>
+    if (this.props.searchResult.users) {
+      const searchResultArray = this.props.searchResult.users;
+      const groupMemberIds = this.props.groupMembers.map(member =>
         member.id
     );
     // show search result only when input length is greater than 1 and
     // there is some search result to show
       if (searchResultArray.length > 0 && this.state.userInput.length > 0) {
-        const pageCount = this.props.searchResult.searchResult.pageCount;
+        const { pageCount } = this.props.searchResult;
         searchResult = (
           <div>
           <ul className="collection" id="search-results">
@@ -146,8 +145,10 @@ class AddMembers extends React.Component {
     }
     return (
       <div>
-        <div className="col m6 component-container" >
+        <div className="col m7 s10 offset-s1 component-container" >
+          <div className="col m8 offset-m2">
           <h5 className="center">Search users</h5>
+          <p> {searchError}</p>
           <form>
             <div className="input-field">
               <input
@@ -160,6 +161,8 @@ class AddMembers extends React.Component {
           <p className="big center"> Search result appears here</p>
           {searchResult}
         </div>
+        </div>
+        <GroupMembers />
       </div>
     );
   }
@@ -169,18 +172,34 @@ AddMembers.propTypes = {
   addMember: PropTypes.func.isRequired,
   getGroupMembers: PropTypes.func.isRequired,
   setAddMembersSucces: PropTypes.func.isRequired,
-  addMemberSuccess: PropTypes.bool.isRequired,
+  addMemberSuccess: PropTypes.array.isRequired,
   match: PropTypes.object.isRequired,
   searchResult: PropTypes.object,
-  groupMembers: PropTypes.object,
+  groupMembers: PropTypes.array,
+  searchError: PropTypes.string,
 };
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+  */
 const mapStateToProps = state => (
   {
-    searchResult: state.searchReducer,
+    searchResult: state.searchReducer.searchResult,
+    searchError: state.searchReducer.searchError,
     addMemberSuccess: state.groupReducer.memberAdded,
     groupMembers: state.groupReducer.members,
   }
 );
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     searchUsers: (userInput, groupId) => {

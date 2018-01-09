@@ -1,8 +1,7 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import Group from '../../components/group/Group';
-import AppNav from '../../components/common/AppNav';
+import { Group } from '../../components/group/Group';
 
 describe('Group component', () => {
   const mockStore = configureStore([thunk]);
@@ -10,7 +9,7 @@ describe('Group component', () => {
   const props = {
     getGroupMembers: () => {},
     getMessages: () => {},
-    groupMembers: {},
+    groupMembers: [],
     leaveGroup: () => {},
     history: {},
     leftGroup: false,
@@ -19,14 +18,19 @@ describe('Group component', () => {
   };
   const wrapper = shallow(<Group store={store} {...props} />);
   it('should render correctly', () => {
-    expect(wrapper.dive().find(AppNav).length).toBe(1);
-    expect(wrapper.dive().find('ul#group-more').length).toBe(1);
+    expect(wrapper).toBeDefined();
+    expect(wrapper.getElement().type).toBe('div');
+    expect(wrapper.find('ul#group-more').length).toBe(1);
   });
-  it.only('should have componentWillUpdate method', () => {
-    const spy = jest.spyOn(wrapper.dive().instance(), 'componentWillUpdate');
+  it('should have componentWillUpdate method', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'componentWillUpdate');
     wrapper.setProps({ leftGroup: true });
     wrapper.instance().componentWillUpdate();
-    wrapper.setState({ name: 'gbenga' });
     expect(spy).toBeDefined();
+  });
+  it('should have a leave group function', () => {
+    const leaveGroupSpy = jest.spyOn(wrapper.instance(), 'leaveGroup');
+    wrapper.instance().leaveGroup();
+    expect(leaveGroupSpy).toHaveBeenCalled();
   });
 });

@@ -6,7 +6,11 @@
   "jest": {
     "verbose": true,
     "collectCoverageFrom": [
-      "client/**/*.(js|jsx)"
+      "client/**/*.(js|jsx)",
+      "!client/index.js"
+    ],
+    "testPathIgnorePatterns": [
+      "client/e2e/*.(js|jsx)"
     ],
     "setupFiles": [
       "./client/tests/jestSetup.js"
@@ -22,6 +26,7 @@
     "client:coverage": "jest --coverage client",
     "start": "./node_modules/.bin/nodemon --watch server --exec ./node_modules/.bin/babel-node server/bin/www",
     "start:selenium": "./node_modules/.bin/selenium-standalone start",
+    "e2e:setup": "selenium-standalone install",
     "e2e:test": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all && nightwatch"
   },
   "repository": {
@@ -68,6 +73,7 @@
     "express": "^4.15.3",
     "express-jwt": "^5.3.0",
     "express-mailer": "^0.3.1",
+    "express-validator": "^4.3.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "faker": "^4.1.0",
     "file-loader": "^1.1.5",
@@ -102,6 +108,7 @@
     "style-loader": "^0.18.2",
     "supertest": "^3.0.0",
     "sweetalert": "^2.0.8",
+    "toastr": "^2.1.4",
     "url-loader": "^0.6.2",
     "url-search-params-polyfill": "^2.0.0",
     "validator": "^8.0.0",

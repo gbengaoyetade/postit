@@ -5,31 +5,38 @@ import { Link } from 'react-router-dom';
 import UserNav from '../common/UserNav';
 import AppNav from '../common/AppNav';
 
+  /**
+   * @description Authentication HOC
+   *
+   * @param {jsx} Component -jsx component
+   *
+   * @returns {jsx} -return component
+  */
 export default (Component) => {
   let user, rightLinkObject;
 
   /**
    *
-   * @class AuthHoc
+   * @class AuthHOC
    *
-   * @extends { React.Component }
+   * @extends {React.Component}
    */
-  class AuthHoc extends React.Component {
+  class AuthHOC extends React.Component {
     /**
      *
-     * @returns { void } -returns nothing
+     * @returns {void} -returns nothing
      */
     componentWillMount() {
-      if (!localStorage.getItem('postitToken')) {
+      if (!localStorage.getItem('postitUser')) {
         this.props.history.push('/login');
       }
     }
 
     /**
      *
-     * @return { void }
+     * @return {void} -returns nothing
      *
-     * @memberof AuthHoc
+     * @memberof AuthHOC
      */
     componentDidMount() {
       $('.dropdown-button').dropdown();
@@ -39,18 +46,19 @@ export default (Component) => {
     /**
      * @description render function
      *
-     * @returns { object } -returns react element
+     * @returns {jsx} -jsx representation of the component
      */
     render() {
       user = JSON.parse(localStorage.getItem('postitUser'));
       rightLinkObject = (
         <Link
-        className='dropdown-button'
+        className='dropdown-button big'
         to='#'
         id="username"
         data-activates='userDropdown'
         >
-          {user.username}
+          {user.username}&nbsp;
+          <i className="fa fa-caret-down" ></i>
         </Link>
       );
       return (
@@ -67,13 +75,20 @@ export default (Component) => {
       );
     }
   }
-  AuthHoc.propTypes = {
+  AuthHOC.propTypes = {
     history: PropTypes.object.isRequired,
   };
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+   */
   const mapStateToProps = state => (
     {
       user: state.authReducer.user,
     }
   );
-  return connect(mapStateToProps)(AuthHoc);
+  return connect(mapStateToProps)(AuthHOC);
 };

@@ -5,7 +5,7 @@ import Nav from './common/Nav';
 /**
  * @description Home component
  *
- * @returns { object } -react element
+ * @returns {object} -react element
  */
 const Home = () => {
   const rightLinkObject = (

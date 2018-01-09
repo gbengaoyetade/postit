@@ -1,12 +1,14 @@
 import axios from 'axios';
+import toastr from 'toastr';
+import { tokenRedirect } from './userAuthActions';
 
 
 /**
  * @description unathorisedRedirect function
  *
- * @param { object } response -response object
+ * @param {object} response -response object
  *
- * @returns { boolean } -returns a boolean
+ * @returns {boolean} -returns a boolean
  */
 const unauthorisedRedirect = (response) => {
   if (response.status === 401) {
@@ -17,9 +19,9 @@ const unauthorisedRedirect = (response) => {
 
 /**
  *
- * @param { object } groups -groups object
+ * @param {object} groups -groups object
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 const getUserGroups = groups => (
   {
@@ -30,9 +32,9 @@ const getUserGroups = groups => (
 
 /**
  *
- * @param { object } message -message object
+ * @param {object} message -message object
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const postMessage = message => (
   {
@@ -43,9 +45,9 @@ export const postMessage = message => (
 
 /**
  *
- * @param { object } messages -message object
+ * @param {object} messages -message object
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const getUserGroupMessages = messages => (
   {
@@ -56,9 +58,22 @@ export const getUserGroupMessages = messages => (
 
 /**
  *
- * @param { boolean } payload -payload
+ * @param {boolean} gotMessages -gotMessages boolean
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
+ */
+export const getMessagesSuccess = gotMessages => (
+  {
+    type: 'GET_MESSAGES_SUCCESS',
+    gotMessages,
+  }
+);
+
+/**
+ *
+ * @param {boolean} payload -payload
+ *
+ * @returns {object} -return action object
  */
 export const getUserGroupsSuccess = payload => (
   {
@@ -69,9 +84,9 @@ export const getUserGroupsSuccess = payload => (
 
 /**
  *
- * @param { object } members -members object
+ * @param {object} members -members object
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const getGroupMembersAction = members => (
   {
@@ -81,9 +96,9 @@ export const getGroupMembersAction = members => (
 );
 /**
  *
- * @param { object } error -error message
+ * @param {object} error -error message
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const getUserGroupsError = error => (
   {
@@ -94,35 +109,35 @@ export const getUserGroupsError = error => (
 
 /**
  *
- * @param { boolean } memberAdded -memberAdded boolean input
+ * @param {object} memberDetails -memberAdded boolean input
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
-export const addMemberSuccess = memberAdded => (
+export const addMemberSuccess = memberDetails => (
   {
     type: 'ADD_MEMBER_SUCCESS',
-    memberAdded,
+    memberDetails,
   }
 );
 
 /**
  *
- * @param { boolean } messageSent -messageSent boolean input
+ * @param {object} messageDetails -messageSent boolean input
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
-export const sendMessageSuccess = messageSent => (
+export const sendMessageSuccess = messageDetails => (
   {
     type: 'SEND_MESSAGE_SUCCESS',
-    messageSent,
+    messageDetails,
   }
 );
 
 /**
  *
- * @param { boolean } leftGroup -leftGroup boolean input
+ * @param {boolean} leftGroup -leftGroup boolean input
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const leaveGroupSuccess = leftGroup => (
   {
@@ -133,9 +148,9 @@ export const leaveGroupSuccess = leftGroup => (
 
 /**
  *
- * @param { string } groupError - error message
+ * @param {string} groupError -error message
  *
- * @returns { object } -return action object
+ * @returns {object} -return action object
  */
 export const createGroupError = groupError => (
   {
@@ -143,68 +158,110 @@ export const createGroupError = groupError => (
     groupError,
   }
 );
+/**
+ *
+ * @param { array } groupDetails -group details array
+ *
+ * @returns {object} -returns action
+ */
+export const createNewGroup = groupDetails => (
+  {
+    type: 'CREATE_NEW_GROUP',
+    groupDetails
+  }
+);
 
+/**
+ *
+ * @param {object} groupDetails -details of the group
+ *
+ * @returns {object} -returns action
+ */
+const currentGroup = groupDetails => (
+  {
+    type: 'CURRENT_GROUP',
+    groupDetails
+  }
+);
+/**
+ *
+ * @param {number} groupId -id of the group
+ *
+ * @returns {object} -returns action
+ */
+export const groupLeft = groupId => (
+  {
+    type: 'GROUP_LEFT',
+    groupId,
+  }
+);
 
 /**
  * @description create group action
  *
- * @param { object } groupDetails -information about the group
- * @param { object } history -history object
+ * @param {object} groupDetails -information about the group
+ * @param {object} history -history object
  *
- * @returns { function } -returns a function
+ * @returns {promise} -returns a promise
  */
 export const createGroup = (groupDetails, history) => (
-  (dispatch) => {
-    axios.post('/api/group',
+  dispatch => axios.post('/api/group',
     groupDetails)
     .then(({ data }) => {
       // redirect user to the group he created
-      history.push(`/group/${data.groupId}`);
+      dispatch(createNewGroup(data.group));
+      history.push(`/group/${data.group.groupId}`);
     })
-    .catch((error) => {
-      if (
-        error.response.data.error.groupName
-        || error.response.data.error.groupDescription) {
-        dispatch(createGroupError('Maximum character exceeded'));
-      } else if (error.response.status === 409) {
+    .catch(({ response }) => {
+      tokenRedirect(response.data.error);
+      if (response.status === 409) {
         dispatch(createGroupError('Group already exist'));
+      } else if (response.data.error.groupDescription) {
+        toastr.error(response.data.error.groupDescription);
+      } else if (response.data.error.groupName) {
+        toastr.error(response.data.error.groupName);
+      } else {
+        toastr.error(response.data.error);
       }
-    });
-  }
+    })
 );
 
 /**
  * @description get groups a user belongs to
  *
- * @returns { function } -return function
+ * @returns {promise} -return function
  */
 export const getGroups = () => (
-  (dispatch) => {
+  dispatch => (
     axios.get('/api/group/user')
-    .then((groups) => {
-      dispatch(getUserGroups(groups.data.groups));
+    .then(({ data }) => {
+      dispatch(getUserGroups(data.groups));
     })
-    .catch(() => {
+    .catch(({ response }) => {
+      tokenRedirect(response.data.error);
       dispatch(getUserGroupsError(true));
-    });
-  }
+    })
+  )
 );
 
 /**
  * @description get group messages
  *
- * @param { number } groupId -group Id
+ * @param {number} groupId -group Id
  *
- * @returns { function } -returns a function
+ * @returns {promise} -returns a promise
  */
 export const getGroupMessages = groupId => (
   (dispatch) => {
-    axios.get(`/api/group/${groupId}/messages`)
+    dispatch(getMessagesSuccess(false));
+    return axios.get(`/api/group/${groupId}/messages`)
     .then((groups) => {
+      dispatch(getMessagesSuccess(true));
       dispatch(getUserGroupMessages(groups.data.messages));
     })
-    .catch((error) => {
-      unauthorisedRedirect(error.response);
+    .catch(({ response }) => {
+      unauthorisedRedirect(response);
+      toastr.error(response.data.error);
     });
   }
 );
@@ -212,57 +269,61 @@ export const getGroupMessages = groupId => (
 /**
  * @description get group members
  *
- * @param { number } groupId -group Id
+ * @param {number} groupId -group Id
  *
- * @returns { function } -returns a function
+ * @returns {promise} -returns a promise
  */
 export const getGroupMembers = groupId => (
-  (dispatch) => {
+  dispatch => (
     axios.get(`/api/group/${groupId}/users`)
-    .then((members) => {
-      dispatch(getGroupMembersAction(members.data));
+    .then(({ data }) => {
+      dispatch(getGroupMembersAction(data.members));
+      dispatch(currentGroup(data.group));
     })
-    .catch(() => {
-    });
-  }
+    .catch(({ response }) => {
+      unauthorisedRedirect(response);
+      toastr.error(response.data.error);
+    })
+  )
 );
 
 /**
  * @description get group messages
  *
- * @param { number } userId -user Id
- * @param { number } groupId -group Id
+ * @param {number} userId -user Id
+ * @param {number} groupId -group Id
  *
- * @returns { function } -returns a function
+ * @returns {promise} -returns a promise
  */
 export const addMember = (userId, groupId) => (
-  (dispatch) => {
+  dispatch => (
     axios.post(`/api/group/${groupId}/user`, { userId })
-    .then(() => {
-      // this is used to control automatic member
-      // appearance on the groupMembers section of the page
-      dispatch(addMemberSuccess(true));
+    .then(({ data }) => {
+      dispatch(addMemberSuccess(data.user));
     })
-    .catch(() => {
-    });
-  }
+    .catch(({ response }) => {
+      toastr.error(response.data.error);
+    })
+  )
 );
 
 /**
  * @description leave group
  *
- * @param { number } groupId -groupId
+ * @param {number} groupId -groupId
  *
- * @returns { function } -returns a function
+ * @returns {promise} -returns a promise
  */
 export const leaveGroup = groupId => (
   (dispatch) => {
     dispatch(leaveGroupSuccess(false));
-    axios.delete(`/api/group/${groupId}/leave`)
-    .then(() => {
+    return axios.delete(`/api/group/${groupId}/leave`)
+    .then(({ data }) => {
       dispatch(leaveGroupSuccess(true));
+      dispatch(groupLeft(data.groupId));
     })
-    .catch(() => {
+    .catch(({ response }) => {
+      toastr.error(response.data.error);
     });
   }
 );
@@ -270,20 +331,21 @@ export const leaveGroup = groupId => (
 /**
  * @description get group messages
  *
- * @param { number } groupId -group id
- * @param { object } message -message object
+ * @param {number} groupId -group id
+ * @param {object} message -message object
  *
- * @returns { function } -returns a function
+ * @returns {promise} -returns a promise
  */
 export const sendUserMessage = (groupId, message) => (
   (dispatch) => {
     const URL = `/api/group/${groupId}/message`;
-    axios.post(URL, message)
-    .then(() => {
-      dispatch(sendMessageSuccess(true));
+    return axios.post(URL, message)
+    .then(({ data }) => {
+      dispatch(sendMessageSuccess(data.message));
     })
-    .catch(() => {
+    .catch(({ response }) => {
       dispatch(sendMessageSuccess(false));
+      toastr.error(response.data.error);
     });
   }
 );

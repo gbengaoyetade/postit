@@ -7,10 +7,11 @@ import InputField from '../common/InputField';
 import SubmitButton from '../common/SubmitButton';
 
 /**
+ * @description SignupForm component
  *
- * @param { object } props -prop object
+ * @param {object} props -prop object
  *
- * @returns { object } -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const SignupForm = (props) => {
   let submitValue = '';
@@ -31,6 +32,7 @@ const SignupForm = (props) => {
             <p className="red-text">&nbsp; {props.error}</p>
             <form method="POST" action="#" onSubmit={props.handleSubmit}>
               <InputField
+              required= "required"
               type="text"
               name="fullName"
               labelValue="Full name"
@@ -43,6 +45,7 @@ const SignupForm = (props) => {
               &nbsp;{props.errors.fullName}
               </span>
               <InputField
+              required= "required"
               type="text"
               name="username"
               labelValue="Username"
@@ -55,6 +58,7 @@ const SignupForm = (props) => {
               &nbsp;{props.errors.username}
               </span>
               <InputField
+              required= "required"
               type="email"
               name="email"
               labelValue="Email"
@@ -67,6 +71,7 @@ const SignupForm = (props) => {
               &nbsp;{props.errors.email}
               </span>
               <InputField
+              required= "required"
               type="text"
               name="phoneNumber"
               labelValue="Phone Number"
@@ -79,6 +84,7 @@ const SignupForm = (props) => {
               id="phoneNumber-error">
               &nbsp;{props.errors.phoneNumber}</span>
               <InputField
+              required= "required"
               type="password"
               name="password"
               labelValue="Password"

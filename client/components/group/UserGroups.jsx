@@ -11,14 +11,14 @@ from '../../actions/groupActions';
  *
  * @extends {React.Component}
  */
-class UserGroups extends React.Component {
+export class UserGroups extends React.Component {
 
   /**
    * @description Creates an instance of UserGroups.
    *
-   * @param { object } props -prop object
+   * @param {object} props -prop object
    *
-   * @returns { void } -return nothing
+   * @returns {void} -return nothing
    */
   constructor(props) {
     super(props);
@@ -27,7 +27,7 @@ class UserGroups extends React.Component {
 
   /**
    *
-   *  @returns { void } -returns nothing
+   *  @returns {void} -returns nothing
    */
   componentDidMount() {
     this.props.getGroups();
@@ -36,9 +36,9 @@ class UserGroups extends React.Component {
   /**
    * @description gets group details
    *
-   * @param { number } groupId -id of the group
+   * @param {number} groupId -id of the group
    *
-   * @returns { void } -returns nothing
+   * @returns {void} -returns nothing
    */
   getGroupData(groupId) {
     this.props.getMessages(groupId);
@@ -48,25 +48,25 @@ class UserGroups extends React.Component {
   /**
    * @description render function
    *
-   * @returns {object} -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     let groups;
     let userGroups;
-    if (this.props.groups) {
+    if (this.props.groups.length > 0) {
       groups = this.props.groups;
       userGroups = (
         <ul className="collection">
           {groups.map(group => (
-            <li key={group.id} className="collection-item"><Link
-              to={`/group/${group.id}`}
+            <li key={group.id} className="collection-item">
+            <Link to={`/group/${group.id}`}
               onClick={() => this.getGroupData(group.id)}
             > {group.groupName} </Link> </li>
             ))}
         </ul>);
     }
     return (
-        <div className="">
+        <div>
           {userGroups}
         </div>
     );
@@ -79,11 +79,26 @@ UserGroups.propTypes = {
   getGroupMembers: PropTypes.func,
 };
 
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+  */
 const mapStateToProps = state => (
   {
     groups: state.groupReducer.groups,
   }
 );
+
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     getGroups: () => {

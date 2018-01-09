@@ -1,30 +1,41 @@
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+import { getId } from '../includes/helperFunctions';
+import models from '../models';
 
-dotenv.load();
+const { users } = models;
 const secret = process.env.TOKEN_SECRET;
 
 /**
  * @description Does token verification
  *
- * @param { object } req -request object
- * @param { object } res -response object
- * @param { function } next -next
+ * @param {object} req -request object
+ * @param {object} res -response object
+ * @param {promise} next -next
  *
- * @returns { void } -returns nothing
+ * @returns {void} -returns nothing
  */
 const authenticate = (req, res, next) => {
-  const userToken = req.query.token || req.headers['x-access-token'];
+  const userToken = req.headers['x-access-token'];
   if (userToken) {
     jwt.verify(userToken, secret, (error) => {
       if (error) {
         res.status(401).send({ error: 'Token authentication failure' });
       } else {
-        next();
+        req.id = getId(userToken);
+        users.findOne({
+          where: { id: req.id },
+          attributes: {
+            exclude: ['password', 'createdAt', 'updatedAt'],
+          },
+        })
+        .then((user) => {
+          req.currentUser = user;
+          next();
+        });
       }
     });
   } else {
-    res.status(400).send({ error: 'No token provided' });
+    res.status(401).send({ error: 'No token provided' });
   }
 };
 

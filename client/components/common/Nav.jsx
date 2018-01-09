@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 /**
  * @description Nav component
  *
- * @param { object } props -prop object
+ * @param {object} props -prop object
  *
- * @returns { object } -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const Nav = (props) => {
   // Check where postit logo links to.

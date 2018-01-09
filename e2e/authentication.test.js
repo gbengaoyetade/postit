@@ -45,6 +45,7 @@ module.exports = {
       .pause(1000)
       .assert.urlContains('http://localhost:3000/dashboard')
       .assert.containsText('div.postit-card p.header', 'Postit')
+      .assert.containsText('p.center.header', 'My Groups')
       .click('#username')
       .waitForElementVisible('#userDropdown', 1000);
   },
@@ -56,7 +57,8 @@ module.exports = {
     .click('#username')
     .waitForElementVisible('#logout', 3000)
     .click('#logout')
-    .assert.urlEquals('http://localhost:3000/login#');
+    .assert.urlEquals('http://localhost:3000/login')
+    .assert.containsText('h3.grey-text', 'Login');
   },
   'user cannot login when username and or password is incorrect':
   (browser) => {
@@ -103,7 +105,7 @@ module.exports = {
     .assert.urlEquals('http://localhost:3000/password/reset')
     .setValue('input[name=email]', email)
     .click('input[type=submit]')
-    .waitForElementVisible('div.progress', 3000)
+    .waitForElementVisible('div.progress', 7000)
     .waitForElementVisible('h2.center', 5000)
     .assert.urlEquals('http://localhost:3000/email/sent')
     .assert.containsText('h2.center', 'Mail Sent')

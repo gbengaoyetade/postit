@@ -1,25 +1,44 @@
 import messageReducer from '../../reducers/messageReducer';
+import InitialState from '../../reducers/InitialState';
 
 describe('messageReducer', () => {
-  const initialState = {};
-  it('should render initial state', () => {
-    expect(messageReducer(undefined, {}))
-    .toEqual(initialState);
-  });
-  it('should handle GET_USER_GROUP_MESSAGES', () => {
+  it('should render initial state when action type is unknown', () => {
     const action = {
-      type: 'GET_USER_GROUP_MESSAGES',
-      messages: ''
+      type: 'adfdf'
     };
-    expect(messageReducer({}, action))
-    .toEqual({ ...initialState, messages: '' });
+    const newstate = messageReducer(InitialState.message, action);
+    expect(newstate).toEqual(InitialState.message);
   });
-  it('should handle SEND_MESSAGE_SUCCESS', () => {
+  it('should handle SEND_MESSAGE_SUCCESS action type', () => {
     const action = {
       type: 'SEND_MESSAGE_SUCCESS',
-      messageSent: true
+      messageDetails: {
+        id: 25,
+        messageBody: 'hello world ',
+        messagePriority: 'Normal',
+        groupId: 18,
+        userId: 1,
+        createdAt: '2018-01-03T07:48:12.987Z',
+      }
     };
-    expect(messageReducer({}, action))
-    .toEqual({ ...initialState, messageSent: true });
+    const newstate = messageReducer(InitialState.message, action);
+    expect(newstate)
+    .toEqual({ ...InitialState.message, messages: [action.messageDetails] });
+  });
+  it('should handle GET_USER_GROUP_MESSAGES action type', () => {
+    const action = {
+      type: 'GET_USER_GROUP_MESSAGES',
+      messages: [{
+        id: 25,
+        messageBody: 'hello world ',
+        messagePriority: 'Normal',
+        groupId: 18,
+        userId: 1,
+        createdAt: '2018-01-03T07:48:12.987Z',
+      }]
+    };
+    const newstate = messageReducer(InitialState.message, action);
+    expect(newstate)
+    .toEqual({ ...InitialState.message, messages: action.messages });
   });
 });

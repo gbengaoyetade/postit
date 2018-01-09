@@ -1,10 +1,8 @@
 import React from 'react';
 import thunk from 'redux-thunk';
 import 'mock-local-storage';
-import { BrowserRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { ChangePassword } from '../../components/password/ChangePassword';
-import Nav from '../../components/common/Nav';
 
 const mockStore = configureStore([thunk]);
 
@@ -23,8 +21,9 @@ describe('ChangePassword component', () => {
   };
   const store = mockStore({ passwordReducer: {} });
   const wrapper = shallow(<ChangePassword {...props} store={store} />);
-  it('should render one Nav component', () => {
-    expect(wrapper.find(Nav).length).toBe(1);
+  it('should render correctly', () => {
+    expect(wrapper).toBeDefined();
+    expect(wrapper.getElement().type).toBe('div');
   });
   it('should have a handleChange method', () => {
     const handleChangeSpy = jest

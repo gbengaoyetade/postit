@@ -2,7 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { sendUserMessage, getGroupMessages, sendMessageSuccess }
+import moment from 'moment';
+import {
+  sendUserMessage,
+  getMessagesSuccess,
+  getGroupMessages,
+  sendMessageSuccess }
 from '../../actions/groupActions';
 import MessageForm from './MessageForm';
 
@@ -16,7 +21,7 @@ class Messages extends React.Component {
   /**
    * @description Creates an instance of Messages.
    *
-   * @param { object } props -prop object
+   * @param {object} props -prop object
    *
    * @memberof Messages
    */
@@ -32,7 +37,7 @@ class Messages extends React.Component {
 
   /**
    *
-   * @returns { void }
+   * @returns {void}
    */
   componentWillReceiveProps() {
     document.getElementById('scrollTo').scrollIntoView();
@@ -42,23 +47,22 @@ class Messages extends React.Component {
    *
    * @param { objet } event -event object
    *
-   * @returns { void }
+   * @returns {void} -returns nothing
    */
   handleChange(event) {
-    const value = event.target.value;
-    const name = event.target.name;
+    const { value, name } = event.target;
     this.setState({ [name]: value });
   }
   /**
    * @description handles form submission
    *
-   * @param { object } event -event object
+   * @param {object} event -event object
    *
-   * @returns { void } -returns nothing
+   * @returns {void} -returns nothing
    */
   handleSubmit(event) {
     event.preventDefault();
-    const groupId = this.props.groupId;
+    const { groupId } = this.props;
     this.props.sendUserMessage(groupId, this.state);
     this.setState({ messageBody: '' });
   }
@@ -66,16 +70,12 @@ class Messages extends React.Component {
   /**
    * @description render function
    *
-   * @returns { object } -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     let groupMessages = '';
-    if (this.props.sendMessageSuccess) {
-      this.props.getMessages(this.props.groupId);
-      this.props.setSendMessageSuccess(false);
-    }
-    if (this.props.messages) {
-      if (this.props.messages.length > 0) {
+    if (this.props.gotMessages) {
+      if (this.props.messages.length) {
         groupMessages = (
           <ul>
             {
@@ -85,6 +85,9 @@ class Messages extends React.Component {
                     <Link to="#">
                     {message.user.username}
                     </Link>
+                    <small className="right">
+                  {moment(message.createdAt).fromNow()}
+                  </small>
                   </p>
                   <p className="message-priority">
                     <span>Message priority: </span>
@@ -129,9 +132,9 @@ class Messages extends React.Component {
           <span id="scrollTo">&nbsp; </span>
         </div>
         <MessageForm
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        messageBody={this.state.messageBody}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          messageBody={this.state.messageBody}
         />
       </div>
     );
@@ -143,14 +146,30 @@ Messages.propTypes = {
   sendMessageSuccess: PropTypes.bool,
   getMessages: PropTypes.func,
   messages: PropTypes.object,
+  gotMessages: PropTypes.bool
 };
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+  */
 const mapStateToProps = state => (
   {
     messages: state.messageReducer.messages,
+    gotMessages: state.messageReducer.gotMessages,
     sendMessageSuccess: state.messageReducer.messageSent,
   }
 );
 
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     sendUserMessage: (message, groupId) => {
@@ -162,6 +181,9 @@ const mapDispatchToProps = dispatch => (
     getMessages: (groupId) => {
       dispatch(getGroupMessages(groupId));
     },
+    setGotMessages: () => {
+      dispatch(getMessagesSuccess());
+    }
   }
 );
 Messages.propTypes = {

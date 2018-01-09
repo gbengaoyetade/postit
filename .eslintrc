@@ -54,6 +54,7 @@
       "requireParamDescription": true,
       "requireReturnDescription": true
     }],
+    "prefer-destructuring": 1,
     "require-jsdoc": ["error", {
       "require": {
         "FunctionDeclaration": true,

@@ -1,15 +1,14 @@
+import InitialState from '../reducers/InitialState';
+
 /**
  * @description reducer for password actions
  *
- * @param { object } state -state object
- * @param { object } action -action object
+ * @param {object} state -state object
+ * @param {object} action -action object
  *
- * @returns { object } returns state object
+ * @returns {object} returns state object
  */
-const passwordReducer = (state =
-{ passwordUpdated: false,
-  emailError: ''
-}, action) => {
+const passwordReducer = (state = InitialState.password, action) => {
   switch (action.type) {
     case 'EMAIL_ERROR':
       return { ...state, emailError: action.emailError };

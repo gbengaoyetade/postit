@@ -1,34 +1,42 @@
 import passwordReducer from '../../reducers/passwordReducer';
+import InitialState from '../../reducers/InitialState';
+
 
 describe('passwordReducer', () => {
-  const initialState = {
-    passwordUpdated: false
-  };
-  it('should return an inital state', () => {
-    expect(passwordReducer(undefined, {})).toEqual(initialState);
+  it('should render initial state when action type is unknown', () => {
+    const action = {
+      type: 'adfdf'
+    };
+    const newstate = passwordReducer(InitialState.password, action);
+    expect(newstate).toEqual(InitialState.password);
   });
-  it('should handle EMAIL_ERROR', () => {
+  it('should handle EMAIL_ERROR action type', () => {
     const action = {
       type: 'EMAIL_ERROR',
-      emailError: ''
+      emailError: 'email error'
     };
-    expect(passwordReducer(initialState, action))
-    .toEqual({ ...initialState, emailError: '' });
+    const newstate = passwordReducer(InitialState.password, action);
+    expect(newstate)
+    .toEqual({ ...InitialState.password, emailError: action.emailError });
   });
-  it('should handle PASSWORD_UPDATED', () => {
+  it('should handle PASSWORD_UPDATED action type', () => {
     const action = {
       type: 'PASSWORD_UPDATED',
       passwordUpdated: true
     };
-    expect(passwordReducer(initialState, action))
-    .toEqual({ ...initialState, passwordUpdated: true });
+    const newstate = passwordReducer(InitialState.password, action);
+    expect(newstate)
+    .toEqual({
+      ...InitialState.password,
+      passwordUpdated: action.passwordUpdated });
   });
-  it('should handle PASSWORD_UPDATE_ERROR', () => {
+  it('should handle PASSWORD_UPDATE_ERROR action type', () => {
     const action = {
       type: 'PASSWORD_UPDATE_ERROR',
-      error: true,
+      error: 'password error'
     };
-    expect(passwordReducer(initialState, action))
-    .toEqual({ ...initialState, passwordUpdateError: true });
+    const newstate = passwordReducer(InitialState.password, action);
+    expect(newstate)
+    .toEqual({ ...InitialState.password, passwordUpdateError: action.error });
   });
 });

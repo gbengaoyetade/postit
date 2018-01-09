@@ -1,5 +1,5 @@
 
-export default(sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const groupMembers = sequelize.define('groupMembers', {
     userId: {
       type: DataTypes.INTEGER,

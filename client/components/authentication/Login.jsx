@@ -14,9 +14,9 @@ class Login extends React.Component {
   /**
    * @description Creates an instance of Login.
    *
-   * @param { object } props -prop object
+   * @param {object} props -prop object
    *
-   * @returns { void }
+   * @returns {void} -returns nothing
    */
   constructor(props) {
     super(props);
@@ -25,20 +25,22 @@ class Login extends React.Component {
     this.state = { password: '', username: '' };
   }
 /**
+ * @description handles onChange event
  *
- * @param { object } event -event element
+ * @param {object} event -event element
  *
- * @returns { void } -return nothing
+ * @returns {void} -return nothing
  */
-  handleChange(event) {
-    const name = event.target.name;
-    const value = event.target.value;
+  handleChange({ target }) {
+    const { name, value } = target;
     this.setState({ [name]: value });
   }
   /**
-   * @param { object } event - The event object
+   * @description handles submit event
    *
-   * @returns { void } -returns nothing
+   * @param {object} event - The event object
+   *
+   * @returns {void} -returns nothing
    */
   handleSubmit(event) {
     event.preventDefault();
@@ -48,7 +50,9 @@ class Login extends React.Component {
   }
 
   /**
-   * @returns { object } -returns a react element
+   * @description renders component
+   *
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     return (
@@ -70,6 +74,14 @@ Login.propTypes = {
   history: Proptypes.object.isRequired,
   user: Proptypes.object,
 };
+
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+  */
 const mapStateToProps = state => (
   {
     user: state.authReducer.user,
@@ -77,6 +89,14 @@ const mapStateToProps = state => (
     loginError: state.authReducer.loginError,
   }
 );
+
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     loginUser: (user, history) => {

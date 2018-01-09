@@ -8,16 +8,16 @@ import PropTypes from 'prop-types';
  *
  * @param {object} props -prop object
  *
- * @returns {object} -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const UserNav = (props) => {
   const logout = () => {
     localStorage.removeItem('postitUser');
     localStorage.removeItem('postitToken');
-    props.history.push('/login');
+    location.replace('/login');
   };
   return (
-  <div className="row">
+  <div className="">
       <nav className="transparent col-s12">
         <ul id='userDropdown' className='dropdown-content'>
           <li>
@@ -27,10 +27,20 @@ const UserNav = (props) => {
         <div className="nav-wrapper">
         <div>
           {/* Mobile links */}
-          <ul id="slide-out" className="side-nav grey">
+          <ul id="slide-out" className="side-nav">
           <p />
-          <li><Link to="/dashboard">Dashboard</Link></li>
-          <li><Link to="/group/create">Create Group</Link></li>
+          <li>
+            <Link to="/dashboard">
+            <i className="material-icons">home</i>
+            Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link to="/group/create">
+            <i className="material-icons">group_add</i>
+            Create Group
+            </Link>
+          </li>
         </ul>
       <Link
         to="#"

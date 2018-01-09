@@ -9,18 +9,19 @@ import {
   leaveGroup,
   leaveGroupSuccess } from '../../actions/groupActions';
 import Messages from '../message/Messages';
+import GroupMembers from './GroupMembers';
 
 /**
  * @class Group
  *
  * @extends {React.Component}
  */
-class Group extends React.Component {
+export class Group extends React.Component {
 
   /**
    * @description Creates an instance of Group.
    *
-   * @param { object } props -prop object
+   * @param {object} props -prop object
    *
    * @memberof Group
    */
@@ -31,17 +32,17 @@ class Group extends React.Component {
 
   /**
    *
-   * @returns { void }
+   * @returns {void} -returns nothing
    */
-  componentWillMount() {
-    const groupId = this.props.match.params.groupId;
+  componentDidMount() {
+    const { groupId } = this.props.match.params;
     this.props.getMessages(groupId, this.props.history);
     this.props.getGroupMembers(groupId);
   }
 
   /**
    *
-   * @returns { void }
+   * @returns {void}
    */
   componentWillUpdate() {
     $('.dropdown-button').dropdown();
@@ -50,7 +51,7 @@ class Group extends React.Component {
   /**
    * @description leave group function
    *
-   * @returns { void }
+   * @returns {void} -returns nothing
    */
   leaveGroup() {
     swal({
@@ -62,7 +63,7 @@ class Group extends React.Component {
     })
     .then((leave) => {
       if (leave) {
-        const groupId = this.props.match.params.groupId;
+        const { groupId } = this.props.match.params;
         this.props.leaveGroup(groupId);
       }
     });
@@ -71,7 +72,7 @@ class Group extends React.Component {
   /**
    * @description render function
    *
-   * @returns { object } -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     if (this.props.leftGroup) {
@@ -81,17 +82,17 @@ class Group extends React.Component {
         this.props.history.push('/dashboard');
       });
     }
-    const groupId = this.props.match.params.groupId;
+    const { groupId } = this.props.match.params;
     let numberOfGroupMembers;
     let groupName;
-    if (this.props.groupMembers) {
-      groupName = this.props.groupMembers.group.groupName;
-      numberOfGroupMembers = this.props.groupMembers.users.length;
+    if (this.props.groupMembers.length > 0) {
+      groupName = this.props.currentGroup.groupName;
+      numberOfGroupMembers = this.props.groupMembers.length;
     }
     return (
       <div>
         <div>
-        <div className="col s12 m6 component-container">
+        <div className="col s12 m7 component-container">
           <div className="dashboard-header">
           <Link
           to=""
@@ -107,7 +108,7 @@ class Group extends React.Component {
             {numberOfGroupMembers}
           </span>
           </span>
-          <span className="bold bold-text">
+          <span className="bold big">
             {groupName}
           </span>
           </div>
@@ -130,9 +131,10 @@ class Group extends React.Component {
                 </Link>
               </li>
             </ul>
-          <div className="col s12 m6 component-container">
+          <div className="col s12 m7 component-container">
             <Messages groupId={this.props.match.params.groupId} />
           </div>
+          <GroupMembers />
         </div>
       </div>
     );
@@ -141,20 +143,36 @@ class Group extends React.Component {
 Group.propTypes = {
   getGroupMembers: PropTypes.func.isRequired,
   getMessages: PropTypes.func.isRequired,
-  groupMembers: PropTypes.object,
+  groupMembers: PropTypes.array,
   match: PropTypes.object,
   leaveGroup: PropTypes.func,
   history: PropTypes.object,
   leftGroup: PropTypes.bool,
   leaveGroupSuccess: PropTypes.func.isRequired,
+  currentGroup: PropTypes.object,
 };
+/**
+ * @description Maps state to props
+ *
+ * @param {object} state -application state
+ *
+ * @returns {object} -returns part of the state
+*/
 const mapStateToProps = state => (
   {
     leftGroup: state.groupReducer.leftGroup,
     groupMembers: state.groupReducer.members,
+    currentGroup: state.groupReducer.currentGroup,
   }
 );
 
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     getMessages: (groupId, history) => {

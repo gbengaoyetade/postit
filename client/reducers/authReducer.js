@@ -1,12 +1,14 @@
+import InitialState from '../reducers/InitialState';
+
 /**
  * @description reducer for auth actions
  *
- * @param { object } state -state object
- * @param { object } action -action object
+ * @param {object} state -state object
+ * @param {object} action -action object
  *
- * @returns { object } returs state
+ * @returns {object} returns state
  */
-const authReducer = (state = {}, action) => {
+const authReducer = (state = InitialState.auth, action) => {
   switch (action.type) {
     case 'AUTHENTICATE_USER':
       return { ...state, user: action.user };

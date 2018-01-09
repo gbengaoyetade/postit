@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import validateSignUpInput from '../../../server/shared/validateSignUpInput';
-
 import { signupLoading, signupUser } from '../../actions/userAuthActions';
 import SignupForm from './SignupForm';
 
@@ -12,14 +11,14 @@ import SignupForm from './SignupForm';
  *
  * @extends { React.Component }
  */
-class Signup extends React.Component {
+export class Signup extends React.Component {
 
   /**
    * @description Creates an instance of Signup
    *
-   * @param { object } props -react props object
+   * @param {object} props -react props object
    *
-   * @returns { void } -return void
+   * @returns {void} -return nothing
    */
   constructor(props) {
     super(props);
@@ -28,9 +27,11 @@ class Signup extends React.Component {
     this.state = { errors: {} };
   }
   /**
-   * @param { object } event -event object
+   * @description handles onChange event
    *
-   * @returns { void } -returns nothing
+   * @param {object} event -event object
+   *
+   * @returns {void} -returns nothing
    */
   handleChange(event) {
     const value = event.target.value.trim();
@@ -38,9 +39,11 @@ class Signup extends React.Component {
     this.setState({ [name]: value });
   }
    /**
-   * @param { object } event -event objet
+   * @description handles submit event
    *
-   * @returns { void } -returns nothing
+   * @param {object} event -event objet
+   *
+   * @returns {void} -returns nothing
    */
   handleSubmit(event) {
     event.preventDefault();
@@ -54,8 +57,9 @@ class Signup extends React.Component {
     }
   }
   /**
+   * @description renders component
    *
-   * @returns { void } -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     return (
@@ -70,6 +74,13 @@ class Signup extends React.Component {
     );
   }
 }
+/**
+ * @description Maps state to props
+ *
+ * @param {object} state -application state
+ *
+ * @returns {object} -returns part of the state
+*/
 const mapStateToProps = state => (
   {
     user: state.authReducer.user,
@@ -77,6 +88,14 @@ const mapStateToProps = state => (
     isLoading: state.itemLoadingReducer.signupLoading,
   }
 );
+
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     signupUser: (user, history) => {

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 /**
- * @param { string } emailError -emailError string
+ * @param {string} emailError -emailError string
  *
- * @returns { object } -action object
+ * @returns {object} -action object
  */
 export const userEmailError = emailError => (
   {
@@ -13,9 +13,9 @@ export const userEmailError = emailError => (
 );
 
 /**
- * @param { boolean } sendingMail -sendingMail boolean
+ * @param {boolean} sendingMail -sendingMail boolean
  *
- * @returns { object } -action object
+ * @returns {object} -action object
  */
 export const emailSending = sendingMail => (
   {
@@ -25,9 +25,9 @@ export const emailSending = sendingMail => (
 );
 
 /**
- * @param { string } error -password update error
+ * @param {string} error -password update error
  *
- * @returns { object } -action object
+ * @returns {object} -action object
  */
 export const passwordResetError = error => (
   {
@@ -37,9 +37,9 @@ export const passwordResetError = error => (
 );
 
 /**
- * @param { boolean } passwordUpdated -passwordUpdated boolean
+ * @param {boolean} passwordUpdated -passwordUpdated boolean
  *
- * @returns { object } -action object
+ * @returns {object} -action object
  */
 export const updatePasswordSuccess = passwordUpdated => (
   {
@@ -51,23 +51,23 @@ export const updatePasswordSuccess = passwordUpdated => (
 /**
  * @description recover user password
  *
- * @param { string } email -user email
+ * @param {string} email -user email
  *
- * @returns { function } -action object
+ * @returns {promise} -action object
  */
 export const recoverPassword = email => (
   (dispatch) => {
     dispatch(passwordResetError(''));
     dispatch(emailSending(true));
     dispatch(userEmailError(''));
-    axios.post('/api/user/password/reset',
+    return axios.post('/api/user/password/reset',
     email)
     .then(() => {
       location.replace('/email/sent');
     })
-    .catch((error) => {
+    .catch(({ response }) => {
       dispatch(emailSending(false));
-      dispatch(userEmailError(error.response.data.error));
+      dispatch(userEmailError(response.data.error));
     });
   }
 );
@@ -75,22 +75,21 @@ export const recoverPassword = email => (
 /**
  * @description recover user password
  *
- * @param { string } password -user password
- * @param { string } token -user token
+ * @param {string} password -user password
+ * @param {string} token -user token
  *
- * @returns { function } -action object
+ * @returns {promise} -action object
  */
 export const updatePassword = (password, token) => (
-  (dispatch) => {
+  dispatch =>
     axios.post(`/api/user/password/update?token=${token}`,
     password)
-    .then((response) => {
-      if (response.data.token) {
+    .then(({ data }) => {
+      if (data.token) {
         dispatch(updatePasswordSuccess(true));
       }
     })
     .catch((error) => {
       dispatch(passwordResetError(error.response.data.error));
-    });
-  }
+    })
 );

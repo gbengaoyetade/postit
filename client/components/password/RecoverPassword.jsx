@@ -14,9 +14,9 @@ export class RecoverPassword extends React.Component {
   /**
    * @description Creates an instance of RecoverPassword.
    *
-   * @param { object } props - react props
+   * @param {object} props - react props
    *
-   * @returns { void } - return nothing
+   * @returns {void} - return nothing
    */
   constructor(props) {
     super(props);
@@ -29,9 +29,9 @@ export class RecoverPassword extends React.Component {
   /**
    * @description Handles form submission
    *
-   * @param { object } event -event object
+   * @param {object} event -event object
    *
-   * @returns { void } -return nothing
+   * @returns {void} -return nothing
    */
   handleSubmit(event) {
     event.preventDefault();
@@ -40,9 +40,9 @@ export class RecoverPassword extends React.Component {
   /**
    * @description Handles onChange event
    *
-   * @param { object } event -event object
+   * @param {object} event -event object
    *
-   * @returns { void } - return nothing
+   * @returns {void} - return nothing
    */
   handleChange(event) {
     const value = event.target.value;
@@ -53,7 +53,7 @@ export class RecoverPassword extends React.Component {
   /**
    * @description render function
    *
-   * @returns { object } -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
     return (
@@ -74,6 +74,13 @@ RecoverPassword.propTypes = {
   sending: PropTypes.bool,
 };
 
+  /**
+   * @description Maps state to props
+   *
+   * @param {object} state -application state
+   *
+   * @returns {object} -returns part of the state
+  */
 const mapStateToProps = state => (
   {
     email: state.passwordReducer,
@@ -81,6 +88,13 @@ const mapStateToProps = state => (
     sending: state.itemLoadingReducer.sendingMail,
   }
 );
+/**
+ * @description Maps dispatch to props
+ *
+ * @param {function} dispatch -dispatch function
+ *
+ * @returns {object} -actions to be dispatched
+ */
 const mapDispatchToProps = dispatch => (
   {
     sendEmail: (email) => {

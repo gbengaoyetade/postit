@@ -2,10 +2,9 @@ import React from 'react';
 import Nav from '../common/Nav';
 
 /**
- * @description Notfound component. It is
- * render for routes not belonging to the app
+ * @description Notfound component
  *
- * @returns { object } -returns react element
+ * @returns {jsx} -jsx representation of the component
  */
 const NotFound = () => (
   <div className="black-text">

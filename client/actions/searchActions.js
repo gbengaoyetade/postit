@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 axios.defaults.headers.common['x-access-token'] =
-window.localStorage.getItem('postitToken');
+localStorage.getItem('postitToken');
 
 /**
- * @param { object } searchResult -result from the search
+ * @param {object} searchResult -result from the search
  *
- * @returns { object } -return an object
+ * @returns {object} -returns action
  */
 export const searchResultSuccess = searchResult => (
   {
@@ -14,32 +14,45 @@ export const searchResultSuccess = searchResult => (
     searchResult,
   }
 );
+
+/**
+ * @param {string} error -error message
+ *
+ * @returns {object} -returns action
+ */
+const searchError = error => (
+  {
+    type: 'SEARCH_ERROR',
+    error,
+  }
+);
 /**
  * @description search user
  *
- * @param { object } userInput - userInput object
- * @param { number } offset -offset integer
+ * @param {object} userInput - userInput object
+ * @param {number} offset -offset integer
  *
- * @returns { function } returns a function
+ * @returns {promise} -returns a promise
  */
 export const searchUser = (userInput, offset) => (
   (dispatch) => {
     const headers = {
       'x-access-token': localStorage.postitToken,
     };
-    axios.get(
-      `/api/user/search?query=${userInput}&offset=${offset}&limit=${3}`,
+    return axios.get(
+      `/api/user/search?query=${userInput}&offset=${offset}&limit=${5}`,
     { headers })
-    .then((response) => {
+    .then(({ data }) => {
       dispatch(searchResultSuccess(
         {
-          users: response.data.users,
-          count: response.data.count,
-          pageCount: response.data.pageCount,
+          users: data.users,
+          count: data.count,
+          pageCount: data.pageCount,
         }
       ));
     })
-    .catch(() => {
+    .catch(({ response }) => {
+      dispatch(searchError(response.data.error));
     });
   }
 );

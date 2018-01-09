@@ -6,21 +6,22 @@ import moment from 'moment';
 
 /**
  * @description Dashboard class
+ *
  * @class Dashboard
+ *
  * @extends {React.Component}
  */
-class Dashboard extends React.Component {
+export class Dashboard extends React.Component {
 
   /**
    * @description render fucntion
    *
-   * @returns {object} -returns react element
+   * @returns {jsx} -jsx representation of the component
    */
   render() {
-    let groups;
+    const { groups } = this.props;
     let userGroups;
-    if (this.props.groups.groups) {
-      groups = this.props.groups.groups;
+    if (this.props.groups.length > 0) {
       userGroups = (
         groups.map(group => (
           <div className="postit-card col m3 s5" key={group.id}>
@@ -43,7 +44,8 @@ class Dashboard extends React.Component {
     }
     return (
       <div>
-        <div className="col m6 s12 component-container">
+        <div
+          className="col m7 offset-m1 s12 component-container groups-display">
           <p className="center header">My Groups</p>
           <div className="divider"/>
           {userGroups}
@@ -54,12 +56,19 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  groups: PropTypes.object.isRequired,
+  groups: PropTypes.array.isRequired,
 };
 
+/**
+ * @description Maps state to props
+ *
+ * @param {object} state -application state
+ *
+ * @returns {object} -returns part of the state
+*/
 const mapStateToProps = state => (
   {
-    groups: state.groupReducer,
+    groups: state.groupReducer.groups,
   }
 );
 
