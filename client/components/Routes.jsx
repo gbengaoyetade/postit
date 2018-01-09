@@ -9,7 +9,7 @@ import Welcome from './Home';
 import Recover from './password/RecoverPassword';
 import ChangePassword from './password/ChangePassword';
 import MailSent from './password/MailSent';
-import AuthHoc from './authentication/AuthHoc';
+import AuthHOC from './authentication/AuthHOC';
 import NewGroup from './group/CreateGroup';
 import Addmembers from './group/AddMembers';
 import ErrorPage from './errors/Error';
@@ -28,12 +28,12 @@ const Routes = () => (
       <Route path="/password/reset" component={Recover} />
       <Route path="/password/update" component={ChangePassword} />
       <Route path="/email/sent" component={MailSent} />
-      <Route path="/dashboard" component={AuthHoc(Dashboard)} />
+      <Route path="/dashboard" component={AuthHOC(Dashboard)} />
       <Route exact path="/group/:groupId/addmembers"
-        component={AuthHoc(Addmembers)} />
-      <Route exact path="/group/create" component={AuthHoc(NewGroup)} />
-      <Route exact path="/group/:groupId" component={AuthHoc(Group)} />
-      <Route exact path="/error" component={AuthHoc(ErrorPage)} />
+        component={AuthHOC(Addmembers)} />
+      <Route exact path="/group/create" component={AuthHOC(NewGroup)} />
+      <Route exact path="/group/:groupId" component={AuthHOC(Group)} />
+      <Route exact path="/error" component={AuthHOC(ErrorPage)} />
       <Route path="*" component={NotFound} />
     </Switch>
   </BrowserRouter>

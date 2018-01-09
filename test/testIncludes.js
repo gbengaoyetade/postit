@@ -36,13 +36,13 @@ export const seedDatabase = () => {
     truncate: true,
     restartIdentity: true,
   });
-  const userDetails1 = {
+  const userOneDetails = {
     fullName: 'Gbenga Oyetade',
     username: 'apptest',
     password: 'some password',
     email: 'apptest@gmail.com',
     phoneNumber: '+2348064140695' };
-  const userDetails2 = {
+  const userTwoDetails = {
     fullName: 'Gbenga Oyetade',
     username: 'apptest2',
     password: 'some password',
@@ -61,8 +61,8 @@ export const seedDatabase = () => {
     userId: 1,
     messageBody: 'message body',
     messagePriority: 'Normal' };
-  users.create(userDetails1);
-  users.create(userDetails2);
+  users.create(userOneDetails);
+  users.create(userTwoDetails);
   groups.create(group);
   groups.create(group2)
   .then((groupData) => {
@@ -78,22 +78,22 @@ export const seedDatabase = () => {
  * @returns {object} -returns tokens
  */
 export const tokens = () => {
-  const userDetailsWithId = {
+  const userOneWithId = {
     fullName: 'Gbenga Oyetade',
     username: 'apptest',
     password: 'some password',
     email: 'apptest@gmail.com',
     phoneNumber: '+2348064140695',
     id: 1 };
-  const userDetailsWithId2 = {
+  const userTwoWithId = {
     fullName: 'Gbenga Oyetade',
     username: 'apptest2',
     password: 'some password',
     email: 'apptest@gmail.com',
     phoneNumber: '+2348064140695',
     id: 2 };
-  const token1 = generateToken(userDetailsWithId);
-  const token2 = generateToken(userDetailsWithId2);
-  return { token1, token2 };
+  const firstUserToken = generateToken(userOneWithId);
+  const secondUserToken = generateToken(userTwoWithId);
+  return { firstUserToken, secondUserToken };
 };
 

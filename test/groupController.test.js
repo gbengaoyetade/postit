@@ -5,7 +5,7 @@ import { tokens, seedDatabase } from './testIncludes';
 
 
 // Test for the group controller
-const { token1, token2 } = tokens();
+const { firstUserToken, secondUserToken } = tokens();
 describe('Create group', () => {
   before((done) => {
     seedDatabase();
@@ -13,7 +13,7 @@ describe('Create group', () => {
   });
   it('should send error message when required fields are missing',
   (done) => {
-    supertest(app).post('/api/group').set('x-access-token', token1).send()
+    supertest(app).post('/api/group').set('x-access-token', firstUserToken).send()
     .end((err, res) => {
       assert.equal(res.statusCode, 400);
       assert.equal(res.body.error.groupName, 'groupName field is required');
@@ -27,7 +27,7 @@ describe('Create group', () => {
       groupName: '  ',
       groupDescription: 'description',
       createdBy: 1 };
-    supertest(app).post('/api/group').set('x-access-token', token1)
+    supertest(app).post('/api/group').set('x-access-token', firstUserToken)
     .send(groupData)
     .end((err, res) => {
       assert.equal(res.body.error.groupName, 'Expects a string of alphabets');
@@ -38,7 +38,7 @@ describe('Create group', () => {
   it('Should send error message when group description field is not provided',
   (done) => {
     const groupData = { groupName: 'react leaders' };
-    supertest(app).post('/api/group').set('x-access-token', token1)
+    supertest(app).post('/api/group').set('x-access-token', firstUserToken)
     .send(groupData)
     .end((err, res) => {
       assert.equal(res.body.error.groupDescription,
@@ -50,7 +50,7 @@ describe('Create group', () => {
     const groupData = {
       groupName: 'group name',
       groupDescription: ' ' };
-    supertest(app).post('/api/group').set('x-access-token', token1)
+    supertest(app).post('/api/group').set('x-access-token', firstUserToken)
     .send(groupData)
     .end((err, res) => {
       assert.equal(res.statusCode, 400);
@@ -63,7 +63,7 @@ describe('Create group', () => {
     const groupData = {
       groupName: 'test group 2',
       groupDescription: 'test group description' };
-    supertest(app).post('/api/group').set('x-access-token', token1)
+    supertest(app).post('/api/group').set('x-access-token', firstUserToken)
     .send(groupData)
     .end((err, res) => {
       assert.equal(res.statusCode, 201);
@@ -77,7 +77,7 @@ describe('Create group', () => {
     const groupData = {
       groupName: 'test group 2',
       groupDescription: 'description' };
-    supertest(app).post('/api/group').set('x-access-token', token1)
+    supertest(app).post('/api/group').set('x-access-token', firstUserToken)
     .send(groupData)
     .end((err, res) => {
       assert.equal(res.statusCode, 409);
@@ -88,7 +88,7 @@ describe('Create group', () => {
 });
 describe('getGroupMembers', () => {
   it('should send error when groupId is not a number', (done) => {
-    supertest(app).get('/api/group/k/users').set('x-access-token', token1)
+    supertest(app).get('/api/group/k/users').set('x-access-token', firstUserToken)
     .send()
     .end((err, res) => {
       assert.equal(res.statusCode, 400);
@@ -97,7 +97,7 @@ describe('getGroupMembers', () => {
     });
   });
   it('should return group members when inputs are valid', (done) => {
-    supertest(app).get('/api/group/2/users').set('x-access-token', token2)
+    supertest(app).get('/api/group/2/users').set('x-access-token', secondUserToken)
     .send()
     .end((err, res) => {
       assert.equal(res.statusCode, 200);
@@ -110,7 +110,7 @@ describe('getGroupMembers', () => {
 describe('Add member', () => {
   it('should send error message when user does not exist', (done) => {
     const groupData = { userId: 56 };
-    supertest(app).post('/api/group/1/user').set('x-access-token', token1)
+    supertest(app).post('/api/group/1/user').set('x-access-token', firstUserToken)
     .send(groupData)
     .end((err, res) => {
       assert.equal(res.statusCode, 404);
@@ -121,7 +121,7 @@ describe('Add member', () => {
   it('should add user to a group when inputs are valid',
   (done) => {
     const groupData = { userId: 2 };
-    supertest(app).post('/api/group/3/user').set('x-access-token', token1)
+    supertest(app).post('/api/group/3/user').set('x-access-token', firstUserToken)
     .send(groupData)
     .end((err, res) => {
       assert.equal(res.body.message, 'User successfully added to group');
@@ -134,7 +134,7 @@ describe('Add member', () => {
   it('should send error message when user is already a member of the group',
   (done) => {
     const groupData = { userId: 2 };
-    supertest(app).post('/api/group/3/user').set('x-access-token', token1)
+    supertest(app).post('/api/group/3/user').set('x-access-token', firstUserToken)
     .send(groupData)
     .end((err, res) => {
       assert.equal(res.statusCode, 409);
@@ -143,7 +143,7 @@ describe('Add member', () => {
     });
   });
   it('should send error message when groupId not a number', (done) => {
-    supertest(app).get('/api/group/3ttt/users').set('x-access-token', token1)
+    supertest(app).get('/api/group/3ttt/users').set('x-access-token', firstUserToken)
     .send()
     .end((err, res) => {
       assert.isOk(res.body.error);
@@ -156,7 +156,7 @@ describe('Add member', () => {
 describe('Leave group', () => {
   it('should send error message when group does not exist', (done) => {
     supertest(app).delete('/api/group/10789/leave')
-    .set('x-access-token', token1).send()
+    .set('x-access-token', firstUserToken).send()
     .end((err, res) => {
       assert.equal(res.statusCode, 404);
       assert.equal(res.body.error, 'Group does not exist');
@@ -165,7 +165,7 @@ describe('Leave group', () => {
   });
   it('should send error message when user does not belong to group', (done) => {
     supertest(app).delete('/api/group/2/leave')
-    .set('x-access-token', token1).send()
+    .set('x-access-token', firstUserToken).send()
     .end((err, res) => {
       assert.equal(res.statusCode, 403);
       assert.equal(res.body.error, 'User not a member of the group');
@@ -174,7 +174,7 @@ describe('Leave group', () => {
   });
   it('should remove user from group if he belongs to the group',
   (done) => {
-    supertest(app).delete('/api/group/2/leave').set('x-access-token', token2)
+    supertest(app).delete('/api/group/2/leave').set('x-access-token', secondUserToken)
     .send()
     .end((err, res) => {
       assert.equal(res.body.message, 'User left group');
@@ -184,7 +184,7 @@ describe('Leave group', () => {
   });
   it('should send error message when user is not a group member',
   (done) => {
-    supertest(app).delete('/api/group/2/leave').set('x-access-token', token1)
+    supertest(app).delete('/api/group/2/leave').set('x-access-token', firstUserToken)
     .send()
     .end((err, res) => {
       assert.equal(res.body.error, 'User not a member of the group');

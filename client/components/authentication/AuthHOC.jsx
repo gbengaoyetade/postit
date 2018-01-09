@@ -17,17 +17,17 @@ export default (Component) => {
 
   /**
    *
-   * @class AuthHoc
+   * @class AuthHOC
    *
    * @extends {React.Component}
    */
-  class AuthHoc extends React.Component {
+  class AuthHOC extends React.Component {
     /**
      *
      * @returns {void} -returns nothing
      */
     componentWillMount() {
-      if (!localStorage.getItem('postitToken')) {
+      if (!localStorage.getItem('postitUser')) {
         this.props.history.push('/login');
       }
     }
@@ -36,7 +36,7 @@ export default (Component) => {
      *
      * @return {void} -returns nothing
      *
-     * @memberof AuthHoc
+     * @memberof AuthHOC
      */
     componentDidMount() {
       $('.dropdown-button').dropdown();
@@ -75,7 +75,7 @@ export default (Component) => {
       );
     }
   }
-  AuthHoc.propTypes = {
+  AuthHOC.propTypes = {
     history: PropTypes.object.isRequired,
   };
   /**
@@ -90,5 +90,5 @@ export default (Component) => {
       user: state.authReducer.user,
     }
   );
-  return connect(mapStateToProps)(AuthHoc);
+  return connect(mapStateToProps)(AuthHOC);
 };

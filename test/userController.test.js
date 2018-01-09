@@ -5,7 +5,7 @@ import database from '../server/models/';
 import { tokens } from './testIncludes';
 
 const { groups, groupMembers } = database;
-const { token1 } = tokens();
+const { firstUserToken } = tokens();
 describe('Signup', () => {
   it('should send error message when email is invalid', (done) => {
     const wrongEmail = {
@@ -283,7 +283,7 @@ describe('Update password', () => {
 describe('User search', () => {
   it('should send error message when query field is not provided', (done) => {
     supertest(app).get('/api/user/search?')
-    .set('x-access-token', token1)
+    .set('x-access-token', firstUserToken)
     .send()
     .end((err, res) => {
       assert.equal(res.statusCode, 400);
@@ -293,7 +293,7 @@ describe('User search', () => {
   });
   it('should return an array of users when params are valid', (done) => {
     supertest(app).get('/api/user/search?query=test2&offset=0')
-    .set('x-access-token', token1)
+    .set('x-access-token', firstUserToken)
     .send()
     .end((err, res) => {
       assert.equal(res.statusCode, 200);
@@ -306,7 +306,7 @@ describe('User search', () => {
   });
   it('should return 0 as pageCount when limit is not provided', (done) => {
     supertest(app).get('/api/user/search?query=gb&offset=0')
-    .set('x-access-token', token1)
+    .set('x-access-token', firstUserToken)
     .send()
     .end((err, res) => {
       assert.equal(res.statusCode, 200);
@@ -323,7 +323,7 @@ describe('server', () => {
       groupName: 'group name 2',
       groupDescription: 'description' };
     groupMembers.create = () => Promise.reject('dsfafd');
-    supertest(app).post('/api/group').set('x-access-token', token1)
+    supertest(app).post('/api/group').set('x-access-token', firstUserToken)
     .send(groupDetails)
     .end((err, res) => {
       assert.equal(res.statusCode, 500);
@@ -337,7 +337,7 @@ describe('server', () => {
       groupName: 'group name 2',
       groupDescription: 'description' };
     groups.create = () => Promise.reject('dsfafd');
-    supertest(app).post('/api/group').set('x-access-token', token1)
+    supertest(app).post('/api/group').set('x-access-token', firstUserToken)
     .send(groupDetails)
     .end((err, res) => {
       assert.equal(res.statusCode, 500);
@@ -351,7 +351,7 @@ describe('server', () => {
       groupName: 'group name 2',
       groupDescription: 'description' };
     groups.find = () => Promise.reject('dsfafd');
-    supertest(app).post('/api/group').set('x-access-token', token1)
+    supertest(app).post('/api/group').set('x-access-token', firstUserToken)
     .send(groupDetails)
     .end((err, res) => {
       assert.equal(res.statusCode, 500);

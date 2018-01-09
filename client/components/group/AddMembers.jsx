@@ -74,7 +74,7 @@ export class AddMembers extends React.Component {
    * @returns {void}
    */
   addMember(userId) {
-    const groupId = this.props.match.params.groupId;
+    const { groupId } = this.props.match.params;
     this.props.addMember(userId, groupId);
   }
 
@@ -97,7 +97,7 @@ export class AddMembers extends React.Component {
     // show search result only when input length is greater than 1 and
     // there is some search result to show
       if (searchResultArray.length > 0 && this.state.userInput.length > 0) {
-        const pageCount = this.props.searchResult.pageCount;
+        const { pageCount } = this.props.searchResult;
         searchResult = (
           <div>
           <ul className="collection" id="search-results">

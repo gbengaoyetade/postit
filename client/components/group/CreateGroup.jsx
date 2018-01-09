@@ -14,7 +14,7 @@ export class CreateGroup extends React.Component {
   /**
    * @description Creates an instance of CreateGroup.
    *
-   * @returns {void}
+   * @returns {void} -returns nothing
    */
   constructor() {
     super();
@@ -28,7 +28,7 @@ export class CreateGroup extends React.Component {
 
   /**
    *
-   * @return {void}
+   * @return {void} -returns nothing
    */
   componentDidMount() {
     this.props.createGroupError('');
