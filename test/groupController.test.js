@@ -3,7 +3,7 @@ import supertest from 'supertest';
 import app from '../server/app';
 import { tokens, seedDatabase } from './testIncludes';
 
-
+const appHolder = supertest(app);
 // Test for the group controller
 const { firstUserToken, secondUserToken } = tokens();
 describe('Create group', () => {
@@ -153,7 +153,31 @@ describe('Add member', () => {
     });
   });
 });
+
+describe('Delete group', () => {
+  it('should send error message when user is not the group creator', (done) => {
+    appHolder.delete('/api/group/3/delete').set('x-access-token', token2)
+    .send()
+    .end((err, res) => {
+      assert.equal(res.statusCode, 403);
+      assert.equal(res.body.error, 'You did not create this group');
+
+      done();
+    });
+  });
+  it('should delete group when all conditions are satisfied', (done) => {
+    supertest(app).delete('/api/group/3/delete').set('x-access-token', token1)
+    .send()
+    .end((err, res) => {
+      assert.equal(res.statusCode, 200);
+      assert.equal(res.body.message, 'Group deleted successfully');
+      done();
+    });
+  });
+});
+
 describe('Leave group', () => {
+
   it('should send error message when group does not exist', (done) => {
     supertest(app).delete('/api/group/10789/leave')
     .set('x-access-token', firstUserToken).send()
@@ -163,6 +187,7 @@ describe('Leave group', () => {
       done();
     });
   });
+
   it('should send error message when user does not belong to group', (done) => {
     supertest(app).delete('/api/group/2/leave')
     .set('x-access-token', firstUserToken).send()
@@ -172,6 +197,7 @@ describe('Leave group', () => {
       done();
     });
   });
+
   it('should remove user from group if he belongs to the group',
   (done) => {
     supertest(app).delete('/api/group/2/leave').set('x-access-token', secondUserToken)
@@ -182,6 +208,7 @@ describe('Leave group', () => {
       done();
     });
   });
+
   it('should send error message when user is not a group member',
   (done) => {
     supertest(app).delete('/api/group/2/leave').set('x-access-token', firstUserToken)
