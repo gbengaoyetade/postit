@@ -3,7 +3,12 @@ import { signUp, signIn, resetPassword, updatePassword, userSearch }
 from './controllers/userController';
 import routeValidation from './includes/routeValidation';
 import {
-    createGroup, addMembers, getGroups, leaveGroup, getGroupMembers, deleteGroup }
+    createGroup,
+    addMembers,
+    getGroups,
+    leaveGroup,
+    getGroupMembers,
+    deleteGroup }
 from './controllers/groupController';
 import { createMessage, getMessages } from './controllers/messageController';
 import authenticate from './middleware/authenticate';

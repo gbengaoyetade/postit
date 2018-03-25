@@ -197,7 +197,9 @@ export const deleteGroup = (req, res) => {
       where: { id }
     })
     .then((deletedGroup) => {
-      res.send({ message: 'Group deleted successfully', groupdId: deletedGroup });
+      res.send({
+        message: 'Group deleted successfully',
+        groupdId: deletedGroup });
     })
     .catch(() => {
       res.status(500).send({ error: 'Internal server error' });

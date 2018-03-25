@@ -177,7 +177,6 @@ describe('Delete group', () => {
 });
 
 describe('Leave group', () => {
-
   it('should send error message when group does not exist', (done) => {
     supertest(app).delete('/api/group/10789/leave')
     .set('x-access-token', firstUserToken).send()
