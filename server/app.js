@@ -46,5 +46,8 @@ app.get('*', (req, res) => {
 app.post('*', (req, res) => {
   res.status(404).json({ error: 'URL does not exist on this server' });
 });
+app.delete('*', (req, res) => {
+  res.status(404).json({ error: 'URL does not exist on this server' });
+});
 export default app;
 
