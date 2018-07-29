@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export default (sequelize, DataTypes) => {
   const users = sequelize.define('users', {
@@ -9,8 +9,9 @@ export default (sequelize, DataTypes) => {
       validate: {
         is: {
           args: /^[a-zA-Z0-9_]*$/,
-          msg: 'Username cannot contain special characters aside from _' },
-      },
+          msg: 'Username cannot contain special characters aside from _'
+        }
+      }
     },
     fullName: {
       type: DataTypes.STRING,
@@ -18,31 +19,32 @@ export default (sequelize, DataTypes) => {
       validate: {
         is: {
           args: /^[a-zA-Z ]*$/,
-          msg: 'Name can only contain alphabets' },
-      },
+          msg: 'Name can only contain alphabets'
+        }
+      }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isEmail: { value: true, msg: 'Invalid email address supplied' },
-      },
+        isEmail: { value: true, msg: 'Invalid email address supplied' }
+      }
     },
     phoneNumber: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: { value: true, msg: 'Phonenumber is required' },
-      },
+        notEmpty: { value: true, msg: 'Phonenumber is required' }
+      }
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: { args: [6, 100], msg: 'Password must be at least 6 characters' },
-        notEmpty: { value: true, msg: 'Password cannot be empty' },
-      },
-    },
+        notEmpty: { value: true, msg: 'Password cannot be empty' }
+      }
+    }
   });
 
   users.beforeCreate((user) => {
@@ -54,7 +56,7 @@ export default (sequelize, DataTypes) => {
     users.belongsToMany(models.groups, {
       through: models.groupMembers,
       foreingKey: 'userId',
-      onDelete: 'cascade',
+      onDelete: 'cascade'
     });
     users.hasMany(models.messages);
   };

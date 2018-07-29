@@ -1,64 +1,45 @@
-
-const webpack = require('webpack');
+const webpack = require('webpack'); // eslint-disable-line
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // eslint-disable-line
 
 module.exports = {
-  devtool: 'source-map',
-  entry: './client/index.js',
+  entry: ['./client/index.js'],
+  target: 'web',
   output: {
-    path: path.resolve('./client/bundled'),
-    filename: 'bundle.js',
-    publicPath: '/',
+    path: path.resolve('./client/dist'),
+    filename: 'main.js',
+    publicPath: '/'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(js|jsx)$/,
         include: [
           path.join(__dirname, 'client'),
           path.join(__dirname, '/server/shared/')
         ],
-        loaders: ['babel-loader'],
+        use: ['babel-loader']
       },
       {
         test: /\.scss$/,
         include: /client/,
-        loaders: 'style-loader!css-loader!sass-loader',
+        use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
-        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: 'bundle.[ext]',
-        },
-      },
-    ],
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [{ loader: 'file-loader' }]
+      }
+    ]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx', '.json']
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        screw_ie8: true,
-        conditionals: true,
-        unused: true,
-        comparisons: true,
-        sequences: true,
-        dead_code: true,
-        evaluate: true,
-        if_return: true,
-        join_vars: true,
-      },
-      output: {
-        comments: false,
-      },
-    }),
-    new webpack.HashedModuleIdsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
+    new HtmlWebpackPlugin({
+      template: './client/index.html',
+      filename: './index.html'
+    })
   ],
+
+  mode: 'production'
 };

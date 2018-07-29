@@ -20,13 +20,11 @@
     "Materialize": true,
     "jest": true
   },
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js",".jsx"]
+        "extensions": [".js", ".jsx"]
       }
     }
   },
@@ -48,20 +46,25 @@
     "curly": ["error", "multi-line"],
     "import/no-unresolved": [2, { "commonjs": true }],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
-    "valid-jsdoc": ["error", {
-      "requireReturn": true,
-      "requireReturnType": true,
-      "requireParamDescription": true,
-      "requireReturnDescription": true
-    }],
-    "prefer-destructuring": 1,
-    "require-jsdoc": ["error", {
-      "require": {
-        "FunctionDeclaration": true,
-        "MethodDefinition": true,
-        "ClassDeclaration": true
+    "valid-jsdoc": [
+      "error",
+      {
+        "requireReturn": true,
+        "requireReturnType": true,
+        "requireParamDescription": true,
+        "requireReturnDescription": true
       }
-    }],
+    ],
+    "require-jsdoc": [
+      "error",
+      {
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": true
+        }
+      }
+    ],
     "react/jsx-uses-vars": [2],
     "react/jsx-uses-react": "error",
     "react/prop-types": 1

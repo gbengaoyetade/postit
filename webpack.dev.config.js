@@ -1,49 +1,37 @@
-
-const webpack = require('webpack');
+const webpack = require('webpack'); // eslint-disable-line
 const path = require('path');
 
 module.exports = {
-  devtool: 'eval-source-map',
   entry: ['webpack-hot-middleware/client', './client/index.js'],
   output: {
-    path: path.resolve('./client/bundled'),
-    filename: 'bundle.js',
-    publicPath: '/',
+    path: path.resolve('./client/dist'),
+    filename: 'main.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(js|jsx)$/,
         include: [
           path.join(__dirname, 'client'),
           path.join(__dirname, '/server/shared/')
         ],
-        loaders: ['babel-loader'],
+        use: ['babel-loader']
       },
       {
         test: /\.scss$/,
         include: /client/,
-        loaders: 'style-loader!css-loader!sass-loader',
+        use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
-        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: 'bundle.[ext]',
-        },
-      },
-    ],
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [{ loader: 'file-loader' }]
+      }
+    ]
   },
+  plugins: [new webpack.HotModuleReplacementPlugin()],
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx', '.json']
   },
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-      debug: true,
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-  ],
+
+  mode: 'development'
 };

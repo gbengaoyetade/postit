@@ -3,21 +3,21 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import * as actions from '../../actions/groupActions';
 
-const mockStore = configureMockStore([
-  thunk
-]);
+const mockStore = configureMockStore([thunk]);
 const mockGroup = {
   groupId: 19,
   groupName: 'create group',
   groupDescription: 'new group',
-  createdBy: 1,
+  createdBy: 1
 };
-const mockGroups = [{
-  groupId: 19,
-  groupName: 'create group',
-  groupDescription: 'new group',
-  createdBy: 1,
-}];
+const mockGroups = [
+  {
+    groupId: 19,
+    groupName: 'create group',
+    groupDescription: 'new group',
+    createdBy: 1
+  }
+];
 const mockMessages = [
   {
     id: 2,
@@ -32,7 +32,7 @@ const mockMessages = [
       fullName: 'Agbo amarachi',
       email: 'amarachi@gmail.com',
       phoneNumber: '08064140695'
-    },
+    }
   }
 ];
 const mockMembers = {
@@ -56,6 +56,7 @@ const mockError = 'Group already exist';
 describe('Group Actions', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
+
   it('dispatches CREATE_NEW_GROUP when create group is successful', () => {
     moxios.stubRequest('/api/group', {
       status: 200,
@@ -65,8 +66,7 @@ describe('Group Actions', () => {
       { type: 'CREATE_NEW_GROUP', groupDetails: mockGroup }
     ];
     const store = mockStore({});
-    return store.dispatch(actions.createGroup({}, mockHistory))
-    .then(() => {
+    return store.dispatch(actions.createGroup({}, mockHistory)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
@@ -79,8 +79,7 @@ describe('Group Actions', () => {
       { type: 'CREATE_GROUP_ERROR', groupError: mockError }
     ];
     const store = mockStore({});
-    return store.dispatch(actions.createGroup({}, mockHistory))
-    .then(() => {
+    return store.dispatch(actions.createGroup({}, mockHistory)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
@@ -89,12 +88,9 @@ describe('Group Actions', () => {
       status: 200,
       response: { groups: mockGroups }
     });
-    const expectedActions = [
-      { type: 'GET_USER_GROUPS', groups: mockGroups }
-    ];
+    const expectedActions = [{ type: 'GET_USER_GROUPS', groups: mockGroups }];
     const store = mockStore({});
-    return store.dispatch(actions.getGroups({}))
-    .then(() => {
+    return store.dispatch(actions.getGroups({})).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
@@ -103,17 +99,14 @@ describe('Group Actions', () => {
       status: 400,
       response: { groups: mockGroups }
     });
-    const expectedActions = [
-      { type: 'GET_USER_GROUPS_ERROR', error: true }
-    ];
+    const expectedActions = [{ type: 'GET_USER_GROUPS_ERROR', error: true }];
     const store = mockStore({});
-    return store.dispatch(actions.getGroups({}))
-    .then(() => {
+    return store.dispatch(actions.getGroups({})).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
-  it('dispatches GET_USER_GROUP_MESSAGES when get message is successful',
-  () => {
+
+  it('dispatches GET_USER_GROUP_MESSAGES when get message is successful', () => {
     moxios.stubRequest('/api/group/1/messages', {
       status: 200,
       response: { messages: mockMessages }
@@ -124,13 +117,11 @@ describe('Group Actions', () => {
       { type: 'GET_USER_GROUP_MESSAGES', messages: mockMessages }
     ];
     const store = mockStore({});
-    return store.dispatch(actions.getGroupMessages(1))
-    .then(() => {
+    return store.dispatch(actions.getGroupMessages(1)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
-  it('dispatches  GET_GROUP_MEMBERS when get group members is successful',
-  () => {
+  it('dispatches  GET_GROUP_MEMBERS when get group members is successful', () => {
     moxios.stubRequest('/api/group/1/users', {
       status: 200,
       response: { members: mockMembers, group: mockGroup }
@@ -140,28 +131,24 @@ describe('Group Actions', () => {
       { type: 'CURRENT_GROUP', groupDetails: mockGroup }
     ];
     const store = mockStore({});
-    return store.dispatch(actions.getGroupMembers(1))
-    .then(() => {
+    return store.dispatch(actions.getGroupMembers(1)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
-  it('dispatches ADD_MEMBER_SUCCESS when add member is successful',
-  () => {
+  it('dispatches ADD_MEMBER_SUCCESS when add member is successful', () => {
     moxios.stubRequest('/api/group/1/user', {
       status: 200,
       response: { user: mockMessages }
     });
     const expectedActions = [
-      { type: 'ADD_MEMBER_SUCCESS', memberDetails: mockMessages },
+      { type: 'ADD_MEMBER_SUCCESS', memberDetails: mockMessages }
     ];
     const store = mockStore({});
-    return store.dispatch(actions.addMember(1, 1))
-    .then(() => {
+    return store.dispatch(actions.addMember(1, 1)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
-  it('dispatches LEAVE_GROUP_SUCCESS and GROUP_LEFT when add member is successful',
-  () => {
+  it('dispatches LEAVE_GROUP_SUCCESS and GROUP_LEFT when add member is successful', () => {
     moxios.stubRequest('/api/group/1/leave', {
       status: 200,
       response: { groupId: 1 }
@@ -172,8 +159,7 @@ describe('Group Actions', () => {
       { type: 'GROUP_LEFT', groupId: 1 }
     ];
     const store = mockStore({});
-    return store.dispatch(actions.leaveGroup(1))
-    .then(() => {
+    return store.dispatch(actions.leaveGroup(1)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
