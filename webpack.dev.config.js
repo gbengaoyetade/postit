@@ -1,5 +1,6 @@
 const webpack = require('webpack'); // eslint-disable-line
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: ['webpack-hot-middleware/client', './client/index.js'],
@@ -28,7 +29,13 @@ module.exports = {
       }
     ]
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      template: './client/index.html',
+      filename: './index.html'
+    })
+  ],
   resolve: {
     extensions: ['.js', '.jsx', '.json']
   },
