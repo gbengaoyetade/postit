@@ -1,6 +1,6 @@
 const webpack = require('webpack'); // eslint-disable-line
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin'); // eslint-disable-line
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: ['./client/index.js'],
