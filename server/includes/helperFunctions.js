@@ -1,10 +1,9 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 
 dotenv.load();
 const secret = process.env.TOKEN_SECRET;
-
 
 /**
  * @description Decodes user id from token
@@ -26,15 +25,16 @@ export const getId = (token) => {
  * @returns {string} -returns string
  */
 export const generateToken = (userDetails) => {
-  const userToken = jwt.sign({
-    id: userDetails.id,
-    fullName: userDetails.fullName,
-    email: userDetails.email,
-    phoneNumber: userDetails.phoneNumber,
-  },
+  const userToken = jwt.sign(
+    {
+      id: userDetails.id,
+      fullName: userDetails.fullName,
+      email: userDetails.email,
+      phoneNumber: userDetails.phoneNumber
+    },
     secret,
-    { expiresIn: 60 * 60 * 24 },
-    );
+    { expiresIn: 60 * 60 * 24 }
+  );
   return userToken;
 };
 
@@ -57,4 +57,3 @@ export const encryptPassword = (password) => {
 
   return hashedPassword;
 };
-
