@@ -1,217 +1,239 @@
-$blue:#039be5;
-$orange:#fd8966;
-$grey:rgb(116, 113, 113);
-
-body{
-	color:#fff;
-	font-family: 'Open Sans', sans-serif;
-	padding: 0;
-	margin: 0;
-	height: 100%;
-	background: url('../images/postit-bg.png') no-repeat center center fixed;
-	-webkit-background-size: cover;
+$blue: #039be5;
+$orange: #fd8966;
+$grey: rgb(116, 113, 113);
+$vh-height: 95vh;
+html,
+body {
+  height: 100%;
+}
+body {
+  color: #fff;
+  font-family: "Open Sans", sans-serif;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: url("../images/postit-bg.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-	background-size: cover;
-	font-size: 1.0em;
+  background-size: cover;
+}
+
+// materialize css footer fix
+main {
+  flex: 1 0 auto;
 }
 // materialize css footer fix
-  main {
-    flex: 1 0 auto;
-  }
-// materialize css footer fix
-.mycontainer{
-	background-color:$blue;
-	padding: 0.5%;
+.mycontainer {
+  background-color: $blue;
+  padding: 0.5%;
 }
-.component-container{
-	color: $grey;
-	box-shadow: 5	px 5px 5px #5c5c5c;
-	background: #fff;
+.component-container {
+  color: $grey;
+  background: #fff;
+  height: 100%;
 }
 .form-container {
-	@extend .component-container;
-	padding: 5px 20px;
+  @extend .component-container;
+  padding: 5px 20px;
 }
-.row{
-	margin: 0;
+.row {
+  margin: 0;
 }
-nav{
-	padding: 0 15px;
+nav {
+  padding: 0 15px;
 }
-.dashboard-header{
-	border-bottom: 1px solid $grey;
-	height: 50px;
-	width: 100%;
-	padding-top: 15px;
+.app-body {
+  height: $vh-height;
+}
+.dashboard-header {
+  border-bottom: 1px solid $grey;
+  height: 50px;
+  width: 100%;
+  padding-top: 15px;
 }
 .dashboard-header a {
-	color: $grey;
+  color: $grey;
 }
 .bold {
-	font-weight: bolder;
-	color: #444;
+  font-weight: bolder;
+  color: #444;
 }
- // Customize materialize input field styles
-.input-field input:focus + label{
-	color: $blue !important;
+// Customize materialize input field styles
+.input-field input:focus + label {
+  color: $blue !important;
 }
-input[type=text]:not(.browser-default):focus:not([readonly]),
-input[type=password]:not(.browser-default):focus:not([readonly]),
-input[type=email]:not(.browser-default):focus:not([readonly]),
-input[type=search]:not(.browser-default):focus:not([readonly]){
-	border-bottom: 1px solid $blue;
-	box-shadow: 0 1px 0 0 $blue;
+input[type="text"]:not(.browser-default):focus:not([readonly]),
+input[type="password"]:not(.browser-default):focus:not([readonly]),
+input[type="email"]:not(.browser-default):focus:not([readonly]),
+input[type="search"]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid $blue;
+  box-shadow: 0 1px 0 0 $blue;
 }
-.dropdown-content li>span{
-	color: $blue;
+.dropdown-content li > span {
+  color: $blue;
 }
-.message-form button {
-	border: none;
-	background-color:none;
-	margin-top: 9px;
+.message-form {
+  position: absolute;
+  bottom: 5%;
 }
 .message-input-field {
-	width: 50%;
-	border: 1px solid #eee;
+  width: 10%;
+  border: 1px solid #eee;
+}
+.message-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .message-priority-field {
-	width:30%;
+  width: 90%;
 }
-.scrollable-component{
-	height: 300px;
-	overflow-y: scroll;
+.scrollable-component {
+  height: 300px;
+  overflow-y: scroll;
 }
-.user-side-nav{
-	height: 780px;
-	background-color:#eee;
+.user-side-nav {
+  height: $vh-height;
+  background-color: #eee;
 }
 .group-messages {
-	height: 600px;
-	overflow: scroll;
-	padding: 2px;
+  height: 600px;
+  overflow: scroll;
+  padding: 2px;
 }
-footer{
-   position:fixed;
-   left:0px;
-   bottom:0px;
-   height:5%;
-   width:100%;
-   padding:2px 15px ;
-   border-top: 1px solid $grey;
+footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 5%;
+  width: 100%;
+  padding: 2px 15px;
+  border-top: 1px solid $grey;
 }
 .single-message {
-	border: 1px solid #ccc;
-	border-radius: 15px;
-	margin: 5px auto;
-	text-align: justify;
-	position: relative;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  margin: 5px auto;
+  text-align: justify;
+  position: relative;
 }
 .message-priority {
-	font-weight: bolder;
-	color: #444;
-	padding: 15px 5px;
-	margin: 5px 0 0 0;
-	position: absolute;
-	bottom: -12px;
-	right: 0;
+  font-weight: bolder;
+  color: #444;
+  padding: 15px 5px;
+  margin: 5px 0 0 0;
+  position: absolute;
+  bottom: -12px;
+  right: 0;
 }
 .group-members-div {
-	height: 600px;
-	overflow: scroll;
+  height: $vh-height;
+  overflow: scroll;
 }
 .message-body {
-	font-family: 'Source Serif Pro', sans-serif;
-	font-size: 1.1em;
+  font-family: "Source Serif Pro", sans-serif;
+  font-size: 1.1em;
 }
-.group-members{
-	float: right;
-	font-size: 10px;
-	background-color:$blue;
-	border-radius: 7px;
-	color: #fff;
-	padding: 5px;
-	margin-right: 10px;
+.group-members {
+  float: right;
+  font-size: 10px;
+  background-color: $blue;
+  border-radius: 7px;
+  color: #fff;
+  padding: 5px;
+  margin-right: 10px;
 }
 .big {
-	font-size: 1.3em;
+  font-size: 1.3em;
 }
 .centralized-div {
-	position: absolute;
+  position: absolute;
   top: 30%;
-	height: 100px;
-	width: 100%;
+  height: 100px;
+  width: 100%;
 }
 .postit-card {
-	width: 100%;
-	max-height: 180px;
-	height: 200px;
-	box-shadow: 3px 3px 1px #aaa;
-	border: 1px solid #eee;
-	margin: 5px 7%;
-	position: relative;
+  width: 100%;
+  max-height: 180px;
+  height: 200px;
+  box-shadow: 0 0 10px 2px rgba(200, 200, 200, 0.8);
+  border: 1px solid #eee;
+  margin: 5px 7%;
+  position: relative;
+  text-transform: capitalize;
+}
+.postit-card:hover {
+  box-shadow: 0 0 20px 2px rgba(200, 200, 200, 0.8);
 }
 .postit-card .header {
-	font-weight: bold;
-	text-align: center;
-	text-decoration: underline;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: underline;
 }
 .bottom-element {
-	position: absolute;
-	bottom: 0px;
+  position: absolute;
+  bottom: 0px;
 }
 .message-button {
-	background: transparent;
-	color: $blue;
-	border: none;
-	position: relative;
-	top: 2px;
-	width: 100%;
+  background: none;
+  color: $blue;
+  border: none;
+  position: relative;
+  top: 2px;
+  width: 10%;
 }
 .group-members-list {
-	padding-left: 20%;
-	margin: 15px 1px;
-	text-transform: capitalize;
+  padding-left: 20%;
+  margin: 15px 1px;
+  text-transform: capitalize;
 }
-.username-avatar{
-	color: #000;
-	background-color: $grey;
-	border-radius: 50%;
-	@extend .bold;
-	text-align: center;
-	height: 50px;
-	width: 50px;
-	float: left;
-	padding: 0.8%;
-	text-transform: uppercase;
+.username-avatar {
+  color: #000;
+  background-color: $grey;
+  border-radius: 50%;
+  @extend .bold;
+  text-align: center;
+  height: 50px;
+  width: 50px;
+  float: left;
+  padding: 0.8%;
+  text-transform: uppercase;
 }
 .pagination li.active {
-	background-color: $blue;
+  background-color: $blue;
 }
-.dropdown-content li>a, .dropdown-content li>span {
-	color: $blue;
+.dropdown-content li > a,
+.dropdown-content li > span {
+  color: $blue;
 }
 .dropdown-content {
-	width: 15% !important;
+  width: 15% !important;
 }
 #sidenav-overlay {
-	display: none !important;
+  display: none !important;
 }
 .bold-font {
-	font-family: 'Oswald',sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 .postit-text {
-	font-family: 'Raleway', sans-serif;
-	text-shadow: 1px 1px 1px #555;
+  font-family: "Raleway", sans-serif;
+  text-shadow: 1px 1px 1px #555;
 }
 .groups-display {
-	height: 600px;
-	overflow: scroll;
+  height: 100%;
+  overflow: scroll;
 }
 .collapsible-body {
-	display: none;
-	border-bottom: 1px solid #ddd;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	padding: 0;
+  display: none;
+  border-bottom: 1px solid #ddd;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+}
+footer p {
+  text-align: center;
+  color: #fff;
 }

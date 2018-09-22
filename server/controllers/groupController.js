@@ -192,19 +192,20 @@ export const getGroupMembers = (req, res) => {
 
 export const deleteGroup = (req, res) => {
   const { group, id } = req;
-  if (group.createdBy === id) {
+  const groupId = group.dataValues.id;
+  if (group.createdBy !== id) {
+    res.status(403).send({ error: 'You did not create this group' });
+  } else {
     groups.destroy({
-      where: { id }
+      where: { id: groupId }
     })
-    .then((deletedGroup) => {
+    .then(() => {
       res.send({
         message: 'Group deleted successfully',
-        groupdId: deletedGroup });
+        groupdId: groupId });
     })
     .catch(() => {
       res.status(500).send({ error: 'Internal server error' });
     });
-  } else {
-    res.status(403).send({ error: 'You did not create this group' });
   }
 };

@@ -2,7 +2,7 @@ const InitialState = {
   auth: {
     user: {},
     signupError: '',
-    loginError: '',
+    loginError: ''
   },
   group: {
     leftGroup: false,
@@ -10,7 +10,8 @@ const InitialState = {
     members: [],
     groups: [],
     groupError: '',
-    currentGroup: {}
+    currentGroup: {},
+    groupIsDeleted: false
   },
   item: {
     loginLoading: false,
@@ -24,7 +25,7 @@ const InitialState = {
   password: {
     passwordUpdated: false,
     emailError: '',
-    passwordUpdatedError: '',
+    passwordUpdatedError: ''
   },
   search: {
     searchResult: {},

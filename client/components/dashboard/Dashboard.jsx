@@ -12,7 +12,6 @@ import moment from 'moment';
  * @extends {React.Component}
  */
 export class Dashboard extends React.Component {
-
   /**
    * @description render fucntion
    *
@@ -22,32 +21,30 @@ export class Dashboard extends React.Component {
     const { groups } = this.props;
     let userGroups;
     if (this.props.groups.length > 0) {
-      userGroups = (
-        groups.map(group => (
-          <div className="postit-card col m3 s5" key={group.id}>
+      userGroups = groups.map((group, index) => (
+        <div className="postit-card col m3 s5" key={index}>
           <p className="header">
             <Link className="" to={`/group/${group.id}`}>
-            {group.groupName}
+              {group.groupName}
             </Link>
           </p>
           <p>{group.groupDescription} </p>
           <p className="bottom-element">
-            Active: <span className="bold">
-            {group.messages[0] ?
-              moment(group.messages[0].updatedAt).fromNow() :
-              'Not yet active' }
+            Active:{' '}
+            <span className="bold">
+              {group.messages && group.messages[0]
+                ? moment(group.messages[0].updatedAt).fromNow()
+                : 'Not yet active'}
             </span>
           </p>
         </div>
-        ))
-      );
+      ));
     }
     return (
       <div>
-        <div
-          className="col m7 offset-m1 s12 component-container groups-display">
-          <p className="center header">My Groups</p>
-          <div className="divider"/>
+        <div className="col m7 offset-m1 s12 component-container groups-display">
+          <p className="header">Groups</p>
+          <div className="divider" />
           {userGroups}
         </div>
       </div>
@@ -56,7 +53,7 @@ export class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  groups: PropTypes.array.isRequired,
+  groups: PropTypes.array.isRequired
 };
 
 /**
@@ -65,11 +62,12 @@ Dashboard.propTypes = {
  * @param {object} state -application state
  *
  * @returns {object} -returns part of the state
-*/
-const mapStateToProps = state => (
-  {
-    groups: state.groupReducer.groups,
-  }
-);
+ */
+const mapStateToProps = state => ({
+  groups: state.groupReducer.groups
+});
 
-export default connect(mapStateToProps, null)(Dashboard);
+export default connect(
+  mapStateToProps,
+  null
+)(Dashboard);

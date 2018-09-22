@@ -28,6 +28,7 @@ export default (sequelize, DataTypes) => {
       },
     },
   });
+
   groups.associate = (models) => {
     groups.belongsToMany(models.users, {
       through: models.groupMembers,
