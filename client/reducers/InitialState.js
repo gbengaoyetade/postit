@@ -11,7 +11,8 @@ const InitialState = {
     groups: [],
     groupError: '',
     currentGroup: {},
-    groupIsDeleted: false
+    groupIsDeleted: false,
+    messages: []
   },
   item: {
     loginLoading: false,

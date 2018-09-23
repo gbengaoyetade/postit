@@ -12,25 +12,28 @@ describe('Group reducer', () => {
   it('should handle GET_GROUP_MEMBERS action', () => {
     const action = {
       type: 'GET_GROUP_MEMBERS',
-      members: [{
-        id: 1,
-        username: 'michi',
-        fullName: 'Amarachi Django',
-        email: 'michis@gmail.com',
-        phoneNumber: '08088641123',
-        groupMembers: {
-          userId: 1,
-          addedBy: 1,
-          groupId: 1,
-          createdAt: '2018-01-02T08:09:12.382Z',
-          updatedAt: '2018-01-02T08:09:12.382Z',
+      members: [
+        {
+          id: 1,
+          username: 'michi',
+          fullName: 'Amarachi Django',
+          email: 'michis@gmail.com',
+          phoneNumber: '08088641123',
+          groupMembers: {
+            userId: 1,
+            addedBy: 1,
+            groupId: 1,
+            createdAt: '2018-01-02T08:09:12.382Z',
+            updatedAt: '2018-01-02T08:09:12.382Z'
+          }
         }
-      }]
+      ]
     };
     const newstate = groupReducer(InitialState.group, action);
     expect(newstate).toEqual({
       ...InitialState.group,
-      members: action.members });
+      members: action.members
+    });
   });
   it('should handle ADD_MEMBER_SUCCESS action', () => {
     const action = {
@@ -44,18 +47,23 @@ describe('Group reducer', () => {
       }
     };
     const newstate = groupReducer(InitialState.group, action);
-    expect(newstate)
-    .toEqual({ ...InitialState.group, members: [action.memberDetails] });
+    expect(newstate).toEqual({
+      ...InitialState.group,
+      members: [action.memberDetails]
+    });
   });
   it('should handle GET_USER_GROUPS action', () => {
     const action = {
       type: 'GET_USER_GROUPS',
-      groups: [{
-        id: 19,
-        groupName: 'create group',
-        groupDescription: 'new group',
-        createdBy: 1,
-        messages: [] }]
+      groups: [
+        {
+          id: 19,
+          groupName: 'create group',
+          groupDescription: 'new group',
+          createdBy: 1,
+          messages: []
+        }
+      ]
     };
     const newstate = groupReducer(InitialState.group, action);
     expect(newstate).toEqual({ ...InitialState.group, groups: action.groups });
@@ -66,8 +74,10 @@ describe('Group reducer', () => {
       leftGroup: true
     };
     const newstate = groupReducer(InitialState.group, action);
-    expect(newstate)
-    .toEqual({ ...InitialState.group, leftGroup: action.leftGroup });
+    expect(newstate).toEqual({
+      ...InitialState.group,
+      leftGroup: action.leftGroup
+    });
   });
   it('should handle CREATE_GROUP_ERROR action', () => {
     const action = {
@@ -75,8 +85,10 @@ describe('Group reducer', () => {
       groupError: 'error'
     };
     const newstate = groupReducer(InitialState.group, action);
-    expect(newstate)
-    .toEqual({ ...InitialState.group, groupError: action.groupError });
+    expect(newstate).toEqual({
+      ...InitialState.group,
+      groupError: action.groupError
+    });
   });
   it('should handle CURRENT_GROUP action type', () => {
     const action = {
@@ -85,12 +97,14 @@ describe('Group reducer', () => {
         id: 19,
         groupName: 'create group',
         groupDescription: 'new group',
-        createdBy: 1,
+        createdBy: 1
       }
     };
     const newstate = groupReducer(InitialState.group, action);
-    expect(newstate)
-    .toEqual({ ...InitialState.group, currentGroup: action.groupDetails });
+    expect(newstate).toEqual({
+      ...InitialState.group,
+      currentGroup: action.groupDetails
+    });
   });
   it('should handle CREATE_NEW_GROUP action type', () => {
     const action = {
@@ -100,10 +114,13 @@ describe('Group reducer', () => {
         groupName: 'create group',
         groupDescription: 'new group',
         createdBy: 1,
+        messages: []
       }
     };
     const newstate = groupReducer(InitialState.group, action);
-    expect(newstate)
-    .toEqual({ ...InitialState.group, groups: [action.groupDetails] });
+    expect(newstate).toEqual({
+      ...InitialState.group,
+      groups: [action.groupDetails]
+    });
   });
 });

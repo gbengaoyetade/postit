@@ -1,11 +1,13 @@
+/* eslint-disable prettier */
 import React from 'react';
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import { Group } from '../../components/group/Group';
+import 'mock-local-storage';
+import Group from '../../components/group/Group';
 
+global.window = {};
+
+window.localStorage = global.localStorage;
+localStorage.setItem('postitUser', JSON.stringify({}));
 describe('Group component', () => {
-  const mockStore = configureStore([thunk]);
-  const store = mockStore({ groupReducer: {} });
   const props = {
     getGroupMembers: () => {},
     getMessages: () => {},
@@ -14,13 +16,12 @@ describe('Group component', () => {
     history: {},
     leftGroup: false,
     leaveGroupSuccess: () => {},
-    match: { params: { groupId: 1 } }
+    match: { params: { groupId: 1 } },
+    currentGroup: {}
   };
-  const wrapper = shallow(<Group store={store} {...props} />);
+  const wrapper = shallow(<Group.WrappedComponent {...props} />);
   it('should render correctly', () => {
-    expect(wrapper).toBeDefined();
-    expect(wrapper.getElement().type).toBe('div');
-    expect(wrapper.find('ul#group-more').length).toBe(1);
+    expect(wrapper).toMatchSnapshot();
   });
   it('should have componentWillUpdate method', () => {
     const spy = jest.spyOn(wrapper.instance(), 'componentWillUpdate');

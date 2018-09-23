@@ -19,7 +19,7 @@ import GroupMembers from './GroupMembers';
  *
  * @extends {React.Component}
  */
-export class Group extends React.Component {
+class Group extends React.Component {
   /**
    *
    * @returns {void} -returns nothing
@@ -114,7 +114,8 @@ export class Group extends React.Component {
     if (this.props.groupIsDeleted) {
       this.deleteGroupRedirect();
     }
-    const currentUserId = JSON.parse(localStorage.getItem('postitUser')).id;
+    const parsedToken = JSON.parse(localStorage.getItem('postitUser'));
+    const currentUserId = parsedToken.id;
     const { groupId } = this.props.match.params;
     let numberOfGroupMembers;
     let groupName;
