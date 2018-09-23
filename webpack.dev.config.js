@@ -1,12 +1,12 @@
-const webpack = require('webpack'); // eslint-disable-line
+const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: ['webpack-hot-middleware/client', './client/index.js'],
   output: {
-    path: path.resolve('./client/dist'),
-    filename: 'main.js'
+    path: path.resolve('./client/bundled'),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -16,34 +16,33 @@ module.exports = {
           path.join(__dirname, 'client'),
           path.join(__dirname, '/server/shared/')
         ],
-        use: ['babel-loader']
+        loader: ['babel-loader']
       },
       {
         test: /\.scss$/,
         include: /client/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        loader: 'style-loader!css-loader!sass-loader'
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          {
-            loader:
-              `${require.resolve('file-loader')}?name=../[path][name].[ext]`
-          }
-        ]
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'bundle.[ext]'
+        }
       }
     ]
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      template: './client/index.html',
-      filename: './index.html'
-    })
-  ],
   resolve: {
     extensions: ['.js', '.jsx', '.json']
   },
-
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      debug: true
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  ],
   mode: 'development'
 };
