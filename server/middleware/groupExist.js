@@ -30,6 +30,7 @@ const groupExist = (req, res, next) => {
       .then((member) => {
         if (member) {
           req.group = group;
+          req.id = userId;
           next();
         } else {
           res.status(403).json({ error: 'User not a member of the group' });

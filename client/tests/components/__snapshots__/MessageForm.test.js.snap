@@ -6,14 +6,13 @@ exports[`MessageForm component  should render correctly 1`] = `
     className="message-form col s12 "
   >
     <form
-      method="Post"
       onSubmit={[Function]}
     >
       <div
         className=""
       >
         <textarea
-          className="message-input-field col s7 m7"
+          className="message-input-field col s6 m4"
           name="messageBody"
           onChange={[Function]}
           placeholder="Enter message here"
@@ -22,42 +21,42 @@ exports[`MessageForm component  should render correctly 1`] = `
         />
       </div>
       <div
-        className="message-priority-field col s4"
+        className="col s5 m3"
       >
-        <select
-          className="browser-default"
-          name="messagePriority"
-          onChange={[Function]}
+        <div
+          className="message-options"
         >
-          <option
-            value="Normal"
+          <select
+            className="browser-default message-priority-field"
+            name="messagePriority"
+            onChange={[Function]}
           >
-            Normal
-          </option>
-          <option
-            value="Urgent"
+            <option
+              value="Normal"
+            >
+              Normal
+            </option>
+            <option
+              value="Urgent"
+            >
+              Urgent
+            </option>
+            <option
+              value="Critical"
+            >
+              Critical
+            </option>
+          </select>
+          <button
+            className="message-button"
           >
-            Urgent
-          </option>
-          <option
-            value="Critical"
-          >
-            Critical
-          </option>
-        </select>
-      </div>
-      <div
-        className="col s1"
-      >
-        <button
-          className="message-button"
-        >
-          <i
-            className="material-icons"
-          >
-            send
-          </i>
-        </button>
+            <i
+              className="material-icons"
+            >
+              send
+            </i>
+          </button>
+        </div>
       </div>
     </form>
   </div>

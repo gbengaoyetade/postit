@@ -189,3 +189,23 @@ export const getGroupMembers = (req, res) => {
     res.status(500).send({ error: 'Internal server error' });
   });
 };
+
+export const deleteGroup = (req, res) => {
+  const { group, id } = req;
+  const groupId = group.dataValues.id;
+  if (group.createdBy !== id) {
+    res.status(403).send({ error: 'You did not create this group' });
+  } else {
+    groups.destroy({
+      where: { id: groupId }
+    })
+    .then(() => {
+      res.send({
+        message: 'Group deleted successfully',
+        groupdId: groupId });
+    })
+    .catch(() => {
+      res.status(500).send({ error: 'Internal server error' });
+    });
+  }
+};

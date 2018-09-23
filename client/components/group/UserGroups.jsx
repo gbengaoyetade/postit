@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getGroups, getGroupMembers, getGroupMessages }
-from '../../actions/groupActions';
+import {
+  getGroups,
+  getGroupMembers,
+  getGroupMessages
+} from '../../actions/groupActions';
 
 /**
  *
@@ -12,7 +15,6 @@ from '../../actions/groupActions';
  * @extends {React.Component}
  */
 export class UserGroups extends React.Component {
-
   /**
    * @description Creates an instance of UserGroups.
    *
@@ -30,7 +32,12 @@ export class UserGroups extends React.Component {
    *  @returns {void} -returns nothing
    */
   componentDidMount() {
-    this.props.getGroups();
+    const { groups } = this.props;
+    // this conditional helped fix the issue with
+    // groups being repeated in the store
+    if (groups.length === 0) {
+      this.props.getGroups();
+    }
   }
 
   /**
@@ -57,40 +64,40 @@ export class UserGroups extends React.Component {
       groups = this.props.groups;
       userGroups = (
         <ul className="collection">
-          {groups.map(group => (
-            <li key={group.id} className="collection-item">
-            <Link to={`/group/${group.id}`}
-              onClick={() => this.getGroupData(group.id)}
-            > {group.groupName} </Link> </li>
-            ))}
-        </ul>);
+          {groups.map((group, index) => (
+            <li key={index} className="collection-item">
+              <Link
+                to={`/group/${group.id}`}
+                onClick={() => this.getGroupData(group.id)}
+              >
+                {' '}
+                {group.groupName}{' '}
+              </Link>{' '}
+            </li>
+          ))}
+        </ul>
+      );
     }
-    return (
-        <div>
-          {userGroups}
-        </div>
-    );
+    return <div>{userGroups}</div>;
   }
 }
 UserGroups.propTypes = {
   getGroups: PropTypes.func.isRequired,
   groups: PropTypes.array,
   getMessages: PropTypes.func,
-  getGroupMembers: PropTypes.func,
+  getGroupMembers: PropTypes.func
 };
 
-  /**
-   * @description Maps state to props
-   *
-   * @param {object} state -application state
-   *
-   * @returns {object} -returns part of the state
-  */
-const mapStateToProps = state => (
-  {
-    groups: state.groupReducer.groups,
-  }
-);
+/**
+ * @description Maps state to props
+ *
+ * @param {object} state -application state
+ *
+ * @returns {object} -returns part of the state
+ */
+const mapStateToProps = state => ({
+  groups: state.groupReducer.groups
+});
 
 /**
  * @description Maps dispatch to props
@@ -99,17 +106,18 @@ const mapStateToProps = state => (
  *
  * @returns {object} -actions to be dispatched
  */
-const mapDispatchToProps = dispatch => (
-  {
-    getGroups: () => {
-      dispatch(getGroups());
-    },
-    getMessages: (groupId) => {
-      dispatch(getGroupMessages(groupId));
-    },
-    getGroupMembers: (groupId) => {
-      dispatch(getGroupMembers(groupId));
-    },
+const mapDispatchToProps = dispatch => ({
+  getGroups: () => {
+    dispatch(getGroups());
+  },
+  getMessages: (groupId) => {
+    dispatch(getGroupMessages(groupId));
+  },
+  getGroupMembers: (groupId) => {
+    dispatch(getGroupMembers(groupId));
   }
-);
-export default connect(mapStateToProps, mapDispatchToProps)(UserGroups);
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserGroups);

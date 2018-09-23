@@ -13,25 +13,41 @@ const groupReducer = (state = InitialState.group, action) => {
     case 'GET_GROUP_MEMBERS':
       return { ...state, members: action.members };
     case 'ADD_MEMBER_SUCCESS':
-      return { ...state,
-        members: [...state.members, action.memberDetails] };
+      return {
+        ...state,
+        members: [...state.members, action.memberDetails]
+      };
     case 'GET_USER_GROUPS':
       return { ...state, groups: [...state.groups, ...action.groups] };
     case 'LEAVE_GROUP_SUCCESS':
       return { ...state, leftGroup: action.leftGroup };
     case 'GROUP_LEFT':
-      return { ...state,
+      return {
+        ...state,
         groups: state.groups.filter(group => group.id === action.groupId)
+      };
+    case 'GROUP_DELETED':
+      return {
+        ...state,
+        groups: state.groups.filter(group => group.id !== action.groupId)
+      };
+    case 'DELETE_GROUP_SUCCESS':
+      return {
+        ...state,
+        groupIsDeleted: action.groupIsDeleted
       };
     case 'CURRENT_GROUP':
       return { ...state, currentGroup: action.groupDetails };
     case 'CREATE_GROUP_ERROR':
       return { ...state, groupError: action.groupError };
+
     case 'CREATE_NEW_GROUP':
-      return { ...state, groups: [...state.groups, action.groupDetails] };
+      return {
+        ...state,
+        groups: [...state.groups, { ...action.groupDetails, messages: [] }]
+      };
     default:
       return state;
   }
 };
 export default groupReducer;
-

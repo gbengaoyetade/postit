@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Group component should render correctly 1`] = `
+<div>
+  <div>
+    <div
+      className="col s12 m7 component-container"
+    >
+      <div
+        className="dashboard-header"
+      >
+        <Link
+          className="right dropdown-button"
+          data-activates="group-more"
+          id="more-vert"
+          replace={false}
+          to=""
+        >
+          <i
+            className="material-icons"
+          >
+            more_vert
+          </i>
+        </Link>
+        <span
+          className="right"
+        >
+          <i
+            className="material-icons"
+          >
+            person
+          </i>
+          <span
+            className="group-members"
+          />
+        </span>
+        <span
+          className="bold big"
+        />
+      </div>
+    </div>
+    <ul
+      className="dropdown-content"
+      id="group-more"
+    >
+      <li>
+        <Link
+          replace={false}
+          to="/group/1/addmembers"
+        >
+          Add Members
+        </Link>
+      </li>
+      <li>
+        <Link
+          id="leave-group"
+          onClick={[Function]}
+          replace={false}
+          to="#"
+        >
+          Leave group
+        </Link>
+      </li>
+      <li>
+        <Link
+          id="leave-group"
+          onClick={[Function]}
+          replace={false}
+          to="#"
+        >
+          Delete Group
+        </Link>
+      </li>
+    </ul>
+    <div
+      className="col s12 m7 component-container"
+    >
+      <Connect(Messages)
+        groupId={1}
+      />
+    </div>
+    <Connect(GroupMembers) />
+  </div>
+</div>
+`;

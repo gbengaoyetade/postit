@@ -1,16 +1,14 @@
 import { assert } from 'chai';
-import {
-  getId,
-  encryptPassword } from '../server/includes/helperFunctions';
+import { getId, encryptPassword } from '../server/includes/helperFunctions';
 import { tokens } from './testIncludes';
 
-const { firstUserToken } = tokens();
+const { token1 } = tokens();
 describe('getId function', () => {
   it('should be defined', () => {
     assert.equal(typeof getId, 'function');
   });
   it('should return a number when token is passed', () => {
-    assert.equal(typeof getId(firstUserToken), 'number');
+    assert.equal(typeof getId(token1), 'number');
   });
 });
 describe('encryptPassword', () => {

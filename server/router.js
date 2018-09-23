@@ -2,7 +2,13 @@ import express from 'express';
 import { signUp, signIn, resetPassword, updatePassword, userSearch }
 from './controllers/userController';
 import routeValidation from './includes/routeValidation';
-import { createGroup, addMembers, getGroups, leaveGroup, getGroupMembers }
+import {
+    createGroup,
+    addMembers,
+    getGroups,
+    leaveGroup,
+    getGroupMembers,
+    deleteGroup }
 from './controllers/groupController';
 import { createMessage, getMessages } from './controllers/messageController';
 import authenticate from './middleware/authenticate';
@@ -52,5 +58,6 @@ router.get('/user/search',
 validations.userSearch, sendValidationErrors, userSearch);
 
 router.delete('/group/:groupId/leave', groupExist, leaveGroup);
+router.delete('/group/:groupId/delete', groupExist, deleteGroup);
 
 export default router;
