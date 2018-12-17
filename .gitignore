@@ -7,3 +7,4 @@ coverage/
 .DS_Store
 template/fonts
 reports/
+client/bundled

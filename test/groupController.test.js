@@ -3,7 +3,6 @@ import supertest from 'supertest';
 import app from '../server/app';
 import { tokens, seedDatabase } from './testIncludes';
 
-const appHolder = supertest(app);
 // Test for the group controller
 const { token1, token2 } = tokens();
 describe('Create group', () => {

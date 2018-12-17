@@ -1,12 +1,16 @@
 const webpack = require('webpack');
 const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+
+const htmlPlugin = new HtmlWebPackPlugin({
+  template: 'client/index.html'
+});
 
 module.exports = {
   entry: ['webpack-hot-middleware/client', './client/index.js'],
   output: {
     path: path.resolve('./client/bundled'),
-    filename: 'bundle.js',
-    publicPath: '/'
+    filename: 'bundle.js'
   },
   module: {
     rules: [
@@ -37,12 +41,10 @@ module.exports = {
     extensions: ['.js', '.jsx', '.json']
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      debug: true
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    htmlPlugin
   ],
   mode: 'production'
 };

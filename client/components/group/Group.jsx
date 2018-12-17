@@ -43,7 +43,7 @@ class Group extends React.Component {
    *
    * @returns {void} -returns nothing
    */
-  leaveGroup = () => {
+  leaveGroup() {
     swal({
       title: 'Leave group warning',
       text: 'Are you sure you want to leave group?',
@@ -56,12 +56,18 @@ class Group extends React.Component {
         this.props.leaveGroup(groupId);
       }
     });
-  };
+  }
 
-  updateMaterialDesign = () => {
+  /**
+   * @description keep material design alive
+   *
+   * @returns {void}
+   */
+  updateMaterialDesign() {
     $('.dropdown-button').dropdown();
     $('select').material_select();
-  };
+    this.error = '';
+  }
 
   /**
    *
@@ -70,7 +76,7 @@ class Group extends React.Component {
    *
    * @returns {void}
    */
-  deleteGroup = () => {
+  deleteGroup() {
     swal({
       title: 'Group delete warning',
       text: 'Are you sure you want to delete this group?',
@@ -83,7 +89,7 @@ class Group extends React.Component {
         this.props.deleteGroup(groupId);
       }
     });
-  };
+  }
   /**
    *
    *
@@ -91,12 +97,12 @@ class Group extends React.Component {
    *
    * @returns {void}
    */
-  deleteGroupRedirect = () => {
+  deleteGroupRedirect() {
     swal('Group successfuly deleted').then(() => {
       this.props.deleteGroupSuccess(false);
       this.props.history.push('/dashboard');
     });
-  };
+  }
 
   /**
    * @description render function
