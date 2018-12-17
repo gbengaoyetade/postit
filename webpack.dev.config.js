@@ -3,8 +3,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 const htmlPlugin = new HtmlWebPackPlugin({
-  template: 'client/index.html',
-  filename: './index.html'
+  template: 'client/index.html'
 });
 
 module.exports = {
@@ -40,6 +39,13 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json']
+  },
+  devServer: {
+    port: 3000,
+    open: true,
+    proxy: {
+      '/api': 'http://localhost:3000'
+    }
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({

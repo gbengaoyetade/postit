@@ -3,8 +3,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 const htmlPlugin = new HtmlWebPackPlugin({
-  template: 'client/template.html',
-  filename: './index.html'
+  template: 'client/index.html'
 });
 
 module.exports = {
@@ -42,9 +41,6 @@ module.exports = {
     extensions: ['.js', '.jsx', '.json']
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      debug: true
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),

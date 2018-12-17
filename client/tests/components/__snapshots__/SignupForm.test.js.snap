@@ -1,122 +1,302 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SignupForm component  should render correctly 1`] = `
-<div
-  className="row"
+<StaticRouter
+  basename=""
+  context={Object {}}
+  location="/"
 >
-  <Nav />
-  <div
-    className="col s12 m4 offset-m4"
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
   >
-    <div
-      className="form-container"
+    <SignupForm
+      errors={Object {}}
+      handleChange={[Function]}
+      handleSubmit={[Function]}
     >
-      <p
-        className="center grey-text big"
+      <div
+        className="row"
       >
-        Signup
-      </p>
-      <p
-        className="red-text"
-      >
-          
-      </p>
-      <form
-        action="#"
-        method="POST"
-        onSubmit={[Function]}
-      >
-        <InputField
-          classnames=""
-          handleChange={[Function]}
-          labelValue="Full name"
-          name="fullName"
-          required="required"
-          type="text"
-        />
-        <span
-          className="red-text"
-          id="fullname-error"
-        >
-           
-        </span>
-        <InputField
-          classnames=""
-          handleChange={[Function]}
-          labelValue="Username"
-          name="username"
-          required="required"
-          type="text"
-        />
-        <span
-          className="red-text"
-          id="username-error"
-        >
-           
-        </span>
-        <InputField
-          classnames=""
-          handleChange={[Function]}
-          labelValue="Email"
-          name="email"
-          required="required"
-          type="email"
-        />
-        <span
-          className="red-text"
-          id="email-error"
-        >
-           
-        </span>
-        <InputField
-          classnames=""
-          errorClass="valid"
-          handleChange={[Function]}
-          labelValue="Phone Number"
-          name="phoneNumber"
-          required="required"
-          type="text"
-        />
-        <span
-          className="red-text"
-          id="phoneNumber-error"
-        >
-           
-        </span>
-        <InputField
-          classnames=""
-          errorClass="valid"
-          handleChange={[Function]}
-          labelValue="Password"
-          name="password"
-          required="required"
-          type="password"
-        />
-        <span
-          className="red-text"
-          id="password-error"
-        >
-           
-        </span>
-        <SubmitButton
-          disabled=""
-          submitValue="Signup"
-        />
-        <p
-          className="center"
-        >
-           Already have and acount?
-          <Link
-            id="login"
-            replace={false}
-            to="login"
+        <Nav>
+          <div
+            className="row"
           >
-             Login 
-          </Link>
-        </p>
-        <p />
-      </form>
-    </div>
-  </div>
-</div>
+            <nav
+              className="transparent col-s12"
+            >
+              <div
+                className="nav-wrapper"
+              >
+                <div>
+                  <div
+                    className="col s2 offset-s1"
+                  >
+                    <Link
+                      className="left brand-logo"
+                      replace={false}
+                      to="/"
+                    >
+                      <a
+                        className="left brand-logo"
+                        href="/"
+                        onClick={[Function]}
+                      >
+                        Postit
+                      </a>
+                    </Link>
+                  </div>
+                  <div
+                    className="col s2 "
+                  >
+                    <span
+                      className="center brand-logo"
+                    />
+                  </div>
+                  <div
+                    className="right"
+                  />
+                </div>
+              </div>
+            </nav>
+          </div>
+        </Nav>
+        <div
+          className="col s12 m4 offset-m4"
+        >
+          <div
+            className="form-container"
+          >
+            <p
+              className="center grey-text big"
+            >
+              Signup
+            </p>
+            <p
+              className="red-text"
+            >
+                
+            </p>
+            <form
+              action="#"
+              method="POST"
+              onSubmit={[Function]}
+            >
+              <InputField
+                classnames=""
+                handleChange={[Function]}
+                labelValue="Full name"
+                name="fullName"
+                required="required"
+                type="text"
+              >
+                <div
+                  className="input-field"
+                >
+                  <input
+                    className={null}
+                    name="fullName"
+                    onChange={[Function]}
+                    required="required"
+                    type="text"
+                  />
+                  <label
+                    htmlFor="password"
+                  >
+                    Full name
+                  </label>
+                </div>
+              </InputField>
+              <span
+                className="red-text"
+                id="fullname-error"
+              >
+                 
+              </span>
+              <InputField
+                classnames=""
+                handleChange={[Function]}
+                labelValue="Username"
+                name="username"
+                required="required"
+                type="text"
+              >
+                <div
+                  className="input-field"
+                >
+                  <input
+                    className={null}
+                    name="username"
+                    onChange={[Function]}
+                    required="required"
+                    type="text"
+                  />
+                  <label
+                    htmlFor="password"
+                  >
+                    Username
+                  </label>
+                </div>
+              </InputField>
+              <span
+                className="red-text"
+                id="username-error"
+              >
+                 
+              </span>
+              <InputField
+                classnames=""
+                handleChange={[Function]}
+                labelValue="Email"
+                name="email"
+                required="required"
+                type="email"
+              >
+                <div
+                  className="input-field"
+                >
+                  <input
+                    className={null}
+                    name="email"
+                    onChange={[Function]}
+                    required="required"
+                    type="email"
+                  />
+                  <label
+                    htmlFor="password"
+                  >
+                    Email
+                  </label>
+                </div>
+              </InputField>
+              <span
+                className="red-text"
+                id="email-error"
+              >
+                 
+              </span>
+              <InputField
+                classnames=""
+                errorClass="valid"
+                handleChange={[Function]}
+                labelValue="Phone Number"
+                name="phoneNumber"
+                required="required"
+                type="text"
+              >
+                <div
+                  className="input-field"
+                >
+                  <input
+                    className={null}
+                    name="phoneNumber"
+                    onChange={[Function]}
+                    required="required"
+                    type="text"
+                  />
+                  <label
+                    htmlFor="password"
+                  >
+                    Phone Number
+                  </label>
+                </div>
+              </InputField>
+              <span
+                className="red-text"
+                id="phoneNumber-error"
+              >
+                 
+              </span>
+              <InputField
+                classnames=""
+                errorClass="valid"
+                handleChange={[Function]}
+                labelValue="Password"
+                name="password"
+                required="required"
+                type="password"
+              >
+                <div
+                  className="input-field"
+                >
+                  <input
+                    className={null}
+                    name="password"
+                    onChange={[Function]}
+                    required="required"
+                    type="password"
+                  />
+                  <label
+                    htmlFor="password"
+                  >
+                    Password
+                  </label>
+                </div>
+              </InputField>
+              <span
+                className="red-text"
+                id="password-error"
+              >
+                 
+              </span>
+              <SubmitButton
+                disabled=""
+                submitValue="Signup"
+              >
+                <div>
+                  <p
+                    className="center"
+                  >
+                    <input
+                      className="btn light-blue darken-4 "
+                      disabled=""
+                      type="submit"
+                      value="Signup"
+                    />
+                  </p>
+                </div>
+              </SubmitButton>
+              <p
+                className="center"
+              >
+                 Already have and acount?
+                <Link
+                  id="login"
+                  replace={false}
+                  to="login"
+                >
+                  <a
+                    href="/login"
+                    id="login"
+                    onClick={[Function]}
+                  >
+                     Login 
+                  </a>
+                </Link>
+              </p>
+              <p />
+            </form>
+          </div>
+        </div>
+      </div>
+    </SignupForm>
+  </Router>
+</StaticRouter>
 `;
