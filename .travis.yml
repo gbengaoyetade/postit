@@ -1,15 +1,20 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=ff0be2264d87c2d0612fc11b02b68139f7e6d10e1a9d76e35ae66f02ed1ee07d
 language: node_js
 node_js:
-- "stable"
+  - "stable"
 services:
   - postgresql
 before_script:
   - npm install sequelize-cli -g
   - psql -c "CREATE DATABASE postit_test;" -U postgres
   - sequelize db:migrate --env test
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 after_success:
-- npm run cover
-after_script: 
+  - npm run cover
+after_script:
   - nyc npm test && nyc report --reporter=text-lcov | coveralls
-env:
-  -TOKEN_SECRET =travis-secret
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
