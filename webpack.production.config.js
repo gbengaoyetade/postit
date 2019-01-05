@@ -7,7 +7,7 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = {
-  entry: ['webpack-hot-middleware/client', './client/index.js'],
+  entry: './client/index.js',
   output: {
     path: path.resolve('./client/bundled'),
     filename: 'bundle.js'
