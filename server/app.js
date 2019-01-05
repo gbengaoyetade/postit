@@ -1,12 +1,13 @@
+import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
-import path from 'path';
-
+import compression from 'compression';
 import router from './router';
 
 const app = express();
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
+app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', express.static(path.join(__dirname, '../client/bundled')));
@@ -20,10 +21,9 @@ app.get('/doc', (req, res) => {
 app.get('/*', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../client', 'index.html'));
 });
-app.post('*', (req, res) => {
+
+app.all('*', (req, res) => {
   res.status(404).json({ error: 'URL does not exist on this server' });
 });
-app.delete('*', (req, res) => {
-  res.status(404).json({ error: 'URL does not exist on this server' });
-});
+
 export default app;

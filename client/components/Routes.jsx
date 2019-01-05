@@ -29,8 +29,11 @@ const Routes = () => (
       <Route path="/password/update" component={ChangePassword} />
       <Route path="/email/sent" component={MailSent} />
       <Route path="/dashboard" component={AuthHOC(Dashboard)} />
-      <Route exact path="/group/:groupId/addmembers"
-        component={AuthHOC(Addmembers)} />
+      <Route
+        exact
+        path="/group/:groupId/addmembers"
+        component={AuthHOC(Addmembers)}
+      />
       <Route exact path="/group/create" component={AuthHOC(NewGroup)} />
       <Route exact path="/group/:groupId" component={AuthHOC(Group)} />
       <Route exact path="/error" component={AuthHOC(ErrorPage)} />
